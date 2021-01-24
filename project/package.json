@@ -9,10 +9,7 @@
     "bootstrap": "^4.6.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
-<<<<<<< HEAD
     "react-bootstrap-sweetalert": "^5.2.0",
-=======
->>>>>>> a0cf36900d700164f1c9f5fc485d615bf1591764
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "sweetalert": "^2.1.2",
