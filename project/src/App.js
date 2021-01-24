@@ -1,22 +1,28 @@
-import logo from './logo.svg';
+
+
+import LogIn from './ClassComp/Login';
+import CCSignin1 from './ClassComp/CCSignin1';
 import './App.css';
 
+
+
+const names=["avi","ben","char"];
+
 function App() {
+
+  let namelist=names.map((name, index)=>
+    (<a href="#" className="list-group-item list-group-item-action"
+    key={index}>{index}.{name}</a>));
+
+
+  function getDateFromChild(data){
+    console.log('in parent from data=',data)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <CCSignin1/>
       </header>
     </div>
   );
