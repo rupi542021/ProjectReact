@@ -1,8 +1,11 @@
 import './App.css';
 import CCYuvalSignin1 from './ClassComponents/CCYuvalSignin1';
+import background from "./img/background.jpg";
+import { Switch, Route ,withRouter } from 'react-router-dom';
+import CCLogin from './ClassComponents/CCLogin';
+import CCSignin2 from './ClassComponents/CCSignin2';
 
-
-
+import Form from './ClassComponents/Form';
 const names=["avi","ben","char"];
 
 function App() {
@@ -18,9 +21,22 @@ function App() {
 
   return (
     <div className="App">
-      <CCYuvalSignin1/>
+      <Switch>
+          <Route  exact path="/" >
+            <CCLogin />
+          </Route>
+          <Route path="/signin">
+            <CCYuvalSignin1 />
+          </Route>
+          <Route path="/signin2" >
+            <CCSignin2 />
+          </Route>
+          <Route path="/form" >
+            <Form />
+          </Route>
+        </Switch>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

@@ -1,42 +1,57 @@
 import React, { Component } from 'react';
 import Swal from 'sweetalert2';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
 
-export default class CCYuvalSignin1 extends Component {
+class CCYuvalSignin1 extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      password:"",
-      str: <div><h3>כתובת מייל</h3>
-        <input type="text" onChange={this.handluserEmail}></input><br />
-        <button onClick={this.logIn}>אימות</button>
-      </div>
+      input: {},
+      errors: {}
     }
-
   }
 
-  handluserPassword = (e) => {
-    this.setState({ password: e.target.value });
-  }
-
-  handluserConfirmPassword = (e) => {
-    this.setState({ password2Confirm: e.target.value });
-  }
-
-  btnNext2Confirm = () => {
-    if (this.state.password !== this.state.password2Confirm) {
-      this.setState({ message: "אימות הסיסמה נכשל!" });
-    }
-    else {
-      // this.setState({str: })
-    }
-
-  }
 
   handluserEmail = (e) => {
-    this.setState({ userEmail: e.target.value });
+    let input = {};
+    input["email"] = e.target.value;
+    this.setState({ input:input});
+    console.log(this.state);
+    if (this.validate()) {
+      let input = {};
+      input["email"] = "";
+      this.setState({input:input});
+      this.setState({ userEmail: e.target.value });
+      console.log(this.state);
+    }
   }
+  validate(){
+    let input = this.state.input;
+    let errors = {};
+    let isValid = true;
 
+    if (!input["email"]) {
+      isValid = false;
+      errors["email"] = "Please enter your email Address.";
+    }
+
+    if (typeof input["email"] !== "undefined") {
+        
+      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      if (!pattern.test(input["email"])) {
+        isValid = false;
+        errors["email"] = "Please enter valid email address.";
+      }
+    }
+    this.setState({
+      errors: errors
+    });
+
+    return isValid;
+  }
 
   logIn = () => {
     if (this.state.userEmail === "avi@gmail.com") {
@@ -47,18 +62,11 @@ export default class CCYuvalSignin1 extends Component {
         iconHtml: '',
         confirmButtonText: 'המשך',
         showCloseButton: true
-      }).then (() => {
-        this.setState({
-          str: <div><h3>סיסמה</h3>
-            <input type="text" onChange={this.handluserPassword} value={this.state.password}></input><br />
-            <h3>אימות סיסמה</h3>
-            <input type="text" onChange={this.handluserConfirmPassword}></input><br />
-            <p onClick={this.showUsingTerms}>תנאי שימוש</p>
-            <button onClick={this.btnNext2Confirm}>הבא</button><br />
-            {this.state.password}
-          </div>
-        })
-        });
+      }).then(() => {
+
+        this.props.history.push("/signin2");
+
+      });
     }
     else {
       this.setState({ message: "המייל לא נמצא במערכת" });
@@ -70,26 +78,20 @@ export default class CCYuvalSignin1 extends Component {
         showCloseButton: true
       })
     }
-
   }
-
-  showUsingTerms = () => {
-    Swal.fire({
-      text: "תלחץ על מסכים נו",
-      height: 1000,
-      confirmButtonText: 'מסכים',
-    })
-  }
-
 
 
   render() {
     return (
       <div>
-        {this.state.str}
+        <h3 style={{ margin: 20 }}>כתובת מייל</h3>
+        <TextField id="outlined-basic" label="Email" variant="outlined" onBlur={this.handluserEmail}
+        onFocus={()=>{this.setState({errors:""})}} /><br />
+        <div className="text-danger">{this.state.errors.email}</div>
+        <Button variant="contained" color="primary" onClick={this.logIn} style={{ margin: 10 }}>אימות</Button>
       </div>
     )
   }
 }
-
+export default withRouter(CCYuvalSignin1)
 
