@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Swal from 'sweetalert2';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 
 export default class CCSignin2 extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export default class CCSignin2 extends Component {
     }
     handluserPassword = (e) => {
         var pass = e.target.value;
-        var reg = /^[@#][A-Za-z0-9]{7,13}$/;
+        var reg = new RegExp("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");;
         var test = reg.test(pass);
         if (test) {
            alert('pass');
@@ -46,7 +47,8 @@ export default class CCSignin2 extends Component {
     render() {
         return (
             <div>
-                <h3>סיסמה</h3>
+                <PrimarySearchAppBar/>
+                <h3 style={{marginTop:100}}>סיסמה</h3>
               
                 <TextField
           id="outlined-password-input"
