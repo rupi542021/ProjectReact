@@ -6,6 +6,7 @@ import CCLogin from './ClassComponents/CCLogin';
 import CCSignin2 from './ClassComponents/CCSignin2';
 
 import Form from './ClassComponents/Form';
+import CCHangout from './ClassComponents/CCHangout';
 const names=["avi","ben","char"];
 
 function App() {
@@ -31,8 +32,8 @@ function App() {
           <Route path="/signin2" >
             <CCSignin2 />
           </Route>
-          <Route path="/form" >
-            <Form />
+          <Route path="/hangout" >
+            <CCHangout />
           </Route>
         </Switch>
     </div>

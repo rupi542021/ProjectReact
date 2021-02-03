@@ -89,11 +89,11 @@ class CCSignin1 extends Component {
       <div>
         <PrimarySearchAppBar/>
 
-        <h3 style={{ margin: 20,marginTop:100 }}>כתובת מייל</h3>
+        <h4 style={{ margin: 20,marginTop:100 }}>כתובת מייל</h4>
         <TextField id="outlined-basic" label="Email" variant="outlined" onBlur={this.handluserEmail}
         onFocus={()=>{this.setState({errors:""})}} /><br />
         <div className="text-danger">{this.state.errors.email}</div>
-        <Button variant="contained" color="primary" onClick={this.logIn}  style={{ margin: 10 }}>אימות</Button>
+        <Button variant="contained" onClick={this.logIn}  style={{backgroundColor:"#FAE8BE", fontSize:20,borderRadius:20,fontFamily:"Segoe UI",marginTop:20}}>אימות</Button>
       </div>
     )
   }
