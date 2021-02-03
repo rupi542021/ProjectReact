@@ -1,5 +1,5 @@
 import './App.css';
-import CCYuvalSignin1 from './ClassComponents/CCYuvalSignin1';
+import CCSignin1 from './ClassComponents/CCSignin1';
 import background from "./img/background.jpg";
 import { Switch, Route ,withRouter } from 'react-router-dom';
 import CCLogin from './ClassComponents/CCLogin';
@@ -26,7 +26,7 @@ function App() {
             <CCLogin />
           </Route>
           <Route path="/signin">
-            <CCYuvalSignin1 />
+            <CCSignin1 />
           </Route>
           <Route path="/signin2" >
             <CCSignin2 />

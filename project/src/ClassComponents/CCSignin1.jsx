@@ -7,7 +7,7 @@ import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import Dimensions from 'react-dimensions'
 import background from "../img/background.jpg";
 
-class CCYuvalSignin1 extends Component {
+class CCSignin1 extends Component {
 
   constructor(props) {
     super(props);
@@ -99,6 +99,6 @@ class CCYuvalSignin1 extends Component {
   }
 }
 
-export default withRouter(CCYuvalSignin1)
+export default withRouter(CCSignin1)
 
 
