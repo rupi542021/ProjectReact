@@ -14,9 +14,9 @@ class CCHangout extends Component {
         }
       }
       componentDidMount(){
-          let OBJ={Name:"מסעדות",Image:"../img/hangout/cheers.png"}
-          let OBJ2={Name:"פאבים",Image:"../img/background.jpg"}
-          let OBJ3={Name:"שופינג",Image:"../img/background.jpg"}
+          let OBJ={Name:"מסעדות",Image:'icons/hangout/cooking.png'}
+          let OBJ2={Name:"פאבים",Image:'icons/hangout/cheers.png'}
+          let OBJ3={Name:"שופינג",Image:'icons/hangout/shopping-bag.png'}
           this.setState({hangoutArr:[OBJ,OBJ2,OBJ3]})
           
       }
