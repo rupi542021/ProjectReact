@@ -35,6 +35,9 @@ function App() {
           <Route path="/hangout" >
             <CCHangout />
           </Route>
+          <Route path="/form" >
+            <Form />
+          </Route>
         </Switch>
     </div>
   );

@@ -3,6 +3,8 @@ import FCHangoutFrame from '../FunctionalComponents/FCHangoutFrame';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import { Link ,withRouter } from 'react-router-dom';
 import { Directions } from '@material-ui/icons';
+
+
 class CCHangout extends Component {
     constructor(props) {
         super(props);
@@ -12,9 +14,9 @@ class CCHangout extends Component {
         }
       }
       componentDidMount(){
-          let OBJ={Name:"מסעדות",Image:"src"}
-          let OBJ2={Name:"פאבים",Image:"src1"}
-          let OBJ3={Name:"שופינג",Image:"src1"}
+          let OBJ={Name:"מסעדות",Image:"../img/hangout/cheers.png"}
+          let OBJ2={Name:"פאבים",Image:"../img/background.jpg"}
+          let OBJ3={Name:"שופינג",Image:"../img/background.jpg"}
           this.setState({hangoutArr:[OBJ,OBJ2,OBJ3]})
           
       }
@@ -28,7 +30,7 @@ class CCHangout extends Component {
         return (
             <div>
                 <PrimarySearchAppBar/>
-                <div style={{direction:'rtl'}}>
+                <div >
                     <h4 style={{marginTop:50,marginBottom:10}}>בוא/י נכיר אותך קצת...</h4>
                     <h3 style={{margin:10,fontWeight:'bold'}}>איפה את/ה אוהב/ת לבלות?</h3>
                     <p>בחר את כל המקומות שאת/ה אוהב/ת להיות בהם</p>
