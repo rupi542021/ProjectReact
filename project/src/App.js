@@ -1,11 +1,12 @@
 import './App.css';
-import CCYuvalSignin1 from './ClassComponents/CCYuvalSignin1';
+import CCSignin1 from './ClassComponents/CCSignin1';
 import background from "./img/background.jpg";
 import { Switch, Route ,withRouter } from 'react-router-dom';
 import CCLogin from './ClassComponents/CCLogin';
 import CCSignin2 from './ClassComponents/CCSignin2';
 
 import Form from './ClassComponents/Form';
+import CCHangout from './ClassComponents/CCHangout';
 const names=["avi","ben","char"];
 
 function App() {
@@ -26,10 +27,13 @@ function App() {
             <CCLogin />
           </Route>
           <Route path="/signin">
-            <CCYuvalSignin1 />
+            <CCSignin1 />
           </Route>
           <Route path="/signin2" >
             <CCSignin2 />
+          </Route>
+          <Route path="/hangout" >
+            <CCHangout />
           </Route>
           <Route path="/form" >
             <Form />

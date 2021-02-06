@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import Swal from 'sweetalert2';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 
 export default class CCSignin2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          password: ""
+          password: "",
+          err:"",
+          errConfirm:""
         }
     }
     showUsingTerms = () => {
@@ -18,35 +21,34 @@ export default class CCSignin2 extends Component {
         })
     }
     handluserPassword = (e) => {
-        var pass = e.target.value;
-        var reg = /^[@#][A-Za-z0-9]{7,13}$/;
-        var test = reg.test(pass);
-        if (test) {
-           alert('pass');
-           this.setState({ password: e.target.value });
+        //var pass = e.target.value;
+        const reg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");;
+        //var test = reg.test(pass);
+        if (reg.test(e.target.value)) {
+           //alert('pass');
+           this.setState({ password: e.target.value,err:"" });
         }else{
-          alert('fail');
+          this.setState({err:"enter a valid password!"})
         }
-
-        
       }
     
       handluserConfirmPassword = (e) => {
-        this.setState({ password2Confirm: e.target.value });
+        if(e.target.value===this.state.password)
+          this.setState({ password2Confirm: e.target.value,errConfirm:""});
+          else this.setState({errConfirm:"אנא הכנס סיסמת אימות זהה"})
       }
     
       btnNext2Confirm = () => {
-        if (this.state.password !== this.state.password2Confirm) {
-          this.setState({ message: "אימות הסיסמה נכשל!" });
+        if (this.state.err===""&&this.state.errConfirm==="") {
+          
         }
-        else {
-          // this.setState({str: })
-        }
+        else this.setState({ message: "אימות הסיסמה נכשל!" });
     }
     render() {
         return (
             <div>
-                <h3>סיסמה</h3>
+                <PrimarySearchAppBar/>
+                <h4 style={{marginTop:80}}>סיסמה</h4>
               
                 <TextField
           id="outlined-password-input"
@@ -54,22 +56,25 @@ export default class CCSignin2 extends Component {
           type="password"
           autoComplete="current-password"
           variant="outlined"
+          helperText={this.state.err}
           onBlur={this.handluserPassword}
         />
         <br/>
-                <h3>אימות סיסמה</h3>
+   
+                <h4 style={{marginTop:20}}>אימות סיסמה</h4>
 
                 <TextField
+                
           id="outlined-password-input"
           label="Password Confirm"
           type="password"
           autoComplete="current-password"
           variant="outlined"
+          helperText={this.state.errConfirm}
           onChange={this.handluserConfirmPassword}
         /><br/>
-                <p onClick={this.showUsingTerms}>תנאי שימוש</p>
-                <br/>
-                <Button variant="contained" color="primary" style={{margin:10}} onClick={this.btnNext2Confirm}>הבא</Button>
+                <p onClick={this.showUsingTerms} style={{marginTop:30,color:"blue"}}>תנאי שימוש</p>
+                <Button variant="contained" style={{backgroundColor:"#FAE8BE", fontSize:20,borderRadius:20,fontFamily:"Segoe UI"}} onClick={this.btnNext2Confirm}>הבא</Button>
                 <br/>
                 {this.state.password}
             </div>
