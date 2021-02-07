@@ -1,47 +1,70 @@
 import React, { Component } from 'react'
 import FCHangoutFrame from '../FunctionalComponents/FCHangoutFrame';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import { Link ,withRouter } from 'react-router-dom';
-import { Directions } from '@material-ui/icons';
-
+import { Link, withRouter } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 class CCHangout extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            hangoutArr:[]
+  constructor(props) {
+    super(props);
+    this.state = {
+      hangoutArr: []
 
-        }
-      }
-      componentDidMount(){
-          let OBJ={Name:"מסעדות",Image:'icons/hangout/cooking.png'}
-          let OBJ2={Name:"פאבים",Image:'icons/hangout/cheers.png'}
-          let OBJ3={Name:"שופינג",Image:'icons/hangout/shopping-bag.png'}
-          this.setState({hangoutArr:[OBJ,OBJ2,OBJ3]})
-          
-      }
-      renderArr=()=>{
-          for (let i = 0; i < this.state.hangoutArr.length; i++) {
-              const element = this.state.hangoutArr[i];
-              return 
-          }
-      }
-    render() {
-        return (
-            <div>
-                <PrimarySearchAppBar/>
-                <div >
-                    <h4 style={{marginTop:50,marginBottom:10}}>בוא/י נכיר אותך קצת...</h4>
-                    <h3 style={{margin:10,fontWeight:'bold'}}>איפה את/ה אוהב/ת לבלות?</h3>
-                    <p>בחר את כל המקומות שאת/ה אוהב/ת להיות בהם</p>
-                    
-                    {this.state.hangoutArr!==null?this.state.hangoutArr.map((hangout,index)=>
-                <FCHangoutFrame key={index} name={hangout.Name}  image={hangout.Image} />):""}
-                    
-                </div>
-
-            </div>
-        )
     }
+  }
+  componentDidMount() {
+    let hangout1 = { Name: "מסעדות", Image: 'icons/hangout/cooking.png' }
+    let hangout2 = { Name: "פאבים", Image: 'icons/hangout/cheers.png' }
+    let hangout3 = { Name: "שופינג", Image: 'icons/hangout/shopping-bag.png' }
+    let hangout4 = { Name: "טבע", Image: 'icons/hangout/trees.png' }
+    let hangout5 = { Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png' }
+    let hangout6 = { Name: "מסיבות", Image: 'icons/hangout/dance.png' }
+    let hangout7 = { Name: "חדרי בריחה", Image: 'icons/hangout/server.png' }
+    let hangout8 = { Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' }
+    let hangout9 = { Name: "קולנוע", Image: 'icons/hangout/popcorn.png' }
+    this.setState({ hangoutArr: [hangout1, hangout2, hangout3, hangout4, hangout5, hangout6, hangout7, hangout8, hangout9] })
+
+  }
+  renderArr = () => {
+    for (let i = 0; i < this.state.hangoutArr.length; i++) {
+      const element = this.state.hangoutArr[i];
+      return
+    }
+  }
+  render() {
+    return (
+      <div>
+        <PrimarySearchAppBar />
+        <div style={{ direction: 'rtl' }}>
+          <h4 style={{ marginTop: 40, marginBottom: 8, direction: 'rtl', color: '#3D3D3D' }}>בוא/י נכיר אותך קצת...</h4>
+          <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>איפה את/ה אוהב/ת לבלות?</h3>
+          <p style={{ color: '#3D3D3D', fontSize: 16 }}>בחר את כל המקומות שאת/ה אוהב/ת להיות בהם</p>
+
+          {/* {this.state.hangoutArr!==null?this.state.hangoutArr.map((hangout,index)=>
+                <FCHangoutFrame key={index} name={hangout.Name}  image={hangout.Image} />):""}
+                        */}
+          <Grid container>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={1}>
+                {this.state.hangoutArr.map((hangout, index) => (
+                  <Grid key={index} item>
+                    <FCHangoutFrame key={index} name={hangout.Name} image={hangout.Image} />
+                    {/* <Paper className={classes.paper} /> */}
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
+        <Button variant="contained" style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+        >הבא</Button>
+        <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+        >הקודם</Button>
+
+      </div>
+    )
+  }
 }
 export default withRouter(CCHangout)
