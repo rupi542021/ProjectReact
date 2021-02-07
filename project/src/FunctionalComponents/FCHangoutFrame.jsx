@@ -4,6 +4,15 @@ import { Circle} from 'react-shapes';
 import ReactRoundedImage from "react-rounded-image";
 
 export default function FCHangoutFrame(props) {
+  var CircleColor="#96a2aa"
+  function choose() {
+    CircleColor="#FAE8BE"
+  props.sendData(props.name,props.image)
+} 
+function ifchoose() {
+  props.arrHangoutsNames
+  return "#FAE8BE"
+}
   return ( 
 //   <div> 
 //      <img width="50" height="50" src={props.image} style={{zIndex:1000}}/>
@@ -14,12 +23,11 @@ export default function FCHangoutFrame(props) {
 //     <p style={{fontWeight:'bold'}}>{props.name}</p>
    
 // </div>
-<div style={{marginRight:5}}>
+<div style={{marginRight:5}} onClick={choose}>
 
 <ReactRoundedImage
   image={props.image}
-  roundedColor="#96a2aa"
-  //borderColor="#3D3D3D"
+  roundedColor={ifchoose}
   imageWidth="87"
   imageHeight="87"
   roundedSize="15"
