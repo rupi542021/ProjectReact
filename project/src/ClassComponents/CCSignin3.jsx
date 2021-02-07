@@ -7,11 +7,11 @@ import Button from '@material-ui/core/Button';
 import { Circle } from 'react-shapes';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import { Progress } from 'antd';
-import Rotation from 'react-rotation'
-
-
+import ReactRoundedImage from "react-rounded-image";
 import { withRouter } from 'react-router-dom';
 import FormItem from 'antd/lib/form/FormItem';
+import Rotation from 'react-rotation';
+
 const citiesList = CitiesFile;
 
 class CCSignin3 extends Component {
@@ -35,6 +35,13 @@ class CCSignin3 extends Component {
       errors: {},
       selectedFile: null,
     }
+  }
+
+  componentDidMount = () =>
+  {
+     let userPassword = this.props.location.state.userPassword;
+     this.setState({password:userPassword});
+     console.log("userPass from signin2:", userPassword)
   }
 
   chgGender = (e) => {
@@ -104,6 +111,7 @@ class CCSignin3 extends Component {
         currentCity: this.state.currentCity,
         status: this.state.status,
         profliePicture: this.state.selectedFile.name,
+        password: this.state.password 
       }
 
       console.log("student details: ", studOBJ);
@@ -160,21 +168,20 @@ class CCSignin3 extends Component {
     return (
       <div>
         <PrimarySearchAppBar />
-        <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15} 
-        style={{width:300, marginTop: 10,transform:`rotate(180deg)`}}/>
-       <div  style={{ direction: 'rtl' }}>
-        <Form
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 10,
-          }}
-style={{direction:'rtl'}}
-        >
+        <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
+          style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
+        <Form style={{direction:'rtl'}}>
           <FormItem>
-            <Circle r={40} fill={{ color: 'transparent' }} stroke={{ color: '#3D3D3D' }} strokeWidth={3} ></Circle>
-            {this.state.selectedFile !== null ? <img src={this.state.selectedFile.name} /> : <CameraAltOutlinedIcon style={{ height: 30, width: 30 }} />}
+          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>התמונה שלי: </label>
+            {this.state.selectedFile !== null ? <img src={this.state.selectedFile.name} /> : <ReactRoundedImage
+              image='icons/hangout/cooking.png'
+              roundedColor="#96a2aa"
+              borderColor="#000"
+              imageWidth="87"
+              imageHeight="87"
+              roundedSize="15"
+
+            />}
             <input
               type="file"
               style={{ display: 'none' }}
@@ -185,7 +192,7 @@ style={{direction:'rtl'}}
               onClick={() => this.fileInput.click()}> בחירת תמונה</Button>
           </FormItem>
           <Form.Item>
-            <label style={{textAlign:'right', fontWeight:'bold'}}>מגדר: </label>
+            <label style={{ textAlign: 'right', fontWeight: 'bold' }}>מגדר: </label>
             <Radio.Group onChange={this.chgGender}>
               <Radio value="female">אישה</Radio>
               <Radio value="male">גבר</Radio>
@@ -193,13 +200,15 @@ style={{direction:'rtl'}}
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item label="תאריך לידה" >
+          <Form.Item>
+          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>תאריך לידה: </label><br/>
             <DatePicker required placeholder="בחר תאריך" onChange={this.chgBirthDate}
               onFocus={() => { this.setState({ errors: {} }) }} />
-            <div style={{ color: "#FAE8BE" }}>{this.state.errors.birthDate}</div>
+            <div style={{ color: "#de0d1b" }}>{this.state.errors.birthDate}</div>
           </Form.Item>
 
-          <Form.Item label="עיר קבע" required>
+          <Form.Item required>
+          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>עיר קבע: </label><br/>
             <Select placeholder="בחר עיר"
               onChange={this.chgCity}
               onFocus={() => { this.setState({ errors: {} }) }}
@@ -209,23 +218,26 @@ style={{direction:'rtl'}}
                 <Select.Option key={city} value={city}>{city}</Select.Option>
               ))}
             </Select>
-            <div style={{ color: "#FAE8BE" }}>{this.state.errors.city}</div>
+            <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
           </Form.Item>
 
-          <Form.Item required label="מקום מגורים נוכחי">
+          <Form.Item required>
+          <label style={{ fontWeight: 'bold' }}>מקום מגורים נוכחי: </label><br/>
             <Select placeholder="בחר עיר"
               onChange={this.chgCurrentCity}
               onFocus={() => { this.setState({ errors: {} }) }}
+
             >
               <Select.Option value="choose">בחר עיר</Select.Option>
               {citiesList.map((city) => (
                 <Select.Option key={city} value={city}> {city} </Select.Option>
               ))}
             </Select>
-            <div style={{ color: "#FAE8BE" }}>{this.state.errors.currentCity}</div>
+            <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
           </Form.Item>
 
-          <Form.Item label="סטטוס">
+          <Form.Item>
+          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>סטטוס: </label><br/>
             <Select placeholder="בחר" onChange={this.chgStatus}>
               <Select.Option value="choose">בחר</Select.Option>
               <Select.Option value="single">רווק/ה</Select.Option>
@@ -236,13 +248,12 @@ style={{direction:'rtl'}}
           </Form.Item>
           <Form.Item>
             <Button variant="contained"
-              style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+              style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
               onClick={this.btnNext}> הבא</Button>
 
           </Form.Item>
         </Form>
-        </div>
-      </div>
+      </div >
 
     )
   }
