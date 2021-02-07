@@ -7,6 +7,7 @@ import CCSignin2 from './ClassComponents/CCSignin2';
 
 import Form from './ClassComponents/Form';
 import CCHangout from './ClassComponents/CCHangout';
+import CCHobbies from './ClassComponents/CCHobbies';
 import CCSignin3 from './ClassComponents/CCSignin3';
 const names=["avi","ben","char"];
 
@@ -34,11 +35,13 @@ function App() {
             <CCSignin2 />
           </Route>
           <Route path="/signin3" >
-            
             <CCSignin3/>
                       </Route>
           <Route path="/hangout" >
             <CCHangout />
+          </Route>
+          <Route path="/hobbies" >
+            <CCHobbies />
           </Route>
           <Route path="/form" >
             <Form />

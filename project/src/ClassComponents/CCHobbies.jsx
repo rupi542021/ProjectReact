@@ -8,28 +8,29 @@ import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
 import Rotation from 'react-rotation'
 
-class CCHangout extends Component {
+class CCHobbies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hangoutArr: []
+      hobbiesArr: []
 
     }
   }
   componentDidMount() {
-    let hangout1 = { Name: "מסעדות", Image: 'icons/hangout/cooking.png' }
-    let hangout2 = { Name: "פאבים", Image: 'icons/hangout/cheers.png' }
-    let hangout3 = { Name: "שופינג", Image: 'icons/hangout/shopping-bag.png' }
-    let hangout4 = { Name: "טבע", Image: 'icons/hangout/trees.png' }
-    let hangout5 = { Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png' }
-    let hangout6 = { Name: "מסיבות", Image: 'icons/hangout/dance.png' }
-    let hangout7 = { Name: "חדרי בריחה", Image: 'icons/hangout/server.png' }
-    let hangout8 = { Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' }
-    let hangout9 = { Name: "קולנוע", Image: 'icons/hangout/popcorn.png' }
-    this.setState({ hangoutArr: [hangout1, hangout2, hangout3, hangout4, hangout5, hangout6, hangout7, hangout8, hangout9] })
+    let hobby1 = { Name: "מסעדות", Image: 'icons/hangout/cooking.png' }
+    let hobby2 = { Name: "פאבים", Image: 'icons/hangout/cheers.png' }
+    let hobby3 = { Name: "שופינג", Image: 'icons/hangout/shopping-bag.png' }
+    let hobby4 = { Name: "טבע", Image: 'icons/hangout/trees.png' }
+    let hobby5 = { Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png' }
+    let hobby6 = { Name: "מסיבות", Image: 'icons/hangout/dance.png' }
+    let hobby7 = { Name: "חדרי בריחה", Image: 'icons/hangout/server.png' }
+    let hobby8 = { Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' }
+    let hobby9 = { Name: "קולנוע", Image: 'icons/hangout/popcorn.png' }
+    this.setState({ hobbiesArr: [hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, hobby7, hobby8, hobby9] })
 
   }
 
+  
   render() {
     return (
       <div>
@@ -43,16 +44,13 @@ class CCHangout extends Component {
           <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>איפה את/ה אוהב/ת לבלות?</h3>
           <p style={{ color: '#3D3D3D', fontSize: 16 }}>בחר את כל המקומות שאת/ה אוהב/ת להיות בהם</p>
 
-          {/* {this.state.hangoutArr!==null?this.state.hangoutArr.map((hangout,index)=>
-                <FCHangoutFrame key={index} name={hangout.Name}  image={hangout.Image} />):""}
-                        */}
           <Grid container>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={1}>
-                {this.state.hangoutArr.map((hangout, index) => (
+                {this.state.hobbiesArr.map((hobby, index) => (
                   <Grid key={index} item>
-                    <FCHangoutFrame key={index} name={hangout.Name} image={hangout.Image} />
-                    {/* <Paper className={classes.paper} /> */}
+                    <FCHangoutFrame key={index} name={hobby.Name} image={hobby.Image} />
+
                   </Grid>
                 ))}
               </Grid>
@@ -68,4 +66,4 @@ class CCHangout extends Component {
     )
   }
 }
-export default withRouter(CCHangout)
+export default withRouter(CCHobbies)
