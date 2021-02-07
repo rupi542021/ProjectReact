@@ -23,7 +23,7 @@ class CCSignin2 extends Component {
   }
   handluserPassword = (e) => {
     //var pass = e.target.value;
-    const reg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");;
+    const reg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     //var test = reg.test(pass);
     if (reg.test(e.target.value)) {
       //alert('pass');
@@ -43,7 +43,6 @@ class CCSignin2 extends Component {
     if (this.state.err === "" && this.state.errConfirm === "") {
       this.props.history.push({
         pathname: '/signin3',
-        state: { userPassword: this.state.password }
       });
 
     }
@@ -63,6 +62,7 @@ class CCSignin2 extends Component {
           variant="outlined"
           helperText={this.state.err}
           onBlur={this.handluserPassword}
+          onChange={this.chgPassword}
         />
         <br />
 
