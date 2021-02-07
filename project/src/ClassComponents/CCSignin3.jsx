@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Form, Button, Radio, Select, DatePicker, } from 'antd';
 import 'antd/dist/antd.css';
 import CitiesFile from '../CitiesFile';
+import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
+
 
 import { withRouter } from 'react-router-dom';
 const citiesList = CitiesFile;
@@ -127,7 +129,8 @@ class CCSignin3 extends Component {
   render() {
 
     return (
-
+      <div>
+<PrimarySearchAppBar/>
       <Form
         labelCol={{
           span: 4,
@@ -193,6 +196,7 @@ class CCSignin3 extends Component {
             onClick={this.btnNext}> הבא </Button>
         </Form.Item>
       </Form>
+      </div>
 
     )
   }
