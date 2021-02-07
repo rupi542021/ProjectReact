@@ -6,7 +6,8 @@ import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import Button from '@material-ui/core/Button';
 import { Circle } from 'react-shapes';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-
+import { Progress } from 'antd';
+import Rotation from 'react-rotation'
 
 
 import { withRouter } from 'react-router-dom';
@@ -157,8 +158,11 @@ class CCSignin3 extends Component {
   render() {
 
     return (
-      <div style={{ direction: 'rtl' }}>
+      <div>
         <PrimarySearchAppBar />
+        <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15} 
+        style={{width:300, marginTop: 10,transform:`rotate(180deg)`}}/>
+       <div  style={{ direction: 'rtl' }}>
         <Form
           labelCol={{
             span: 4,
@@ -232,11 +236,12 @@ style={{direction:'rtl'}}
           </Form.Item>
           <Form.Item>
             <Button variant="contained"
-              style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+              style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
               onClick={this.btnNext}> הבא</Button>
 
           </Form.Item>
         </Form>
+        </div>
       </div>
 
     )
