@@ -169,7 +169,7 @@ export default function PrimarySearchAppBar() {
           <IconButton
             edge="start"
             className={classes.menuButton}
-            color="#3D3D3D"
+            // color="#3D3D3D"
             aria-label="open drawer"
           >
             <MenuIcon />
@@ -194,7 +194,7 @@ export default function PrimarySearchAppBar() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="#3D3D3D"
+              // color="#3D3D3D"
             >
               <AccountCircle />
             </IconButton>
@@ -205,7 +205,7 @@ export default function PrimarySearchAppBar() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="#3D3D3D"
+              // color="#3D3D3D"
             >
               <MoreIcon />
             </IconButton>
