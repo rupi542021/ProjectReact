@@ -36,6 +36,11 @@ class CCHangout extends Component {
     this.setState({hangoutArr: HangArr});
     console.log(HangArr)
   }
+  btnNext=()=>{
+    this.props.history.push("/hobbies");
+    let arr=this.state.hangoutArr.filter(hang=>hang.Choose)
+    localStorage.setItem('hangouts', JSON.stringify(arr));
+  }
   render() {
     return (
       <div>
@@ -63,7 +68,7 @@ class CCHangout extends Component {
         </div>
         <Button variant="contained" 
         style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-        onClick={()=>this.props.history.push("/hobbies")}
+        onClick={this.btnNext}
         >הבא</Button>
         <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
         onClick={()=>this.props.history.push("/signin3")}

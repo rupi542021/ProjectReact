@@ -64,7 +64,7 @@ class CCHobbies extends Component {
         </div>
         <Button variant="contained" style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
         
-        >הבא</Button>
+        >סיום</Button>
         <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
         onClick={()=>this.props.history.push("/hangout")}
         >הקודם</Button>

@@ -14,10 +14,8 @@ export default function FCHangoutFrame(props) {
 //      <img width="50" height="50" src={props.image} style={{zIndex:1000}}/>
 //     <Circle r={40} fill={{color:'transparent'}} stroke={{color:'#3D3D3D'}} strokeWidth={3}>
 //     <img width="50" height="50" src={props.image}/>
-
 //     </Circle>
 //     <p style={{fontWeight:'bold'}}>{props.name}</p>
-   
 // </div>
 <div style={{marginRight:5}} onClick={choose}>
 
