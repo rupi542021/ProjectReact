@@ -8,37 +8,33 @@ import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
 import Rotation from 'react-rotation'
 
+const HangArr = [
+  {Name: "מסעדות", Image: 'icons/hangout/fork.png' ,Choose:false},
+  {Name: "פאבים", Image: 'icons/hangout/cheers.png',Choose:false},
+  {Name: "שופינג", Image: 'icons/hangout/shopping-bag.png',Choose:false},
+  {Name: "טבע", Image: 'icons/hangout/trees.png',Choose:false},
+  {Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png',Choose:false},
+  {Name: "מסיבות", Image: 'icons/hangout/dance.png',Choose:false},
+  {Name: "חדרי בריחה", Image: 'icons/hangout/server.png' ,Choose:false},
+  {Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' ,Choose:false},
+  {Name: "קולנוע", Image: 'icons/hangout/popcorn.png',Choose:false}
+];
+
 class CCHangout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hangoutArr: [],
-      UserHangout:[],
-      UserHangoutName:[]
+      hangoutArr: HangArr,
 
     }
   }
   componentDidMount() {
-    let hangout1 = { Name: "מסעדות", Image: 'icons/hangout/fork.png'}
-    let hangout2 = { Name: "פאבים", Image: 'icons/hangout/cheers.png' }
-    let hangout3 = { Name: "שופינג", Image: 'icons/hangout/shopping-bag.png' }
-    let hangout4 = { Name: "טבע", Image: 'icons/hangout/trees.png' }
-    let hangout5 = { Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png' }
-    let hangout6 = { Name: "מסיבות", Image: 'icons/hangout/dance.png'}
-    let hangout7 = { Name: "חדרי בריחה", Image: 'icons/hangout/server.png'  }
-    let hangout8 = { Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' }
-    let hangout9 = { Name: "קולנוע", Image: 'icons/hangout/popcorn.png' }
-    this.setState({ hangoutArr: [hangout1, hangout2, hangout3, hangout4, hangout5, hangout6, hangout7, hangout8, hangout9] })
 
   }
-  getData=(name,img)=> {
-    let hang={
-      name:name,
-      img:img
-    }
-    this.state.UserHangout.push(hang);
-    this.state.UserHangoutName.push(name);
-    console.log(this.state.UserHangout)
+  getData=(ID)=> {
+    HangArr[ID].Choose = !HangArr[ID].Choose;
+    this.setState({hangoutArr: HangArr});
+    console.log(HangArr)
   }
   render() {
     return (
@@ -50,19 +46,15 @@ class CCHangout extends Component {
        
         <div style={{ direction: 'rtl' }}>
           <h4 style={{ marginTop: 10, marginBottom: 8, direction: 'rtl', color: '#3D3D3D' }}>בוא/י נכיר אותך קצת...</h4>
-          <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>איפה את/ה אוהב/ת לבלות?</h3>
+          <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>איפה את/ה אוהב/ת לבלות?</h3>
           <p style={{ color: '#3D3D3D', fontSize: 16 }}>בחר את כל המקומות שאת/ה אוהב/ת להיות בהם</p>
 
-          {/* {this.state.hangoutArr!==null?this.state.hangoutArr.map((hangout,index)=>
-                <FCHangoutFrame key={index} name={hangout.Name}  image={hangout.Image} />):""}
-                        */}
           <Grid container>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={1}>
                 {this.state.hangoutArr.map((hangout, index) => (
                   <Grid key={index} item>
-                    <FCHangoutFrame key={index} name={hangout.Name} image={hangout.Image} arrHangoutsNames={this.state.UserHangoutName} sendData={this.getData}/>
-                    {/* <Paper className={classes.paper} /> */}
+                    <FCHangoutFrame key={index} id={index} name={hangout.Name} image={hangout.Image} choose={hangout.Choose} sendData={this.getData}/>
                   </Grid>
                 ))}
               </Grid>
