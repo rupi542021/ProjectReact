@@ -17,15 +17,15 @@ class CCHobbies extends Component {
     }
   }
   componentDidMount() {
-    let hobby1 = { Name: "מסעדות", Image: 'icons/hangout/cooking.png' }
-    let hobby2 = { Name: "פאבים", Image: 'icons/hangout/cheers.png' }
-    let hobby3 = { Name: "שופינג", Image: 'icons/hangout/shopping-bag.png' }
-    let hobby4 = { Name: "טבע", Image: 'icons/hangout/trees.png' }
-    let hobby5 = { Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png' }
-    let hobby6 = { Name: "מסיבות", Image: 'icons/hangout/dance.png' }
-    let hobby7 = { Name: "חדרי בריחה", Image: 'icons/hangout/server.png' }
-    let hobby8 = { Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' }
-    let hobby9 = { Name: "קולנוע", Image: 'icons/hangout/popcorn.png' }
+    let hobby1 = { Name: "כדורסל", Image: 'icons/hobbies/basketball-hoop.png' }
+    let hobby2 = { Name: "חדר כושר", Image: 'icons/hobbies/muscular-male-gymnast-exercising-with-two-dumbbells.png' }
+    let hobby3 = { Name: "נטפליקס", Image: 'icons/hobbies/cinema.png' }
+    let hobby4 = { Name: "גלישה", Image: 'icons/hobbies/surfing.png' }
+    let hobby5 = { Name: "כדורגל", Image: 'icons/hobbies/football (1).png' }
+    let hobby6 = { Name: "פריזבי", Image: 'icons/hobbies/frisbee (1).png' }
+    let hobby7 = { Name: "קריאה", Image: 'icons/hobbies/reading.png' }
+    let hobby8 = { Name: "טניס", Image: 'icons/hobbies/tennis-player-with-racket.png' }
+    let hobby9 = { Name: "בישול", Image: 'icons/hobbies/cooking.png' }
     this.setState({ hobbiesArr: [hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, hobby7, hobby8, hobby9] })
 
   }
@@ -36,7 +36,7 @@ class CCHobbies extends Component {
       <div>
         <PrimarySearchAppBar />
         
-        <Progress percent={66} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15} 
+        <Progress percent={100} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15} 
         style={{width:300, marginTop: 10,transform:`rotate(180deg)`}}/>
        
         <div style={{ direction: 'rtl' }}>
@@ -58,8 +58,10 @@ class CCHobbies extends Component {
           </Grid>
         </div>
         <Button variant="contained" style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+        
         >הבא</Button>
         <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+        onClick={()=>this.props.history.push("/hangout")}
         >הקודם</Button>
 
       </div>
