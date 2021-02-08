@@ -111,10 +111,10 @@ class CCSignin3 extends Component {
       console.log("student details: ", studOBJ);
       localStorage.setItem('StudentDetails',JSON.stringify(studOBJ));
 
-      // this.props.history.push({
-      //   pathname: '/testing',
-      //   state: { studOBJ: studOBJ }
-      // });
+      this.props.history.push({
+        pathname: '/hangout',
+        state: { studOBJ: studOBJ }
+      });
 
     }
   }
@@ -147,7 +147,7 @@ class CCSignin3 extends Component {
     console.log(event.target.files[0]);
 
     if (event.target.value.length > 0) {
-      this.setState({ selectedFile: event.target.files[0].name })
+      this.setState({ selectedFile: event.target.files[0].name });
     }
 
     else {
@@ -155,8 +155,6 @@ class CCSignin3 extends Component {
     }
 
   }
-
-
 
   render() {
 
@@ -168,7 +166,14 @@ class CCSignin3 extends Component {
         <Form style={{direction:'rtl'}}>
           <FormItem>
           <label style={{ textAlign: 'right', fontWeight: 'bold' }}>התמונה שלי: </label>
-            {this.state.selectedFile !== null ? <img src={this.state.selectedFile.name} /> : <ReactRoundedImage
+            {this.state.selectedFile !== null ? <ReactRoundedImage
+              image={this.state.selectedFile}
+              roundedColor="#96a2aa"
+              imageWidth="80"
+              imageHeight="80"
+              roundedSize="15"
+
+            /> : <ReactRoundedImage
               image='icons/camera.png'
               roundedColor="#96a2aa"
               imageWidth="80"

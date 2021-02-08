@@ -10,6 +10,7 @@ class CCSignin2 extends Component {
     super(props);
     this.state = {
       password: "",
+      passConfirmed:false,
       err: "",
       errConfirm: ""
     }
@@ -21,30 +22,38 @@ class CCSignin2 extends Component {
       confirmButtonText: 'מסכים',
     })
   }
+
   handluserPassword = (e) => {
-    //var pass = e.target.value;
-    const reg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-    //var test = reg.test(pass);
-    if (reg.test(e.target.value)) {
-      //alert('pass');
+    if (this.validatePass(e.target.value) === true) {
       this.setState({ password: e.target.value, err: "" });
-    } else {
+    }
+    else {
       this.setState({ err: "enter a valid password!" })
     }
   }
 
+  validatePass = (pass) => {
+    console.log("password for validation:", pass)
+    // const reg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+    const reg = new RegExp("(?=.*\d)(?=.*[A-Z]).{6,}");
+    if (reg.test(pass)) {
+      return true;
+    }
+    else return false;
+  }
+
+
   handluserConfirmPassword = (e) => {
-    if (e.target.value === this.state.password)
-      this.setState({ password2Confirm: e.target.value, errConfirm: "" });
-    else this.setState({ errConfirm: "אנא הכנס סיסמת אימות זהה" })
+    if (e.target.value === this.state.password && this.state.password!=="")
+      this.setState({ password2Confirm: e.target.value, errConfirm: "", passConfirmed:true });
+    else this.setState({ errConfirm: "אנא הכנס סיסמת אימות זהה", passConfirmed:false })
   }
 
   btnNext2Confirm = () => {
-    if (this.state.err === "" && this.state.errConfirm === "") {
-      this.props.history.push({
-        pathname: '/signin3',
-      });
-
+    //להוסיף תנאי שהמשתמש אישר את תנאי השימוש
+    if (this.state.passConfirmed===true) {
+      localStorage.setItem('userPassword', JSON.stringify(this.state.password))
+      this.props.history.push("/signin3");
     }
     else this.setState({ message: "אימות הסיסמה נכשל!" });
   }
@@ -56,13 +65,12 @@ class CCSignin2 extends Component {
 
         <TextField
           id="outlined-password-input"
-          label="Password"
+          label="סיסמה"
           type="password"
           autoComplete="current-password"
           variant="outlined"
           helperText={this.state.err}
-          onBlur={this.handluserPassword}
-          onChange={this.chgPassword}
+          onChange={this.handluserPassword}
         />
         <br />
 
@@ -71,7 +79,7 @@ class CCSignin2 extends Component {
         <TextField
 
           id="outlined-password-input"
-          label="Password Confirm"
+          label="אימות סיסמה"
           type="password"
           autoComplete="current-password"
           variant="outlined"
@@ -79,7 +87,11 @@ class CCSignin2 extends Component {
           onChange={this.handluserConfirmPassword}
         /><br />
         <p onClick={this.showUsingTerms} style={{ marginTop: 30, color: "blue" }}>תנאי שימוש</p>
-        <Button variant="contained" style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }} onClick={this.btnNext2Confirm}>הבא</Button>
+        <Button 
+        variant="contained" style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }} 
+        onClick={this.btnNext2Confirm}
+        disabled={this.state.passConfirmed?false:true}
+        >הבא</Button>
         <br />
         {this.state.password}
       </div>
