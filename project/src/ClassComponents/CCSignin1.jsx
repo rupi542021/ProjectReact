@@ -13,9 +13,12 @@ class CCSignin1 extends Component {
     super(props);
     this.state = {
       input: {},
-      errors: {}
+      errors: {},
+      userEmail:""
     }
+    
   }
+  
 
 
   handluserEmail = (e) => {
@@ -57,30 +60,84 @@ class CCSignin1 extends Component {
   }
 
   logIn = () => {
-    if (this.state.userEmail === "avi@gmail.com") {
-      this.setState({ message: "אימות המייל בוצע בהצלחה!" });
-      Swal.fire({
-        title: 'אימות המייל בוצע בהצלחה!',
-        icon: 'success',
-        iconHtml: '',
-        confirmButtonText: 'המשך',
-        showCloseButton: true
-      }).then(() => {
-
-        this.props.history.push("/signin2");
-
-      });
-    }
-    else {
-      this.setState({ message: "המייל לא נמצא במערכת" });
-      Swal.fire({
-        title: 'כתובת המייל אינה נמצאת במערכת',
-        icon: 'error',
-        iconHtml: '',
-        confirmButtonText: 'סגור',
-        showCloseButton: true
+    console.log(this.state.userEmail);
+    this.apiUrl='https://localhost:44325/API/students?email='+this.state.userEmail;
+    console.log('GETstart');
+    fetch(this.apiUrl,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
       })
-    }
+      .then((res)=>{
+         console.log('res=', res);
+         //console.log('res.status', res.status);
+         console.log('res.ok', res.ok);
+        return res.json();
+      })
+      .then(
+        (result) => {
+            console.log("fetch btnFetchGetStudents= ", result);
+            if(result.Mail!==null)
+            {
+              localStorage.setItem('student', JSON.stringify(result));
+              Swal.fire({
+                    title: 'אימות המייל בוצע בהצלחה!',
+                    icon: 'success',
+                    iconHtml: '',
+                    confirmButtonText: 'המשך',
+                    showCloseButton: true
+                  }).then(() => {
+            
+                    this.props.history.push("/signin2");
+            
+                  });
+            }
+            else {
+                Swal.fire({
+                  title: 'כתובת המייל אינה נמצאת במערכת',
+                  icon: 'error',
+                  iconHtml: '',
+                  confirmButtonText: 'סגור',
+                  showCloseButton: true
+                })
+              }
+            // result.map(stud => console.log(stud.Mail));
+            // console.log('result[0].FullName=', result[0].Name);
+            // this.setState({allIng:result});
+          },
+        (error) => {
+          console.log("err post=", error);
+        });
+    console.log('end');
+
+
+    // if (this.state.userEmail === "avi@gmail.com") {
+    //   this.setState({ message: "אימות המייל בוצע בהצלחה!" });
+    //   Swal.fire({
+    //     title: 'אימות המייל בוצע בהצלחה!',
+    //     icon: 'success',
+    //     iconHtml: '',
+    //     confirmButtonText: 'המשך',
+    //     showCloseButton: true
+    //   }).then(() => {
+
+    //     this.props.history.push("/signin2");
+
+    //   });
+    // }
+    // else {
+    //   this.setState({ message: "המייל לא נמצא במערכת" });
+    //   Swal.fire({
+    //     title: 'כתובת המייל אינה נמצאת במערכת',
+    //     icon: 'error',
+    //     iconHtml: '',
+    //     confirmButtonText: 'סגור',
+    //     showCloseButton: true
+    //   })
+    // }
   }
 
 

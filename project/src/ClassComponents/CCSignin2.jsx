@@ -52,7 +52,11 @@ class CCSignin2 extends Component {
   btnNext2Confirm = () => {
     //להוסיף תנאי שהמשתמש אישר את תנאי השימוש
     if (this.state.passConfirmed===true) {
-      localStorage.setItem('userPassword', JSON.stringify(this.state.password))
+      let stud=localStorage.getItem('student');
+      stud=JSON.parse(stud);
+      stud.Password = this.state.password;
+      localStorage.setItem('student',JSON.stringify(stud));
+      console.log(stud);
       this.props.history.push("/signin3");
     }
     else this.setState({ message: "אימות הסיסמה נכשל!" });
@@ -90,7 +94,7 @@ class CCSignin2 extends Component {
         <Button 
         variant="contained" style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }} 
         onClick={this.btnNext2Confirm}
-        disabled={this.state.passConfirmed?false:true}
+        //disabled={this.state.passConfirmed?false:true}
         >הבא</Button>
         <br />
         {this.state.password}

@@ -36,10 +36,15 @@ class CCHangout extends Component {
     this.setState({hangoutArr: HangArr});
     console.log(HangArr)
   }
-  btnNext=()=>{
+  btnNext=()=>
+  {
+    let studOBJ=localStorage.getItem('student');
+    studOBJ=JSON.parse(studOBJ);
+    studOBJ.Plist = this.state.hangoutArr.filter(hang=>hang.Choose);
+    console.log(studOBJ);
+    localStorage.setItem('student', JSON.stringify(studOBJ));
     this.props.history.push("/hobbies");
-    let arr=this.state.hangoutArr.filter(hang=>hang.Choose)
-    localStorage.setItem('hangouts', JSON.stringify(arr));
+    
   }
   render() {
     return (

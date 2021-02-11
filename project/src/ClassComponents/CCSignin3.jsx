@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,StyleSheet } from 'react';
 import { Form, Radio, Select, DatePicker, } from 'antd';
 import 'antd/dist/antd.css';
 import CitiesFile from '../CitiesFile';
@@ -11,6 +11,8 @@ import ReactRoundedImage from "react-rounded-image";
 import { withRouter } from 'react-router-dom';
 import FormItem from 'antd/lib/form/FormItem';
 import Rotation from 'react-rotation';
+import '../style.css';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 const citiesList = CitiesFile;
 
@@ -97,25 +99,18 @@ class CCSignin3 extends Component {
       input["currentCity"] = "";
       input["status"] = "";
       this.setState({ input: input });
-      let studOBJ = {
+      let studOBJ=localStorage.getItem('student');
+      studOBJ=JSON.parse(studOBJ);
         // name,email: get name and email from routing params or async storage
-        gender: this.state.gender,
-        birthDate: this.state.birthDate,
-        city: this.state.city,
-        currentCity: this.state.currentCity,
-        status: this.state.status,
-        profliePicture: this.state.selectedFile,
-        
-      }
+        studOBJ.Gender=this.state.gender;
+        studOBJ.HomeTown= this.state.city;
+        studOBJ.AddressStudying= this.state.currentCity;
+        studOBJ.PersonalStaus= this.state.status;
+        studOBJ.Photo=this.state.selectedFile;
 
       console.log("student details: ", studOBJ);
       localStorage.setItem('StudentDetails',JSON.stringify(studOBJ));
-
-      this.props.history.push({
-        pathname: '/hangout',
-        state: { studOBJ: studOBJ }
-      });
-
+      this.props.history.push("/hangout");
     }
   }
 
@@ -163,52 +158,52 @@ class CCSignin3 extends Component {
         <PrimarySearchAppBar />
         <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
           style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
+                    <h4 style={{ marginTop: 5,direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
         <Form style={{direction:'rtl'}}>
-          <FormItem>
-          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>התמונה שלי: </label>
-            {this.state.selectedFile !== null ? <ReactRoundedImage
+          <FormItem >
+          <p className='labels' >התמונה שלי  </p>
+          <div className='rowC'>
+            {this.state.selectedFile !== null ? <ReactRoundedImage 
               image={this.state.selectedFile}
               roundedColor="#96a2aa"
               imageWidth="80"
               imageHeight="80"
               roundedSize="15"
 
-            /> : <ReactRoundedImage
-              image='icons/camera.png'
-              roundedColor="#96a2aa"
-              imageWidth="80"
-              imageHeight="80"
-              roundedSize="15"
+            /> :   
+            <AddAPhotoIcon style={{ fontSize: 40,color: "#3D3D3D",marginLeft:20 }}></AddAPhotoIcon>}
 
-            />}
             <input
               type="file"
               style={{ display: 'none' }}
               onChange={this.btnFile}
               ref={fileInput => this.fileInput = fileInput} />
             <Button variant="contained"
-              style={{ backgroundColor: "#FAE8BE", fontSize: 11, borderRadius: 20, fontFamily: "Segoe UI" }}
+              style={{height:30,backgroundColor: "#FAE8BE", fontSize: 11, borderRadius: 20, fontFamily: "Segoe UI" }}
               onClick={() => this.fileInput.click()}> בחירת תמונה</Button>
+              </div>
           </FormItem>
           <Form.Item>
-            <label style={{ textAlign: 'right', fontWeight: 'bold' }}>מגדר: </label>
+          <div className='rowC'>
+            <p className='labels'>מגדר: </p>
             <Radio.Group onChange={this.chgGender}>
               <Radio value="female">אישה</Radio>
               <Radio value="male">גבר</Radio>
               <Radio value="other">אחר</Radio>
             </Radio.Group>
+            </div>
           </Form.Item>
 
           <Form.Item>
-          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>תאריך לידה: </label><br/>
+          <p className='labels'>תאריך לידה </p>
             <DatePicker required placeholder="בחר תאריך" onChange={this.chgBirthDate}
               onFocus={() => { this.setState({ errors: {} }) }} />
             <div style={{ color: "#de0d1b" }}>{this.state.errors.birthDate}</div>
           </Form.Item>
 
           <Form.Item required>
-          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>עיר קבע: </label><br/>
-            <Select placeholder="בחר עיר"
+          <p className='labels'>עיר קבע </p>
+            <Select style={{width:200}} placeholder="בחר עיר"
               onChange={this.chgCity}
               onFocus={() => { this.setState({ errors: {} }) }}
             >
@@ -221,8 +216,8 @@ class CCSignin3 extends Component {
           </Form.Item>
 
           <Form.Item required>
-          <label style={{ fontWeight: 'bold' }}>מקום מגורים נוכחי: </label><br/>
-            <Select placeholder="בחר עיר"
+          <p className='labels'>מקום מגורים נוכחי </p>
+            <Select style={{width:200}} placeholder="בחר עיר"
               onChange={this.chgCurrentCity}
               onFocus={() => { this.setState({ errors: {} }) }}
 
@@ -236,8 +231,8 @@ class CCSignin3 extends Component {
           </Form.Item>
 
           <Form.Item>
-          <label style={{ textAlign: 'right', fontWeight: 'bold' }}>סטטוס: </label><br/>
-            <Select placeholder="בחר" onChange={this.chgStatus}>
+          <p className='labels'>סטטוס </p>
+            <Select style={{width:200}} placeholder="בחר" onChange={this.chgStatus}>
               <Select.Option value="choose">בחר</Select.Option>
               <Select.Option value="single">רווק/ה</Select.Option>
               <Select.Option value="married">נשוי/ה</Select.Option>
@@ -259,3 +254,4 @@ class CCSignin3 extends Component {
 }
 
 export default withRouter(CCSignin3);
+

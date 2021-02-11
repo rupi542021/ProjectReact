@@ -1,0 +1,14 @@
+.rowC {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.labels {
+    font-size:16px ;
+    font-weight:bold ;
+    text-align:center ;
+    color:#3D3D3D ;
+    margin-bottom: 0.09cm;
+}
