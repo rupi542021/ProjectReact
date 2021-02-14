@@ -37,7 +37,7 @@ class CCHobbies extends Component {
             console.log("fetch GetAllPleasures= ", result);
             result.forEach(hobby => {
               console.log(hobby.Hname);
-              let h={Name:hobby.Hname,Image:hobby.Hicon,Choose:false}
+              let h={Code:hobby.Hcode,Name:hobby.Hname,Image:hobby.Hicon,Choose:false}
               HobbyArr.push(h);
             });
             console.log(HobbyArr);

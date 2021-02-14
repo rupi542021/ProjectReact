@@ -36,7 +36,7 @@ class CCHangout extends Component {
             console.log("fetch GetAllPleasures= ", result);
             result.forEach(hangout => {
               console.log(hangout.Pname);
-              let h={Name:hangout.Pname,Image:hangout.Picon,Choose:false}
+              let h={Code:hangout.Pcode, Name:hangout.Pname,Image:hangout.Picon,Choose:false}
               HangArr.push(h);
             });
             console.log(HangArr);
