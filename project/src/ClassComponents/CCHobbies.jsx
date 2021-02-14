@@ -8,17 +8,7 @@ import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
 import Rotation from 'react-rotation'
 
-const HobbyArr = [
-  {Name: "כדורסל", Image: 'icons/hobbies/basketball-hoop.png' ,Choose:false},
-  {Name: "בישול", Image: 'icons/hobbies/cooking.png',Choose:false},
-  {Name: "חדר כושר", Image: 'icons/hobbies/muscular-male-gymnast-exercising-with-two-dumbbells.png',Choose:false},
-  {Name: "כדורגל", Image: 'icons/hobbies/football (1).png',Choose:false},
-  { Name: "פריזבי", Image: 'icons/hobbies/frisbee (1).png',Choose:false},
-  { Name: "גלישה", Image: 'icons/hobbies/surfing.png',Choose:false},
-  { Name: "קריאה", Image: 'icons/hobbies/reading.png' ,Choose:false},
-  {Name: "נטפליקס", Image: 'icons/hobbies/cinema.png' ,Choose:false},
-  {Name: "טניס", Image: 'icons/hobbies/tennis-player-with-racket.png',Choose:false}
-];
+const HobbyArr = []
 
 class CCHobbies extends Component {
   constructor(props) {
@@ -29,7 +19,31 @@ class CCHobbies extends Component {
     }
   }
   componentDidMount() {
+    this.apiUrl='https://localhost:44325/api/students/GetAllHoddies';
+    console.log('GETstart');
+    fetch(this.apiUrl,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then((res)=>{
+        return res.json();
+      })
+      .then(
+        (result) => {
+            console.log("fetch GetAllPleasures= ", result);
+            result.forEach(hobby => {
+              console.log(hobby.Hname);
+              let h={Name:hobby.Hname,Image:hobby.Hicon,Choose:false}
+              HobbyArr.push(h);
+            });
+            console.log(HobbyArr);
+            this.setState({hobbiesArr: HobbyArr});
   }
+      )}
   getData=(ID)=> {
     HobbyArr[ID].Choose = !HobbyArr[ID].Choose;
     this.setState({hobbiesArr: HobbyArr});

@@ -8,18 +8,7 @@ import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
 import Rotation from 'react-rotation'
 
-const HangArr = [
-  {Name: "מסעדות", Image: 'icons/hangout/fork.png' ,Choose:false},
-  {Name: "פאבים", Image: 'icons/hangout/cheers.png',Choose:false},
-  {Name: "שופינג", Image: 'icons/hangout/shopping-bag.png',Choose:false},
-  {Name: "טבע", Image: 'icons/hangout/trees.png',Choose:false},
-  {Name: "חוף-ים", Image: 'icons/hangout/sunset (1).png',Choose:false},
-  {Name: "מסיבות", Image: 'icons/hangout/dance.png',Choose:false},
-  {Name: "חדרי בריחה", Image: 'icons/hangout/server.png' ,Choose:false},
-  {Name: "בריכה", Image: 'icons/hangout/swimming-pool.png' ,Choose:false},
-  {Name: "קולנוע", Image: 'icons/hangout/popcorn.png',Choose:false}
-];
-
+const HangArr = [];
 class CCHangout extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +18,31 @@ class CCHangout extends Component {
     }
   }
   componentDidMount() {
-
+    this.apiUrl='https://localhost:44325/api/students/GetAllPleasures';
+    console.log('GETstart');
+    fetch(this.apiUrl,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then((res)=>{
+        return res.json();
+      })
+      .then(
+        (result) => {
+            console.log("fetch GetAllPleasures= ", result);
+            result.forEach(hangout => {
+              console.log(hangout.Pname);
+              let h={Name:hangout.Pname,Image:hangout.Picon,Choose:false}
+              HangArr.push(h);
+            });
+            console.log(HangArr);
+            this.setState({hangoutArr: HangArr});
   }
+      )}
   getData=(ID)=> {
     HangArr[ID].Choose = !HangArr[ID].Choose;
     this.setState({hangoutArr: HangArr});
