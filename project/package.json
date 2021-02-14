@@ -11,6 +11,7 @@
     "antd": "^4.12.2",
     "bootstrap": "^4.6.0",
     "browser-history": "^1.0.1",
+    "get-age": "^1.0.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-bootstrap-sweetalert": "^5.2.0",

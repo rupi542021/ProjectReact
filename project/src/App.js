@@ -4,7 +4,7 @@ import background from "./img/background.jpg";
 import { Switch, Route ,withRouter } from 'react-router-dom';
 import CCLogin from './ClassComponents/CCLogin';
 import CCSignin2 from './ClassComponents/CCSignin2';
-
+import CCUserProfile from './ClassComponents/CCUserProfile';
 import Form from './ClassComponents/Form';
 import CCHangout from './ClassComponents/CCHangout';
 import CCHobbies from './ClassComponents/CCHobbies';
@@ -42,6 +42,9 @@ function App() {
           </Route>
           <Route path="/hobbies" >
             <CCHobbies />
+          </Route>
+          <Route path="/userProfile" >
+            <CCUserProfile />
           </Route>
           <Route path="/form" >
             <Form />
