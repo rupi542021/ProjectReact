@@ -23,13 +23,13 @@ class CCSignin3 extends Component {
 
     this.state = {
       gender: "",
-      birthDate: "",
+     // birthDate: "",
       city: "",
       currentCity: "",
       status: "",
       input: {
         gender: "",
-        birthDate: "",
+       // birthDate: "",
         city: "",
         currentCity: "",
         status: "",
@@ -48,22 +48,22 @@ class CCSignin3 extends Component {
     });
   }
 
-  chgBirthDate = (date) => {
-    if (date !== "" && date !== null) {
-      let bdate = date.format("DD-MM-YYYY")
-      console.log("bday:", bdate);
-      this.setState({ birthDate: bdate }, () => {
-        //let input = {};
-        this.state.input["birthDate"] = this.state.birthDate;
-      })
-    }
-    else {
-      this.setState({ birthDate: "" }, () => {
-        //let input = {};
-        this.state.input["birthDate"] = this.state.birthDate;
-      })
-    }
-  }
+  // chgBirthDate = (date) => {
+  //   if (date !== "" && date !== null) {
+  //     let bdate = date.format("DD-MM-YYYY")
+  //     console.log("bday:", bdate);
+  //     this.setState({ birthDate: bdate }, () => {
+  //       //let input = {};
+  //       this.state.input["birthDate"] = this.state.birthDate;
+  //     })
+  //   }
+  //   else {
+  //     this.setState({ birthDate: "" }, () => {
+  //       //let input = {};
+  //       this.state.input["birthDate"] = this.state.birthDate;
+  //     })
+  //   }
+  // }
 
   chgCity = (city) => {
     console.log("city:", city)
@@ -94,7 +94,7 @@ class CCSignin3 extends Component {
     if (this.validate()) {
       let input = {};
       input["gender"] = "";
-      input["birthDate"] = "";
+    //  input["birthDate"] = "";
       input["city"] = "";
       input["currentCity"] = "";
       input["status"] = "";
@@ -121,10 +121,10 @@ class CCSignin3 extends Component {
     let errors = {};
     let isValid = true;
 
-    if (input["birthDate"] === "") {
-      isValid = false;
-      errors["birthDate"] = "שדה זה הינו חובה";
-    }
+    // if (input["birthDate"] === "") {
+    //   isValid = false;
+    //   errors["birthDate"] = "שדה זה הינו חובה";
+    // }
     if (input["city"] === "" || input["city"] === "choose") {
       isValid = false;
       errors["city"] = "שדה זה הינו חובה";
@@ -193,13 +193,13 @@ class CCSignin3 extends Component {
             </Radio.Group>
             </div>
           </Form.Item>
-
+{/* 
           <Form.Item>
           <p className='labels'>תאריך לידה </p>
             <DatePicker required placeholder="בחר תאריך" onChange={this.chgBirthDate}
               onFocus={() => { this.setState({ errors: {} }) }} />
             <div style={{ color: "#de0d1b" }}>{this.state.errors.birthDate}</div>
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item required>
           <p className='labels'>עיר קבע </p>

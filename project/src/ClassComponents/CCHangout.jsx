@@ -53,6 +53,17 @@ class CCHangout extends Component {
     let studOBJ=localStorage.getItem('student');
     studOBJ=JSON.parse(studOBJ);
     studOBJ.Plist = this.state.hangoutArr.filter(hang=>hang.Choose);
+    if(studOBJ.Plist.length > 0)
+    {
+      let newPlist=[];
+      let newHangout;
+      studOBJ.Plist.forEach(hang => {newHangout ={Pcode: hang.Code, Pname: hang.Name, Picon: hang.Image};
+        newPlist.push(newHangout);
+      });
+      studOBJ.Plist = newPlist;
+      console.log("New Plist = " , studOBJ.Plist);
+    }
+    
     console.log(studOBJ);
     localStorage.setItem('student', JSON.stringify(studOBJ));
     this.props.history.push("/hobbies");

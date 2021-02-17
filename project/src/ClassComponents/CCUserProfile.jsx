@@ -32,7 +32,7 @@ class CCUserProfile extends Component {
         case 3:
         this.setState({studYear:"ג"})
         break;
-        case 4:
+        case 4: 
         this.setState({studYear:"ד"})
         break;
     
