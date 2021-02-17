@@ -12,3 +12,10 @@
     color:#3D3D3D ;
     margin-bottom: 0.09cm;
 }
+.labelsRight{
+    font-size:16px ;
+    font-weight:bold ;
+    color:#3D3D3D ;
+    margin-bottom: 0.09cm;
+    margin: 7px;
+}
