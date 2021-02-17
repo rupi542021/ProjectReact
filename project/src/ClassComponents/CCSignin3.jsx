@@ -233,11 +233,11 @@ class CCSignin3 extends Component {
           <Form.Item>
           <p className='labels'>סטטוס </p>
             <Select style={{width:200}} placeholder="בחר" onChange={this.chgStatus}>
-              <Select.Option value="choose">בחר</Select.Option>
-              <Select.Option value="single">רווק/ה</Select.Option>
-              <Select.Option value="married">נשוי/ה</Select.Option>
-              <Select.Option value="inPublic">ידוע/ה בציבור</Select.Option>
-              <Select.Option value="widow">אלמן/ה</Select.Option>
+              <Select.Option value="בחר">בחר</Select.Option>
+              <Select.Option value="רווק/ה">רווק/ה</Select.Option>
+              <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
+              <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
+              <Select.Option value="אלמן/ה">אלמן/ה</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item>

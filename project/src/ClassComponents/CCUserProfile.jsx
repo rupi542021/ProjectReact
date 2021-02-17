@@ -8,7 +8,8 @@ class CCUserProfile extends Component {
     super(props);
     this.state = {
         studName:[],
-        studAge:""
+        studAge:"",
+        stutYear:""
 
 
     }
@@ -20,8 +21,26 @@ class CCUserProfile extends Component {
     let arr=studOBJ.DateOfBirth.split("T");
     var getAge = require('get-age')
     let age=getAge(arr[0])
-    console.log(age);
-    this.setState({studName:studOBJ.Fname+" "+studOBJ.Lname,studAge:age})
+
+    switch (studOBJ.StudyingYear) {
+      case 1:
+        this.setState({studYear:"א"})
+        break;
+        case 2:
+        this.setState({studYear:"ב"})
+        break;
+        case 3:
+        this.setState({studYear:"ג"})
+        break;
+        case 4:
+        this.setState({studYear:"ד"})
+        break;
+    
+      default:
+        break;
+    }
+    this.setState({studName:studOBJ.Fname+" "+studOBJ.Lname,studAge:age,studDep:studOBJ.Dep.DepartmentName
+    ,studHomeTown:studOBJ.HomeTown,studAddressStudying:studOBJ.AddressStudying})
 
   }
 
@@ -29,10 +48,13 @@ class CCUserProfile extends Component {
   render() {
     return (
         
-        <div>        
+        <div style={{ direction: 'rtl' }}  >       
             <PrimarySearchAppBar />
             <h3>{this.state.studName}</h3>
             <h3>{this.state.studAge}</h3>
+            <h3>{this.state.studDep+" - "+this.state.studYear+"'"}</h3>
+            <p>{"מקום מגורים - מקור: "+this.state.studHomeTown}</p>
+            <p>{"מקום מגורים - נוכחי: "+this.state.studAddressStudying}</p>
 
         
         
