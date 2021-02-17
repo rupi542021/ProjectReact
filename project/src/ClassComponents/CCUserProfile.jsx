@@ -25,7 +25,7 @@ class CCUserProfile extends Component {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
 
-    console.log(studOBJ.Plist[0].Name)
+   
 
     let arr = studOBJ.DateOfBirth.split("T");
     var getAge = require('get-age')
@@ -77,7 +77,7 @@ class CCUserProfile extends Component {
         <h5 style={{fontWeight:'bold',marginTop:10}}>{this.state.studDep + " - " + this.state.studYear + "'"}</h5>
         <p className='labelsRight' style={{marginTop:20}}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
         <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
-        <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
+         <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
 
         {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p>:""}
         
