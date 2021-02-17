@@ -54,18 +54,31 @@ class CCHobbies extends Component {
   btnFinished = () => {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    studOBJ.Hlist = this.state.hobbiesArr.filter(hang => hang.Choose);
-    console.log(studOBJ);
+    studOBJ.Hlist = this.state.hobbiesArr.filter(hobby => hobby.Choose);
+    if (studOBJ.Hlist.length > 0) 
+    {
+      let newHlist=[];
+      let newHobby;
+      studOBJ.Hlist.forEach(hobby => {newHobby ={Hcode: hobby.Code, Hname: hobby.Name, Hicon: hobby.Image};
+      newHlist.push(newHobby);
+      });
+      studOBJ.Hlist = newHlist;
+      console.log("New Hlist = " , studOBJ.Hlist);
+    }
+
     // let arr=studOBJ.DateOfBirth.split("T");
     // let bday = arr[0] +" "+ arr[1];
     // studOBJ.DateOfBirth = bday;
     // arr = studOBJ.RegistrationDate.split("T");
     // let regDay = arr[0] +" "+ arr[1];
     // studOBJ.RegistrationDate = regDay;
-    
+    let today = new Date();
+    studOBJ.RegistrationDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+   // studOBJ.RegistrationDate = new Date().toLocaleString();
 
     localStorage.setItem('student', JSON.stringify(studOBJ));
     //this.props.history.push("/hobbies");
+    console.log("studOBJ2post", studOBJ);
     this.postStudent2DB(studOBJ);
 
   }
