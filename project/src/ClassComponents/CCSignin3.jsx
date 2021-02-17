@@ -105,11 +105,11 @@ class CCSignin3 extends Component {
         studOBJ.Gender=this.state.gender;
         studOBJ.HomeTown= this.state.city;
         studOBJ.AddressStudying= this.state.currentCity;
-        studOBJ.PersonalStaus= this.state.status;
+        studOBJ.PersonalStatus= this.state.status;
         studOBJ.Photo=this.state.selectedFile;
 
       console.log("student details: ", studOBJ);
-      localStorage.setItem('StudentDetails',JSON.stringify(studOBJ));
+      localStorage.setItem('student',JSON.stringify(studOBJ));
       this.props.history.push("/hangout");
     }
   }

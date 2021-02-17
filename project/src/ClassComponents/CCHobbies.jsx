@@ -19,7 +19,7 @@ class CCHobbies extends Component {
     }
   }
   componentDidMount() {
-    this.apiUrl='https://localhost:44325/api/students/GetAllHoddies';
+    this.apiUrl = 'https://localhost:44325/api/students/GetAllHoddies';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -29,35 +29,92 @@ class CCHobbies extends Component {
           'Accept': 'application/json; charset=UTF-8'
         })
       })
-      .then((res)=>{
+      .then((res) => {
         return res.json();
       })
       .then(
         (result) => {
-            console.log("fetch GetAllPleasures= ", result);
-            result.forEach(hobby => {
-              console.log(hobby.Hname);
-              let h={Code:hobby.Hcode,Name:hobby.Hname,Image:hobby.Hicon,Choose:false}
-              HobbyArr.push(h);
-            });
-            console.log(HobbyArr);
-            this.setState({hobbiesArr: HobbyArr});
+          console.log("fetch GetAllPleasures= ", result);
+          result.forEach(hobby => {
+            console.log(hobby.Hname);
+            let h = { Code: hobby.Hcode, Name: hobby.Hname, Image: hobby.Hicon, Choose: false }
+            HobbyArr.push(h);
+          });
+          console.log(HobbyArr);
+          this.setState({ hobbiesArr: HobbyArr });
+        }
+      )
   }
-      )}
-  getData=(ID)=> {
+  getData = (ID) => {
     HobbyArr[ID].Choose = !HobbyArr[ID].Choose;
-    this.setState({hobbiesArr: HobbyArr});
+    this.setState({ hobbiesArr: HobbyArr });
     console.log(HobbyArr)
   }
-  
+
+  btnFinished = () => {
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
+    studOBJ.Hlist = this.state.hobbiesArr.filter(hang => hang.Choose);
+    console.log(studOBJ);
+    // let arr=studOBJ.DateOfBirth.split("T");
+    // let bday = arr[0] +" "+ arr[1];
+    // studOBJ.DateOfBirth = bday;
+    // arr = studOBJ.RegistrationDate.split("T");
+    // let regDay = arr[0] +" "+ arr[1];
+    // studOBJ.RegistrationDate = regDay;
+    
+
+    localStorage.setItem('student', JSON.stringify(studOBJ));
+    //this.props.history.push("/hobbies");
+    this.postStudent2DB(studOBJ);
+
+  }
+
+  postStudent2DB = (student) =>
+  {
+    console.log("in post student function");
+    this.apiUrl = 'https://localhost:44325/api/students'
+    fetch(this.apiUrl,
+      {
+        method: 'POST',
+        body: JSON.stringify(student),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        if (res.status === 201) {
+          console.log('student created:)');
+        }
+        console.log('res.ok', res.ok);
+
+        if (res.ok) {
+          console.log('post succeeded');
+        }
+
+        return res.json()
+      })
+      .then(
+        (result) => {
+          console.log("fetch btnFetchGetStudents= ", result);
+        },
+        (error) => {
+          console.log("err post=", error);
+        });
+    console.log('end');
+  }
+
   render() {
     return (
       <div>
         <PrimarySearchAppBar />
-        
-        <Progress percent={100} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15} 
-        style={{width:300, marginTop: 10,transform:`rotate(180deg)`}}/>
-       
+
+        <Progress percent={100} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
+          style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
+
         <div style={{ direction: 'rtl' }}>
           <h4 style={{ marginTop: 10, marginBottom: 8, direction: 'rtl', color: '#3D3D3D' }}>וממש עוד קצת...</h4>
           <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>איך את/ה מבלה בזמנך הפנוי?</h3>
@@ -76,11 +133,12 @@ class CCHobbies extends Component {
             </Grid>
           </Grid>
         </div>
-        <Button variant="contained" style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-        
+        <Button variant="contained"
+          style={{ paddingTop: 0, marginRight: 10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+          onClick={this.btnFinished}
         >סיום</Button>
-        <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-        onClick={()=>this.props.history.push("/hangout")}
+        <Button variant="contained" style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+          onClick={() => this.props.history.push("/hangout")}
         >הקודם</Button>
 
       </div>
