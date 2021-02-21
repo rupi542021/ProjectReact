@@ -35,8 +35,10 @@ class CCSignin2 extends Component {
   validatePass = (pass) => {
     console.log("password for validation:", pass)
     // const reg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-    const reg = new RegExp("(?=.*\d)(?=.*[A-Z]).{6,}");
-    if (reg.test(pass)) {
+    const reg = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
+    if (pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)){
+       
+  //  if (reg.test(pass)) {
       return true;
     }
     else return false;
