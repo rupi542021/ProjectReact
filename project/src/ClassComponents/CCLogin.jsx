@@ -13,7 +13,7 @@ class CCLogin extends Component {
 
     }
     handluserEmail = (e) => {
-        this.setState({ email: e.target.value })
+        this.setState({ email: e.target.value.toLowerCase() })
     }
     handluserPassword = (e) => {
         this.setState({ password: e.target.value })
@@ -78,7 +78,8 @@ class CCLogin extends Component {
     render() {
         return (
             <div>
-                <h3 style={{ margin: 20 }}>התחברות</h3>
+                <h2>Better Together</h2>
+                <h3 style={{ marginTop: 100 }}>התחברות</h3>
                 <TextField id="outlined-basic" label="Email" variant="outlined" onChange={this.handluserEmail} style={{ margin: 10 }} /><br />
                 <TextField
                     id="outlined-password-input"
