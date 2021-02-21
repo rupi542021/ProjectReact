@@ -9,7 +9,7 @@ import Form from './ClassComponents/Form';
 import CCHangout from './ClassComponents/CCHangout';
 import CCHobbies from './ClassComponents/CCHobbies';
 import CCSignin3 from './ClassComponents/CCSignin3';
-
+import CCSignin2test from './ClassComponents/CCSignin2test';
 
 const names=["avi","ben","char"];
 
@@ -52,7 +52,9 @@ function App() {
             <Form />
           </Route>
 
-
+          <Route path="/CCSignin2test" >
+            <CCSignin2test />
+          </Route>
         </Switch>
     </div>
   );
