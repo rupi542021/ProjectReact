@@ -37,7 +37,7 @@ class CCHobbies extends Component {
           console.log("fetch GetAllPleasures= ", result);
           result.forEach(hobby => {
             console.log(hobby.Hname);
-            let h = { Code: hobby.Hcode, Name: hobby.Hname, Image: hobby.Hicon, Choose: false }
+            let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
             HobbyArr.push(h);
           });
           console.log(HobbyArr);
@@ -59,7 +59,7 @@ class CCHobbies extends Component {
     {
       let newHlist=[];
       let newHobby;
-      studOBJ.Hlist.forEach(hobby => {newHobby ={Hcode: hobby.Code, Hname: hobby.Name, Hicon: hobby.Image};
+      studOBJ.Hlist.forEach(hobby => {newHobby ={Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon};
       newHlist.push(newHobby);
       });
       studOBJ.Hlist = newHlist;
@@ -138,7 +138,7 @@ class CCHobbies extends Component {
               <Grid container justify="center" spacing={1}>
                 {this.state.hobbiesArr.map((hobby, index) => (
                   <Grid key={index} item>
-                    <FCHangoutFrame key={index} id={index} name={hobby.Name} image={hobby.Image} choose={hobby.Choose} sendData={this.getData} />
+                    <FCHangoutFrame key={index} id={index} name={hobby.Hname} image={hobby.Hicon} choose={hobby.Choose} sendData={this.getData} />
 
                   </Grid>
                 ))}
