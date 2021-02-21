@@ -98,8 +98,6 @@ class CCSignin3 extends Component {
     if (this.validate()) {
 
       let input = {};
-      // let cbx = this.setIntrestedInCarPool()
-      //  this.setState({intrestedInCarPool:cbx}); 
       this.setState({intrestedInCarPool:this.setIntrestedInCarPool()},
       () => {
       // input["gender"] = "";
@@ -110,14 +108,12 @@ class CCSignin3 extends Component {
       this.setState({ input: input });
       let studOBJ = localStorage.getItem('student');
       studOBJ = JSON.parse(studOBJ);
-      // name,email: get name and email from routing params or async storage
       studOBJ.Gender = this.state.gender;
       studOBJ.HomeTown = this.state.city;
       studOBJ.AddressStudying = this.state.currentCity;
       studOBJ.PersonalStatus = this.state.status;
       studOBJ.Photo = this.state.selectedFile;
       studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
-
       console.log("student details: ", studOBJ);
       localStorage.setItem('student', JSON.stringify(studOBJ));
       this.props.history.push("/hangout");
@@ -233,7 +229,7 @@ class CCSignin3 extends Component {
           </Form.Item>
           <Form.Item>
             <div className='rowC'>
-              <p className='labels'>מגדר: </p>
+              <p className='labels'> מגדר </p>
               <Radio.Group onChange={this.chgGender}>
                 <Radio value="female">אישה</Radio>
                 <Radio value="male">גבר</Radio>
@@ -250,12 +246,12 @@ class CCSignin3 extends Component {
           </Form.Item> */}
 
           <Form.Item required>
-            <p className='labels'>עיר קבע </p>
+            <p className='labels'> עיר קבע </p>
             <Select style={{ width: 200 }} placeholder="בחר עיר"
               onChange={this.chgCity}
               onFocus={() => { this.setState({ errors: {} }) }}
             >
-              <Select.Option value="choose">בחר עיר</Select.Option>
+              <Select.Option value="choose"> בחר עיר</Select.Option>
               {citiesList.map((city) => (
                 <Select.Option key={city} value={city}>{city}</Select.Option>
               ))}
@@ -264,13 +260,13 @@ class CCSignin3 extends Component {
           </Form.Item>
 
           <Form.Item required>
-            <p className='labels'>מקום מגורים נוכחי </p>
+            <p className='labels'> מקום מגורים נוכחי </p>
             <Select style={{ width: 200 }} placeholder="בחר עיר"
               onChange={this.chgCurrentCity}
               onFocus={() => { this.setState({ errors: {} }) }}
 
             >
-              <Select.Option value="choose">בחר עיר</Select.Option>
+              <Select.Option value="choose"> בחר עיר</Select.Option>
               {citiesList.map((city) => (
                 <Select.Option key={city} value={city}> {city} </Select.Option>
               ))}
@@ -279,7 +275,7 @@ class CCSignin3 extends Component {
           </Form.Item>
 
           <Form.Item>
-            <p className='labels'>סטטוס </p>
+            <p className='labels'> סטטוס </p>
             <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
               <Select.Option value="בחר">בחר</Select.Option>
               <Select.Option value="רווק/ה">רווק/ה</Select.Option>
@@ -289,6 +285,7 @@ class CCSignin3 extends Component {
             </Select>
           </Form.Item>
           <Form.Item>
+          <p className='labels'> מעוניין בנסיעות משותפות </p>
             <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
             <Checkbox onChange={this.chgNoCarpoolCBX}> {this.state.no_CBX} לא </Checkbox>
             <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div>
@@ -296,8 +293,7 @@ class CCSignin3 extends Component {
           <Form.Item>
             <Button variant="contained"
               style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-              onClick={this.btnNext}> הבא</Button>
-
+              onClick={this.btnNext}> הבא </Button>
           </Form.Item>
         </Form>
       </div >
