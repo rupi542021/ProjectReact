@@ -36,7 +36,7 @@ class CCHangout extends Component {
             console.log("fetch GetAllPleasures= ", result);
             result.forEach(hangout => {
               console.log(hangout.Pname);
-              let h={Code:hangout.Pcode, Name:hangout.Pname,Image:hangout.Picon,Choose:false}
+              let h={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:false}
               HangArr.push(h);
             });
             console.log(HangArr);
@@ -57,7 +57,7 @@ class CCHangout extends Component {
     {
       let newPlist=[];
       let newHangout;
-      studOBJ.Plist.forEach(hang => {newHangout ={Pcode: hang.Code, Pname: hang.Name, Picon: hang.Image};
+      studOBJ.Plist.forEach(hang => {newHangout ={Pcode: hang.Pcode, Pname: hang.Pname, Picon: hang.Picon};
         newPlist.push(newHangout);
       });
       studOBJ.Plist = newPlist;
@@ -87,7 +87,7 @@ class CCHangout extends Component {
               <Grid container justify="center" spacing={1}>
                 {this.state.hangoutArr.map((hangout, index) => (
                   <Grid key={index} item>
-                    <FCHangoutFrame key={index} id={index} name={hangout.Name} image={hangout.Image} choose={hangout.Choose} sendData={this.getData}/>
+                    <FCHangoutFrame key={index} id={index} name={hangout.Pname} image={hangout.Picon} choose={hangout.Choose} sendData={this.getData}/>
                   </Grid>
                 ))}
               </Grid>

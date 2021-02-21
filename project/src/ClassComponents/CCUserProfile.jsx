@@ -87,13 +87,13 @@ class CCUserProfile extends Component {
               {this.state.studPList !== null ? this.state.studPList.map((p, index) => (<Grid key={index} item style={{width:60}}>
 
                 <ReactRoundedImage
-                  image={p.Image}
+                  image={p.Picon}
                   roundedColor='#96a2aa'
                   imageWidth="45"
                   imageHeight="45"
                   roundedSize="5"
 
-                /><p className='labels'>{p.Name}</p>
+                /><p className='labels'>{p.Pname}</p>
               </Grid>)) : ""}
             </Grid>
           </Grid>
@@ -103,16 +103,16 @@ class CCUserProfile extends Component {
         <Grid container>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2}>
-              {this.state.studHList !== null ? this.state.studHList.map((p, index) => (<Grid key={index} item style={{width:60}}>
+              {this.state.studHList !== null ? this.state.studHList.map((h, index) => (<Grid key={index} item style={{width:60}}>
 
                 <ReactRoundedImage
-                  image={p.Image}
+                  image={h.Hicon}
                   roundedColor='#96a2aa'
                   imageWidth="45"
                   imageHeight="45"
                   roundedSize="5"
 
-                /><p className='labels'> {p.Name}</p>
+                /><p className='labels'> {h.Hname}</p>
               </Grid>)) : ""}
             </Grid>
           </Grid>
