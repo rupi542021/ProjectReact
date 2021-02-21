@@ -1,5 +1,5 @@
-import React, { Component,StyleSheet } from 'react';
-import { Form, Radio, Select, DatePicker, } from 'antd';
+import React, { Component, StyleSheet } from 'react';
+import { Form, Radio, Select, DatePicker, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
 import CitiesFile from '../CitiesFile';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
@@ -23,19 +23,22 @@ class CCSignin3 extends Component {
 
     this.state = {
       gender: "",
-     // birthDate: "",
+      // birthDate: "",
       city: "",
       currentCity: "",
       status: "",
+      intrestedInCarPool: "",
       input: {
-        gender: "",
-       // birthDate: "",
+        // gender: "",
+        // birthDate: "",
         city: "",
         currentCity: "",
         status: "",
       },
       errors: {},
       selectedFile: null,
+      yes_CBX: false,
+      no_CBX: false
     }
   }
 
@@ -44,7 +47,8 @@ class CCSignin3 extends Component {
     let g = e.target.value;
     this.setState({ gender: g }, () => {
       //let input = {};
-      this.state.input["gender"] = this.state.gender;
+      console.log("gender:", this.state.gender);
+      //this.state.input["gender"] = this.state.gender;
     });
   }
 
@@ -90,27 +94,30 @@ class CCSignin3 extends Component {
     this.state.input["status"] = this.state.status;
   }
 
-  btnNext = (e) => {
+  btnNext = () => {
     if (this.validate()) {
+
       let input = {};
-      input["gender"] = "";
-    //  input["birthDate"] = "";
+      this.setState({intrestedInCarPool:this.setIntrestedInCarPool()},
+      () => {
+      // input["gender"] = "";
+      //  input["birthDate"] = "";
       input["city"] = "";
       input["currentCity"] = "";
       input["status"] = "";
       this.setState({ input: input });
-      let studOBJ=localStorage.getItem('student');
-      studOBJ=JSON.parse(studOBJ);
-        // name,email: get name and email from routing params or async storage
-        studOBJ.Gender=this.state.gender;
-        studOBJ.HomeTown= this.state.city;
-        studOBJ.AddressStudying= this.state.currentCity;
-        studOBJ.PersonalStatus= this.state.status;
-        studOBJ.Photo=this.state.selectedFile;
-
+      let studOBJ = localStorage.getItem('student');
+      studOBJ = JSON.parse(studOBJ);
+      studOBJ.Gender = this.state.gender;
+      studOBJ.HomeTown = this.state.city;
+      studOBJ.AddressStudying = this.state.currentCity;
+      studOBJ.PersonalStatus = this.state.status;
+      studOBJ.Photo = this.state.selectedFile;
+      studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
       console.log("student details: ", studOBJ);
-      localStorage.setItem('student',JSON.stringify(studOBJ));
+      localStorage.setItem('student', JSON.stringify(studOBJ));
       this.props.history.push("/hangout");
+    });
     }
   }
 
@@ -133,9 +140,23 @@ class CCSignin3 extends Component {
       isValid = false;
       errors["currentCity"] = "שדה זה הינו חובה";
     }
+    if (this.state.yes_CBX === this.state.no_CBX && this.state.yes_CBX === true) {
+      isValid = false;
+      errors["intrestedInCarPool"] = "יש לבחור רק אפשרות אחת"
+    }
     this.setState({ errors: errors });
     console.log("errors", errors)
     return isValid;
+  }
+
+  setIntrestedInCarPool = () => {
+    if (this.state.yes_CBX === true) {
+    return true
+    }
+    else if (this.state.no_CBX === true) {
+     return false
+    }
+    return "";   
   }
 
   btnFile = (event) => {
@@ -151,6 +172,29 @@ class CCSignin3 extends Component {
 
   }
 
+  chgYesCarpoolCBX = () => {
+    this.setState({
+      yes_CBX: !this.state.yes_CBX
+    }, () => {
+      console.log("yes checkbox:", this.state.yes_CBX);
+    }
+    );
+    this.setState({ errors: {} });
+  }
+
+  chgNoCarpoolCBX = () => {
+    this.setState({
+      no_CBX: !this.state.no_CBX
+    }, () => {
+      console.log("no checkbox:", this.state.no_CBX);
+    }
+    );
+    this.setState({ errors: {} });
+  }
+
+
+
+
   render() {
 
     return (
@@ -158,42 +202,42 @@ class CCSignin3 extends Component {
         <PrimarySearchAppBar />
         <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
           style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
-                    <h4 style={{ marginTop: 5,direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
-        <Form style={{direction:'rtl'}}>
-          <FormItem >
-          <p className='labels' >התמונה שלי  </p>
-          <div className='rowC'>
-            {this.state.selectedFile !== null ? <ReactRoundedImage 
-              image={this.state.selectedFile}
-              roundedColor="#96a2aa"
-              imageWidth="80"
-              imageHeight="80"
-              roundedSize="15"
+        <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
+        <Form style={{ direction: 'rtl' }}>
+          <Form.Item >
+            <p className='labels' >התמונה שלי  </p>
+            <div className='rowC'>
+              {this.state.selectedFile !== null ? <ReactRoundedImage
+                image={this.state.selectedFile}
+                roundedColor="#96a2aa"
+                imageWidth="80"
+                imageHeight="80"
+                roundedSize="15"
 
-            /> :   
-            <AddAPhotoIcon style={{ fontSize: 40,color: "#3D3D3D",marginLeft:20 }}></AddAPhotoIcon>}
+              /> :
+                <AddAPhotoIcon style={{ fontSize: 40, color: "#3D3D3D", marginLeft: 20 }}></AddAPhotoIcon>}
 
-            <input
-              type="file"
-              style={{ display: 'none' }}
-              onChange={this.btnFile}
-              ref={fileInput => this.fileInput = fileInput} />
-            <Button variant="contained"
-              style={{height:30,backgroundColor: "#FAE8BE", fontSize: 11, borderRadius: 20, fontFamily: "Segoe UI" }}
-              onClick={() => this.fileInput.click()}> בחירת תמונה</Button>
-              </div>
-          </FormItem>
-          <Form.Item>
-          <div className='rowC'>
-            <p className='labels'>מגדר: </p>
-            <Radio.Group onChange={this.chgGender}>
-              <Radio value="female">אישה</Radio>
-              <Radio value="male">גבר</Radio>
-              <Radio value="other">אחר</Radio>
-            </Radio.Group>
+              <input
+                type="file"
+                style={{ display: 'none' }}
+                onChange={this.btnFile}
+                ref={fileInput => this.fileInput = fileInput} />
+              <Button variant="contained"
+                style={{ height: 30, backgroundColor: "#FAE8BE", fontSize: 11, borderRadius: 20, fontFamily: "Segoe UI" }}
+                onClick={() => this.fileInput.click()}> בחירת תמונה</Button>
             </div>
           </Form.Item>
-{/* 
+          <Form.Item>
+            <div className='rowC'>
+              <p className='labels'> מגדר </p>
+              <Radio.Group onChange={this.chgGender}>
+                <Radio value="female">אישה</Radio>
+                <Radio value="male">גבר</Radio>
+                <Radio value="other">אחר</Radio>
+              </Radio.Group>
+            </div>
+          </Form.Item>
+          {/* 
           <Form.Item>
           <p className='labels'>תאריך לידה </p>
             <DatePicker required placeholder="בחר תאריך" onChange={this.chgBirthDate}
@@ -202,12 +246,12 @@ class CCSignin3 extends Component {
           </Form.Item> */}
 
           <Form.Item required>
-          <p className='labels'>עיר קבע </p>
-            <Select style={{width:200}} placeholder="בחר עיר"
+            <p className='labels'> עיר קבע </p>
+            <Select style={{ width: 200 }} placeholder="בחר עיר"
               onChange={this.chgCity}
               onFocus={() => { this.setState({ errors: {} }) }}
             >
-              <Select.Option value="choose">בחר עיר</Select.Option>
+              <Select.Option value="choose"> בחר עיר</Select.Option>
               {citiesList.map((city) => (
                 <Select.Option key={city} value={city}>{city}</Select.Option>
               ))}
@@ -216,13 +260,13 @@ class CCSignin3 extends Component {
           </Form.Item>
 
           <Form.Item required>
-          <p className='labels'>מקום מגורים נוכחי </p>
-            <Select style={{width:200}} placeholder="בחר עיר"
+            <p className='labels'> מקום מגורים נוכחי </p>
+            <Select style={{ width: 200 }} placeholder="בחר עיר"
               onChange={this.chgCurrentCity}
               onFocus={() => { this.setState({ errors: {} }) }}
 
             >
-              <Select.Option value="choose">בחר עיר</Select.Option>
+              <Select.Option value="choose"> בחר עיר</Select.Option>
               {citiesList.map((city) => (
                 <Select.Option key={city} value={city}> {city} </Select.Option>
               ))}
@@ -231,8 +275,8 @@ class CCSignin3 extends Component {
           </Form.Item>
 
           <Form.Item>
-          <p className='labels'>סטטוס </p>
-            <Select style={{width:200}} placeholder="בחר" onChange={this.chgStatus}>
+            <p className='labels'> סטטוס </p>
+            <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
               <Select.Option value="בחר">בחר</Select.Option>
               <Select.Option value="רווק/ה">רווק/ה</Select.Option>
               <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
@@ -241,10 +285,15 @@ class CCSignin3 extends Component {
             </Select>
           </Form.Item>
           <Form.Item>
+          <p className='labels'> מעוניין בנסיעות משותפות </p>
+            <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
+            <Checkbox onChange={this.chgNoCarpoolCBX}> {this.state.no_CBX} לא </Checkbox>
+            <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div>
+          </Form.Item>
+          <Form.Item>
             <Button variant="contained"
               style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-              onClick={this.btnNext}> הבא</Button>
-
+              onClick={this.btnNext}> הבא </Button>
           </Form.Item>
         </Form>
       </div >
