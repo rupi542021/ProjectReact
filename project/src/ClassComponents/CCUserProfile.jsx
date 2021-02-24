@@ -58,7 +58,7 @@ class CCUserProfile extends Component {
 
   handleEditProfile = () =>
   {
-    this.props.history.push("/editProfile");
+    this.props.history.push("/editP");
   }
 
 
