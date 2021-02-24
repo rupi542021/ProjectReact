@@ -10,6 +10,7 @@ import CCHangout from './ClassComponents/CCHangout';
 import CCHobbies from './ClassComponents/CCHobbies';
 import CCSignin3 from './ClassComponents/CCSignin3';
 import CCSignin2test from './ClassComponents/CCSignin2test';
+import CCShowUsers from './ClassComponents/CCShowUsers';
 
 const names=["avi","ben","char"];
 
@@ -48,6 +49,10 @@ function App() {
           <Route path="/userProfile" >
             <CCUserProfile />
           </Route>
+          <Route path="/showUsers" >
+            <CCShowUsers />
+          </Route>
+
           <Route path="/form" >
             <Form />
           </Route>

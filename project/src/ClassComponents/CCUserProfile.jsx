@@ -14,7 +14,6 @@ class CCUserProfile extends Component {
     this.state = {
       studName: [],
       studAge: "",
-      stutYear: "",
       studPList: [],
       studHList: []
 
@@ -25,33 +24,34 @@ class CCUserProfile extends Component {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
 
-   
-
     let arr = studOBJ.DateOfBirth.split("T");
     var getAge = require('get-age')
     let age = getAge(arr[0])
 
     switch (studOBJ.StudyingYear) {
       case 1:
-        this.setState({ studYear: "א" })
+        studOBJ.StudyingYear="א"
         break;
       case 2:
-        this.setState({ studYear: "ב" })
+        studOBJ.StudyingYear="ב"
         break;
       case 3:
-        this.setState({ studYear: "ג" })
+        studOBJ.StudyingYear="ג"
         break;
       case 4:
-        this.setState({ studYear: "ד" })
+        studOBJ.StudyingYear="ד"
         break;
 
       default:
         break;
     }
+    localStorage.setItem('student', JSON.stringify(studOBJ));
+    //this.props.history.push("/hobbies");
+    console.log("studOBJ2post", studOBJ);
     this.setState({
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
       , studHomeTown: studOBJ.HomeTown, studAddressStudying: studOBJ.AddressStudying,
-      studStatus: studOBJ.PersonalStaus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist
+      studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,stutsYear:studOBJ.StudyingYear
     })
 
   }
@@ -74,7 +74,7 @@ class CCUserProfile extends Component {
 
         <Rectangle width={400} height={100} fill={{color:'#FEFFAE'}} style={{  position: 'absolute',zIndex:1}} />
 <div style={{textAlign:'right',marginRight:10}}>
-        <h5 style={{fontWeight:'bold',marginTop:10}}>{this.state.studDep + " - " + this.state.studYear + "'"}</h5>
+        <h5 style={{fontWeight:'bold',marginTop:10}}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
         <p className='labelsRight' style={{marginTop:20}}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
         <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
          <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>

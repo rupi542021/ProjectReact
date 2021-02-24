@@ -38,11 +38,30 @@ class CCLogin extends Component {
                     (result) => {
                         console.log("fetch btnFetchGetStudents= ", result);
                         console.log(result.Mail)
-                        if (result.Mail!== null &&result.Password!==null) {
+                        if (result.Mail !== null && result.Password !== null) {
+
+                            switch (result.StudyingYear) {
+                                case 1:
+                                    result.StudyingYear = "א"
+                                    break;
+                                case 2:
+                                    result.StudyingYear = "ב"
+                                    break;
+                                case 3:
+                                    result.StudyingYear = "ג"
+                                    break;
+                                case 4:
+                                    result.StudyingYear = "ד"
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
                             localStorage.setItem('student', JSON.stringify(result));
                             Swal.fire({
-                                title:  'היי '+result.Fname,
-                                text:'ההתחברות בוצעה בהצלחה',
+                                title: 'היי ' + result.Fname,
+                                text: 'ההתחברות בוצעה בהצלחה',
                                 icon: 'success',
                                 iconHtml: '',
                                 confirmButtonText: 'המשך',
@@ -53,27 +72,27 @@ class CCLogin extends Component {
 
                             });
                         }
-                        else if(result.Mail!==null) {
+                        else if (result.Mail !== null) {
                             Swal.fire({
-                                title: 'היי '+result.Fname,
-                                text:'הסיסמא לא נכונה',
+                                title: 'היי ' + result.Fname,
+                                text: 'הסיסמא לא נכונה',
                                 icon: 'error',
                                 iconHtml: '',
                                 confirmButtonText: 'סגור',
                                 showCloseButton: true
                             })
                         }
-                        else{
+                        else {
                             Swal.fire({
                                 title: 'המייל לא נמצא במערכת',
-                                text:'אנא הכנס מייל מחדש',
+                                text: 'אנא הכנס מייל מחדש',
                                 icon: 'error',
                                 iconHtml: '',
                                 confirmButtonText: 'סגור',
                                 showCloseButton: true
                             })
                         }
-                
+
                     },
                     (error) => {
                         console.log("err post=", error);
@@ -89,6 +108,7 @@ class CCLogin extends Component {
         return (
             <div>
                 <h2>Better Together</h2>
+
                 <h3 style={{ marginTop: 100 }}>התחברות</h3>
                 <TextField id="outlined-basic" label="Email" variant="outlined" onChange={this.handluserEmail} style={{ margin: 10 }} /><br />
                 <TextField
