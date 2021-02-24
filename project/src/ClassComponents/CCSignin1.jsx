@@ -13,7 +13,9 @@ class CCSignin1 extends Component {
     super(props);
 
     this.state = {
-      fields: {},
+      fields: {
+        email:''
+      },
       errors: {}
     }
   }

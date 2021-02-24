@@ -51,9 +51,14 @@ class CCUserProfile extends Component {
     this.setState({
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
       , studHomeTown: studOBJ.HomeTown, studAddressStudying: studOBJ.AddressStudying,
-      studStatus: studOBJ.PersonalStaus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist
+      studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist
     })
 
+  }
+
+  handleEditProfile = () =>
+  {
+    this.props.history.push("/editProfile");
   }
 
 
@@ -63,11 +68,10 @@ class CCUserProfile extends Component {
 
       <div style={{ direction: 'rtl' }}  >
         <PrimarySearchAppBar />
-        
+        <img src="icons/edit.png" alt="" style={{marginRight:5, marginTop:10, position:'absolute'}} onClick={this.handleEditProfile}/>
         <div className='rowC' style={{position: 'absolute',zIndex:10,marginTop:30,marginRight:20}}>
         <h3 style={{marginLeft:20,fontWeight:'bold'}}>{this.state.studName}</h3>
         <h3 style={{marginLeft:40}}>{this.state.studAge}</h3>
-
         <Circle r={55} fill={{color:'#3D3D3D'}}
          style={{position: 'absolute',zIndex:6}}> </Circle>
         </div>
