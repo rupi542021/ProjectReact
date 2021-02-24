@@ -11,6 +11,8 @@ import CCHobbies from './ClassComponents/CCHobbies';
 import CCSignin3 from './ClassComponents/CCSignin3';
 import CCSignin2test from './ClassComponents/CCSignin2test';
 import CCShowUsers from './ClassComponents/CCShowUsers';
+import CCEditProfile from './ClassComponents/CCEditProfile';
+import CCeditp from './ClassComponents/CCeditp';
 
 const names=["avi","ben","char"];
 
@@ -53,6 +55,12 @@ function App() {
             <CCShowUsers />
           </Route>
 
+          <Route path="/editProfile" >
+            <CCEditProfile/>
+          </Route>
+          <Route path="/editP" >
+<CCeditp/>
+          </Route>
           <Route path="/form" >
             <Form />
           </Route>

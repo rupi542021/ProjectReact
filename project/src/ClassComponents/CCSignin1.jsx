@@ -13,7 +13,9 @@ class CCSignin1 extends Component {
     super(props);
 
     this.state = {
-      fields: {},
+      fields: {
+        email:''
+      },
       errors: {}
     }
   }
@@ -26,7 +28,7 @@ class CCSignin1 extends Component {
     //Email
     if (!fields["email"]) {
       formIsValid = false;
-      errors["email"] = "Cannot be empty";
+      errors["email"] = 'הכנס כתובת דוא"ל';
     }
 
     if (typeof fields["email"] !== "undefined") {
@@ -35,7 +37,7 @@ class CCSignin1 extends Component {
 
       if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') == -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
         formIsValid = false;
-        errors["email"] = "Email is not valid";
+        errors["email"] = "הכתובת שהזנת לא תקינה";
       }
     }
 
@@ -135,13 +137,13 @@ class CCSignin1 extends Component {
       <div>
         <PrimarySearchAppBar />
         <div>
-          <h4 style={{ margin: 20, marginTop: 100 }}>כתובת מייל</h4>
+          <h4 style={{ margin: 20, marginTop: 100 }}> הכנס כתובת דוא"ל </h4>
           <form name="contactform" className="contactform" onSubmit={this.contactSubmit.bind(this)}>
             <div className="col-md-6">
               <fieldset>
 
                 <br />
-                <TextField id="outlined-basic" label="Email" variant="outlined" refs="email" type="text" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]} />
+                <TextField label='דואר אלקטרוני' variant="outlined" refs="email" type="text" placeholder='כתובת דוא"ל' onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]} />
                 <br />
                 <span style={{ color: "red" }}>{this.state.errors["email"]}</span>
                 <br />

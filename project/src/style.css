@@ -1,3 +1,8 @@
+/* .container div{
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+} */
 .rowC {
     display: flex;
     flex-direction: row;

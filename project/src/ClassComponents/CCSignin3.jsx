@@ -287,7 +287,7 @@ class CCSignin3 extends Component {
           <Form.Item>
           <p className='labels'> מעוניין בנסיעות משותפות </p>
             <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
-            <Checkbox onChange={this.chgNoCarpoolCBX}> {this.state.no_CBX} לא </Checkbox>
+            <Checkbox onChange={this.chgNoCarpoolCBX}> לא </Checkbox>
             <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div>
           </Form.Item>
           <Form.Item>
