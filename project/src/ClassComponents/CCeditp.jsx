@@ -69,11 +69,44 @@ class CCeditp extends Component {
 
   btnSave = () => {
     let updatedProfile = this.state.studOBJ;
-    updatedProfile = JSON.stringify(updatedProfile);
-    localStorage.setItem('student', updatedProfile);
+    //updatedProfile = JSON.stringify(updatedProfile);
+    localStorage.setItem('student', JSON.stringify(updatedProfile));
     console.log("updated profile: ", updatedProfile);
+    this.updateInDB(updatedProfile);
   }
+  updateInDB = (stud) =>
+  {
+    console.log('start updating');
+    fetch('https://localhost:44325/api/students/updateStudentPtofile',
+      {
+        method: 'Put',
+        body: JSON.stringify(stud),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        
+        console.log('res.ok', res.ok);
 
+        if (res.ok) {
+          console.log('updateStudentPtofile succeeded');
+        }
+
+        return res.json()
+      })
+      .then(
+        (result) => {
+          console.log("fetch btnFetchupdateStudentPtofile= ", result);
+        },
+        (error) => {
+          console.log("err put=", error);
+        });
+    console.log('end'); 
+  }
   render() {
     return (
       <div>
@@ -136,7 +169,8 @@ class CCeditp extends Component {
                 height: 0.5,
               }}
             />
-            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={() => { this.props.history.push("/hobbies") }}> עריכת תחביבים </p>
+            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={(e) => {
+              this.props.history.push("/editHobbies") }}> עריכת תחביבים </p>
             <hr
               style={{
                 color: 'black',
@@ -146,7 +180,7 @@ class CCeditp extends Component {
             />
           </div>
           <div>
-            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={() => { this.props.history.push("/hangout") }}> עריכת מקומות בילוי </p>
+            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={() => {this.props.history.push("/editHangouts") }}> עריכת מקומות בילוי </p>
             <hr
               style={{
                 color: 'black',

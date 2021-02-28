@@ -34,7 +34,7 @@ class CCHobbies extends Component {
       })
       .then(
         (result) => {
-          console.log("fetch GetAllPleasures= ", result);
+          console.log("fetch GetAllHobbies= ", result);
           result.forEach(hobby => {
             console.log(hobby.Hname);
             let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
