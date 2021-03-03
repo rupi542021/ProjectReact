@@ -8,12 +8,11 @@ import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
 import Rotation from 'react-rotation'
 
-const HangArr = [];
 class CCHangout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hangoutArr: HangArr,
+      hangoutArr: [],
 
     }
   }
@@ -33,20 +32,31 @@ class CCHangout extends Component {
       })
       .then(
         (result) => {
+          let HangArr = [];
             console.log("fetch GetAllPleasures= ", result);
-            result.forEach(hangout => {
-              console.log(hangout.Pname);
-              let h={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:false}
-              HangArr.push(h);
+            let studHangouts = localStorage.getItem('student');
+          studHangouts = JSON.parse(studHangouts);
+          studHangouts = studHangouts.Plist;
+          let studHangoutsNames = studHangouts.map(p => p.Pname);
+          result.forEach(hangout => {
+            if (studHangoutsNames.includes(hangout.Pname)) {
+              let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:true}
+              HangArr.push(p);
+            }
+            else {
+              let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:false}
+              HangArr.push(p);
+            }
+           
             });
             console.log(HangArr);
             this.setState({hangoutArr: HangArr});
   }
       )}
   getData=(ID)=> {
-    HangArr[ID].Choose = !HangArr[ID].Choose;
-    this.setState({hangoutArr: HangArr});
-    console.log(HangArr)
+    this.state.hangoutArr[ID].Choose = !this.state.hangoutArr[ID].Choose;
+    this.setState({hangoutArr: this.state.hangoutArr});
+    console.log(this.state.hangoutArr)
   }
   btnNext=()=>
   {
