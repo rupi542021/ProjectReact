@@ -29,11 +29,11 @@ class CCShowUsers extends Component {
     componentDidMount() {
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
-        this.setState({ userDep: studOBJ.Dep.DepartmentName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown})
+        this.setState({ userDep: studOBJ.DepName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown})
 
 
         console.log(studOBJ.Mail)
-        console.log(studOBJ.Dep.DepartmentName)
+        console.log(studOBJ.DepName)
 
         this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/without';
         console.log('GETstart');
@@ -74,7 +74,10 @@ class CCShowUsers extends Component {
                             default:
                                 break;
                         }
-                        let stud = { Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age, DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear, Photo: s.Photo, AddressStudying: s.AddressStudying }
+                        let stud = { Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
+                             DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
+                              Photo: s.Photo, AddressStudying: s.AddressStudying,PersonalStatus:s.PersonalStatus,
+                              Plist:s.Plist,Hlist:s.Hlist }
                         studArr.push(stud);
                     });
                     console.log(studArr);
@@ -120,6 +123,12 @@ class CCShowUsers extends Component {
         }
 
     }
+    getData=(userPicked)=>{
+        console.log(userPicked);
+        localStorage.setItem('chooseUser',JSON.stringify(userPicked));
+        this.props.history.push("/userProfile2");
+
+    }
     render() {
         return (
             <div  >
@@ -157,7 +166,7 @@ class CCShowUsers extends Component {
                                 <Grid container justify="center" spacing={1}>
                                     {this.state.studentstArr.map((s, index) => (
                                         <Grid key={index} item>
-                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData} PickUser={this.props.PickUser} />
+                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData} />
                                         </Grid>
                                     ))}
                                 </Grid>
