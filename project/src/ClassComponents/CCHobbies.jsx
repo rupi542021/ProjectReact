@@ -8,13 +8,13 @@ import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
 import Rotation from 'react-rotation'
 
-const HobbyArr = []
+
 
 class CCHobbies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hobbiesArr: HobbyArr
+      hobbiesArr: []
 
     }
   }
@@ -34,11 +34,21 @@ class CCHobbies extends Component {
       })
       .then(
         (result) => {
+          let HobbyArr = [];
           console.log("fetch GetAllHobbies= ", result);
+          let studHobbies = localStorage.getItem('student');
+          studHobbies = JSON.parse(studHobbies);
+          studHobbies = studHobbies.Hlist;
+          let studHobbiesNames = studHobbies.map(h => h.Hname);
           result.forEach(hobby => {
-            console.log(hobby.Hname);
-            let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
-            HobbyArr.push(h);
+            if (studHobbiesNames.includes(hobby.Hname)) {
+              let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: true }
+              HobbyArr.push(h);
+            }
+            else {
+              let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
+              HobbyArr.push(h);
+            }
           });
           console.log(HobbyArr);
           this.setState({ hobbiesArr: HobbyArr });
@@ -46,9 +56,9 @@ class CCHobbies extends Component {
       )
   }
   getData = (ID) => {
-    HobbyArr[ID].Choose = !HobbyArr[ID].Choose;
-    this.setState({ hobbiesArr: HobbyArr });
-    console.log(HobbyArr)
+    this.state.hobbiesArr[ID].Choose = ! this.state.hobbiesArr[ID].Choose;
+    this.setState({ hobbiesArr:  this.state.hobbiesArr });
+    console.log( this.state.hobbiesArr)
   }
 
   btnFinished = () => {

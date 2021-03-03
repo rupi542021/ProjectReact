@@ -137,7 +137,10 @@ class CCSignin1 extends Component {
       <div>
         <PrimarySearchAppBar />
         <div>
-          <h4 style={{ margin: 20, marginTop: 100 }}> הכנס כתובת דוא"ל </h4>
+          <div style={{ margin: 10, marginTop: 100 }}>
+          <img src='icons/mail.png' alt='' style={{height:80, width:80}}/>
+          <h4 style={{ margin: 10}}> הכנס כתובת דוא"ל </h4>
+          </div>
           <form name="contactform" className="contactform" onSubmit={this.contactSubmit.bind(this)}>
             <div className="col-md-6">
               <fieldset>
