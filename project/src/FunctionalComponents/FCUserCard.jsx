@@ -10,6 +10,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 
+
 import { Progress } from 'antd';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,12 +52,18 @@ const useStyles = makeStyles((theme) => ({
     const theme = useTheme();
     const percentage = 66;
     function choose() {
-        props.sendData(props.mail)
+        props.sendData(props.obj)
       
       } 
+      function chooseUser(props) {
+        localStorage.setItem('chooseUser',JSON.stringify(props.obj))
+
+        props.sendData(props.obj)
+
+      }
 
     return (
-      <Card className={classes.root} style={{ direction: 'rtl'}}>
+      <Card className={classes.root} style={{ direction: 'rtl'}} onClick={chooseUser}>
                   <CardMedia
           className={classes.cover}
           image="/images/images (3).jfif"
