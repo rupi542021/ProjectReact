@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
 import '../style.css';
 
+
 class CCLogin extends Component {
   constructor(props) {
     super(props);
@@ -42,72 +43,89 @@ class CCLogin extends Component {
           })
           .then((res) => {
             console.log('res.ok', res.ok);
+            if (!res.ok) {
+              switch (res.status) {
+                case 404:
+                  throw Error('כתובת המייל אינה נמצאת במערכת');
+                case 400:
+                  throw Error('הסיסמה שהזנת שגויה. אנא נסה שנית');
+                default:
+                  throw Error('אופס! משהו לא עבד. אנא נסה שנית');
+
+              }
+            }
             return res.json();
           })
           .then(
             (result) => {
               console.log("fetch btnFetchGetStudents= ", result);
               console.log(result.Mail)
-              if (result.Mail !== null && result.Password !== null) {
+              // if (result.Mail !== null && result.Password !== null) {
 
-                switch (result.StudyingYear) {
-                  case 1:
-                    result.StudyingYear = "א"
-                    break;
-                  case 2:
-                    result.StudyingYear = "ב"
-                    break;
-                  case 3:
-                    result.StudyingYear = "ג"
-                    break;
-                  case 4:
-                    result.StudyingYear = "ד"
-                    break;
+              switch (result.StudyingYear) {
+                case 1:
+                  result.StudyingYear = "א"
+                  break;
+                case 2:
+                  result.StudyingYear = "ב"
+                  break;
+                case 3:
+                  result.StudyingYear = "ג"
+                  break;
+                case 4:
+                  result.StudyingYear = "ד"
+                  break;
 
-                  default:
-                    break;
-                }
-
-                localStorage.setItem('student', JSON.stringify(result));
-                Swal.fire({
-                  title: 'היי ' + result.Fname,
-                  text: 'ההתחברות בוצעה בהצלחה',
-                  icon: 'success',
-                  iconHtml: '',
-                  confirmButtonText: 'המשך',
-                  showCloseButton: true
-                }).then(() => {
-
-                  this.props.history.push("/userProfile");
-
-                });
-              }
-              else if (result.Mail !== null) {
-                Swal.fire({
-                  title: 'היי ' + result.Fname,
-                  text: 'הסיסמא לא נכונה',
-                  icon: 'error',
-                  iconHtml: '',
-                  confirmButtonText: 'סגור',
-                  showCloseButton: true,
-                })
-              }
-              else {
-                Swal.fire({
-                  title: 'המייל לא נמצא במערכת',
-                  text: 'אנא הכנס מייל מחדש',
-                  icon: 'error',
-                  iconHtml: '',
-                  confirmButtonText: 'סגור',
-                  showCloseButton: true
-                })
+                default:
+                  break;
               }
 
-            },
-            (error) => {
-              console.log("err post=", error);
-            });
-        console.log('end');
+              localStorage.setItem('student', JSON.stringify(result));
+              Swal.fire({
+                title: 'היי ' + result.Fname,
+                text: ' :) ברוכים השבים',
+                icon: 'success',
+                iconHtml: '',
+                confirmButtonText: 'המשך',
+                showCloseButton: true
+              }).then(() => {
+
+                this.props.history.push("/userProfile");
+
+              });
+              // }
+              // else if (result.Mail !== null) {
+              //   Swal.fire({
+              //     title: 'היי ' + result.Fname,
+              //     text: 'הסיסמא לא נכונה',
+              //     icon: 'error',
+              //     iconHtml: '',
+              //     confirmButtonText: 'סגור',
+              //     showCloseButton: true,
+              //   })
+              // }
+              // else {
+              //   Swal.fire({
+              //     title: 'המייל לא נמצא במערכת',
+              //     text: 'אנא הכנס מייל מחדש',
+              //     icon: 'error',
+              //     iconHtml: '',
+              //     confirmButtonText: 'סגור',
+              //     showCloseButton: true
+              //   })
+              // }
+
+            })
+          .catch((error) => {
+            console.log("err get=", error);
+            Swal.fire({
+              text: error.message,
+              icon: 'error',
+              iconHtml: '',
+              confirmButtonText: 'סגור',
+              showCloseButton: true
+            })
+          });
       }
     }
     else {
@@ -154,29 +172,29 @@ class CCLogin extends Component {
           label="Email"
           variant="outlined"
           onChange={this.handluserEmail}
-          style={{ margin: 10 }} />
-        <div style={{ color: "#de0d1b" }}>{this.state.errors.email}</div>
-        <br />
+          style={{ marginTop: 20 }}
+        />
+        <p style={{ color: "#de0d1b" }}>{this.state.errors.email}</p>
         <TextField
           label="Password"
           type="password"
           autoComplete="current-password"
           variant="outlined"
           onChange={this.handluserPassword}
-          style={{ margin: 10 }}
+          style={{ margin: 5 }}
         />
-        <div style={{ color: "#de0d1b" }}>{this.state.errors.pass}</div>
+        <p style={{ color: "#de0d1b" }}>{this.state.errors.pass}</p>
         <br />
         <Button variant="contained"
-          style={{ marginTop: 20, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", width: '60%' }}
+          style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", width: '60%' }}
           onClick={this.btnLogin}
         //disabled={this.state.password=""?false:true} 
         >כניסה</Button><br />
-        <div style={{ marginTop: 20 }}>
+        <div style={{ marginTop: 20, direction: 'rtl' }}>
           {/* <Button variant="contained" color="default" style={{ margin: 10 }} ><Link to="/signin"
         >להירשם</Link></Button> */}
-          <span> ? אין לך עדיין חשבון אצלנו </span>
-          <span onClick={() => { this.props.history.push("/signin") }}> :) הרשמה  </span>
+          <span> עדיין אין לך חשבון אצלנו ? </span>
+          <span onClick={() => { this.props.history.push("/signin") }}> להרשמה :) </span>
         </div>
       </div>
     )
