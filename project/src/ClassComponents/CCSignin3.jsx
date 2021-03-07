@@ -14,7 +14,7 @@ import Rotation from 'react-rotation';
 import '../style.css';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
-const citiesList = CitiesFile;
+const citiesList = [];
 
 class CCSignin3 extends Component {
 
@@ -42,6 +42,32 @@ class CCSignin3 extends Component {
     }
   }
 
+  componentDidMount() {
+    this.apiUrl='https://localhost:44325/api/students/GetAllResidences';
+    console.log('GETstart');
+    fetch(this.apiUrl,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then((res)=>{
+        return res.json();
+      })
+      .then(
+        (result) => {
+
+            console.log("fetch GetAllResidences= ", result);
+            
+            result.forEach(s => {
+              if(s.Name!="")
+              citiesList.push(s.Name);
+          });
+
+  }
+      )}
 
   chgGender = (e) => {
     let g = e.target.value;
