@@ -20,14 +20,18 @@ class CCeditp extends Component {
 
     this.state = {
       studOBJ: {},
-      switchChecked: true
+      switchChecked: false
     }
   }
 
   componentDidMount = () => {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ studOBJ: studOBJ, switchChecked: studOBJ.IntrestedInCarPool });
+    let intrestedInCarpool = studOBJ.IntrestedInCarPool;
+    if (intrestedInCarpool === "") {
+      intrestedInCarpool = false
+    }
+    this.setState({ studOBJ: studOBJ, switchChecked: intrestedInCarpool });
     console.log("studOBJ", studOBJ);
   }
 
@@ -74,8 +78,7 @@ class CCeditp extends Component {
     console.log("updated profile: ", updatedProfile);
     this.updateInDB(updatedProfile);
   }
-  updateInDB = (stud) =>
-  {
+  updateInDB = (stud) => {
     console.log('start updating');
     fetch('https://localhost:44325/api/students/updateStudentPtofile',
       {
@@ -89,7 +92,7 @@ class CCeditp extends Component {
       .then(res => {
         console.log('res=', res);
         console.log('res.status', res.status);
-        
+
         console.log('res.ok', res.ok);
 
         if (res.ok) {
@@ -105,7 +108,7 @@ class CCeditp extends Component {
         (error) => {
           console.log("err put=", error);
         });
-    console.log('end'); 
+    console.log('end');
   }
   render() {
     return (
@@ -170,7 +173,8 @@ class CCeditp extends Component {
               }}
             />
             <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={(e) => {
-              this.props.history.push("/editHobbies") }}> עריכת תחביבים </p>
+              this.props.history.push("/editHobbies")
+            }}> עריכת תחביבים </p>
             <hr
               style={{
                 color: 'black',
@@ -180,7 +184,7 @@ class CCeditp extends Component {
             />
           </div>
           <div>
-            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={() => {this.props.history.push("/editHangouts") }}> עריכת מקומות בילוי </p>
+            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={() => { this.props.history.push("/editHangouts") }}> עריכת מקומות בילוי </p>
             <hr
               style={{
                 color: 'black',
