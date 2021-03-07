@@ -114,7 +114,7 @@ class CCeditp extends Component {
     return (
       <div>
         <PrimarySearchAppBar />
-        <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}> עריכת פרופיל </h4>
+        <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
         <Form className='container'>
           <FormItem>
             <ReactRoundedImage
@@ -130,7 +130,9 @@ class CCeditp extends Component {
               style={{ display: 'none' }}
               onChange={this.btnFile}
               ref={fileInput => this.fileInput = fileInput} />
-            <p onClick={() => this.fileInput.click()}> החלף תמונת פרופיל </p>
+            <p onClick={() => this.fileInput.click()}
+            style={{color:'#4947e7', fontWeight:'bold'}}> 
+            החלף תמונת פרופיל </p>
 
             <p className='labels'> עיר קבע </p>
             <Select style={{ width: 200 }} placeholder={this.state.studOBJ.HomeTown}

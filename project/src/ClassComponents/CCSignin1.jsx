@@ -84,7 +84,7 @@ class CCSignin1 extends Component {
             //if (result.Mail !== null) {
               localStorage.setItem('student', JSON.stringify(result));
               Swal.fire({
-                title: 'אימות המייל בוצע בהצלחה!',
+                title: 'אימות המייל בוצע בהצלחה',
                 icon: 'success',
                 iconHtml: '',
                 confirmButtonText: 'המשך',
