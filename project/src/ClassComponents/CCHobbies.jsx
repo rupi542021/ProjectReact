@@ -39,17 +39,27 @@ class CCHobbies extends Component {
           let studHobbies = localStorage.getItem('student');
           studHobbies = JSON.parse(studHobbies);
           studHobbies = studHobbies.Hlist;
-          let studHobbiesNames = studHobbies.map(h => h.Hname);
-          result.forEach(hobby => {
-            if (studHobbiesNames.includes(hobby.Hname)) {
-              let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: true }
-              HobbyArr.push(h);
-            }
-            else {
-              let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
-              HobbyArr.push(h);
-            }
-          });
+          if(studHobbies !== null){
+            let studHobbiesNames = studHobbies.map(h => h.Hname);
+            result.forEach(hobby => {
+              if (studHobbiesNames.includes(hobby.Hname)) {
+                let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: true }
+                HobbyArr.push(h);
+              }
+              else {
+                let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
+                HobbyArr.push(h);
+              }
+            });
+          }
+          else
+          {
+            result.forEach(hobby => {         
+                let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
+                HobbyArr.push(h);
+            });
+          }
+       
           console.log(HobbyArr);
           this.setState({ hobbiesArr: HobbyArr });
         }

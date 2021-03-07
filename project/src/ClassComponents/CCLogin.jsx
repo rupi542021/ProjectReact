@@ -194,7 +194,7 @@ class CCLogin extends Component {
           {/* <Button variant="contained" color="default" style={{ margin: 10 }} ><Link to="/signin"
         >להירשם</Link></Button> */}
           <span> עדיין אין לך חשבון אצלנו ? </span>
-          <span onClick={() => { this.props.history.push("/signin") }}> להרשמה :) </span>
+          <span className="pressSignUp" onClick={() => { this.props.history.push("/signin") }}> להרשמה :) </span>
         </div>
       </div>
     )

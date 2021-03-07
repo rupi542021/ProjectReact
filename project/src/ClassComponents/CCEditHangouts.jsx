@@ -37,17 +37,27 @@ class CCEditHangouts extends Component {
           let studHangouts = localStorage.getItem('student');
           studHangouts = JSON.parse(studHangouts);
           studHangouts = studHangouts.Plist;
-          let studHangoutsNames = studHangouts.map(p => p.Pname);
-          result.forEach(hangout => {
-            if (studHangoutsNames.includes(hangout.Pname)) {
-              let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:true}
-              AllHangouts.push(p);
-            }
-            else {
-              let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:false}
-              AllHangouts.push(p);
-            }
-          });
+          if (studHangouts !== null) {
+            let studHangoutsNames = studHangouts.map(p => p.Pname);
+            result.forEach(hangout => {
+              if (studHangoutsNames.includes(hangout.Pname)) {
+                let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:true}
+                AllHangouts.push(p);
+              }
+              else {
+                let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:false}
+                AllHangouts.push(p);
+              }
+            });
+          }
+          else
+          {
+            result.forEach(hangout => {            
+                let p={Pcode:hangout.Pcode, Pname:hangout.Pname,Picon:hangout.Picon,Choose:false}
+                AllHangouts.push(p);             
+            });
+          }
+         
           console.log('hangoutArr: ', AllHangouts);
           this.setState({ hangoutArr: AllHangouts });
         }
