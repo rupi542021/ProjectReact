@@ -62,8 +62,11 @@ class CCSignin3 extends Component {
             console.log("fetch GetAllResidences= ", result);
             
             result.forEach(s => {
-              if(s.Name!="")
-              citiesList.push(s.Name);
+              if(s.Name!=""){
+                let city={Name:s.Name,Id:s.Id,X:s.X,Y:s.Y}
+                citiesList.push(city);
+              }
+              
           });
 
   }
@@ -97,18 +100,24 @@ class CCSignin3 extends Component {
 
   chgCity = (city) => {
     console.log("city:", city)
-    this.setState({ city: city }, () => {
+    let CityD=citiesList.find(s=>s.Name=city)
+    this.setState({ city: CityD }, () => {
       //let input = {};
       this.state.input["city"] = this.state.city;
     });
+    console.log("CurrentCity111:", this.state.currentCity);
   }
 
   chgCurrentCity = (currentCity) => {
     console.log("CurrentCity:", currentCity);
-    this.setState({ currentCity: currentCity }, () => {
+    let currentCityD=citiesList.find(s=>s.Name=currentCity)
+    console.log("CurrentCityhhh:", currentCityD);
+    this.setState({ currentCity: currentCityD }, () => {
       //let input = {};
       this.state.input["currentCity"] = this.state.currentCity;
-    });
+    })
+
+   
   }
 
   chgStatus = (status) => {
@@ -136,6 +145,11 @@ class CCSignin3 extends Component {
       studOBJ = JSON.parse(studOBJ);
       studOBJ.Gender = this.state.gender;
       studOBJ.HomeTown = this.state.city;
+
+      
+      
+      //studOBJ.HomeTown=h
+
       studOBJ.AddressStudying = this.state.currentCity;
       studOBJ.PersonalStatus = this.state.status;
       studOBJ.Photo = this.state.selectedFile;
@@ -226,6 +240,7 @@ class CCSignin3 extends Component {
     return (
       <div>
         <PrimarySearchAppBar />
+        <div>
         <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
           style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
         <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
@@ -279,7 +294,7 @@ class CCSignin3 extends Component {
             >
               <Select.Option value="choose"> בחר עיר</Select.Option>
               {citiesList.map((city) => (
-                <Select.Option key={city} value={city}>{city}</Select.Option>
+                <Select.Option key={city.Id} value={city.Name}>{city.Name}</Select.Option>
               ))}
             </Select>
             <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
@@ -294,7 +309,7 @@ class CCSignin3 extends Component {
             >
               <Select.Option value="choose"> בחר עיר</Select.Option>
               {citiesList.map((city) => (
-                <Select.Option key={city} value={city}> {city} </Select.Option>
+                <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
               ))}
             </Select>
             <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
@@ -323,6 +338,7 @@ class CCSignin3 extends Component {
           </Form.Item>
         </Form>
       </div >
+      </div>
 
     )
   }

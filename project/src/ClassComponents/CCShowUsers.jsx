@@ -129,6 +129,14 @@ class CCShowUsers extends Component {
         this.props.history.push("/userProfile2");
 
     }
+    SearchUser=(val)=>{
+        let filtered_list = this.state.studentstArr.filter((item) =>item.Fname.includes(val)||item.Lname.includes(val));
+      if(val=="")
+        this.setState({ studentstArr: studArr });
+    else
+        this.setState({ studentstArr: filtered_list })
+    
+    }
     render() {
         return (
             <div  >
@@ -139,6 +147,7 @@ class CCShowUsers extends Component {
                 <p style={{ color: '#3D3D3D', fontSize: 17 }}>גלה את החברים שלומדים איתך, שגרים ליידך </p>
                 <div style={{ marginBottom: 15 }}>
                     <SearchField
+                    onChange={this.SearchUser}
                         placeholder="Search..."
                         // onChange={onChange}
                         searchText="חפש חבר"
