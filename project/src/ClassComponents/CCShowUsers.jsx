@@ -11,6 +11,7 @@ import SearchField from "react-search-field";
 import Button from '@material-ui/core/Button';
 import { MDBContainer } from "mdbreact";
 import "../scrollbar.css";
+import loaderGIF from '../img/loader.gif';
 
 const ScrollBarPage = () => {
   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };}
@@ -25,7 +26,8 @@ class CCShowUsers extends Component {
             userDep: "",
             userYear: "",
             userHomeTown:"",
-            text:""
+            text:"",
+            loading:false
 
 
 
@@ -33,10 +35,11 @@ class CCShowUsers extends Component {
     }
 
     componentDidMount() {
+        this.setState({loading:true})
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
         this.setState({ userDep: studOBJ.DepName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown})
-
+        
 
         console.log(studOBJ.Mail)
         console.log(studOBJ.DepName)
@@ -88,6 +91,7 @@ class CCShowUsers extends Component {
                     });
                     console.log(studArr);
                     this.setState({ studentstArr: studArr });
+                    this.setState({loading:false})
                 }
             )
 
@@ -173,9 +177,10 @@ class CCShowUsers extends Component {
                     ))}
                 </Select>
                 </div>
-
+                
+                
                 <h3 >{this.state.text}</h3>
-               
+                {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{width:100,height:100,marginTop:'17vh'}}/>  :""}
       <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
       
       <div className='userList'>
