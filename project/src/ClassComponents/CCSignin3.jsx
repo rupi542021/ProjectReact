@@ -42,7 +42,7 @@ class CCSignin3 extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount =() => {
     this.apiUrl='https://localhost:44325/api/students/GetAllResidences';
     console.log('GETstart');
     fetch(this.apiUrl,
