@@ -9,7 +9,11 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
 import SearchField from "react-search-field";
 import Button from '@material-ui/core/Button';
+import { MDBContainer } from "mdbreact";
+import "../scrollbar.css";
 
+const ScrollBarPage = () => {
+  const scrollContainerStyle = { width: "800px", maxHeight: "400px" };}
 
 const filterByList = ["המחלקה שלי", "המחזור שלי","הישוב שלי"]
 const studArr = [];
@@ -20,7 +24,8 @@ class CCShowUsers extends Component {
             studentstArr: studArr,
             userDep: "",
             userYear: "",
-            userHomeTown:""
+            userHomeTown:"",
+            text:""
 
 
 
@@ -101,7 +106,7 @@ class CCShowUsers extends Component {
             if (filterbydep.length !== 0)
                 this.setState({ studentstArr: filterbydep })
             else
-                this.setState({ studentstArr: [] })
+                this.setState({ studentstArr: [],text:"אין תוצאות בסינון זה" })
         }
         if(filterBy=="choose"){
             this.setState({ studentstArr: studArr });
@@ -112,7 +117,7 @@ class CCShowUsers extends Component {
             if (filterbyclass.length !== 0)
                 this.setState({ studentstArr: filterbyclass })
             else
-                this.setState({ studentstArr: [] })
+                this.setState({ studentstArr: [],text:"אין תוצאות בסינון זה"})
         }
         if (filterBy == "הישוב שלי") {
             let filterbydep = this.state.studentstArr.filter(s => s.HomeTown == this.state.userHomeTown)
@@ -120,7 +125,7 @@ class CCShowUsers extends Component {
             if (filterbydep.length !== 0)
                 this.setState({ studentstArr: filterbydep })
             else
-                this.setState({ studentstArr: [] })
+                this.setState({ studentstArr: [] ,text:"אין תוצאות בסינון זה"})
         }
 
     }
@@ -141,8 +146,11 @@ class CCShowUsers extends Component {
     render() {
         return (
             <div className='container1'>
-                <PrimarySearchAppBar />
 
+
+
+                <PrimarySearchAppBar />
+<div>
                 <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>בוא נמצא חברים חדשים!</h3>
 
                 <p style={{ color: '#3D3D3D', fontSize: 17 }}>גלה את החברים שלומדים איתך, שגרים ליידך </p>
@@ -150,8 +158,9 @@ class CCShowUsers extends Component {
                     <SearchField
                     onChange={this.SearchUser}
                         placeholder="Search..."
+                        
                         // onChange={onChange}
-                        searchText="חפש חבר"
+                        //searchText="חפש חבר"
                         classNames="test-class"
                     /></div>
 
@@ -163,15 +172,13 @@ class CCShowUsers extends Component {
                         <Select.Option key={filterBy} value={filterBy}>{filterBy}</Select.Option>
                     ))}
                 </Select>
+                </div>
 
-                <PerfectScrollbar>
-        ... SCROLLBAR CONTENT HERE ...
-
-                {/* <Button variant="contained"
-                    style={{ paddingTop: 3, marginBottom: 10, backgroundColor: "#FAE8BE", fontSize: 16, borderRadius: 20, fontFamily: "Segoe UI" }}
-                    onClick={this.btnFilterByClass}
-                >{this.state.filterBtnTextClass}</Button> */}
-                <div className='userList'>
+                <h3 >{this.state.text}</h3>
+               
+      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
+      
+      <div className='userList'>
                     <Grid container >
                         <Grid item xs={12}>
                             <PerfectScrollbar>
@@ -186,7 +193,8 @@ class CCShowUsers extends Component {
                         </Grid>
                     </Grid>
                 </div>
-                </PerfectScrollbar>
+      </div>
+    
             </div>
         )
     }

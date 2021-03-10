@@ -56,18 +56,18 @@ const useStyles = makeStyles((theme) => ({
     }
 
     return (
-      <Card className={classes.root} style={{ direction: 'rtl'}} onClick={chooseUser}>
+      <Card className={classes.root} style={{ direction: 'rtl',width: "95vw"}} onClick={chooseUser}>
                   <CardMedia
           className={classes.cover}
           image="/images/images (3).jfif"
           title="Live from space album cover"
         />
-        <div className={classes.details}>
+        <div className={classes.details} style={{width:"50vw"}}>
           <CardContent className={classes.content}>
-            <Typography component="h5" variant="h5" style={{fontFamily: "Segoe UI",fontSize:20}}>
+            <Typography component="h5" variant="h5" style={{fontFamily: "Segoe UI",fontSize:"6vw"}}>
               {props.name+"   "+props.studage}
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary"  style={{fontFamily: "Segoe UI",fontSize:14}}>
+            <Typography variant="subtitle1" color="textSecondary"  style={{fontFamily: "Segoe UI",fontSize:"3.8vw"}}>
               {props.depName+" - "+props.year+"'"}
             </Typography>
           </CardContent>
@@ -85,11 +85,11 @@ const useStyles = makeStyles((theme) => ({
           </div> */}
         </div>
         
-        <div style={{marginTop:30,width:70}}>
+        <div style={{marginTop:30,width:"20vw"}}>
 <Progress type="circle" percent={percentage} strokeWidth={6} width={40}/>
 </div>
 
-        <div style={{width:20,marginTop:5}}>
+        <div style={{width:40,marginTop:5}}>
         <i className="bi-chat" style={{color:'#3D3D3D',fontSize:28}}></i>
         <i className="bi-star" style={{color:'#3D3D3D',fontSize:28}}></i>
         </div>
