@@ -10,6 +10,7 @@ import '../style.css';
 import SearchField from "react-search-field";
 import Button from '@material-ui/core/Button';
 
+
 const filterByList = ["המחלקה שלי", "המחזור שלי","הישוב שלי"]
 const studArr = [];
 class CCShowUsers extends Component {
@@ -139,7 +140,7 @@ class CCShowUsers extends Component {
     }
     render() {
         return (
-            <div  >
+            <div className='container1'>
                 <PrimarySearchAppBar />
 
                 <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>בוא נמצא חברים חדשים!</h3>
@@ -163,12 +164,14 @@ class CCShowUsers extends Component {
                     ))}
                 </Select>
 
-              
+                <PerfectScrollbar>
+        ... SCROLLBAR CONTENT HERE ...
+
                 {/* <Button variant="contained"
                     style={{ paddingTop: 3, marginBottom: 10, backgroundColor: "#FAE8BE", fontSize: 16, borderRadius: 20, fontFamily: "Segoe UI" }}
                     onClick={this.btnFilterByClass}
                 >{this.state.filterBtnTextClass}</Button> */}
-                <div>
+                <div className='userList'>
                     <Grid container >
                         <Grid item xs={12}>
                             <PerfectScrollbar>
@@ -183,6 +186,7 @@ class CCShowUsers extends Component {
                         </Grid>
                     </Grid>
                 </div>
+                </PerfectScrollbar>
             </div>
         )
     }

@@ -104,7 +104,7 @@ class CCSignin3 extends Component {
     console.log("city found:", CityD)
     this.setState({ city: CityD }, () => {
       //let input = {};
-      this.state.input["city"] = this.state.city;
+      this.state.input["city"] = this.state.city.Name;
     });
   }
 
@@ -114,7 +114,7 @@ class CCSignin3 extends Component {
     console.log("CurrentCityhhh:", currentCityD);
     this.setState({ currentCity: currentCityD }, () => {
       //let input = {};
-      this.state.input["currentCity"] = this.state.currentCity;
+      this.state.input["currentCity"] = this.state.currentCity.Name;
     })
 
    

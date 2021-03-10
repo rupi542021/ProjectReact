@@ -29,3 +29,13 @@
 font-weight: bold;
 color: #4947e7;
 }
+
+.container1{
+    overflow-y: hidden;
+
+}
+.userList{
+    flex: 1;
+    overflow-y: scroll;
+}
+
