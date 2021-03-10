@@ -29,6 +29,9 @@
 font-weight: bold;
 color: #4947e7;
 }
+.App{
+    overflow-y: hidden;
+}
 
 
 
