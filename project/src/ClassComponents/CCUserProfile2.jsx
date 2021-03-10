@@ -24,11 +24,11 @@ class CCUserProfile2 extends Component {
     let studOBJ = localStorage.getItem('chooseUser');
     studOBJ = JSON.parse(studOBJ);
 
-    localStorage.setItem('student', JSON.stringify(studOBJ));
+    //localStorage.setItem('student', JSON.stringify(studOBJ));
     console.log("studOBJ2post", studOBJ);
     this.setState({
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: studOBJ.DateOfBirth, studDep: studOBJ.DepName
-      , studHomeTown: studOBJ.HomeTown, studAddressStudying: studOBJ.AddressStudying,
+      , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,stutsYear:studOBJ.StudyingYear
     })
 

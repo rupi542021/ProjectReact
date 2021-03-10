@@ -50,7 +50,7 @@ class CCUserProfile extends Component {
     console.log("studOBJ2post", studOBJ);
     this.setState({
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
-      , studHomeTown: studOBJ.HomeTown, studAddressStudying: studOBJ.AddressStudying,
+      , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,stutsYear:studOBJ.StudyingYear
     })
 

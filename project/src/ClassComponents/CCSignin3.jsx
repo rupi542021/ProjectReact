@@ -100,17 +100,17 @@ class CCSignin3 extends Component {
 
   chgCity = (city) => {
     console.log("city:", city)
-    let CityD=citiesList.find(s=>s.Name=city)
+    let CityD=citiesList.find(s=>s.Name==city)
+    console.log("city found:", CityD)
     this.setState({ city: CityD }, () => {
       //let input = {};
       this.state.input["city"] = this.state.city;
     });
-    console.log("CurrentCity111:", this.state.currentCity);
   }
 
   chgCurrentCity = (currentCity) => {
     console.log("CurrentCity:", currentCity);
-    let currentCityD=citiesList.find(s=>s.Name=currentCity)
+    let currentCityD=citiesList.find(s=>s.Name==currentCity)
     console.log("CurrentCityhhh:", currentCityD);
     this.setState({ currentCity: currentCityD }, () => {
       //let input = {};
