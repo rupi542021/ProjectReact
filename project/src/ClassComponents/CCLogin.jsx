@@ -29,7 +29,7 @@ class CCLogin extends Component {
 
 
   btnLogin = () => {
-    if (this.state.email != "" && this.state.password != "") {
+    if (this.state.email !== "" && this.state.password !== "") {
       if (this.handleEmailValidation() === true) {
         this.apiUrl = 'https://localhost:44325/api/students/' + this.state.email + '/' + this.state.password;
         console.log('GETstart');
