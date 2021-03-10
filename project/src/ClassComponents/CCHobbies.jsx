@@ -100,6 +100,7 @@ class CCHobbies extends Component {
     //this.props.history.push("/hobbies");
     console.log("studOBJ2post", studOBJ);
     this.postStudent2DB(studOBJ);
+    
 
   }
 
@@ -133,6 +134,7 @@ class CCHobbies extends Component {
       .then(
         (result) => {
           console.log("fetch btnFetchGetStudents= ", result);
+          this.props.history.push("/userProfile");
         },
         (error) => {
           console.log("err post=", error);
