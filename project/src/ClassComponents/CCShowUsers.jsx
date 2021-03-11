@@ -23,11 +23,13 @@ class CCShowUsers extends Component {
         super(props);
         this.state = {
             studentstArr: studArr,
+            userMail: "",
             userDep: "",
             userYear: "",
             userHomeTown:"",
             text:"",
-            loading:false
+            loading:false,
+            userFriendslist: []
 
 
 
@@ -38,7 +40,7 @@ class CCShowUsers extends Component {
         this.setState({loading:true})
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
-        this.setState({ userDep: studOBJ.DepName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown})
+        this.setState({ userDep: studOBJ.DepName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown, userMail:studOBJ.Mail,userFriendslist:studOBJ.Friendslist})
         
 
         console.log(studOBJ.Mail)
@@ -139,6 +141,14 @@ class CCShowUsers extends Component {
         this.props.history.push("/userProfile2");
 
     }
+    getFavoriteData=(mailToAdd)=>{
+        let studToAdd={
+            Mail: mailToAdd
+        }
+        let newUserFriendslist = this.state.userFriendslist;
+        newUserFriendslist.push(studToAdd)
+        this.setState({ userFriendslist : newUserFriendslist})
+    }
     SearchUser=(val)=>{
         let filtered_list = this.state.studentstArr.filter((item) =>item.Fname.includes(val)||item.Lname.includes(val));
       if(val=="")
@@ -190,7 +200,8 @@ class CCShowUsers extends Component {
                                 <Grid container justify="center" spacing={1}>
                                     {this.state.studentstArr.map((s, index) => (
                                         <Grid key={index} item>
-                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData} />
+                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
+                                            isFavorite={this.state.userFriendslist.some((s1) => s1.Mail === s.Mail)} userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                                         </Grid>
                                     ))}
                                 </Grid>
