@@ -148,6 +148,10 @@ class CCShowUsers extends Component {
         let newUserFriendslist = this.state.userFriendslist;
         newUserFriendslist.push(studToAdd)
         this.setState({ userFriendslist : newUserFriendslist})
+        let studOBJ = localStorage.getItem('student');
+        studOBJ = JSON.parse(studOBJ);
+        studOBJ.Friendslist=newUserFriendslist;
+        localStorage.setItem('student', JSON.stringify(studOBJ));
     }
     SearchUser=(val)=>{
         let filtered_list = this.state.studentstArr.filter((item) =>item.Fname.includes(val)||item.Lname.includes(val));
