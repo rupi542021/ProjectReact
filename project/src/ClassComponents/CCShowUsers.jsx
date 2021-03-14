@@ -110,18 +110,18 @@ class CCShowUsers extends Component {
             let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
             console.log(filterbydep);
             if (filterbydep.length !== 0)
-                this.setState({ studentstArr: filterbydep })
+                this.setState({ studentstArr: filterbydep,text:"" })
             else
                 this.setState({ studentstArr: [],text:"אין תוצאות בסינון זה" })
         }
         if(filterBy=="choose"){
-            this.setState({ studentstArr: studArr });
+            this.setState({ studentstArr: studArr,text:"" });
         }
         if(filterBy=="המחזור שלי"){
             let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
             console.log(filterbyclass);
             if (filterbyclass.length !== 0)
-                this.setState({ studentstArr: filterbyclass })
+                this.setState({ studentstArr: filterbyclass,text:"" })
             else
                 this.setState({ studentstArr: [],text:"אין תוצאות בסינון זה"})
         }
@@ -129,7 +129,7 @@ class CCShowUsers extends Component {
             let filterbydep = this.state.studentstArr.filter(s => s.HomeTown == this.state.userHomeTown)
             console.log(filterbydep);
             if (filterbydep.length !== 0)
-                this.setState({ studentstArr: filterbydep })
+                this.setState({ studentstArr: filterbydep,text:""})
             else
                 this.setState({ studentstArr: [] ,text:"אין תוצאות בסינון זה"})
         }
@@ -193,12 +193,14 @@ class CCShowUsers extends Component {
                 </div>
                 
                 
-                <h3 >{this.state.text}</h3>
+              
                 {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{width:100,height:100,marginTop:'17vh'}}/>  :""}
       <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
       
       <div className='userList'>
+      <h3 style={{}}>{this.state.text}</h3>
                     <Grid container >
+                    
                         <Grid item xs={12}>
                             <PerfectScrollbar>
                                 <Grid container justify="center" spacing={1}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ReactRoundedImage from "react-rounded-image";
-import { Form, Select , Radio } from 'antd';
+import { Form, Select, Radio } from 'antd';
 import Button from '@material-ui/core/Button';
 import 'antd/dist/antd.css';
 import '../style.css';
@@ -38,8 +38,8 @@ class CCeditp extends Component {
     if (intrestedInCarpool === "") {
       intrestedInCarpool = false;
     }
-    this.setState({ studOBJ: studOBJ, switchChecked: intrestedInCarpool, comeWithCar: isAvailableCar},
-   ()=>{console.log("studOBJ", this.state.studOBJ);});
+    this.setState({ studOBJ: studOBJ, switchChecked: intrestedInCarpool, comeWithCar: isAvailableCar },
+      () => { console.log("studOBJ", this.state.studOBJ); });
     console.log("cities list after:", citiesList);
     console.log("end of componentDidMount");
   }
@@ -69,13 +69,13 @@ class CCeditp extends Component {
             }
 
           });
-          this.setState({cities:citiesList},
-            ()=>{console.log('GET cities end');});
-          
+          this.setState({ cities: citiesList },
+            () => { console.log('GET cities end'); });
+
 
         }
       )
-      
+
   }
 
   btnFile = (event) => {
@@ -94,7 +94,7 @@ class CCeditp extends Component {
   chgGender = (e) => {
     let g = e.target.value;
     this.state.studOBJ.Gender = g;
-    console.log("gender:",  this.state.studOBJ.Gender);
+    console.log("gender:", this.state.studOBJ.Gender);
   }
 
   chgCity = (city) => {
@@ -102,7 +102,7 @@ class CCeditp extends Component {
       let CityD = citiesList.find(s => s.Name === city);
       this.state.studOBJ.HomeTown = CityD;
       this.state.errors["city"] = "";
-     }
+    }
     else {
       this.state.errors["city"] = " שדה זה הינו חובה ";
     }
@@ -196,118 +196,109 @@ class CCeditp extends Component {
     return (
       <div>
         <PrimarySearchAppBar />
-        <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
-        <div className='container'>
-          <div>
+        <div className='container' style={{ direction: 'rtl' }}>
+        <h4 style={{fontSize:'6vw',marginTop:'2vw'}}>עריכת פרופיל</h4>
+          <div className='rowC' style={{ marginTop: 10 }}>
+            
+            <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
+
             <ReactRoundedImage
               image={this.state.studOBJ !== {} ? this.state.studOBJ.Photo : ''}
               roundedColor="#96a2aa"
               imageWidth="80"
               imageHeight="80"
-              roundedSize="15"
-
-            />
-            <input
-              type="file"
-              style={{ display: 'none' }}
-              onChange={this.btnFile}
-              ref={fileInput => this.fileInput = fileInput} />
-            <p onClick={() => this.fileInput.click()}
-              style={{ color: '#4947e7', fontWeight: 'bold' }}>
-              החלף תמונת פרופיל </p>
-              </div>
-
-              <div className='rowC' style={{direction:'rtl'}}>
-              <p className='labels'> מגדר </p>
-              <Radio.Group onChange={this.chgGender} defaultValue = {this.state.studOBJ.Gender}>
-                <Radio value="female">אישה</Radio>
-                <Radio value="male">גבר</Radio>
-                <Radio value="other">אחר</Radio>
-              </Radio.Group>
-            </div>
-            <div>
-              <p className='labels'> עיר קבע </p>
-              <Select style={{ width: 200 }} placeholder={this.state.studOBJ.HomeTown===undefined ? "": this.state.studOBJ.HomeTown.Name}
-                onChange={this.chgCity}
-              >
-                <Select.Option value="choose"> בחר עיר</Select.Option>
-                {citiesList.map((city) => (
-                  <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
-                ))}
-              </Select>
-              <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
-
-              <p className='labels'> מקום מגורים נוכחי </p>
-              <Select style={{ width: 200 }}  placeholder={this.state.studOBJ.AddressStudying===undefined ? "": this.state.studOBJ.AddressStudying.Name}
-                onChange={this.chgCurrentCity}
-              >
-                <Select.Option value="choose"> בחר עיר</Select.Option>
-                {citiesList.map((city) => (
-                  <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
-                ))}
-              </Select>
-              <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
-              </div>
-              <div>
-            <p className='labels'> סטטוס </p>
-            <Select style={{ width: 200 }} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
-              <Select.Option value="בחר">בחר</Select.Option>
-              <Select.Option value="רווק/ה">רווק/ה</Select.Option>
-              <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
-              <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
-            </Select>
-            </div>
-            <div>
-            <p className='labels'> מגיע עם רכב </p>
-            <Switch
-              height={20}
-              width={40}
-              onColor='#1b84fb'
-              onChange={this.chgSwitchWithCar} checked={this.state.comeWithCar} />
-            <p className='labels'> מעוניין בנסיעות משותפות </p>
-            <Switch
-              height={20}
-              width={40}
-              onColor='#1b84fb'
-              onChange={this.chgSwitchCarpool} checked={this.state.switchChecked} />
-</div>
-          <div>
-            <hr
-              style={{
-                color: 'black',
-                backgroundColor: 'black',
-                height: 0.5,
-              }}
-            />
-            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={(e) => {
-              this.props.history.push("/editHobbies")
-            }}> עריכת תחביבים </p>
-            <hr
-              style={{
-                color: 'black',
-                backgroundColor: 'black',
-                height: 0.5,
-              }}
-            />
+              roundedSize="15" />
+            <i class="bi bi-pencil-fill"
+            onClick={() => this.fileInput.click()}
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 170,marginTop: 50 }}></i>
           </div>
-          <div>
-            <p style={{ color: '#1b84fb', fontWeight: 'bolder' }} onClick={() => { this.props.history.push("/editHangouts") }}> עריכת מקומות בילוי </p>
-            <hr
-              style={{
-                color: 'black',
-                backgroundColor: 'black',
-                height: 0.5,
-              }}
-            />
-          </div>
-          <div>
-            <Button variant="contained"
-              style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-              onClick={this.btnSave}> שמור </Button>
-          </div>
+
+          <input
+            type="file"
+            style={{ display: 'none' }}
+            onChange={this.btnFile}
+            ref={fileInput => this.fileInput = fileInput} />
+         
         </div>
 
+        <div className='rowC' style={{ direction: 'rtl',marginTop: 10 }}>
+          <p className='labels'> מגדר </p>
+          <Radio.Group onChange={this.chgGender} defaultValue={this.state.studOBJ.Gender}>
+            <Radio value="female">אישה</Radio>
+            <Radio value="male">גבר</Radio>
+            <Radio value="other">אחר</Radio>
+          </Radio.Group>
+        </div>
+        <div>
+          <p className='labels'> עיר קבע </p>
+          <Select style={{ width: 200 }} placeholder={this.state.studOBJ.HomeTown === undefined ? "" : this.state.studOBJ.HomeTown.Name}
+            onChange={this.chgCity}
+          >
+            <Select.Option value="choose"> בחר עיר</Select.Option>
+            {citiesList.map((city) => (
+              <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
+            ))}
+          </Select>
+          <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
+
+          <p className='labels'> מקום מגורים נוכחי </p>
+          <Select style={{ width: 200 }} placeholder={this.state.studOBJ.AddressStudying === undefined ? "" : this.state.studOBJ.AddressStudying.Name}
+            onChange={this.chgCurrentCity}
+          >
+            <Select.Option value="choose"> בחר עיר</Select.Option>
+            {citiesList.map((city) => (
+              <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
+            ))}
+          </Select>
+          <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
+        </div>
+        <div>
+          <p className='labels'> סטטוס </p>
+          <Select style={{ width: 200 }} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
+            <Select.Option value="בחר">בחר</Select.Option>
+            <Select.Option value="רווק/ה">רווק/ה</Select.Option>
+            <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
+            <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
+          </Select>
+        </div>
+        <div>
+          <p className='labels'> מגיע עם רכב </p>
+          <Switch
+            height={20}
+            width={40}
+            onColor='#1b84fb'
+            onChange={this.chgSwitchWithCar} checked={this.state.comeWithCar} />
+          <p className='labels'> מעוניין בנסיעות משותפות </p>
+          <Switch
+            height={20}
+            width={40}
+            onColor='#1b84fb'
+            onChange={this.chgSwitchCarpool} checked={this.state.switchChecked} />
+        </div>
+
+        <div className='rowC' style={{marginTop:'2vh',marginBottom:'2.5vh'}}>
+<Button variant="contained"
+        color="default"
+        style={{marginRight:20,fontFamily: "Segoe UI"}}
+        onClick={(e) => {
+          this.props.history.push("/editHobbies")
+        }}><i class="bi bi-pencil-fill" style={{marginRight:8}}></i>תחביבים</Button>
+
+<Button variant="contained"
+        color="default"
+        style={{fontFamily: "Segoe UI"}}
+        onClick={() => { this.props.history.push("/editHangouts") }}>
+        <i class="bi bi-pencil-fill" style={{marginRight:8}}></i>מקומות בילוי</Button>
+        </div>
+
+        <div>
+          <Button variant="contained"
+            style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+            onClick={this.btnSave}> שמור </Button>
+        </div>
       </div>
+
+
     )
   }
 }

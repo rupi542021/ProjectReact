@@ -66,24 +66,30 @@ class CCUserProfile extends Component {
   render() {
     return (
 
-      <div style={{ direction: 'rtl' }}  >
+      <div>
         <PrimarySearchAppBar />
-        <img src="icons/edit.png" alt="" style={{marginRight:5, marginTop:10, position:'absolute'}} onClick={this.handleEditProfile}/>
-        <div className='rowC' style={{position: 'absolute',zIndex:10,marginTop:30,marginRight:20}}>
-        <h3 style={{marginLeft:20,fontWeight:'bold'}}>{this.state.studName}</h3>
-        <h3 style={{marginLeft:40}}>{this.state.studAge}</h3>
-        <Circle r={55} fill={{color:'#3D3D3D'}}
-         style={{position: 'absolute',zIndex:6}}> </Circle>
-        </div>
+        <div style={{ direction: 'rtl' }}  >
+       
+        <i class="bi bi-pencil-fill" 
+        style={{marginRight:5, position:'absolute',color: '#3D3D3D', fontSize: 24}} 
+        onClick={this.handleEditProfile} ></i>
 
-        <Rectangle width={400} height={100} fill={{color:'#FEFFAE'}} style={{  position: 'absolute',zIndex:1}} />
-<div style={{textAlign:'right',marginRight:10}}>
-        <h5 style={{fontWeight:'bold',marginTop:10}}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
-        <p className='labelsRight' style={{marginTop:20}}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
-        <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
-         <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
+        <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 30, marginRight: 20 }}>
+            <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
+            <h3 style={{ marginLeft: '15vw', fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            <Circle r={55} fill={{ color: '#3D3D3D' }}
+              style={{ position: 'absolute', zIndex: 3 }}> </Circle>
+          </div>
 
-        {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p>:""}
+          <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
+          <div style={{ textAlign: 'right', marginRight: 10 }}>
+            <h5 style={{ fontWeight: 'bold', marginTop: 10, fontSize: '6vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
+           
+            <p className='labelsRight' style={{ marginTop: 15 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
+            <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
+            <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
+
+            {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p> : ""}
         
         <Grid container>
           <Grid item xs={12}>
@@ -125,6 +131,7 @@ class CCUserProfile extends Component {
 
 
 
+        </div>
       </div>
     )
   }

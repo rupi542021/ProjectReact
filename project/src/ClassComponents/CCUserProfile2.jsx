@@ -40,6 +40,7 @@ class CCUserProfile2 extends Component {
       <div>
         <PrimarySearchAppBar />
         <div style={{ direction: 'rtl' }}  >
+          {/* https://icons.getbootstrap.com/ */}
           <div className='rowC' style={{ position: 'absolute', marginRight: 40 }}>
             <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }}></i>
             <i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
