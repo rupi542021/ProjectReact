@@ -13,6 +13,8 @@ import FormItem from 'antd/lib/form/FormItem';
 import Rotation from 'react-rotation';
 import '../style.css';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import { IconButton } from '@material-ui/core';
+import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
 
 const citiesList = [];
 
@@ -24,8 +26,8 @@ class CCSignin3 extends Component {
     this.state = {
       gender: "",
       // birthDate: "",
-      city: "",
-      currentCity: "",
+      city: null,
+      currentCity: null,
       status: "",
       intrestedInCarPool: "",
       input: {
@@ -38,12 +40,13 @@ class CCSignin3 extends Component {
       errors: {},
       selectedFile: null,
       yes_CBX: false,
-      no_CBX: false
+      no_CBX: false,
+      imgURL: null
     }
   }
 
-  componentDidMount =() => {
-    this.apiUrl='https://localhost:44325/api/students/GetAllResidences';
+  componentDidMount = () => {
+    this.apiUrl = 'https://localhost:44325/api/students/GetAllResidences';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -53,24 +56,31 @@ class CCSignin3 extends Component {
           'Accept': 'application/json; charset=UTF-8'
         })
       })
-      .then((res)=>{
+      .then((res) => {
         return res.json();
       })
       .then(
         (result) => {
 
-            console.log("fetch GetAllResidences= ", result);
-            
-            result.forEach(s => {
-              if(s.Name!=""){
-                let city={Name:s.Name,Id:s.Id,X:s.X,Y:s.Y}
-                citiesList.push(city);
-              }
-              
+          console.log("fetch GetAllResidences= ", result);
+
+          result.forEach(s => {
+            if (s.Name != "") {
+              let city = { Name: s.Name, Id: s.Id, X: s.X, Y: s.Y }
+              citiesList.push(city);
+            }
+
           });
 
+        }
+      )
+      let studOBJ = localStorage.getItem('student');
+      studOBJ = JSON.parse(studOBJ);
+      if(studOBJ.HomeTown!=null){
+        this.setState({currentCity:studOBJ.AddressStudying,city:studOBJ.HomeTown})
+      }
+
   }
-      )}
 
   chgGender = (e) => {
     let g = e.target.value;
@@ -100,24 +110,36 @@ class CCSignin3 extends Component {
 
   chgCity = (city) => {
     console.log("city:", city)
-    let CityD=citiesList.find(s=>s.Name==city)
+    if(city!="choose"){
+    let CityD = citiesList.find(s => s.Name == city)
     console.log("city found:", CityD)
     this.setState({ city: CityD }, () => {
       //let input = {};
       this.state.input["city"] = this.state.city.Name;
     });
   }
+  else{
+    this.setState({ city: null })
+    this.state.input["city"] ="";
+  }
+  
+  }
 
   chgCurrentCity = (currentCity) => {
     console.log("CurrentCity:", currentCity);
-    let currentCityD=citiesList.find(s=>s.Name==currentCity)
+    if(currentCity!="choose"){
+    let currentCityD = citiesList.find(s => s.Name == currentCity)
     console.log("CurrentCityhhh:", currentCityD);
     this.setState({ currentCity: currentCityD }, () => {
       //let input = {};
       this.state.input["currentCity"] = this.state.currentCity.Name;
     })
 
-   
+  }
+  else{
+    this.setState({ currentCity: null })
+    this.state.input["currentCity"] =""
+  }
   }
 
   chgStatus = (status) => {
@@ -133,31 +155,31 @@ class CCSignin3 extends Component {
     if (this.validate()) {
 
       let input = {};
-      this.setState({intrestedInCarPool:this.setIntrestedInCarPool()},
-      () => {
-      // input["gender"] = "";
-      //  input["birthDate"] = "";
-      input["city"] = "";
-      input["currentCity"] = "";
-      input["status"] = "";
-      this.setState({ input: input });
-      let studOBJ = localStorage.getItem('student');
-      studOBJ = JSON.parse(studOBJ);
-      studOBJ.Gender = this.state.gender;
-      studOBJ.HomeTown = this.state.city;
+      this.setState({ intrestedInCarPool: this.setIntrestedInCarPool() },
+        () => {
+          // input["gender"] = "";
+          //  input["birthDate"] = "";
+          input["city"] = "";
+          input["currentCity"] = "";
+          input["status"] = "";
+          this.setState({ input: input });
+          let studOBJ = localStorage.getItem('student');
+          studOBJ = JSON.parse(studOBJ);
+          studOBJ.Gender = this.state.gender;
+          studOBJ.HomeTown = this.state.city;
 
-      
-      
-      //studOBJ.HomeTown=h
 
-      studOBJ.AddressStudying = this.state.currentCity;
-      studOBJ.PersonalStatus = this.state.status;
-      studOBJ.Photo = this.state.selectedFile;
-      studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
-      console.log("student details: ", studOBJ);
-      localStorage.setItem('student', JSON.stringify(studOBJ));
-      this.props.history.push("/hangout");
-    });
+
+          //studOBJ.HomeTown=h
+
+          studOBJ.AddressStudying = this.state.currentCity;
+          studOBJ.PersonalStatus = this.state.status;
+          studOBJ.Photo = this.state.selectedFile;
+          studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
+          console.log("student details: ", studOBJ);
+          localStorage.setItem('student', JSON.stringify(studOBJ));
+          this.props.history.push("/hangout");
+        });
     }
   }
 
@@ -191,19 +213,71 @@ class CCSignin3 extends Component {
 
   setIntrestedInCarPool = () => {
     if (this.state.yes_CBX === true) {
-    return true
+      return true
     }
     else if (this.state.no_CBX === true) {
-     return false
+      return false
     }
-    return "";   
+    return "";
   }
 
   btnFile = (event) => {
     console.log(event.target.files[0]);
-
+    var data = new FormData();
     if (event.target.value.length > 0) {
+
+      let studOBJ = localStorage.getItem('student');
+      studOBJ = JSON.parse(studOBJ);
+
       this.setState({ selectedFile: event.target.files[0].name });
+      const file = event.target.files[0];
+
+      const newUrl = URL.createObjectURL(file);
+      console.log(newUrl);
+      this.setState({ imgURL: newUrl })
+
+
+      data.append("UploadedImage", file);
+      data.append("name", studOBJ.Mail);
+
+      console.log("in post img function");
+      this.apiUrl = 'https://localhost:44325/api/students/uploadedFiles'
+      fetch(this.apiUrl,
+        {
+          method: 'POST',
+          body: data,
+          // headers: new Headers({
+          //   // 'Content-Type': 'application/json; charset=UTF-8',
+          //   // 'Accept': 'application/json; charset=UTF-8'
+          // })
+        })
+        .then(res => {
+          console.log('res=', res);
+
+          if (res.status === 201) {
+            console.log('uploadedFile created:)');
+          }
+          console.log('res.ok', res.ok);
+
+          if (res.ok) {
+            console.log('post succeeded');
+          }
+
+          return res.json()
+        })
+        .then(
+          (result) => {
+            console.log("fetch btnFetchuploadedFile= ", result);
+            this.setState({ urlimg: result })
+
+          },
+          (error) => {
+            console.log("err post=", error);
+          });
+      console.log('end');
+
+
+      //setSource(newUrl);
     }
 
     else {
@@ -241,44 +315,66 @@ class CCSignin3 extends Component {
       <div>
         <PrimarySearchAppBar />
         <div>
-        <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
-          style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
-        <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
-        <Form style={{ direction: 'rtl' }}>
-          <Form.Item >
-            <p className='labels' >התמונה שלי  </p>
-            <div className='rowC'>
-              {this.state.selectedFile !== null ? <ReactRoundedImage
-                image={this.state.selectedFile}
-                roundedColor="#96a2aa"
-                imageWidth="80"
-                imageHeight="80"
-                roundedSize="15"
+          <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
+            style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
+          <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
+          <Form style={{ direction: 'rtl' }}>
+            <Form.Item >
+              <p className='labels' >התמונה שלי  </p>
+              <div className='rowC'>
+                {/* <img src={this.state.imgURL} alt="Logo" /> */}
+                {this.state.imgURL !== null ? <ReactRoundedImage
+                  image={this.state.imgURL}
 
-              /> :
-                <AddAPhotoIcon style={{ fontSize: 40, color: "#3D3D3D", marginLeft: 20 }}></AddAPhotoIcon>}
+                  roundedColor="#96a2aa"
+                  imageWidth="80"
+                  imageHeight="80"
+                  roundedSize="15"
 
-              <input
-                type="file"
-                style={{ display: 'none' }}
-                onChange={this.btnFile}
-                ref={fileInput => this.fileInput = fileInput} />
-              <Button variant="contained"
+                /> :
+                  <div>
+                    <input
+                      accept="image/*"
+
+                      id="icon-button-file"
+                      type="file"
+                      capture="environment"
+                      hidden
+                      onChange={this.btnFile} ref={fileInput => this.fileInput = fileInput}
+                    />
+                    <label htmlFor="icon-button-file">
+                      <IconButton
+                        color="primary"
+                        aria-label="upload picture"
+                        component="span"
+                      >
+                        <AddAPhotoIcon style={{ fontSize: 40, color: "#3D3D3D", marginLeft: 20 }} />
+
+                      </IconButton>
+                    </label></div>}
+
+
+                {/* // <input
+              //   type="file"
+              //   style={{ display: 'none' }}
+              //   onChange={this.btnFile}
+              //   ref={fileInput => this.fileInput = fileInput} /> */}
+                {/* <Button variant="contained"
                 style={{ height: 30, backgroundColor: "#FAE8BE", fontSize: 11, borderRadius: 20, fontFamily: "Segoe UI" }}
-                onClick={() => this.fileInput.click()}> בחירת תמונה</Button>
-            </div>
-          </Form.Item>
-          <Form.Item>
-            <div className='rowC'>
-              <p className='labels'> מגדר </p>
-              <Radio.Group onChange={this.chgGender}>
-                <Radio value="female">אישה</Radio>
-                <Radio value="male">גבר</Radio>
-                <Radio value="other">אחר</Radio>
-              </Radio.Group>
-            </div>
-          </Form.Item>
-          {/* 
+                onClick={() => this.fileInput.click()}> בחירת תמונה</Button> */}
+              </div>
+            </Form.Item>
+            <Form.Item>
+              <div className='rowC'>
+                <p className='labels'> מגדר </p>
+                <Radio.Group onChange={this.chgGender}>
+                  <Radio value="female">אישה</Radio>
+                  <Radio value="male">גבר</Radio>
+                  <Radio value="other">אחר</Radio>
+                </Radio.Group>
+              </div>
+            </Form.Item>
+            {/* 
           <Form.Item>
           <p className='labels'>תאריך לידה </p>
             <DatePicker required placeholder="בחר תאריך" onChange={this.chgBirthDate}
@@ -286,58 +382,59 @@ class CCSignin3 extends Component {
             <div style={{ color: "#de0d1b" }}>{this.state.errors.birthDate}</div>
           </Form.Item> */}
 
-          <Form.Item required>
-            <p className='labels'> עיר קבע </p>
-            <Select style={{ width: 200 }} placeholder="בחר עיר"
-              onChange={this.chgCity}
-              onFocus={() => { this.setState({ errors: {} }) }}
-            >
-              <Select.Option value="choose"> בחר עיר</Select.Option>
-              {citiesList.map((city) => (
-                <Select.Option key={city.Id} value={city.Name}>{city.Name}</Select.Option>
-              ))}
-            </Select>
-            <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
-          </Form.Item>
+            <Form.Item required>
+              <p className='labels'> עיר קבע </p>
+              <Select style={{ width: 200 }} placeholder="בחר עיר"
+                onChange={this.chgCity}
+                onFocus={() => { this.setState({ errors: {} }) }}
+                value={this.state.city!=null?this.state.city.Name:"choose"}
+              >
+                <Select.Option value="choose"> בחר עיר</Select.Option>
+                {citiesList.map((city) => (
+                  <Select.Option key={city.Id} value={city.Name}>{city.Name}</Select.Option>
+                ))}
+              </Select>
+              <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
+            </Form.Item>
 
-          <Form.Item required>
-            <p className='labels'> מקום מגורים נוכחי </p>
-            <Select style={{ width: 200 }} placeholder="בחר עיר"
-              onChange={this.chgCurrentCity}
-              onFocus={() => { this.setState({ errors: {} }) }}
+            <Form.Item required>
+              <p className='labels'> מקום מגורים נוכחי </p>
+              <Select style={{ width: 200 }} placeholder="בחר עיר"
+                onChange={this.chgCurrentCity}
+                onFocus={() => { this.setState({ errors: {} }) }}
+                value={this.state.currentCity!=null?this.state.currentCity.Name:"choose"}
+              >
+                <Select.Option value="choose"> בחר עיר</Select.Option>
+                {citiesList.map((city) => (
+                  <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
+                ))}
+              </Select>
+              <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
+            </Form.Item>
 
-            >
-              <Select.Option value="choose"> בחר עיר</Select.Option>
-              {citiesList.map((city) => (
-                <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
-              ))}
-            </Select>
-            <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
-          </Form.Item>
-
-          <Form.Item>
-            <p className='labels'> סטטוס </p>
-            <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
-              <Select.Option value="בחר">בחר</Select.Option>
-              <Select.Option value="רווק/ה">רווק/ה</Select.Option>
-              <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
-              <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
-              <Select.Option value="אלמן/ה">אלמן/ה</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item>
-          <p className='labels'> מעוניין בנסיעות משותפות </p>
-            <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
-            <Checkbox onChange={this.chgNoCarpoolCBX}> לא </Checkbox>
-            <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div>
-          </Form.Item>
-          <Form.Item>
-            <Button variant="contained"
-              style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-              onClick={this.btnNext}> הבא </Button>
-          </Form.Item>
-        </Form>
-      </div >
+            <Form.Item>
+              <p className='labels'> סטטוס </p>
+              <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
+                <Select.Option value="בחר">בחר</Select.Option>
+                <Select.Option value="רווק/ה">רווק/ה</Select.Option>
+                <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
+                <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
+                <Select.Option value="אלמן/ה">אלמן/ה</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <p className='labels'> מעוניין בנסיעות משותפות </p>
+              <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
+              <Checkbox onChange={this.chgNoCarpoolCBX}> לא </Checkbox>
+              <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div>
+            </Form.Item>
+            <Form.Item>
+              <Button variant="contained"
+                style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+                onClick={this.btnNext}> הבא </Button>
+            </Form.Item>
+          </Form>
+        </div >
       </div>
 
     )
