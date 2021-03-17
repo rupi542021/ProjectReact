@@ -97,7 +97,7 @@ return (
     <CardMedia
       onClick={chooseUser}
       className={classes.cover}
-      image="/images/images (3).jfif"
+      image={props.photo}
       title="Live from space album cover"
     />
     <div className={classes.details} style={{ width: "50vw" }} onClick={chooseUser}>

@@ -20,16 +20,21 @@ class CCeditp extends Component {
       switchChecked: false,
       comeWithCar: false,
       errors: {},
+      imgURL: null,
+      selectedFile:null
     }
 
   }
 
   componentDidMount = () => {
     console.log("start of componentDidMount");
+    
     console.log("cities list before:", citiesList);
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
+    this.setState({imgURL:"http://127.0.0.1:8887/"+studOBJ.Photo})
+    console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
       isAvailableCar = false;
@@ -78,15 +83,84 @@ class CCeditp extends Component {
 
   }
 
+  // btnFile = (event) => {
+  //   console.log(event.target.files[0]);
+
+  //   if (event.target.value.length > 0) {
+  //     this.state.studOBJ.Photo = event.target.files[0].name
+  //   }
+
+  //   else {
+  //     this.state.studOBJ.Photo = null;
+  //   }
+
+  // }
+
   btnFile = (event) => {
     console.log(event.target.files[0]);
-
+    var data = new FormData();
     if (event.target.value.length > 0) {
-      this.state.studOBJ.Photo = event.target.files[0].name
+
+      let studOBJ = localStorage.getItem('student');
+      studOBJ = JSON.parse(studOBJ);
+
+      //this.setState({ selectedFile: event.target.files[0].name });
+      const file = event.target.files[0];
+      console.log(file);
+      const newUrl = URL.createObjectURL(file);
+      console.log(newUrl);
+      this.setState({ imgURL: newUrl })
+      //this.state.studOBJ.Photo=newUrl;
+
+
+      data.append("UploadedImage", file);
+      data.append("name", studOBJ.Mail);
+
+      console.log("in post img function");
+      this.apiUrl = 'https://localhost:44325/api/students/uploadedFiles'
+      fetch(this.apiUrl,
+        {
+          method: 'POST',
+          body: data,
+          // headers: new Headers({
+          //   // 'Content-Type': 'application/json; charset=UTF-8',
+          //   // 'Accept': 'application/json; charset=UTF-8'
+          // })
+        })
+        .then(res => {
+          console.log('res=', res);
+
+          if (res.status === 201) {
+            console.log('uploadedFile created:)');
+          }
+          console.log('res.ok', res.ok);
+
+          if (res.ok) {
+            console.log('post succeeded');
+          }
+
+          return res.json()
+        })
+        .then(
+          (result) => {
+            console.log("fetch btnFetchuploadedFile= ", result);
+            let imgNameInServer=result.split('\\').pop();
+            console.log(imgNameInServer);
+            this.setState({ urlimg: result,selectedFile:imgNameInServer })
+            this.state.studOBJ.Photo=imgNameInServer;
+
+          },
+          (error) => {
+            console.log("err post=", error);
+          });
+      console.log('end');
+
+
+      //setSource(newUrl);
     }
 
     else {
-      this.state.studOBJ.Photo = null;
+      this.setState({ selectedFile: null })
     }
 
   }
@@ -149,13 +223,14 @@ class CCeditp extends Component {
     console.log("errors", this.state.errors);
     this.setState({ errors: this.state.errors }, () => {
       console.log("errors after change", this.state.errors);
-      if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose") {
+      //if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose"&&this.state.selectedFile!==null) {
         let updatedProfile = this.state.studOBJ;
         //updatedProfile = JSON.stringify(updatedProfile);
         localStorage.setItem('student', JSON.stringify(updatedProfile));
         console.log("updated profile: ", updatedProfile);
         this.updateInDB(updatedProfile);
-      }
+        this.props.history.push("/userProfile");
+      //}
     })
 
   }
@@ -203,7 +278,7 @@ class CCeditp extends Component {
             <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
 
             <ReactRoundedImage
-              image={this.state.studOBJ !== {} ? this.state.studOBJ.PhotoURL : ''}
+              image={this.state.studOBJ !== {} ? this.state.imgURL : ''}
               roundedColor="#96a2aa"
               imageWidth="80"
               imageHeight="80"

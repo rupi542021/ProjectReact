@@ -176,7 +176,7 @@ class CCSignin3 extends Component {
           studOBJ.AddressStudying = this.state.currentCity;
           studOBJ.PersonalStatus = this.state.status;
           studOBJ.Photo = this.state.selectedFile;
-          studOBJ.PhotoURL=this.state.imgURL;
+          studOBJ.PhotoURL=this.state.selectedFile;
           studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
           console.log("student details: ", studOBJ);
           localStorage.setItem('student', JSON.stringify(studOBJ));
@@ -233,7 +233,7 @@ class CCSignin3 extends Component {
 
       //this.setState({ selectedFile: event.target.files[0].name });
       const file = event.target.files[0];
-
+      console.log(file);
       const newUrl = URL.createObjectURL(file);
       console.log(newUrl);
       this.setState({ imgURL: newUrl })

@@ -24,8 +24,6 @@ class CCUserProfile extends Component {
   componentDidMount() {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    console.log(studOBJ.PhotoURL);
-    this.setState({studImg:studOBJ.PhotoURL});
     let arr = studOBJ.DateOfBirth.split("T");
     var getAge = require('get-age')
     let age = getAge(arr[0])
@@ -48,13 +46,12 @@ class CCUserProfile extends Component {
         break;
     }
     localStorage.setItem('student', JSON.stringify(studOBJ));
-    //this.props.history.push("/hobbies");
     console.log("studOBJ2post", studOBJ);
     this.setState({
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
-      stutsYear:studOBJ.StudyingYear
+      stutsYear:studOBJ.StudyingYear,studPhoto:"http://127.0.0.1:8887/"+studOBJ.Photo
     })
     console.log(this.state.studImg);
 
@@ -84,7 +81,7 @@ class CCUserProfile extends Component {
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
 <ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}
-                  image={this.state.studImg}
+                  image={this.state.studPhoto}
 
                   roundedColor="#3D3D3D"
                   imageWidth="115"

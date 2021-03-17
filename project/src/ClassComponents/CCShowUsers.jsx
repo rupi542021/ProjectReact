@@ -18,6 +18,7 @@ const ScrollBarPage = () => {
 
 const filterByList = ["המחלקה שלי", "המחזור שלי","הישוב שלי"]
 const studArr = [];
+const imgARR = [];
 class CCShowUsers extends Component {
     constructor(props) {
         super(props);
@@ -29,9 +30,7 @@ class CCShowUsers extends Component {
             userHomeTown:"",
             text:"",
             loading:false,
-            userFriendslist: []
-
-
+            userFriendslist: [],
 
         }
     }
@@ -87,10 +86,11 @@ class CCShowUsers extends Component {
                         }
                         let stud = { Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
                              DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
-                              Photo: s.Photo, AddressStudying: s.AddressStudying,PersonalStatus:s.PersonalStatus,
-                              Plist:s.Plist,Hlist:s.Hlist }
+                               AddressStudying: s.AddressStudying,PersonalStatus:s.PersonalStatus,
+                              Plist:s.Plist,Hlist:s.Hlist,Photo:s.Photo==""?"images/avatar.jpg":"http://127.0.0.1:8887/"+s.Photo }
                         studArr.push(stud);
                     });
+
                     console.log(studArr);
                     this.setState({ studentstArr: studArr });
                     this.setState({loading:false})
@@ -204,12 +204,23 @@ class CCShowUsers extends Component {
                         <Grid item xs={12}>
                             <PerfectScrollbar>
                                 <Grid container justify="center" spacing={1}>
-                                    {this.state.studentstArr.map((s, index) => (
+                                {this.state.isFavorite!=null?this.state.studentstArr.map((s,index)=>(
+
                                         <Grid key={index} item>
-                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
-                                            isFavorite={this.state.userFriendslist.some((s1) => s1.Mail === s.Mail)} userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
+                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
+                                            photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
+                                            isFavorite={this.state.userFriendslist.some((s1) => s1.Mail === s.Mail)} 
+                                            userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                                         </Grid>
-                                    ))}
+                                    )):
+                                    this.state.studentstArr.map((s,index)=>(
+                                    <Grid key={index} item>
+                                    <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
+                                    photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
+                                   
+                                    userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
+                                </Grid>))
+                                }
                                 </Grid>
                             </PerfectScrollbar>
                         </Grid>
