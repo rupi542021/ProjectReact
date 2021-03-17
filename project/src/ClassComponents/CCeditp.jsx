@@ -203,11 +203,11 @@ class CCeditp extends Component {
             <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
 
             <ReactRoundedImage
-              image={this.state.studOBJ !== {} ? this.state.studOBJ.Photo : ''}
+              image={this.state.studOBJ !== {} ? this.state.studOBJ.PhotoURL : ''}
               roundedColor="#96a2aa"
               imageWidth="80"
               imageHeight="80"
-              roundedSize="15" />
+              roundedSize="5" />
             <i class="bi bi-pencil-fill"
             onClick={() => this.fileInput.click()}
               style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 170,marginTop: 50 }}></i>

@@ -15,6 +15,7 @@ import '../style.css';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { IconButton } from '@material-ui/core';
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
+import { SplitButton } from 'react-bootstrap';
 
 const citiesList = [];
 
@@ -175,6 +176,7 @@ class CCSignin3 extends Component {
           studOBJ.AddressStudying = this.state.currentCity;
           studOBJ.PersonalStatus = this.state.status;
           studOBJ.Photo = this.state.selectedFile;
+          studOBJ.PhotoURL=this.state.imgURL;
           studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
           console.log("student details: ", studOBJ);
           localStorage.setItem('student', JSON.stringify(studOBJ));
@@ -229,7 +231,7 @@ class CCSignin3 extends Component {
       let studOBJ = localStorage.getItem('student');
       studOBJ = JSON.parse(studOBJ);
 
-      this.setState({ selectedFile: event.target.files[0].name });
+      //this.setState({ selectedFile: event.target.files[0].name });
       const file = event.target.files[0];
 
       const newUrl = URL.createObjectURL(file);
@@ -268,7 +270,9 @@ class CCSignin3 extends Component {
         .then(
           (result) => {
             console.log("fetch btnFetchuploadedFile= ", result);
-            this.setState({ urlimg: result })
+            let imgNameInServer=result.split('\\').pop();
+            console.log(imgNameInServer);
+            this.setState({ urlimg: result,selectedFile:imgNameInServer })
 
           },
           (error) => {
