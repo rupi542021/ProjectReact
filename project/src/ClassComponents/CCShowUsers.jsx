@@ -205,22 +205,23 @@ class CCShowUsers extends Component {
                         <Grid item xs={12}>
                             <PerfectScrollbar>
                                 <Grid container justify="center" spacing={1}>
-                                {this.state.isFavorite!=null?this.state.studentstArr.map((s,index)=>(
+                                {this.state.studentstArr.map((s,index)=>(
 
                                         <Grid key={index} item>
                                             <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
                                             photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
-                                            isFavorite={this.state.userFriendslist.some((s1) => s1.Mail === s.Mail)} 
+                                            isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1.Mail === s.Mail) : false} 
                                             userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                                         </Grid>
-                                    )):
-                                    this.state.studentstArr.map((s,index)=>(
-                                    <Grid key={index} item>
-                                    <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
-                                    photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
+                                    ))
+                                    // :
+                                //     this.state.studentstArr.map((s,index)=>(
+                                //     <Grid key={index} item>
+                                //     <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
+                                //     photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
                                    
-                                    userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
-                                </Grid>))
+                                //     userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
+                                // </Grid>))
                                 }
                                 </Grid>
                             </PerfectScrollbar>
