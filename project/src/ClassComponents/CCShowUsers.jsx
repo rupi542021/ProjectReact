@@ -31,6 +31,7 @@ class CCShowUsers extends Component {
             text:"",
             loading:false,
             userFriendslist: [],
+            
 
         }
     }

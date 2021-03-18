@@ -5,6 +5,7 @@ import ReactRoundedImage from "react-rounded-image";
 import Grid from '@material-ui/core/Grid';
 import '../style.css';
 import { Circle,Rectangle} from 'react-shapes';
+import axios from 'axios';
 
 
 
@@ -16,12 +17,15 @@ class CCUserProfile extends Component {
       studAge: "",
       studPList: [],
       studHList: [],
-      studImg:""
+      studImg:"",
+      source: null
 
 
     }
   }
   componentDidMount() {
+
+
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
     let arr = studOBJ.DateOfBirth.split("T");
@@ -55,6 +59,51 @@ class CCUserProfile extends Component {
     })
     console.log(this.state.studImg);
 
+
+
+
+
+      // axios
+      // .get(
+      //   'https://localhost:44325/API/students/'+studOBJ.Photo+'/photos',
+      //   { responseType: 'arraybuffer' },
+      // )
+      // .then(response => {
+      //   const base64 = btoa(
+      //     new Uint8Array(response.data).reduce(
+      //       (data, byte) => data + String.fromCharCode(byte),
+      //       '',
+      //     ),
+      //   );
+      //   let objectURL = 'data:image/jpeg;base64,'+window.btoa(base64);
+      //   //let imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      //   this.setState({ source: objectURL });
+      //   console.log(objectURL)
+      // });
+
+        fetch('https://localhost:44325/API/students/'+studOBJ.Photo+'/photos').then(r => r.blob()).then(blob => {
+          const newUrl = URL.createObjectURL(blob);  
+          console.log(newUrl)
+        this.setState({
+            source: newUrl
+           });
+
+      //     var reader = new FileReader();
+      //     var b64 =null;
+      //     reader.onload = function() {
+      //          b64 = reader.result.replace(/^data:.+;base64,/, '');
+ 
+      //     };
+      //     this.setState({
+      //       source: b64
+      //      });
+      //     console.log(b64)
+      //     reader.readAsDataURL(blob);
+      //     const newUrl = URL.createObjectURL(blob);
+      // console.log(newUrl);
+        });
+      
+
   }
 
   handleEditProfile = () =>
@@ -71,9 +120,11 @@ class CCUserProfile extends Component {
         <PrimarySearchAppBar />
         <div style={{ direction: 'rtl' }}  >
        
-        <i class="bi bi-pencil-fill" 
+        <i className="bi bi-pencil-fill" 
         style={{marginRight:5, position:'absolute',color: '#3D3D3D', fontSize: 24}} 
         onClick={this.handleEditProfile} ></i>
+
+
 
         <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 30, marginRight: 20 }}>
             <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
@@ -100,7 +151,11 @@ class CCUserProfile extends Component {
             <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
 
             {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p> : ""}
-        
+
+
+            <img height='20' width='20' src={this.state.source} alt="Logo" />
+
+
         <Grid container>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2} >
