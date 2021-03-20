@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ReactRoundedImage from "react-rounded-image";
-import { Form, Select, Radio } from 'antd';
+import {Select, Radio } from 'antd';
 import Button from '@material-ui/core/Button';
 import 'antd/dist/antd.css';
 import '../style.css';
 import Switch from "react-switch";
-import FormItem from 'antd/lib/form/FormItem';
 
 const citiesList = [];
 
@@ -21,19 +20,19 @@ class CCeditp extends Component {
       comeWithCar: false,
       errors: {},
       imgURL: null,
-      selectedFile:null
+      selectedFile: null
     }
 
   }
 
   componentDidMount = () => {
     console.log("start of componentDidMount");
-    
+
     console.log("cities list before:", citiesList);
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({imgURL:"http://127.0.0.1:8887/"+studOBJ.Photo})
+    this.setState({ imgURL: "http://127.0.0.1:8887/" + studOBJ.Photo })
     console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
@@ -144,10 +143,10 @@ class CCeditp extends Component {
         .then(
           (result) => {
             console.log("fetch btnFetchuploadedFile= ", result);
-            let imgNameInServer=result.split('\\').pop();
+            let imgNameInServer = result.split('\\').pop();
             console.log(imgNameInServer);
-            this.setState({ urlimg: result,selectedFile:imgNameInServer })
-            this.state.studOBJ.Photo=imgNameInServer;
+            this.setState({ urlimg: result, selectedFile: imgNameInServer })
+            this.state.studOBJ.Photo = imgNameInServer;
 
           },
           (error) => {
@@ -224,12 +223,12 @@ class CCeditp extends Component {
     this.setState({ errors: this.state.errors }, () => {
       console.log("errors after change", this.state.errors);
       //if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose"&&this.state.selectedFile!==null) {
-        let updatedProfile = this.state.studOBJ;
-        //updatedProfile = JSON.stringify(updatedProfile);
-        localStorage.setItem('student', JSON.stringify(updatedProfile));
-        console.log("updated profile: ", updatedProfile);
-        this.updateInDB(updatedProfile);
-        this.props.history.push("/userProfile");
+      let updatedProfile = this.state.studOBJ;
+      //updatedProfile = JSON.stringify(updatedProfile);
+      localStorage.setItem('student', JSON.stringify(updatedProfile));
+      console.log("updated profile: ", updatedProfile);
+      this.updateInDB(updatedProfile);
+      this.props.history.push("/userProfile");
       //}
     })
 
@@ -272,9 +271,9 @@ class CCeditp extends Component {
       <div>
         <PrimarySearchAppBar />
         <div className='container' style={{ direction: 'rtl' }}>
-        <h4 style={{fontSize:'6vw',marginTop:'2vw'}}>עריכת פרופיל</h4>
+          <h4 style={{ fontSize: '6vw', marginTop: '2vw' }}>עריכת פרופיל</h4>
           <div className='rowC' style={{ marginTop: 10 }}>
-            
+
             <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
 
             <ReactRoundedImage
@@ -284,8 +283,8 @@ class CCeditp extends Component {
               imageHeight="80"
               roundedSize="5" />
             <i class="bi bi-pencil-fill"
-            onClick={() => this.fileInput.click()}
-              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 170,marginTop: 50 }}></i>
+              onClick={() => this.fileInput.click()}
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 170, marginTop: 50 }}></i>
           </div>
 
           <input
@@ -293,10 +292,10 @@ class CCeditp extends Component {
             style={{ display: 'none' }}
             onChange={this.btnFile}
             ref={fileInput => this.fileInput = fileInput} />
-         
+
         </div>
 
-        <div className='rowC' style={{ direction: 'rtl',marginTop: 10 }}>
+        <div className='rowC' style={{ direction: 'rtl', marginTop: 10 }}>
           <p className='labels'> מגדר </p>
           <Radio.Group onChange={this.chgGender} defaultValue={this.state.studOBJ.Gender}>
             <Radio value="female">אישה</Radio>
@@ -351,25 +350,28 @@ class CCeditp extends Component {
             onChange={this.chgSwitchCarpool} checked={this.state.switchChecked} />
         </div>
 
-        <div className='rowC' style={{marginTop:'2vh',marginBottom:'2.5vh'}}>
-<Button variant="contained"
-        color="default"
-        style={{marginRight:20,fontFamily: "Segoe UI"}}
-        onClick={(e) => {
-          this.props.history.push("/editHobbies")
-        }}><i class="bi bi-pencil-fill" style={{marginRight:8}}></i>תחביבים</Button>
+        <div className='rowC' style={{ marginTop: '2vh', marginBottom: '2.5vh' }}>
+          <Button variant="contained"
+            color="default"
+            style={{ marginRight: 20, fontFamily: "Segoe UI" }}
+            onClick={(e) => {
+              this.props.history.push("/editHobbies")
+            }}><i class="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>תחביבים</Button>
 
-<Button variant="contained"
-        color="default"
-        style={{fontFamily: "Segoe UI"}}
-        onClick={() => { this.props.history.push("/editHangouts") }}>
-        <i class="bi bi-pencil-fill" style={{marginRight:8}}></i>מקומות בילוי</Button>
+          <Button variant="contained"
+            color="default"
+            style={{ fontFamily: "Segoe UI" }}
+            onClick={() => { this.props.history.push("/editHangouts") }}>
+            <i class="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>מקומות בילוי</Button>
         </div>
 
         <div>
           <Button variant="contained"
             style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
             onClick={this.btnSave}> שמור </Button>
+              <Button variant="contained" style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+          onClick={() => this.props.history.push("/userprofile")}
+        >הקודם</Button>
         </div>
       </div>
 

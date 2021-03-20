@@ -62,8 +62,12 @@ class CCHangout extends Component {
 
             console.log(HangArr);
             this.setState({hangoutArr: HangArr});
-  }
-      )}
+  },
+  (error) => {
+         console.log("err post=", error);
+       });
+      }
+      
   getData=(ID)=> {
     this.state.hangoutArr[ID].Choose = !this.state.hangoutArr[ID].Choose;
     this.setState({hangoutArr: this.state.hangoutArr});

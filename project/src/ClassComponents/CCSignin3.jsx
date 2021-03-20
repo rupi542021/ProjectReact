@@ -1,7 +1,6 @@
 import React, { Component, StyleSheet } from 'react';
 import { Form, Radio, Select, DatePicker, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
-import CitiesFile from '../CitiesFile';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import Button from '@material-ui/core/Button';
 import { Circle } from 'react-shapes';
@@ -16,6 +15,8 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { IconButton } from '@material-ui/core';
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
 import { SplitButton } from 'react-bootstrap';
+import Switch from "react-switch";
+
 
 const citiesList = [];
 
@@ -30,7 +31,9 @@ class CCSignin3 extends Component {
       city: null,
       currentCity: null,
       status: "",
-      intrestedInCarPool: "",
+     // intrestedInCarPool: "",
+      switchChecked: false,
+      comeWithCar: false,
       input: {
         // gender: "",
         // birthDate: "",
@@ -156,8 +159,8 @@ class CCSignin3 extends Component {
     if (this.validate()) {
 
       let input = {};
-      this.setState({ intrestedInCarPool: this.setIntrestedInCarPool() },
-        () => {
+      // this.setState({ intrestedInCarPool: this.setIntrestedInCarPool() },
+        // () => {
           // input["gender"] = "";
           //  input["birthDate"] = "";
           input["city"] = "";
@@ -177,11 +180,12 @@ class CCSignin3 extends Component {
           studOBJ.PersonalStatus = this.state.status;
           studOBJ.Photo = this.state.selectedFile;
           studOBJ.PhotoURL=this.state.selectedFile;
-          studOBJ.IntrestedInCarPool = this.state.intrestedInCarPool;
+          studOBJ.IsAvailableCar = this.state.comeWithCar;
+          studOBJ.IntrestedInCarPool = this.state.switchChecked;
           console.log("student details: ", studOBJ);
           localStorage.setItem('student', JSON.stringify(studOBJ));
           this.props.history.push("/hangout");
-        });
+        // });
     }
   }
 
@@ -213,15 +217,24 @@ class CCSignin3 extends Component {
     return isValid;
   }
 
-  setIntrestedInCarPool = () => {
-    if (this.state.yes_CBX === true) {
-      return true
-    }
-    else if (this.state.no_CBX === true) {
-      return false
-    }
-    return "";
+  chgSwitchWithCar = (checked) => {
+    console.log("switch with car checked: ", checked);
+    this.setState({ comeWithCar: checked });
   }
+
+  chgSwitchCarpool = (checked) => {
+    console.log("switch checked: ", checked)
+    this.setState({ switchChecked: checked });
+  }
+  // setIntrestedInCarPool = () => {
+  //   if (this.state.yes_CBX === true) {
+  //     return true
+  //   }
+  //   else if (this.state.no_CBX === true) {
+  //     return false
+  //   }
+  //   return "";
+  // }
 
   btnFile = (event) => {
     console.log(event.target.files[0]);
@@ -427,10 +440,22 @@ class CCSignin3 extends Component {
               </Select>
             </Form.Item>
             <Form.Item>
-              <p className='labels'> מעוניין בנסיעות משותפות </p>
+              {/* <p className='labels'> מעוניין בנסיעות משותפות </p>
               <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
               <Checkbox onChange={this.chgNoCarpoolCBX}> לא </Checkbox>
-              <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div>
+              <div style={{ color: "#de0d1b" }}>{this.state.errors.intrestedInCarPool}</div> */}
+               <p className='labels'> מגיע עם רכב </p>
+          <Switch
+            height={20}
+            width={40}
+            onColor='#1b84fb'
+            onChange={this.chgSwitchWithCar} checked={this.state.comeWithCar} />
+          <p className='labels'> מעוניין בנסיעות משותפות </p>
+          <Switch
+            height={20}
+            width={40}
+            onColor='#1b84fb'
+            onChange={this.chgSwitchCarpool} checked={this.state.switchChecked} />
             </Form.Item>
             <Form.Item>
               <Button variant="contained"

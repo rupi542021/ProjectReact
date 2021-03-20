@@ -6,8 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
-import Rotation from 'react-rotation'
-
+import Rotation from 'react-rotation';
+import Swal from 'sweetalert2';
 
 
 class CCHobbies extends Component {
@@ -39,7 +39,7 @@ class CCHobbies extends Component {
           let studHobbies = localStorage.getItem('student');
           studHobbies = JSON.parse(studHobbies);
           studHobbies = studHobbies.Hlist;
-          if(studHobbies !== null){
+          if (studHobbies !== null) {
             let studHobbiesNames = studHobbies.map(h => h.Hname);
             result.forEach(hobby => {
               if (studHobbiesNames.includes(hobby.Hname)) {
@@ -52,38 +52,37 @@ class CCHobbies extends Component {
               }
             });
           }
-          else
-          {
-            result.forEach(hobby => {         
-                let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
-                HobbyArr.push(h);
+          else {
+            result.forEach(hobby => {
+              let h = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon, Choose: false }
+              HobbyArr.push(h);
             });
           }
-       
+
           console.log(HobbyArr);
           this.setState({ hobbiesArr: HobbyArr });
         }
       )
   }
   getData = (ID) => {
-    this.state.hobbiesArr[ID].Choose = ! this.state.hobbiesArr[ID].Choose;
-    this.setState({ hobbiesArr:  this.state.hobbiesArr });
-    console.log( this.state.hobbiesArr)
+    this.state.hobbiesArr[ID].Choose = !this.state.hobbiesArr[ID].Choose;
+    this.setState({ hobbiesArr: this.state.hobbiesArr });
+    console.log(this.state.hobbiesArr)
   }
 
   btnFinished = () => {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
     studOBJ.Hlist = this.state.hobbiesArr.filter(hobby => hobby.Choose);
-    if (studOBJ.Hlist.length > 0) 
-    {
-      let newHlist=[];
+    if (studOBJ.Hlist.length > 0) {
+      let newHlist = [];
       let newHobby;
-      studOBJ.Hlist.forEach(hobby => {newHobby ={Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon};
-      newHlist.push(newHobby);
+      studOBJ.Hlist.forEach(hobby => {
+        newHobby = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon };
+        newHlist.push(newHobby);
       });
       studOBJ.Hlist = newHlist;
-      console.log("New Hlist = " , studOBJ.Hlist);
+      console.log("New Hlist = ", studOBJ.Hlist);
     }
 
     // let arr=studOBJ.DateOfBirth.split("T");
@@ -94,18 +93,17 @@ class CCHobbies extends Component {
     // studOBJ.RegistrationDate = regDay;
     let today = new Date();
     studOBJ.RegistrationDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-   // studOBJ.RegistrationDate = new Date().toLocaleString();
+    // studOBJ.RegistrationDate = new Date().toLocaleString();
 
     localStorage.setItem('student', JSON.stringify(studOBJ));
     //this.props.history.push("/hobbies");
     console.log("studOBJ2post", studOBJ);
     this.postStudent2DB(studOBJ);
-    
+
 
   }
 
-  postStudent2DB = (student) =>
-  {
+  postStudent2DB = (student) => {
     console.log("in post student function");
     this.apiUrl = 'https://localhost:44325/api/students'
     fetch(this.apiUrl,
@@ -127,19 +125,44 @@ class CCHobbies extends Component {
 
         if (res.ok) {
           console.log('post succeeded');
+          Swal.fire({
+            title: 'הפרופיל נוצר בהצלחה',
+            icon: 'success',
+            iconHtml: '',
+            confirmButtonText: 'המשך',
+            showCloseButton: true
+          }).then(() => {
+
+            this.props.history.push("/userProfile");
+
+          });
+        }
+
+        else if (!res.ok) {
+          throw Error('אופס! משהו לא עבד. אנא נסה שנית');
         }
 
         return res.json()
       })
-      .then(
-        (result) => {
-          console.log("fetch btnFetchGetStudents= ", result);
-          this.props.history.push("/userProfile");
-        },
-        (error) => {
-          console.log("err post=", error);
-        });
-    console.log('end');
+      .catch((error) => {
+        console.log("err get=", error.message);
+        Swal.fire({
+              title: error.message,
+              icon: 'error',
+              iconHtml: '',
+              confirmButtonText: 'סגור',
+              showCloseButton: true
+            })
+      })
+    // .then(
+    //   (result) => {
+    //     console.log("fetch btnFetchGetStudents= ", result);
+    //     this.props.history.push("/userProfile");
+    //   },
+    //   (error) => {
+    //     console.log("err post=", error);
+    //   });
+    //console.log('end');
   }
 
   render() {
