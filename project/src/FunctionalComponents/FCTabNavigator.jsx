@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FCTabNavigator() {
+export default function PrimarySearchAppBarcopy() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -139,7 +139,7 @@ export default function FCTabNavigator() {
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>הודעות</p>
+        <p>הודfffffffעות</p>
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
@@ -177,11 +177,10 @@ export default function FCTabNavigator() {
               onClick={handleMobileMenuOpen}
               // color="#3D3D3D"
             >
-              <MoreIcon />
+               <MoreIcon />
             </IconButton>
           </div>
-          <img src="icons/high-five.png" style={{width:30,height:30,marginBottom:15,marginRight:10}}></img>
-          <h4 style={{color:"#3D3D3D"}}>Better Together</h4>
+
  
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

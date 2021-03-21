@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import '../style.css';
 import { Circle,Rectangle} from 'react-shapes';
 import axios from 'axios';
+import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
 
 
@@ -118,7 +119,7 @@ class CCUserProfile extends Component {
 
       <div>
         <PrimarySearchAppBar />
-        <div style={{ direction: 'rtl' }}  >
+        <div style={{ direction: 'rtl',height:'83vh' }}  >
        
         <i className="bi bi-pencil-fill" 
         style={{marginRight:5, position:'absolute',color: '#3D3D3D', fontSize: 24}} 
@@ -197,6 +198,7 @@ class CCUserProfile extends Component {
 
 
         </div>
+        <FCTabNavigator />
       </div>
     )
   }
