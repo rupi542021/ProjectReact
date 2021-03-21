@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FCUserCard(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const percentage = 66;
+  //const percentage = 66;
   const chooseUser = () => {
     props.sendData(props.obj);
   }
@@ -124,7 +124,7 @@ return (
     </div>
 
     <div style={{ marginTop: 30, width: "20vw" }}>
-      <Progress type="circle" percent={percentage} strokeWidth={6} width={40} />
+      <Progress type="circle" percent={props.match} strokeWidth={6} width={40} />
     </div>
     
     <div style={{ width: 40, marginTop: 5 }}>

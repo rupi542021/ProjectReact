@@ -46,7 +46,7 @@ class CCRecommendUsers extends Component {
         console.log(studOBJ.Mail)
         console.log(studOBJ.DepName)
 
-        this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/without';
+        this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
         console.log('GETstart');
         fetch(this.apiUrl,
             {
@@ -85,10 +85,12 @@ class CCRecommendUsers extends Component {
                             default:
                                 break;
                         }
+                        
                         let stud = { Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
                              DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
                                AddressStudying: s.AddressStudying,PersonalStatus:s.PersonalStatus,
-                              Plist:s.Plist,Hlist:s.Hlist,Photo:s.Photo==""?"images/avatar.jpg":"http://127.0.0.1:8887/"+s.Photo }
+                              Plist:s.Plist,Hlist:s.Hlist,Photo:s.Photo==""?"images/avatar.jpg":"http://127.0.0.1:8887/"+s.Photo,
+                            Match:s.Match }
                         studArr.push(stud);
                     });
 
@@ -208,7 +210,7 @@ class CCRecommendUsers extends Component {
                                 {this.state.studentstArr.map((s,index)=>(
 
                                         <Grid key={index} item>
-                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
+                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
                                             photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
                                             isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1.Mail === s.Mail) : false} 
                                             userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
