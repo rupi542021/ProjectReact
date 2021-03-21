@@ -88,28 +88,55 @@ export default function FCUserCard(props) {
         (error) => {
           console.log("err post=", error);
         });
-        console.log('end')
-}
+    console.log('end')
+  }
+
+  const DeleteFromFavorites = () => {
+    console.log("in delete favorite function");
+
+    let sf = {
+      Student1mail: props.userMail,
+      Student2mail: props.id
+    }
+    let apiUrl = 'https://localhost:44325/api/students/DeleteFromFavorites';
+    fetch(apiUrl,
+      {
+        method: 'Delete',
+        body: JSON.stringify(sf),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        console.log('res.ok', res.ok);
+        if (res.ok) {
+          console.log('student was deleted!');
+        }
+      });
+  }
 
 
-return (
-  <Card className={classes.root} style={{ direction: 'rtl', width: "95vw" }}>
-    <CardMedia
-      onClick={chooseUser}
-      className={classes.cover}
-      image={props.photo}
-      title="Live from space album cover"
-    />
-    <div className={classes.details} style={{ width: "50vw" }} onClick={chooseUser}>
-      <CardContent className={classes.content}>
-        <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "6vw" }}>
-          {props.name + "   " + props.studage}
-        </Typography>
-        <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.8vw" }}>
-          {props.depName + " - " + props.year + "'"}
-        </Typography>
-      </CardContent>
-      {/* <div className={classes.controls}>
+  return (
+    <Card className={classes.root} style={{ direction: 'rtl', width: "95vw" }}>
+      <CardMedia
+        onClick={chooseUser}
+        className={classes.cover}
+        image={props.photo}
+        title="Live from space album cover"
+      />
+      <div className={classes.details} style={{ width: "50vw" }} onClick={chooseUser}>
+        <CardContent className={classes.content}>
+          <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "6vw" }}>
+            {props.name + "   " + props.studage}
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.8vw" }}>
+            {props.depName + " - " + props.year + "'"}
+          </Typography>
+        </CardContent>
+        {/* <div className={classes.controls}>
             <IconButton aria-label="previous">
               {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
             </IconButton>
@@ -121,18 +148,18 @@ return (
               {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
             </IconButton>
           </div> */}
-    </div>
+      </div>
 
-    <div style={{ marginTop: 30, width: "20vw" }}>
-      <Progress type="circle" percent={props.match} strokeWidth={6} width={40} />
-    </div>
-    
-    <div style={{ width: 40, marginTop: 5 }}>
-      <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }}></i>
-      {props.isFavorite?
-      (<i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={()=>alert("need delete")}></i>) :
-      (<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={AddToFavorites}></i>) }
-    </div>
-  </Card>
-);
+      <div style={{ marginTop: 30, width: "20vw" }}>
+        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} />
+      </div>
+
+      <div style={{ width: 40, marginTop: 5 }}>
+        <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }}></i>
+        {props.isFavorite ?
+          (<i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={DeleteFromFavorites}></i>) :
+          (<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={AddToFavorites}></i>)}
+      </div>
+    </Card>
+  );
 }
