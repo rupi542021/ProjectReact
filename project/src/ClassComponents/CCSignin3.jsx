@@ -351,7 +351,7 @@ class CCSignin3 extends Component {
             style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
           <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
           <Form style={{ direction: 'rtl' }}>
-            <Form.Item style={{ marginBottom: 8, width: '100%' }}>
+            <Form.Item style={{ marginBottom: 0, width: '100%' }}>
               <p className='labels' >התמונה שלי  </p>
               <div className='rowC'>
                 {/* <img src={this.state.imgURL} alt="Logo" /> */}
@@ -361,7 +361,7 @@ class CCSignin3 extends Component {
                   roundedColor="#96a2aa"
                   imageWidth="80"
                   imageHeight="80"
-                  roundedSize="15"
+                  roundedSize="5"
 
                 /> :
                   <div>
@@ -380,7 +380,7 @@ class CCSignin3 extends Component {
                         aria-label="upload picture"
                         component="span"
                       >
-                        <AddAPhotoIcon style={{ fontSize: 40, color: "#3D3D3D", marginLeft: 20 }} />
+                        <AddAPhotoIcon style={{ fontSize: 35, color: "#3D3D3D" }} />
 
                       </IconButton>
                     </label></div>}
@@ -396,7 +396,7 @@ class CCSignin3 extends Component {
                 onClick={() => this.fileInput.click()}> בחירת תמונה</Button> */}
               </div>
             </Form.Item>
-            <Form.Item style={{ marginBottom: 30, width: '100%' }}>
+            <Form.Item style={{ marginBottom: 10, width: '100%' }}>
               {/* <div className='rowC'> */}
               <p className='labels' style={{ marginBottom: 10 }}> מגדר </p>
               <Radio.Group onChange={this.chgGender}>
@@ -414,8 +414,8 @@ class CCSignin3 extends Component {
             <div style={{ color: "#de0d1b" }}>{this.state.errors.birthDate}</div>
           </Form.Item> */}
 
-            <Form.Item required style={{ marginBottom: 30 }}>
-              <p className='labels' style={{ marginBottom: 10 }}> עיר קבע </p>
+            <Form.Item required style={{ marginBottom: 10 }}>
+              <p className='labels' style={{ marginBottom: 2 }}> עיר קבע </p>
               <Autocomplete
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
@@ -440,8 +440,8 @@ class CCSignin3 extends Component {
               <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
             </Form.Item>
 
-            <Form.Item required style={{ marginBottom: 30 }}>
-              <p className='labels' style={{ marginBottom: 10 }}> מקום מגורים נוכחי </p>
+            <Form.Item required style={{ marginBottom: 10 }}>
+              <p className='labels' style={{ marginBottom: 2 }}> מקום מגורים נוכחי </p>
               <Autocomplete
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
@@ -464,7 +464,7 @@ class CCSignin3 extends Component {
               <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
             </Form.Item>
 
-            <Form.Item style={{ marginBottom: 12 }}>
+            <Form.Item style={{ marginBottom: 10 }}>
               <p className='labels'> סטטוס </p>
               <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
                 <Select.Option value="בחר">בחר</Select.Option>
@@ -473,7 +473,7 @@ class CCSignin3 extends Component {
                 <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item>
+            <Form.Item style={{ marginBottom: 2 }}>
               {/* <p className='labels'> מעוניין בנסיעות משותפות </p>
               <Checkbox onChange={this.chgYesCarpoolCBX}> כן </Checkbox>
               <Checkbox onChange={this.chgNoCarpoolCBX}> לא </Checkbox>
