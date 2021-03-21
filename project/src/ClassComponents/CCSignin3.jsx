@@ -436,7 +436,6 @@ class CCSignin3 extends Component {
                 <Select.Option value="רווק/ה">רווק/ה</Select.Option>
                 <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
                 <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
-                <Select.Option value="אלמן/ה">אלמן/ה</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item>

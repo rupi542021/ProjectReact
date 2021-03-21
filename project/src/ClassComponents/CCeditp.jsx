@@ -18,7 +18,6 @@ class CCeditp extends Component {
       studOBJ: {},
       switchChecked: false,
       comeWithCar: false,
-      errors: {},
       imgURL: null,
       selectedFile: null
     }
@@ -174,10 +173,6 @@ class CCeditp extends Component {
     if (city !== "choose") {
       let CityD = citiesList.find(s => s.Name === city);
       this.state.studOBJ.HomeTown = CityD;
-      this.state.errors["city"] = "";
-    }
-    else {
-      this.state.errors["city"] = " שדה זה הינו חובה ";
     }
   }
 
@@ -185,10 +180,6 @@ class CCeditp extends Component {
     if (currentCity !== "choose") {
       let currentCityD = citiesList.find(s => s.Name == currentCity)
       this.state.studOBJ.AddressStudying = currentCityD;
-      this.state.errors["currentCity"] = "";
-    }
-    else {
-      this.state.errors["currentCity"] = " שדה זה הינו חובה ";
     }
   }
 
@@ -219,19 +210,12 @@ class CCeditp extends Component {
   }
 
   btnSave = () => {
-    console.log("errors", this.state.errors);
-    this.setState({ errors: this.state.errors }, () => {
-      console.log("errors after change", this.state.errors);
       //if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose"&&this.state.selectedFile!==null) {
       let updatedProfile = this.state.studOBJ;
-      //updatedProfile = JSON.stringify(updatedProfile);
       localStorage.setItem('student', JSON.stringify(updatedProfile));
       console.log("updated profile: ", updatedProfile);
       this.updateInDB(updatedProfile);
       this.props.history.push("/userProfile");
-      //}
-    })
-
   }
 
   updateInDB = (stud) => {
@@ -313,7 +297,6 @@ class CCeditp extends Component {
               <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
             ))}
           </Select>
-          <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
 
           <p className='labels'> מקום מגורים נוכחי </p>
           <Select style={{ width: 200 }} placeholder={this.state.studOBJ.AddressStudying === undefined ? "" : this.state.studOBJ.AddressStudying.Name}
@@ -324,11 +307,10 @@ class CCeditp extends Component {
               <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
             ))}
           </Select>
-          <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
         </div>
         <div>
           <p className='labels'> סטטוס </p>
-          <Select style={{ width: 200 }} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
+          <Select style={{ width: 200}} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
             <Select.Option value="בחר">בחר</Select.Option>
             <Select.Option value="רווק/ה">רווק/ה</Select.Option>
             <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
