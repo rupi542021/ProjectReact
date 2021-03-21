@@ -138,6 +138,7 @@ class CCSignin1 extends Component {
         <PrimarySearchAppBar />
         <div>
           <div style={{ margin: 10, marginTop: 100 }}>
+          {/* <i class="bi bi-envelope"></i> */}
           <img src='icons/mail.png' alt='' style={{height:80, width:80}}/>
           <h4 style={{ margin: 10}}> הכנס כתובת דוא"ל </h4>
           </div>

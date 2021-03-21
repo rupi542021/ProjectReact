@@ -28,7 +28,7 @@ class CCSignin2 extends Component {
       this.setState({ password: e.target.value, err: "" });
     }
     else {
-      this.setState({ err: "enter a valid password!" })
+      this.setState({ err: "הכתובת שהכנסת אינה תקינה" })
     }
   }
 
@@ -75,11 +75,11 @@ class CCSignin2 extends Component {
           type="password"
           autoComplete="current-password"
           variant="outlined"
-          helperText={this.state.err}
+         // helperText={this.state.err}
           onChange={this.handluserPassword}
         />
         <br />
-
+<div style={{ color: "#de0d1b" }}>{this.state.err}</div>
         <h4 style={{ marginTop: 20 }}>אימות סיסמה</h4>
 
         <TextField
@@ -89,9 +89,11 @@ class CCSignin2 extends Component {
           type="password"
           autoComplete="current-password"
           variant="outlined"
-          helperText={this.state.errConfirm}
+         // helperText={this.state.errConfirm}
           onChange={this.handluserConfirmPassword}
-        /><br />
+        />
+        <div style={{ color: "#de0d1b" }}>{this.state.errConfirm}</div>
+<br />
         <p onClick={this.showUsingTerms} style={{ marginTop: 30, color: "blue" }}>תנאי שימוש</p>
         <Button 
         variant="contained" style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }} 
