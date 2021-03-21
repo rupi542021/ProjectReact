@@ -336,7 +336,7 @@ class CCSignin3 extends Component {
             style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
           <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
           <Form style={{ direction: 'rtl' }}>
-            <Form.Item >
+            <Form.Item style={{ marginBottom:8 }}>
               <p className='labels' >התמונה שלי  </p>
               <div className='rowC'>
                 {/* <img src={this.state.imgURL} alt="Logo" /> */}
@@ -381,7 +381,7 @@ class CCSignin3 extends Component {
                 onClick={() => this.fileInput.click()}> בחירת תמונה</Button> */}
               </div>
             </Form.Item>
-            <Form.Item>
+            <Form.Item style={{ marginBottom:12 }}>
               <div className='rowC'>
                 <p className='labels'> מגדר </p>
                 <Radio.Group onChange={this.chgGender}>
@@ -399,7 +399,7 @@ class CCSignin3 extends Component {
             <div style={{ color: "#de0d1b" }}>{this.state.errors.birthDate}</div>
           </Form.Item> */}
 
-            <Form.Item required>
+            <Form.Item required style={{ marginBottom:12 }}>
               <p className='labels'> עיר קבע </p>
               <Select style={{ width: 200 }} placeholder="בחר עיר"
                 onChange={this.chgCity}
@@ -414,7 +414,7 @@ class CCSignin3 extends Component {
               <div style={{ color: "#de0d1b" }}>{this.state.errors.city}</div>
             </Form.Item>
 
-            <Form.Item required>
+            <Form.Item required style={{ marginBottom:12 }}>
               <p className='labels'> מקום מגורים נוכחי </p>
               <Select style={{ width: 200 }} placeholder="בחר עיר"
                 onChange={this.chgCurrentCity}
@@ -429,7 +429,7 @@ class CCSignin3 extends Component {
               <div style={{ color: "#de0d1b" }}>{this.state.errors.currentCity}</div>
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item style={{ marginBottom:12 }}>
               <p className='labels'> סטטוס </p>
               <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
                 <Select.Option value="בחר">בחר</Select.Option>

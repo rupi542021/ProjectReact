@@ -184,7 +184,7 @@ class CCShowUsers extends Component {
                     /></div>
 
                 {/* <p className='labels'> סנן לפי </p> */}
-                <Select style={{ width: 200 , marginBottom: 10}} placeholder="סנן לפי"
+                <Select style={{ width: 200 , marginBottom: 5}} placeholder="סנן לפי"
                     onChange={this.FilterUsers}>
                     <Select.Option value="choose">כל המשתמשים</Select.Option>
                     {filterByList.map((filterBy) => (
@@ -196,7 +196,7 @@ class CCShowUsers extends Component {
                 
               
                 {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{width:100,height:100,marginTop:'17vh'}}/>  :""}
-      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
+      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "600px"}} >
       
       <div className='userList'>
       <h3 style={{}}>{this.state.text}</h3>
