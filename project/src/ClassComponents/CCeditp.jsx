@@ -349,11 +349,16 @@ class CCeditp extends Component {
 
         <div>
           <Button variant="contained"
-            style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+            style={{ paddingTop: 0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
             onClick={this.btnSave}> שמור </Button>
-              <Button variant="contained" style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-          onClick={() => this.props.history.push("/userprofile")}
-        >הקודם</Button>
+
+
+<Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
+         fontFamily: "Segoe UI",height:35}}
+         onClick={() => this.props.history.push("/userprofile")}
+        > <i class="bi bi-arrow-right-short"
+        style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
+        </Button>
         </div>
       </div>
 

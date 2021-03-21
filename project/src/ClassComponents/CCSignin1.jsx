@@ -137,9 +137,10 @@ class CCSignin1 extends Component {
       <div>
         <PrimarySearchAppBar />
         <div>
-          <div style={{ margin: 10, marginTop: 100 }}>
+          <div style={{ margin: 10, marginTop: 80 }}>
           {/* <i class="bi bi-envelope"></i> */}
-          <img src='icons/mail.png' alt='' style={{height:80, width:80}}/>
+          <i class="bi bi-envelope" style={{ color: '#3D3D3D', fontSize: 72}}></i>
+
           <h4 style={{ margin: 10}}> הכנס כתובת דוא"ל </h4>
           </div>
           <form name="contactform" className="contactform" onSubmit={this.contactSubmit.bind(this)}>
@@ -156,7 +157,8 @@ class CCSignin1 extends Component {
               </fieldset>
             </div>
             <Button variant="contained" onClick={this.logIn} type='submit'
-              style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", marginTop: 20 }}>אימות</Button>
+              style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+              >אימות<i class="bi bi-shield-check" style={{ color: '#3D3D3D', fontSize: 20,marginLeft:5}}></i></Button>
           </form>
         </div>
       </div>

@@ -120,13 +120,18 @@ class CCHangout extends Component {
           </Grid>
         </div>
         <Button variant="contained" 
-        style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-        onClick={this.btnNext}
-        >הבא</Button>
-        <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+        style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
+        fontFamily: "Segoe UI",height:35 }}
+        onClick={this.btnNext}>
+        <i class="bi bi-arrow-left-short"
+        style={{ color: '#3D3D3D', fontSize: 32}}></i>
+        </Button>
+        <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
+         fontFamily: "Segoe UI",height:35}}
         onClick={()=>this.props.history.push("/signin3")}
-        >הקודם</Button>
-
+        > <i class="bi bi-arrow-right-short"
+        style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
+        </Button>
       </div>
     )
   }

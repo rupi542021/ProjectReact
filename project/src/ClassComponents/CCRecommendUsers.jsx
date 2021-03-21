@@ -90,7 +90,7 @@ class CCRecommendUsers extends Component {
                              DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
                                AddressStudying: s.AddressStudying,PersonalStatus:s.PersonalStatus,
                               Plist:s.Plist,Hlist:s.Hlist,Photo:s.Photo==""?"images/avatar.jpg":"http://127.0.0.1:8887/"+s.Photo,
-                            Match:s.Match }
+                            Match:s.Match,Friends:s.Friendslist }
                         studArr.push(stud);
                     });
 

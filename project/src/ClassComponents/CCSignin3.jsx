@@ -457,9 +457,14 @@ class CCSignin3 extends Component {
             onChange={this.chgSwitchCarpool} checked={this.state.switchChecked} />
             </Form.Item>
             <Form.Item>
-              <Button variant="contained"
-                style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-                onClick={this.btnNext}> הבא </Button>
+
+                        <Button variant="contained" 
+        style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
+        fontFamily: "Segoe UI",height:35 }}
+        onClick={this.btnNext}>
+        <i class="bi bi-arrow-left-short"
+        style={{ color: '#3D3D3D', fontSize: 32}}></i>
+        </Button>
             </Form.Item>
           </Form>
         </div >
