@@ -142,7 +142,7 @@ class CCHobbies extends Component {
           throw Error('אופס! משהו לא עבד. אנא נסה שנית');
         }
 
-        return res.json()
+       
       })
       .catch((error) => {
         console.log("err get=", error.message);
