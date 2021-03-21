@@ -46,7 +46,7 @@ class CCShowUsers extends Component {
         console.log(studOBJ.Mail)
         console.log(studOBJ.DepName)
 
-        this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/without';
+        this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
         console.log('GETstart');
         fetch(this.apiUrl,
             {
@@ -88,6 +88,7 @@ class CCShowUsers extends Component {
                         let stud = { Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
                              DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
                                AddressStudying: s.AddressStudying,PersonalStatus:s.PersonalStatus,
+                               Match:s.Match,
                               Plist:s.Plist,Hlist:s.Hlist,Photo:s.Photo==""?"images/avatar.jpg":"http://127.0.0.1:8887/"+s.Photo }
                         studArr.push(stud);
                     });
@@ -196,7 +197,7 @@ class CCShowUsers extends Component {
                 
               
                 {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{width:100,height:100,marginTop:'17vh'}}/>  :""}
-      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "600px"}} >
+      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
       
       <div className='userList'>
       <h3 style={{}}>{this.state.text}</h3>
@@ -208,7 +209,7 @@ class CCShowUsers extends Component {
                                 {this.state.studentstArr.map((s,index)=>(
 
                                         <Grid key={index} item>
-                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
+                                            <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
                                             photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
                                             isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1.Mail === s.Mail) : false} 
                                             userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />

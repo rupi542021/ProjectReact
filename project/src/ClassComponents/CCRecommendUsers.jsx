@@ -198,7 +198,7 @@ class CCRecommendUsers extends Component {
                 
               
                 {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{width:100,height:100,marginTop:'17vh'}}/>  :""}
-      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "600px"}} >
+      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
       
       <div className='userList'>
       <h3 style={{}}>{this.state.text}</h3>
