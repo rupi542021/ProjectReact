@@ -191,14 +191,22 @@ class CCHobbies extends Component {
             </Grid>
           </Grid>
         </div>
-        <Button variant="contained"
-          style={{ paddingTop: 0, marginRight: 10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-          onClick={this.btnFinished}
-        >סיום</Button>
-        <Button variant="contained" style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-          onClick={() => this.props.history.push("/hangout")}
-        >הקודם</Button>
 
+  
+
+<Button variant="contained" 
+        style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
+        fontFamily: "Segoe UI",height:35 }}
+        onClick={this.btnFinished}>
+        <i class="bi bi-check2"
+        style={{ color: '#3D3D3D', fontSize: 26}}></i>
+        </Button>
+        <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
+         fontFamily: "Segoe UI",height:35}}
+         onClick={() => this.props.history.push("/hangout")}
+        > <i class="bi bi-arrow-right-short"
+        style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
+        </Button>
       </div>
     )
   }

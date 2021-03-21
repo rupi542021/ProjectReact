@@ -95,11 +95,14 @@ class CCSignin2 extends Component {
         <div style={{ color: "#de0d1b" }}>{this.state.errConfirm}</div>
 <br />
         <p onClick={this.showUsingTerms} style={{ marginTop: 30, color: "blue" }}>תנאי שימוש</p>
-        <Button 
-        variant="contained" style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }} 
-        onClick={this.btnNext2Confirm}
-        //disabled={this.state.passConfirmed?false:true}
-        >הבא</Button>
+       
+                <Button variant="contained" 
+        style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
+        fontFamily: "Segoe UI",height:35 }}
+        onClick={this.btnNext2Confirm}>
+        <i class="bi bi-arrow-left-short"
+        style={{ color: '#3D3D3D', fontSize: 32}}></i>
+        </Button>
         <br />
         {this.state.password}
       </div>
