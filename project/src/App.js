@@ -16,7 +16,7 @@ import CCeditp from './ClassComponents/CCeditp';
 import CCEditHobbies from './ClassComponents/CCEditHobbies';
 import CCEditHangouts from './ClassComponents/CCEditHangouts';
 import CCUserProfile2 from './ClassComponents/CCUserProfile2';
-
+import CCRecommendUsers from './ClassComponents/CCRecommendUsers';
 
 const names = ["avi", "ben", "char"];
 
@@ -58,6 +58,9 @@ function App() {
         </Route>
         <Route path="/showUsers" >
           <CCShowUsers />
+        </Route>
+        <Route path="/RecommendUsers" >
+          <CCRecommendUsers />
         </Route>
         <Route path="/userProfile2" >
           <CCUserProfile2 />
