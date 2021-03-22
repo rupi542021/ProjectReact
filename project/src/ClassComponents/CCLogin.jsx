@@ -87,7 +87,8 @@ class CCLogin extends Component {
                 icon: 'success',
                 iconHtml: '',
                 confirmButtonText: 'המשך',
-                showCloseButton: true
+                showCloseButton: true,
+                
               }).then(() => {
 
                 this.props.history.push("/userProfile");

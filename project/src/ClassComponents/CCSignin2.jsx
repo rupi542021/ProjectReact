@@ -104,7 +104,7 @@ class CCSignin2 extends Component {
         style={{ color: '#3D3D3D', fontSize: 32}}></i>
         </Button>
         <br />
-        {this.state.password}
+
       </div>
     )
   }

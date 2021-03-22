@@ -12,11 +12,12 @@ import Button from '@material-ui/core/Button';
 import { MDBContainer } from "mdbreact";
 import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
+import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
 const ScrollBarPage = () => {
   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };}
 
-const filterByList = ["המחלקה שלי", "המחזור שלי","הישוב שלי"]
+const filterByList = ["המחלקה שלי", "המחזור שלי","הישוב שלי-מקור","הישוב שלי-נוכחי"]
 const studArr = [];
 const imgARR = [];
 class CCShowUsers extends Component {
@@ -40,7 +41,8 @@ class CCShowUsers extends Component {
         this.setState({loading:true})
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
-        this.setState({ userDep: studOBJ.DepName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown, userMail:studOBJ.Mail,userFriendslist:studOBJ.Friendslist})
+        this.setState({ userDep: studOBJ.Dep.DepartmentName,userYear: studOBJ.StudyingYear ,userHomeTown:studOBJ.HomeTown.Name,
+             userMail:studOBJ.Mail,userAddressS:studOBJ.AddressStudying.Name,userFriendslist:studOBJ.Friendslist})
         
 
         console.log(studOBJ.Mail)
@@ -93,6 +95,8 @@ class CCShowUsers extends Component {
                         studArr.push(stud);
                     });
 
+                    
+
                     console.log(studArr);
                     this.setState({ studentstArr: studArr });
                     this.setState({loading:false})
@@ -108,6 +112,7 @@ class CCShowUsers extends Component {
     }
    
     FilterUsers = (filterBy) => {
+        this.setState({ studentstArr: studArr,text:"" },()=>{
         if (filterBy == "המחלקה שלי") {
             let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
             console.log(filterbydep);
@@ -127,15 +132,23 @@ class CCShowUsers extends Component {
             else
                 this.setState({ studentstArr: [],text:"אין תוצאות בסינון זה"})
         }
-        if (filterBy == "הישוב שלי") {
-            let filterbydep = this.state.studentstArr.filter(s => s.HomeTown == this.state.userHomeTown)
+        if (filterBy == "הישוב שלי-מקור") {
+            let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
             console.log(filterbydep);
             if (filterbydep.length !== 0)
                 this.setState({ studentstArr: filterbydep,text:""})
             else
                 this.setState({ studentstArr: [] ,text:"אין תוצאות בסינון זה"})
         }
-
+        if (filterBy == "הישוב שלי-נוכחי") {
+            let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
+            console.log(filterbydep);
+            if (filterbydep.length !== 0)
+                this.setState({ studentstArr: filterbydep,text:""})
+            else
+                this.setState({ studentstArr: [] ,text:"אין תוצאות בסינון זה"})
+        }
+    });
     }
     getData=(userPicked)=>{
         console.log(userPicked);
@@ -170,7 +183,7 @@ class CCShowUsers extends Component {
 
 
                 <PrimarySearchAppBar />
-<div>
+<div style={{ direction: 'rtl' }}>
                 <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>בוא נמצא חברים חדשים!</h3>
 
                 <p style={{ color: '#3D3D3D', fontSize: 17 }}>גלה את החברים שלומדים איתך, שגרים ליידך </p>
@@ -197,7 +210,7 @@ class CCShowUsers extends Component {
                 
               
                 {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{width:100,height:100,marginTop:'17vh'}}/>  :""}
-      <div className="scrollbar my-5 mx-auto" style={{width: "100vw", maxHeight: "400px"}} >
+      <div className="scrollbar mx-auto" style={{width: "100vw",height:400, maxHeight: "370px",marginTop:20}} >
       
       <div className='userList'>
       <h3 style={{}}>{this.state.text}</h3>
@@ -215,14 +228,7 @@ class CCShowUsers extends Component {
                                             userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                                         </Grid>
                                     ))
-                                    // :
-                                //     this.state.studentstArr.map((s,index)=>(
-                                //     <Grid key={index} item>
-                                //     <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} 
-                                //     photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
-                                   
-                                //     userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
-                                // </Grid>))
+                                  
                                 }
                                 </Grid>
                             </PerfectScrollbar>
@@ -230,7 +236,7 @@ class CCShowUsers extends Component {
                     </Grid>
                 </div>
       </div>
-    
+    <FCTabNavigator/>
             </div>
         )
     }

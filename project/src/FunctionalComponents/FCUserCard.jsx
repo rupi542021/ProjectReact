@@ -6,9 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 
 import { Progress } from 'antd';
@@ -55,7 +52,7 @@ export default function FCUserCard(props) {
   const chooseUser = () => {
     props.sendData(props.obj);
   }
-
+ 
   const AddToFavorites = () => {
     console.log("in post favorite function");
     let sf = {
@@ -151,7 +148,7 @@ export default function FCUserCard(props) {
       </div>
 
       <div style={{ marginTop: 30, width: "20vw" }}>
-        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} />
+        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} strokeColor={props.match>40?"#99e831":"#4a74ff"}/>
       </div>
 
       <div style={{ width: 40, marginTop: 5 }}>

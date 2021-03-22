@@ -1,26 +1,18 @@
 import React, { Component, StyleSheet } from 'react';
-import { Form, Radio, Select, DatePicker, Checkbox } from 'antd';
+import { Form, Radio, Select } from 'antd';
 import 'antd/dist/antd.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import Button from '@material-ui/core/Button';
-import { Circle } from 'react-shapes';
-import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import { Progress } from 'antd';
 import ReactRoundedImage from "react-rounded-image";
 import { withRouter } from 'react-router-dom';
-import FormItem from 'antd/lib/form/FormItem';
-import Rotation from 'react-rotation';
 import '../style.css';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { IconButton } from '@material-ui/core';
-import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
-import { SplitButton } from 'react-bootstrap';
 import Switch from "react-switch";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import '../style.css';
-
-
 
 
 const citiesList = [];
@@ -86,8 +78,9 @@ class CCSignin3 extends Component {
       )
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
+    this.setState({firstName:studOBJ.Fname })
     if (studOBJ.HomeTown != null) {
-      this.setState({ currentCity: studOBJ.AddressStudying, city: studOBJ.HomeTown })
+      this.setState({ currentCity: studOBJ.AddressStudying, city: studOBJ.HomeTown})
     }
 
   }
@@ -101,40 +94,13 @@ class CCSignin3 extends Component {
     });
   }
 
-  // chgBirthDate = (date) => {
-  //   if (date !== "" && date !== null) {
-  //     let bdate = date.format("DD-MM-YYYY")
-  //     console.log("bday:", bdate);
-  //     this.setState({ birthDate: bdate }, () => {
-  //       //let input = {};
-  //       this.state.input["birthDate"] = this.state.birthDate;
-  //     })
-  //   }
-  //   else {
-  //     this.setState({ birthDate: "" }, () => {
-  //       //let input = {};
-  //       this.state.input["birthDate"] = this.state.birthDate;
-  //     })
-  //   }
-  // }
 
   chgCity = (event) => {
     console.log("city:", event.target.innerText);
     this.setState({city:event.target.innerText}, () => {
     this.state.input["city"] = this.state.city;
     })
-    // if (city != "choose") {
-    //   let CityD = citiesList.find(s => s.Name == city)
-    //   console.log("city found:", CityD)
-    //   this.setState({ city: CityD }, () => {
-    //     //let input = {};
-    //     this.state.input["city"] = this.state.city.Name;
-    //   });
-    // }
-    // else {
-    //   this.setState({ city: null })
-    //   this.state.input["city"] = "";
-    // }
+
 
   }
 
@@ -143,19 +109,7 @@ class CCSignin3 extends Component {
     this.setState({currentCity:event.target.innerText},() => {
       this.state.input["currentCity"] = this.state.currentCity;
     })
-    // if (currentCity != "choose") {
-    //   let currentCityD = citiesList.find(s => s.Name == currentCity)
-    //   console.log("CurrentCityhhh:", currentCityD);
-    //   this.setState({ currentCity: currentCityD }, () => {
-    //     //let input = {};
-    //     this.state.input["currentCity"] = this.state.currentCity.Name;
-    //   })
 
-    // }
-    // else {
-    //   this.setState({ currentCity: null })
-    //   this.state.input["currentCity"] = ""
-    // }
   }
 
   chgStatus = (status) => {
@@ -203,22 +157,7 @@ class CCSignin3 extends Component {
     let errors = {};
     let isValid = true;
 
-    // if (input["birthDate"] === "") {
-    //   isValid = false;
-    //   errors["birthDate"] = "שדה זה הינו חובה";
-    // }
-    // if (input["city"] === "" || input["city"] === "choose") {
-    //   isValid = false;
-    //   errors["city"] = "שדה זה הינו חובה";
-    // }
-    // if (input["currentCity"] === "" || input["currentCity"] === "choose") {
-    //   isValid = false;
-    //   errors["currentCity"] = "שדה זה הינו חובה";
-    // }
-    // if (this.state.yes_CBX === this.state.no_CBX && this.state.yes_CBX === true) {
-    //   isValid = false;
-    //   errors["intrestedInCarPool"] = "יש לבחור רק אפשרות אחת"
-    // }
+
     if (input["city"] === "" || input["city"] === undefined) {
       isValid = false;
       errors["city"] = "שדה זה הינו חובה";
@@ -349,13 +288,13 @@ class CCSignin3 extends Component {
         <div>
           <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
             style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
-          <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>יצירת פרופיל חדש!</h4>
+          <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>היי {this.state.firstName}, ספר/י לנו קצת על עצמך</h4>
           <Form style={{ direction: 'rtl' }}>
             <Form.Item style={{ marginBottom: 0, width: '100%' }}>
               <p className='labels' >התמונה שלי  </p>
               <div className='rowC'>
                 {/* <img src={this.state.imgURL} alt="Logo" /> */}
-                {this.state.imgURL !== null ? <ReactRoundedImage
+                {this.state.imgURL !== null ? <div><ReactRoundedImage
                   image={this.state.imgURL}
 
                   roundedColor="#96a2aa"
@@ -363,7 +302,15 @@ class CCSignin3 extends Component {
                   imageHeight="80"
                   roundedSize="5"
 
-                /> :
+                />  <i class="bi bi-pencil-fill"
+                onClick={() => this.fileInput.click()}
+                style={{ color: '#3D3D3D', fontSize: 18, position: 'absolute', zIndex: 15, marginRight: 20, marginTop:-24}}></i>
+            <input
+            type="file"
+            style={{ display: 'none' }}
+            onChange={this.btnFile}
+            ref={fileInput => this.fileInput = fileInput} />
+            </div>:
                   <div>
                     <input
                       accept="image/*"
