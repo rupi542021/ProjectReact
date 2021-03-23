@@ -3,21 +3,12 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import { useHistory } from 'react-router-dom';
 import '../style.css';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import StarIcon from '@material-ui/icons/Star';
+import { Link, withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -83,11 +74,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBarcopy() {
+function FCTabNavigator() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const history = useHistory();
+
+  const toProflie = () =>{ 
+    let path = `userProfile`; 
+    history.push(path);
+  }
+  const toUsers = () =>{ 
+    let path = `showUsers`; 
+    history.push(path);
+  }
  
   return (
     <div className={classes.grow}>
@@ -108,7 +109,7 @@ export default function PrimarySearchAppBarcopy() {
             className={classes.menuButton}
             style={{}}
             size="28px"
-            // color="#3D3D3D"
+            onClick={toUsers}
             aria-label="open drawer"
           >
             <GroupIcon />
@@ -117,8 +118,7 @@ export default function PrimarySearchAppBarcopy() {
             edge="start"
             className={classes.menuButton}
             style={{}}
-            // color="#3D3D3D"
-            aria-label="open drawer"
+            onClick={toProflie}
           >
             <AccountCircleIcon />
           </IconButton>
@@ -128,3 +128,4 @@ export default function PrimarySearchAppBarcopy() {
     </div>
   );
 }
+export default withRouter(FCTabNavigator)
