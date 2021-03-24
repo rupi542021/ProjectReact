@@ -15,155 +15,106 @@ import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
 const ScrollBarPage = () => {
-    const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
+  const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
 }
 
 const filterByList = ["המחלקה שלי", "המחזור שלי", "הישוב שלי-מקור", "הישוב שלי-נוכחי"]
-const studArr = [];
+//const studArr = [];
 const imgARR = [];
 class CCShowUsers extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            studentstArr: studArr,
-            userMail: "",
-            userDep: "",
-            userYear: "",
-            userHomeTown: "",
-            text: "",
-            loading: false,
-            userFriendslist: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      studentstArr: [],
+      userMail: "",
+      userDep: "",
+      userYear: "",
+      userHomeTown: "",
+      text: "",
+      loading: false,
+      userFriendslist: [],
 
-
-        }
-    }
-
-    componentDidMount() {
-        this.setState({ loading: true })
-        let studOBJ = localStorage.getItem('student');
-        studOBJ = JSON.parse(studOBJ);
-        this.setState({
-            userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,
-            userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist
-        })
-
-
-        console.log(studOBJ.Mail)
-        console.log(studOBJ.DepName)
-
-        this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
-        console.log('GETstart');
-        fetch(this.apiUrl,
-            {
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                    'Accept': 'application/json; charset=UTF-8'
-                })
-            })
-            .then((res) => {
-                return res.json();
-            })
-            .then(
-                (result) => {
-                    console.log("fetch GetAllUsers= ", result);
-                    result.forEach(s => {
-                        console.log(s.Mail);
-                        let arr = s.DateOfBirth.split("T");
-                        var getAge = require('get-age')
-                        let age = getAge(arr[0])
-                        let studYear = ""
-                        switch (s.StudyingYear) {
-                            case 1:
-                                studYear = "א"
-                                break;
-                            case 2:
-                                studYear = "ב"
-                                break;
-                            case 3:
-                                studYear = "ג"
-                                break;
-                            case 4:
-                                studYear = "ד"
-                                break;
-
-                            default:
-                                break;
-                        }
-                        let stud = {
-                            Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
-                            DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
-                            AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,
-                            Match: s.Match,
-                            Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : "http://127.0.0.1:8887/" + s.Photo
-                        }
-                        studArr.push(stud);
-                    });
-
-
-
-                    console.log(studArr);
-                    this.setState({ studentstArr: studArr });
-                    this.setState({ loading: false })
-                }
-            )
 
     }
+    this.studArr=[];
   }
 
-        this.setState({ studentstArr: studArr });
-        console.log(studArr)
-    }
+  componentDidMount() {
+    this.setState({ loading: true })
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
+    this.setState({
+      userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,
+      userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist
+    })
 
-    FilterUsers = (filterBy) => {
-        this.setState({ studentstArr: studArr, text: "" }, () => {
-            if (filterBy == "המחלקה שלי") {
-                let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
-                console.log(filterbydep);
-                if (filterbydep.length !== 0)
-                    this.setState({ studentstArr: filterbydep, text: "" })
-                else
-                    this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+    console.log(studOBJ.Mail)
+    console.log(studOBJ.DepName)
+
+    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
+    console.log('GETstart');
+    fetch(this.apiUrl,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then(
+        (result) => {
+          console.log("fetch GetAllUsers= ", result);
+          result.forEach(s => {
+            console.log(s.Mail);
+            let arr = s.DateOfBirth.split("T");
+            var getAge = require('get-age')
+            let age = getAge(arr[0])
+            let studYear = ""
+            switch (s.StudyingYear) {
+              case 1:
+                studYear = "א"
+                break;
+              case 2:
+                studYear = "ב"
+                break;
+              case 3:
+                studYear = "ג"
+                break;
+              case 4:
+                studYear = "ד"
+                break;
+
+              default:
+                break;
             }
-            if (filterBy == "choose") {
-                this.setState({ studentstArr: studArr, text: "" });
+            let stud = {
+              Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
+              DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
+              AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,
+              Match: s.Match,
+              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : "http://127.0.0.1:8887/" + s.Photo
             }
-            if (filterBy == "המחזור שלי") {
-                let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
-                console.log(filterbyclass);
-                if (filterbyclass.length !== 0)
-                    this.setState({ studentstArr: filterbyclass, text: "" })
-                else
-                    this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-            }
-            if (filterBy == "הישוב שלי-מקור") {
-                let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
-                console.log(filterbydep);
-                if (filterbydep.length !== 0)
-                    this.setState({ studentstArr: filterbydep, text: "" })
-                else
-                    this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-            }
-            if (filterBy == "הישוב שלי-נוכחי") {
-                let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
-                console.log(filterbydep);
-                if (filterbydep.length !== 0)
-                    this.setState({ studentstArr: filterbydep, text: "" })
-                else
-                    this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-            }
-        });
-    }
-    getData = (userPicked) => {
-        console.log(userPicked);
-        localStorage.setItem('chooseUser', JSON.stringify(userPicked));
-        this.props.history.push("/userProfile2");
+            //studArr.push(stud);
+            this.state.studentstArr.push(stud);
+          });
+          this.studArr=this.state.studentstArr;
+          console.log('studArr', this.studArr);
+          console.log('studentstArr', this.state.studentstArr);
+          this.setState({ studentstArr: this.state.studentstArr });
+          this.setState({ loading: false });
+        }
+      )
+
+  }
 
   FilterUsers = (filterBy) => {
-    this.setState({ studentstArr: studArr, text: "" }, () => {
-      console.log("studArr in filter funcrion:", studArr);
-      console.log("studentsArr in filter funcrion:", this.state.studArr);
-      if (filterBy == "המחלקה שלי") {
+    console.log('studArr in filter function', this.studArr);
+          console.log('studentstArr in filter function', this.state.studentstArr);
+    this.setState({ studentstArr: this.studArr, text: "" }, () => {
+      if (filterBy === "המחלקה שלי") {
         let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
@@ -171,10 +122,10 @@ class CCShowUsers extends Component {
         else
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
-      if (filterBy == "choose") {
-        this.setState({ studentstArr: studArr, text: "" });
+      if (filterBy === "choose") {
+        this.setState({ studentstArr: this.studArr, text: "" });
       }
-      if (filterBy == "המחזור שלי") {
+      if (filterBy === "המחזור שלי") {
         let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
         console.log(filterbyclass);
         if (filterbyclass.length !== 0)
@@ -182,7 +133,7 @@ class CCShowUsers extends Component {
         else
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
-      if (filterBy == "הישוב שלי-מקור") {
+      if (filterBy === "הישוב שלי-מקור") {
         let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
@@ -190,7 +141,7 @@ class CCShowUsers extends Component {
         else
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
-      if (filterBy == "הישוב שלי-נוכחי") {
+      if (filterBy === "הישוב שלי-נוכחי") {
         let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
@@ -204,98 +155,146 @@ class CCShowUsers extends Component {
     console.log(userPicked);
     localStorage.setItem('chooseUser', JSON.stringify(userPicked));
     this.props.history.push("/userProfile2");
-
   }
-  getFavoriteData = (mailToAdd) => {
-    let studToAdd = {
-      Mail: mailToAdd
+
+    // FilterUsers = (filterBy) => {
+    //   this.setState({ studentstArr: this.studArr, text: "" }, () => {
+    //     console.log("studArr in filter function:", this.studArr);
+    //     console.log("studentsArr in filter function:", this.state.studArr);
+    //     if (filterBy == "המחלקה שלי") {
+    //       let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
+    //       console.log(filterbydep);
+    //       if (filterbydep.length !== 0)
+    //         this.setState({ studentstArr: filterbydep, text: "" })
+    //       else
+    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+    //     }
+    //     if (filterBy == "choose") {
+    //       this.setState({ studentstArr: studArr, text: "" });
+    //     }
+    //     if (filterBy == "המחזור שלי") {
+    //       let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
+    //       console.log(filterbyclass);
+    //       if (filterbyclass.length !== 0)
+    //         this.setState({ studentstArr: filterbyclass, text: "" })
+    //       else
+    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+    //     }
+    //     if (filterBy == "הישוב שלי-מקור") {
+    //       let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
+    //       console.log(filterbydep);
+    //       if (filterbydep.length !== 0)
+    //         this.setState({ studentstArr: filterbydep, text: "" })
+    //       else
+    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+    //     }
+    //     if (filterBy == "הישוב שלי-נוכחי") {
+    //       let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
+    //       console.log(filterbydep);
+    //       if (filterbydep.length !== 0)
+    //         this.setState({ studentstArr: filterbydep, text: "" })
+    //       else
+    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+    //     }
+    //   });
+    // }
+    getData = (userPicked) => {
+      console.log(userPicked);
+      localStorage.setItem('chooseUser', JSON.stringify(userPicked));
+      this.props.history.push("/userProfile2");
+
     }
-    getFavoriteData = (mailToAddOrRemove, action) => {
+    // getFavoriteData = (mailToAdd) => {
+    //   let studToAdd = {
+    //     Mail: mailToAdd
+    //   }
+      getFavoriteData = (mailToAddOrRemove, action) => {
         let studToAddOrRemove = {
-            Mail: mailToAddOrRemove
+          Mail: mailToAddOrRemove
         }
         let newUserFriendslist = this.state.userFriendslist;
         if (action === "add")
-            newUserFriendslist.push(studToAddOrRemove)
+          newUserFriendslist.push(studToAddOrRemove)
         else if (action === "remove")
-            newUserFriendslist = newUserFriendslist.filter((s) => s.Mail !== studToAddOrRemove.Mail)
+          newUserFriendslist = newUserFriendslist.filter((s) => s.Mail !== studToAddOrRemove.Mail)
         this.setState({ userFriendslist: newUserFriendslist })
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
         studOBJ.Friendslist = newUserFriendslist;
         localStorage.setItem('student', JSON.stringify(studOBJ));
-    }
+      }
+    
     SearchUser = (val) => {
-        let filtered_list = this.state.studentstArr.filter((item) => item.Fname.includes(val) || item.Lname.includes(val));
-        if (val == "")
-            this.setState({ studentstArr: studArr });
-        else
-            this.setState({ studentstArr: filtered_list })
+      let filtered_list = this.state.studentstArr.filter((item) => item.Fname.includes(val) || item.Lname.includes(val));
+      if (val == "")
+        this.setState({ studentstArr: this.studArr });
+      else
+        this.setState({ studentstArr: filtered_list })
 
     }
     render() {
-        return (
-            <div className='container1'>
+      return (
+        <div className='container1'>
 
 
 
-                <PrimarySearchAppBar />
-                <div style={{ direction: 'rtl' }}>
-                    <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>בוא נמצא חברים חדשים!</h3>
+          <PrimarySearchAppBar />
+          <div style={{ direction: 'rtl' }}>
+            <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>בוא נמצא חברים חדשים!</h3>
 
-                    <p style={{ color: '#3D3D3D', fontSize: 17 }}>גלה את החברים שלומדים איתך, שגרים ליידך </p>
-                    <div style={{ marginBottom: 15 }}>
-                        <SearchField
-                            onChange={this.SearchUser}
-                            placeholder="Search..."
+            <p style={{ color: '#3D3D3D', fontSize: 17 }}>גלה את החברים שלומדים איתך, שגרים ליידך </p>
+            <div style={{ marginBottom: 15 }}>
+              <SearchField
+                onChange={this.SearchUser}
+                placeholder="Search..."
 
-                            // onChange={onChange}
-                            //searchText="חפש חבר"
-                            classNames="test-class"
-                        /></div>
+                // onChange={onChange}
+                //searchText="חפש חבר"
+                classNames="test-class"
+              /></div>
 
-                    {/* <p className='labels'> סנן לפי </p> */}
-                    <Select style={{ width: 200, marginBottom: 5 }} placeholder="סנן לפי"
-                        onChange={this.FilterUsers}>
-                        <Select.Option value="choose">כל המשתמשים</Select.Option>
-                        {filterByList.map((filterBy) => (
-                            <Select.Option key={filterBy} value={filterBy}>{filterBy}</Select.Option>
-                        ))}
-                    </Select>
-                </div>
+            {/* <p className='labels'> סנן לפי </p> */}
+            <Select style={{ width: 200, marginBottom: 5 }} placeholder="סנן לפי"
+              onChange={this.FilterUsers}>
+              <Select.Option value="choose">כל המשתמשים</Select.Option>
+              {filterByList.map((filterBy) => (
+                <Select.Option key={filterBy} value={filterBy}>{filterBy}</Select.Option>
+              ))}
+            </Select>
+          </div>
 
 
 
-                {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
-                <div className="scrollbar mx-auto" style={{ width: "100vw", height: 400, maxHeight: "370px", marginTop: 20 }} >
+          {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
+          <div className="scrollbar mx-auto" style={{ width: "100vw", height: 400, maxHeight: "370px", marginTop: 20 }} >
 
-                    <div className='userList'>
-                        <h3 style={{}}>{this.state.text}</h3>
-                        <Grid container >
+            <div className='userList'>
+              <h3 style={{}}>{this.state.text}</h3>
+              <Grid container >
 
-                            <Grid item xs={12}>
-                                <PerfectScrollbar>
-                                    <Grid container justify="center" spacing={1}>
-                                        {this.state.studentstArr.map((s, index) => (
+                <Grid item xs={12}>
+                  <PerfectScrollbar>
+                    <Grid container justify="center" spacing={1}>
+                      {this.state.studentstArr.map((s, index) => (
 
-                                            <Grid key={index} item>
-                                                <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
-                                                    photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
-                                                    isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1.Mail === s.Mail) : false}
-                                                    userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
-                                            </Grid>
-                                        ))
-
-                                        }
-                                    </Grid>
-                                </PerfectScrollbar>
-                            </Grid>
+                        <Grid key={index} item>
+                          <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
+                            photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
+                            isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1.Mail === s.Mail) : false}
+                            userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                         </Grid>
-                    </div>
-                </div>
-                <FCTabNavigator />
+                      ))
+
+                      }
+                    </Grid>
+                  </PerfectScrollbar>
+                </Grid>
+              </Grid>
             </div>
-        )
+          </div>
+          <FCTabNavigator />
+        </div>
+      )
     }
-}
-export default withRouter(CCShowUsers)
+  }
+  export default withRouter(CCShowUsers)
