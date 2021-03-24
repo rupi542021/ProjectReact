@@ -79,7 +79,7 @@ export default function FCUserCard(props) {
 
         if (res.ok) {
           console.log('post succeeded');
-          props.sendFavoriteData(props.id);
+          props.sendFavoriteData(props.id,"add");
         }
       },
         (error) => {
@@ -111,6 +111,7 @@ export default function FCUserCard(props) {
         console.log('res.ok', res.ok);
         if (res.ok) {
           console.log('student was deleted!');
+          props.sendFavoriteData(props.id,"remove");
         }
       });
   }
