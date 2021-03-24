@@ -23,7 +23,7 @@ class CCeditp extends Component {
       switchChecked: false,
       comeWithCar: false,
       imgURL: null,
-      selectedFile: null
+      selectedFile: null,
     }
 this.citiesList=[];
   }
@@ -329,7 +329,7 @@ this.citiesList=[];
                 options={this.citiesList}
                 getOptionLabel={(city) => city.Name}
                 style={{ width: '50vw', margin: '0px auto', direction:'rtl' }}
-                renderInput={(params) => <TextField {...params} label="בחר עיר" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} label={this.state.studOBJ.HomeTown===undefined?"בחר עיר":this.state.studOBJ.HomeTown.Name} variant="outlined" />}
                 size='small'
                // value={this.state.city}
                 onChange={this.chgCity}
@@ -348,10 +348,11 @@ this.citiesList=[];
                 options={this.citiesList}
                 getOptionLabel={(city) => city.Name}
                 style={{ width: '50vw', margin: '0px auto',direction:'rtl' }}
-                renderInput={(params) => <TextField {...params} label="בחר עיר" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} label={this.state.studOBJ.AddressStudying===undefined?"בחר עיר":this.state.studOBJ.AddressStudying.Name} 
+                variant="outlined"/>}
                 size='small'
                 onChange={this.chgCurrentCity}
-                
+              
               />
         </div>
         <div>
@@ -363,7 +364,7 @@ this.citiesList=[];
             <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
           </Select> */}
           <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 }}>
-<InputLabel htmlFor="filled-age-native-simple">בחר סטטוס</InputLabel>
+<InputLabel htmlFor="filled-age-native-simple">{this.state.studOBJ.PersonalStatus ==="" ? " בחר סטטוס " :this.state.studOBJ.PersonalStatus}</InputLabel>
 <Select
 
 value={this.state.status}
