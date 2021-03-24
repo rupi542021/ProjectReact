@@ -1,5 +1,5 @@
 import React, { Component, StyleSheet } from 'react';
-import { Form, Radio, Select } from 'antd';
+import { Form, Radio} from 'antd';
 import 'antd/dist/antd.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,9 @@ import Switch from "react-switch";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import '../style.css';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 
 
 const citiesList = [];
@@ -112,11 +115,10 @@ class CCSignin3 extends Component {
 
   }
 
-  chgStatus = (status) => {
-    if (status !== "choose") {
+  chgStatus = (event) => {
+    let status = event.target.value
       console.log("status:", status);
       this.setState({ status: status });
-    }
     //let input = {};
     this.state.input["status"] = this.state.status;
   }
@@ -412,13 +414,26 @@ class CCSignin3 extends Component {
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 10 }}>
-              <p className='labels'> סטטוס </p>
-              <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
+            <p className='labels'> סטטוס </p>
+            <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 }}>
+
+              {/* <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
                 <Select.Option value="בחר">בחר</Select.Option>
                 <Select.Option value="רווק/ה">רווק/ה</Select.Option>
                 <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
                 <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
-              </Select>
+              </Select> */}
+        <InputLabel htmlFor="filled-age-native-simple">בחר סטטוס</InputLabel>
+        <Select
+          value={this.state.status}
+          onChange={this.chgStatus}
+        >
+          <option value="">בחר</option>
+          <option value="רווק/ה">רווק/ה</option>
+          <option  value="נשוי/ה">נשוי/ה</option>
+          <option value="ידוע/ה בציבור">ידוע/ה בציבור</option>
+        </Select>
+        </FormControl>
             </Form.Item>
             <Form.Item style={{ marginBottom: 2 }}>
               {/* <p className='labels'> מעוניין בנסיעות משותפות </p>
