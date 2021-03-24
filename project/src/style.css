@@ -11,14 +11,21 @@
 }
 
 .labels {
-    font-size:4.5vw ;
+    font-size:4.3vw ;
+    font-weight:bold ;
+    text-align:center ;
+    color:#3D3D3D ;
+    margin-bottom: 0.05cm;
+}
+.labelsSmall {
+    font-size:4.0vw ;
     font-weight:bold ;
     text-align:center ;
     color:#3D3D3D ;
     margin-bottom: 0.05cm;
 }
 .labelsRight{
-    font-size:4.5vw ;
+    font-size:4.3vw ;
     font-weight:bold ;
     color:#3D3D3D ;
     margin-bottom: 0.09cm;
@@ -40,7 +47,24 @@ p{
     font-family: "Segoe UI";
 }
 
-.MuiTypography-body1 {
-    font-size: 1rem;
-    font-family: "Segoe UI"  ;
+span.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock {
+
+    font-family: system-ui;
+    unicode-bidi: bidi-override !important;
+direction: unset !important;
+text-align:right;
+}
+
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text {
+    padding-right: 0;
+}
+.rowRight {
+    display: flex;
+    flex-direction: row;
+    
+    align-items: center;
+    unicode-bidi: bidi-override !important;
+    direction: unset !important;
+    text-align:right;
 }
