@@ -434,6 +434,7 @@ class CCSignin3 extends Component {
         <Select
           value={this.state.status}
           onChange={this.chgStatus}
+          label="בחר סטטוס"
         >
           <option style={{fontFamily: "Segoe UI"}} value="">בחר</option>
           <option style={{fontFamily: "Segoe UI"}} value="רווק/ה">רווק/ה</option>

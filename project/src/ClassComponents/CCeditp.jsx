@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ReactRoundedImage from "react-rounded-image";
-import {Select, Radio } from 'antd';
+import { Radio } from 'antd';
 import Button from '@material-ui/core/Button';
 import 'antd/dist/antd.css';
 import '../style.css';
 import Switch from "react-switch";
-
-const citiesList = [];
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+//const citiesList = [];
 
 class CCeditp extends Component {
   constructor(props) {
@@ -19,15 +23,15 @@ class CCeditp extends Component {
       switchChecked: false,
       comeWithCar: false,
       imgURL: null,
-      selectedFile: null
+      selectedFile: null,
     }
-
+this.citiesList=[];
   }
 
   componentDidMount = () => {
     console.log("start of componentDidMount");
 
-    console.log("cities list before:", citiesList);
+    console.log("cities list before:", this.citiesList);
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
@@ -43,7 +47,7 @@ class CCeditp extends Component {
     }
     this.setState({ studOBJ: studOBJ, switchChecked: intrestedInCarpool, comeWithCar: isAvailableCar },
       () => { console.log("studOBJ", this.state.studOBJ); });
-    console.log("cities list after:", citiesList);
+    console.log("cities list after:", this.citiesList);
     console.log("end of componentDidMount");
   }
 
@@ -67,12 +71,12 @@ class CCeditp extends Component {
           result.forEach(s => {
             if (s.Name !== "") {
               let city = { Name: s.Name, Id: s.Id, X: s.X, Y: s.Y }
-              citiesList.push(city);
+              this.citiesList.push(city);
 
             }
 
           });
-          this.setState({ cities: citiesList },
+          this.setState({ cities: this.citiesList },
             () => { console.log('GET cities end'); });
 
 
@@ -169,22 +173,45 @@ class CCeditp extends Component {
     console.log("gender:", this.state.studOBJ.Gender);
   }
 
-  chgCity = (city) => {
-    if (city !== "choose") {
-      let CityD = citiesList.find(s => s.Name === city);
-      this.state.studOBJ.HomeTown = CityD;
-    }
+  // chgCity = (city) => {
+  //   if (city !== "choose") {
+  //     let CityD = citiesList.find(s => s.Name === city);
+  //     this.state.studOBJ.HomeTown = CityD;
+  //   }
+  // }
+
+  // chgCurrentCity = (currentCity) => {
+  //   if (currentCity !== "choose") {
+  //     let currentCityD = citiesList.find(s => s.Name == currentCity)
+  //     this.state.studOBJ.AddressStudying = currentCityD;
+  //   }
+  // }
+
+  chgCity = (event) => {
+    let cityName = event.target.innerText;
+    let city = this.citiesList.find(city => city.Name === cityName );
+    console.log("cityName:", cityName);
+    console.log("city:", city);
+    this.state.studOBJ.HomeTown = city;
   }
 
-  chgCurrentCity = (currentCity) => {
-    if (currentCity !== "choose") {
-      let currentCityD = citiesList.find(s => s.Name == currentCity)
-      this.state.studOBJ.AddressStudying = currentCityD;
-    }
+  chgCurrentCity = (event) => {
+    let cityName = event.target.innerText;
+    let city = this.citiesList.find(city => city.Name === cityName );
+    console.log("cityName:", cityName);
+    console.log("city:", city);
+    this.state.studOBJ.AddressStudying = city;
   }
 
-  chgStatus = (status) => {
-    this.state.studOBJ.PersonalStatus = status;
+  // chgStatus = (status) => {
+  //   this.state.studOBJ.PersonalStatus = status;
+  // }
+
+  chgStatus = (event) => {
+    let status = event.target.value
+      console.log("status:", status);
+      this.state.studOBJ.PersonalStatus = status;
+
   }
 
   chgSwitchWithCar = (checked) => {
@@ -250,6 +277,7 @@ class CCeditp extends Component {
         });
     console.log('end');
   }
+
   render() {
     return (
       <div>
@@ -289,33 +317,66 @@ class CCeditp extends Component {
         </div>
         <div>
           <p className='labels'> עיר קבע </p>
-          <Select style={{ width: 200 }} placeholder={this.state.studOBJ.HomeTown === undefined ? "" : this.state.studOBJ.HomeTown.Name}
+          {/* <Select style={{ width: 200 }} placeholder={this.state.studOBJ.HomeTown === undefined ? "" : this.state.studOBJ.HomeTown.Name}
             onChange={this.chgCity}
           >
             <Select.Option value="choose"> בחר עיר</Select.Option>
             {citiesList.map((city) => (
               <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
             ))}
-          </Select>
+          </Select> */}
+          <Autocomplete
+                options={this.citiesList}
+                getOptionLabel={(city) => city.Name}
+                style={{ width: '50vw', margin: '0px auto', direction:'rtl' }}
+                renderInput={(params) => <TextField {...params} label={this.state.studOBJ.HomeTown===undefined?"בחר עיר":this.state.studOBJ.HomeTown.Name} variant="outlined" />}
+                size='small'
+               // value={this.state.city}
+                onChange={this.chgCity}
+              />
 
           <p className='labels'> מקום מגורים נוכחי </p>
-          <Select style={{ width: 200 }} placeholder={this.state.studOBJ.AddressStudying === undefined ? "" : this.state.studOBJ.AddressStudying.Name}
+          {/* <Select style={{ width: 200 }} placeholder={this.state.studOBJ.AddressStudying === undefined ? "" : this.state.studOBJ.AddressStudying.Name}
             onChange={this.chgCurrentCity}
           >
             <Select.Option value="choose"> בחר עיר</Select.Option>
             {citiesList.map((city) => (
               <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
             ))}
-          </Select>
+          </Select> */}
+          <Autocomplete
+                options={this.citiesList}
+                getOptionLabel={(city) => city.Name}
+                style={{ width: '50vw', margin: '0px auto',direction:'rtl' }}
+                renderInput={(params) => <TextField {...params} label={this.state.studOBJ.AddressStudying===undefined?"בחר עיר":this.state.studOBJ.AddressStudying.Name} 
+                variant="outlined"/>}
+                size='small'
+                onChange={this.chgCurrentCity}
+              
+              />
         </div>
         <div>
           <p className='labels'> סטטוס </p>
-          <Select style={{ width: 200}} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
+          {/* <Select style={{ width: 200}} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
             <Select.Option value="בחר">בחר</Select.Option>
             <Select.Option value="רווק/ה">רווק/ה</Select.Option>
             <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
             <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
-          </Select>
+          </Select> */}
+          <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 }}>
+<InputLabel htmlFor="filled-age-native-simple">{this.state.studOBJ.PersonalStatus ==="" ? " בחר סטטוס " :this.state.studOBJ.PersonalStatus}</InputLabel>
+<Select
+
+value={this.state.status}
+onChange={this.chgStatus}
+label="בחר סטטוס"
+>
+<option value="">בחר</option>
+<option value="רווק/ה">רווק/ה</option>
+<option  value="נשוי/ה">נשוי/ה</option>
+<option value="ידוע/ה בציבור">ידוע/ה בציבור</option>
+</Select>
+</FormControl>
         </div>
         <div>
           <p className='labels'> מגיע עם רכב </p>
