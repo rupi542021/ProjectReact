@@ -105,6 +105,7 @@ class CCHobbies extends Component {
 
   postStudent2DB = (student) => {
     console.log("in post student function");
+    console.log("studetOBJ in post finction", student);
     this.apiUrl = 'https://localhost:44325/api/students'
     fetch(this.apiUrl,
       {
@@ -147,7 +148,8 @@ class CCHobbies extends Component {
       .catch((error) => {
         console.log("err get=", error.message);
         Swal.fire({
-              title: error.message,
+              title: "!אופס",
+              text: "משהו לא עבד. אנא נסה שנית", 
               icon: 'error',
               iconHtml: '',
               confirmButtonText: 'סגור',
