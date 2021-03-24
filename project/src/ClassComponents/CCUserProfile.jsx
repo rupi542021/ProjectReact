@@ -1,15 +1,16 @@
 import React, { Component,StyleSheet } from 'react'
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ReactRoundedImage from "react-rounded-image";
 import Grid from '@material-ui/core/Grid';
 import '../style.css';
 import { Circle,Rectangle} from 'react-shapes';
 import axios from 'axios';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
-
-
-
+import { green } from '@material-ui/core/colors';
+import Icon from '@material-ui/core/Icon';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 class CCUserProfile extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +57,7 @@ class CCUserProfile extends Component {
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
-      stutsYear:studOBJ.StudyingYear
+      stutsYear:studOBJ.StudyingYear,studCar:studOBJ.IsAvailableCar,studCarPool:studOBJ.IntrestedInCarPool
     })
 
 
@@ -178,9 +179,6 @@ class CCUserProfile extends Component {
             {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p> : ""}
 
 
-            <img height='20' width='20' src={this.state.source} alt="Logo" />
-
-
         <Grid container>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2} >
@@ -193,7 +191,7 @@ class CCUserProfile extends Component {
                   imageHeight="45"
                   roundedSize="5"
 
-                /><p className='labels'>{p.Pname}</p>
+                /><p className='labelsSmall'>{p.Pname}</p>
               </Grid>)) : ""}
             </Grid>
           </Grid>
@@ -212,15 +210,19 @@ class CCUserProfile extends Component {
                   imageHeight="45"
                   roundedSize="5"
 
-                /><p className='labels'> {h.Hname}</p>
+                /><p className='labelsSmall'> {h.Hname}</p>
               </Grid>)) : ""}
             </Grid>
           </Grid>
         </Grid>
+        
+
+{this.state.studCar?<div className='rowRight'><CheckIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:16}}>מגיע עם רכב</p></div>:
+<div className='rowRight'><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:16}}>לא מגיע עם רכב</p></div>}      
+
+{this.state.studCarPool?<div className='rowRight'><CheckIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:16}}>מעוניין בנסיעות משותפות</p></div>:
+<div className='rowRight' ><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:16}}>לא מעוניין בנסיעות משותפות</p></div>}  
         </div>
-
-
-
         </div>
         <FCTabNavigator />
       </div>

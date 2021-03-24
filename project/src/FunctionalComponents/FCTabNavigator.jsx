@@ -7,9 +7,9 @@ import { useHistory } from 'react-router-dom';
 import '../style.css';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import StarIcon from '@material-ui/icons/Star';
-import { Link, withRouter } from 'react-router-dom';
-
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import { withRouter } from 'react-router-dom';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -95,14 +95,24 @@ function FCTabNavigator() {
       <AppBar position="static" style={{backgroundColor:"#FAE8BE"}}>
         
         <Toolbar>
-          <IconButton
+        <IconButton
             edge="start"
             className={classes.menuButton}
-            style={{marginLeft:50}}
+            style={{marginLeft:10}}
             // color="#3D3D3D"
             aria-label="open drawer"
           >
-            <StarIcon />
+            <ThumbUpIcon fontSize="small"/>
+          </IconButton>
+
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+
+            // color="#3D3D3D"
+            aria-label="open drawer"
+          >
+            <StarRoundedIcon />
           </IconButton>
           <IconButton
             edge="start"

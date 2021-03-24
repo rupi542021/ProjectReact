@@ -200,7 +200,7 @@ export default function FCTabNavigator() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
+            {/* <IconButton
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -209,7 +209,7 @@ export default function FCTabNavigator() {
               // color="#3D3D3D"
             >
               <AccountCircle />
-            </IconButton>
+            </IconButton> */}
           </div>
           <SwipeableTemporaryDrawer/>
 

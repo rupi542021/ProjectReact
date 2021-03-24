@@ -27,7 +27,7 @@ export default function FCHangoutFrame(props) {
   roundedSize="15"
   
 />
-<p style={{fontWeight:'bold',fontSize:16,color:'#3D3D3D'}}>{props.name}</p>
+<p style={{fontWeight:'bold',fontSize:12,color:'#3D3D3D'}}>{props.name}</p>
 </div>
   )
 

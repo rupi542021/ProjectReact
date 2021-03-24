@@ -1,12 +1,14 @@
-import React, { Component, StyleSheet } from 'react'
+import React, { Component } from 'react'
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import { Link, withRouter } from 'react-router-dom';
+import {  withRouter } from 'react-router-dom';
 import ReactRoundedImage from "react-rounded-image";
 import Grid from '@material-ui/core/Grid';
 import '../style.css';
-import { Circle, Rectangle } from 'react-shapes';
+import {  Rectangle } from 'react-shapes';
 import Button from '@material-ui/core/Button';
-
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
 class CCUserProfile2 extends Component {
   constructor(props) {
@@ -40,11 +42,13 @@ class CCUserProfile2 extends Component {
 
       <div>
         <PrimarySearchAppBar />
-        <div style={{ direction: 'rtl' }}  >
+        <div style={{ direction: 'rtl' ,height:551}}  >
           {/* https://icons.getbootstrap.com/ */}
-          <div className='rowC' style={{ position: 'absolute', marginRight: 40 }}>
-            <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }}></i>
+          <div className='rowC' style={{ position: 'absolute', marginRight: 20 }}>
+          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={() => this.props.history.push("/showUsers")}></i>
+            <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20  }}></i>
             <i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
+
           </div>
 
           <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
@@ -53,7 +57,7 @@ class CCUserProfile2 extends Component {
             textAnchor="middle" x="50" y="60">{this.state.match}%</text>
           </svg>
 
-          <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 30, marginRight: 20 }}>
+          <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 20 }}>
             <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
             <h3 style={{ marginLeft: 40, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             <ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}
@@ -70,11 +74,11 @@ class CCUserProfile2 extends Component {
 
 
 
-          <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
+          <Rectangle width={'100%'} height={87} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
           <div style={{ textAlign: 'right', marginRight: 10 }}>
-            <h5 style={{ fontWeight: 'bold', marginTop: 10, fontSize: '6vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
-            <p className='labelsRight' style={{ marginTop: 15, color: "#FEFFAE", fontSize: '5.6vw' }}>{"חברים משותפים: "}</p>
-            <p className='labelsRight' style={{ marginTop: 15 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
+            <h5 style={{ fontWeight: 'bold', marginTop: 5, fontSize: '5.6vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
+            <p className='labelsRight' style={{ marginTop: 7, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "}</p>
+            <p className='labelsRight' style={{ marginTop: 7 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
             <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
 
@@ -92,7 +96,7 @@ class CCUserProfile2 extends Component {
                       imageHeight="45"
                       roundedSize="5"
 
-                    /><p className='labels'>{p.Pname}</p>
+                    /><p className='labelsSmall'>{p.Pname}</p>
                   </Grid>)) : ""}
                 </Grid>
               </Grid>
@@ -111,17 +115,20 @@ class CCUserProfile2 extends Component {
                       imageHeight="45"
                       roundedSize="5"
 
-                    /><p className='labels'> {h.Hname}</p>
+                    /><p className='labelsSmall'> {h.Hname}</p>
                   </Grid>)) : ""}
                 </Grid>
               </Grid>
             </Grid>
           </div>
+          {this.state.studCar?<div className='rowRight'><CheckIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>מגיע עם רכב</p></div>:
+<div className='rowRight'><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>לא מגיע עם רכב</p></div>}      
 
-          <Button variant="contained" style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize:'5vw' , borderRadius: 20, fontFamily: "Segoe UI" }}
-            onClick={() => this.props.history.push("/showUsers")}
-          >הקודם</Button>
+{this.state.studCarPool?<div className='rowRight'><CheckIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>מעוניין בנסיעות משותפות</p></div>:
+<div className='rowRight' ><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>לא מעוניין בנסיעות משותפות</p></div>}  
+
         </div>
+        <FCTabNavigator/>
       </div>
     )
   }
