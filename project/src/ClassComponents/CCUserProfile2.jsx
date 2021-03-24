@@ -52,14 +52,16 @@ class CCUserProfile2 extends Component {
           </div>
 
           <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
-            <circle cx="50" cy="55" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
+            <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
             <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }} 
-            textAnchor="middle" x="50" y="60">{this.state.match}%</text>
+            textAnchor="middle" x="40" y="45">{this.state.match}%</text>
           </svg>
 
-          <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 20 }}>
+          <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 0 }}>
+            <div className='rowC' style={{width:230}}>
             <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
-            <h3 style={{ marginLeft: 40, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            </div>
             <ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}
                   image={this.state.studPhoto}
 
@@ -76,7 +78,7 @@ class CCUserProfile2 extends Component {
 
           <Rectangle width={'100%'} height={87} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
           <div style={{ textAlign: 'right', marginRight: 10 }}>
-            <h5 style={{ fontWeight: 'bold', marginTop: 5, fontSize: '5.6vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
+            <h5 style={{ fontWeight: 'bold', marginTop: 5, fontSize: '5.2vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
             <p className='labelsRight' style={{ marginTop: 7, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "}</p>
             <p className='labelsRight' style={{ marginTop: 7 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>

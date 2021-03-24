@@ -246,7 +246,7 @@ class CCShowUsers extends Component {
             <div style={{ marginBottom: 15 }}>
               <SearchField
                 onChange={this.SearchUser}
-                placeholder="Search..."
+                placeholder="חיפוש..."
 
                 // onChange={onChange}
                 //searchText="חפש חבר"
