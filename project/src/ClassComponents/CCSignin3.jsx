@@ -433,6 +433,7 @@ class CCSignin3 extends Component {
         <Select
           value={this.state.status}
           onChange={this.chgStatus}
+          label="בחר סטטוס"
         >
           <option value="">בחר</option>
           <option value="רווק/ה">רווק/ה</option>
