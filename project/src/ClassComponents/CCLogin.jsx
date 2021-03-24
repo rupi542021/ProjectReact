@@ -120,7 +120,7 @@ class CCLogin extends Component {
           .catch((error) => {
             console.log("err get=", error);
             Swal.fire({
-              text: error.message,
+              text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית':error.message,
               icon: 'error',
               iconHtml: '',
               confirmButtonText: 'סגור',

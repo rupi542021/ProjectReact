@@ -99,8 +99,11 @@ class CCSignin3 extends Component {
 
 
   chgCity = (event) => {
-    console.log("city:", event.target.innerText);
-    this.setState({city:event.target.innerText}, () => {
+    let cityName = event.target.innerText;
+    let city = citiesList.find(city => city.Name === cityName );
+    console.log("cityName:", cityName);
+    console.log("city:", city);
+    this.setState({city:city}, () => {
     this.state.input["city"] = this.state.city;
     })
 
@@ -108,8 +111,11 @@ class CCSignin3 extends Component {
   }
 
   chgCurrentCity = (event) => {
-    console.log("CurrentCity:", event.target.innerText);
-    this.setState({currentCity:event.target.innerText},() => {
+    let cityName = event.target.innerText;
+    let city = citiesList.find(city => city.Name === cityName );
+    console.log("cityName:", cityName);
+    console.log("city:", city);
+    this.setState({currentCity:city},() => {
       this.state.input["currentCity"] = this.state.currentCity;
     })
 
