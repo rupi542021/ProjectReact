@@ -39,3 +39,8 @@ color: #4947e7;
 p{
     font-family: "Segoe UI";
 }
+
+.MuiTypography-body1 {
+    font-size: 1rem;
+    font-family: "Segoe UI"  ;
+}
