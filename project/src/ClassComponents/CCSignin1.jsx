@@ -135,11 +135,14 @@ class CCSignin1 extends Component {
   render() {
     return (
       <div>
-        <PrimarySearchAppBar />
+                <div className='rowC' style={{ width: '100%', height: 50, backgroundColor: "#FAE8BE" }}>
+          <img src="icons/high-five.png" style={{width:30,height:30,marginBottom:15,marginRight:10}}></img>
+          <h3 style={{color:"#3D3D3D"}}>Better Together</h3>
+        </div>
         <div>
           <div style={{ margin: 10, marginTop: 80 }}>
-          {/* <i class="bi bi-envelope"></i> */}
-          <i class="bi bi-envelope" style={{ color: '#3D3D3D', fontSize: 72}}></i>
+
+          <i className="bi bi-envelope" style={{ color: '#3D3D3D', fontSize: 72}}></i>
 
           <h4 style={{ margin: 10}}> הכנס כתובת דוא"ל </h4>
           </div>
@@ -158,7 +161,7 @@ class CCSignin1 extends Component {
             </div>
             <Button variant="contained" onClick={this.logIn} type='submit'
               style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-              >אימות<i class="bi bi-shield-check" style={{ color: '#3D3D3D', fontSize: 20,marginLeft:5}}></i></Button>
+              >אימות<i className="bi bi-shield-check" style={{ color: '#3D3D3D', fontSize: 20,marginLeft:5}}></i></Button>
           </form>
         </div>
       </div>

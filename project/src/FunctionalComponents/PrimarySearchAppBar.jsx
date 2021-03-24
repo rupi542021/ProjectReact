@@ -15,6 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import '../style.css';
+import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -103,6 +104,10 @@ export default function FCTabNavigator() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleOpenDrawer = (event) => {
+    // setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -206,17 +211,9 @@ export default function FCTabNavigator() {
               <AccountCircle />
             </IconButton>
           </div>
-          
+          <SwipeableTemporaryDrawer/>
 
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            style={{marginRight:0,paddingRight:0}}
-            // color="#3D3D3D"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+        
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

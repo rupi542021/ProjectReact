@@ -1,6 +1,5 @@
 import './App.css';
 import CCSignin1 from './ClassComponents/CCSignin1';
-import background from "./img/background.jpg";
 import { Switch, Route, withRouter } from 'react-router-dom';
 import CCLogin from './ClassComponents/CCLogin';
 import CCSignin2 from './ClassComponents/CCSignin2';
@@ -16,20 +15,20 @@ import CCeditp from './ClassComponents/CCeditp';
 import CCEditHobbies from './ClassComponents/CCEditHobbies';
 import CCEditHangouts from './ClassComponents/CCEditHangouts';
 import CCUserProfile2 from './ClassComponents/CCUserProfile2';
-import CCRecommendUsers from './ClassComponents/CCRecommendUsers';
 
-const names = ["avi", "ben", "char"];
+
+// const names = ["avi", "ben", "char"];
 
 function App() {
 
-  let namelist = names.map((name, index) =>
-  (<a href="#" className="list-group-item list-group-item-action"
-    key={index}>{index}.{name}</a>));
+  // let namelist = names.map((name, index) =>
+  // (<a href="#" className="list-group-item list-group-item-action"
+  //   key={index}>{index}.{name}</a>));
 
 
-  function getDateFromChild(data) {
-    console.log('in parent from data=', data)
-  }
+  // function getDateFromChild(data) {
+  //   console.log('in parent from data=', data)
+  // }
 
   return (
     <div className="App">
@@ -59,9 +58,7 @@ function App() {
         <Route path="/showUsers" >
           <CCShowUsers />
         </Route>
-        <Route path="/RecommendUsers" >
-          <CCRecommendUsers />
-        </Route>
+
         <Route path="/userProfile2" >
           <CCUserProfile2 />
         </Route>
@@ -84,6 +81,7 @@ function App() {
         <Route path="/CCSignin2test" >
           <CCSignin2test />
         </Route>
+
       </Switch>
     </div>
   );
