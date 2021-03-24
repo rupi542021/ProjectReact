@@ -56,9 +56,9 @@ class CCUserProfile extends Component {
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
-      stutsYear:studOBJ.StudyingYear,studPhoto:"http://127.0.0.1:8887/"+studOBJ.Photo
+      stutsYear:studOBJ.StudyingYear
     })
-    console.log(this.state.studImg);
+
 
 
 
@@ -82,14 +82,38 @@ class CCUserProfile extends Component {
       //   console.log(objectURL)
       // });
 
-        fetch('https://localhost:44325/API/students/'+studOBJ.Photo+'/photos').then(r => r.blob()).then(blob => {
-          const newUrl = URL.createObjectURL(blob);  
-          console.log(newUrl)
-        this.setState({
-            source: newUrl
-           });
 
-      //     var reader = new FileReader();
+        console.log('GETstart');
+        fetch('https://localhost:44325/API/students/'+studOBJ.Photo+'/photos',
+          {
+            method: 'GET',
+            headers: new Headers({
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Accept': 'application/json; charset=UTF-8'
+            })
+          })
+          .then((res) => {
+            console.log('res.ok', res.ok);
+            if (!res.ok) {
+            
+            }
+            return res.json();
+          })
+          .then(
+            (result) => {
+              console.log("fetch btnFetchGetStudents= ", result);
+             this.setState({studPhoto:result})
+            });
+
+      
+        //   .then(r => r.blob()).then(blob => {
+      //     //const newUrl = URL.createObjectURL(blob);  
+      //     console.log(newUrl)
+      //   this.setState({
+      //       source: newUrl
+      //      });
+
+      // //     var reader = new FileReader();
       //     var b64 =null;
       //     reader.onload = function() {
       //          b64 = reader.result.replace(/^data:.+;base64,/, '');
@@ -102,7 +126,7 @@ class CCUserProfile extends Component {
       //     reader.readAsDataURL(blob);
       //     const newUrl = URL.createObjectURL(blob);
       // console.log(newUrl);
-        });
+       
       
 
   }
