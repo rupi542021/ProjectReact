@@ -164,9 +164,9 @@ class CCLogin extends Component {
   render() {
     return (
       <div>
-        <div className='rowC' style={{ width: '100%', height: 50, backgroundColor: "#FAE8BE" }}>
-          <img src="icons/high-five.png" style={{width:30,height:30,marginBottom:15,marginRight:10}}></img>
-          <h3 style={{color:"#3D3D3D"}}>Better Together</h3>
+        <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" }}>
+          <img src="icons/high-five.png" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
+          <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
         <h3 style={{ marginTop: 100 }}> ! ברוכים הבאים </h3>
 

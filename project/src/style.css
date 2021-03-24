@@ -68,3 +68,6 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text {
     direction: unset !important;
     text-align:right;
 }
+.MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
+    padding: 13px;
+}
