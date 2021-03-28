@@ -149,7 +149,7 @@ export default function FCUserCard(props) {
       </div>
 
       <div style={{ marginTop: 30, width: "20vw" }}>
-        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} strokeColor={props.match>40?"#99e831":"#4a74ff"}/>
+        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} strokeColor={props.match>60?"#99e831":"#4a74ff"}/>
       </div>
 
       <div style={{ width: 40, marginTop: 5 }}>
