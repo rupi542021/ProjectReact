@@ -89,6 +89,10 @@ function FCTabNavigator() {
     let path = `showUsers`; 
     history.push(path);
   }
+  const toFavorites = () =>{ 
+    let path = `Favorites`; 
+    history.push(path);
+  }
  
   return (
     <div className={classes.grow}>
@@ -108,7 +112,7 @@ function FCTabNavigator() {
           <IconButton
             edge="start"
             className={classes.menuButton}
-
+            onClick={toFavorites}
             // color="#3D3D3D"
             aria-label="open drawer"
           >

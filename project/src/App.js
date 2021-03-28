@@ -15,6 +15,7 @@ import CCeditp from './ClassComponents/CCeditp';
 import CCEditHobbies from './ClassComponents/CCEditHobbies';
 import CCEditHangouts from './ClassComponents/CCEditHangouts';
 import CCUserProfile2 from './ClassComponents/CCUserProfile2';
+import CCFavorites from './ClassComponents/CCFavorites';
 
 
 // const names = ["avi", "ben", "char"];
@@ -80,6 +81,10 @@ function App() {
 
         <Route path="/CCSignin2test" >
           <CCSignin2test />
+        </Route>
+
+        <Route path="/Favorites" >
+          <CCFavorites/>
         </Route>
 
       </Switch>
