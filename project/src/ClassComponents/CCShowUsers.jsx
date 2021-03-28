@@ -46,7 +46,7 @@ class CCShowUsers extends Component {
     this.setState({
       userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,
       userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist
-    })
+    },()=>{console.log("this.state.userFriendslist", this.state.userFriendslist)})
 
     console.log(studOBJ.Mail)
     console.log(studOBJ.DepName)
@@ -208,15 +208,27 @@ class CCShowUsers extends Component {
     //   let studToAdd = {
     //     Mail: mailToAdd
     //   }
+      // getFavoriteData = (mailToAddOrRemove, action) => {
+      //   let studToAddOrRemove = {
+      //     Mail: mailToAddOrRemove
+      //   }
+      //   let newUserFriendslist = this.state.userFriendslist;
+      //   if (action === "add")
+      //     newUserFriendslist.push(studToAddOrRemove)
+      //   else if (action === "remove")
+      //     newUserFriendslist = newUserFriendslist.filter((s) => s.Mail !== studToAddOrRemove.Mail)
+      //   this.setState({ userFriendslist: newUserFriendslist })
+      //   let studOBJ = localStorage.getItem('student');
+      //   studOBJ = JSON.parse(studOBJ);
+      //   studOBJ.Friendslist = newUserFriendslist;
+      //   localStorage.setItem('student', JSON.stringify(studOBJ));
+      // }
       getFavoriteData = (mailToAddOrRemove, action) => {
-        let studToAddOrRemove = {
-          Mail: mailToAddOrRemove
-        }
         let newUserFriendslist = this.state.userFriendslist;
         if (action === "add")
-          newUserFriendslist.push(studToAddOrRemove)
+          newUserFriendslist.push(mailToAddOrRemove)
         else if (action === "remove")
-          newUserFriendslist = newUserFriendslist.filter((s) => s.Mail !== studToAddOrRemove.Mail)
+          newUserFriendslist = newUserFriendslist.filter((s) => s !== mailToAddOrRemove)
         this.setState({ userFriendslist: newUserFriendslist })
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
@@ -280,7 +292,7 @@ class CCShowUsers extends Component {
                         <Grid key={index} item>
                           <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
                             photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
-                            isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1.Mail === s.Mail) : false}
+                            isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1 === s.Mail) : false}
                             userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                         </Grid>
                       ))
