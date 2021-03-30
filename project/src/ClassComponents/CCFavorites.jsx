@@ -29,7 +29,7 @@ class CCFavorites extends Component {
       userDep: "",
       userYear: "",
       userHomeTown: "",
-      text: "",
+      text: "אין מועדפים",
       loading: false,
       userFriendslist: [],
 
@@ -91,7 +91,7 @@ class CCFavorites extends Component {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,
-              Match: s.Match,
+              Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
               Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : "http://127.0.0.1:8887/" + s.Photo
             }
             //studArr.push(stud);
@@ -107,47 +107,6 @@ class CCFavorites extends Component {
 
   }
 
-  FilterUsers = (filterBy) => {
-    console.log('studArr in filter function', this.studArr);
-    console.log('studentstArr in filter function', this.state.studentstArr);
-    this.setState({ studentstArr: this.studArr, text: "" }, () => {
-      if (filterBy === "המחלקה שלי") {
-        let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
-        console.log(filterbydep);
-        if (filterbydep.length !== 0)
-          this.setState({ studentstArr: filterbydep, text: "" })
-        else
-          this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-      }
-      if (filterBy === "choose") {
-        this.setState({ studentstArr: this.studArr, text: "" });
-      }
-      if (filterBy === "המחזור שלי") {
-        let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
-        console.log(filterbyclass);
-        if (filterbyclass.length !== 0)
-          this.setState({ studentstArr: filterbyclass, text: "" })
-        else
-          this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-      }
-      if (filterBy === "הישוב שלי-מקור") {
-        let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
-        console.log(filterbydep);
-        if (filterbydep.length !== 0)
-          this.setState({ studentstArr: filterbydep, text: "" })
-        else
-          this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-      }
-      if (filterBy === "הישוב שלי-נוכחי") {
-        let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
-        console.log(filterbydep);
-        if (filterbydep.length !== 0)
-          this.setState({ studentstArr: filterbydep, text: "" })
-        else
-          this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-      }
-    });
-  }
   getData = (userPicked) => {
     console.log(userPicked);
     localStorage.setItem('chooseUser', JSON.stringify(userPicked));
@@ -181,28 +140,22 @@ class CCFavorites extends Component {
 
         <PrimarySearchAppBar />
         <div style={{ direction: 'rtl' }}>
-          <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>החברים שלי</h3>
+          <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>המועדפים שלי</h3>
 
-          <div style={{ marginBottom: 15 }}>
+          <div style={{ marginBottom: 15,marginTop:15 }}>
             <SearchField
               onChange={this.SearchUser}
               placeholder="חיפוש..."
               classNames="test-class"
             /></div>
-          <Select style={{ width: 200, marginBottom: 5 }} placeholder="סנן לפי"
-            onChange={this.FilterUsers}>
-            <Select.Option value="choose">כל המשתמשים</Select.Option>
-            {filterByList.map((filterBy) => (
-              <Select.Option key={filterBy} value={filterBy}>{filterBy}</Select.Option>
-            ))}
-          </Select>
+         
         </div>
 
         {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
-        <div className="scrollbar mx-auto" style={{ width: "100vw", height: 400, maxHeight: "370px", marginTop: 20 }} >
+        <div className="scrollbar mx-auto" style={{ width: "100vw", height: 500, maxHeight: "445px", marginTop: 20 }} >
 
           <div className='userList'>
-            <h3 style={{}}>{this.state.text}</h3>
+            {this.state.studentstArr.length==0?<h3 style={{}}>{this.state.text}</h3>:
             <Grid container >
 
               <Grid item xs={12}>
@@ -211,7 +164,8 @@ class CCFavorites extends Component {
                     {this.state.studentstArr.map((sf, index) => (
 
                       <Grid key={index} item>
-                        <FCFavoriteCard key={index} id={sf.Mail} obj={sf} name={sf.Fname + " " + sf.Lname}
+         
+                        <FCFavoriteCard key={index} id={sf.Mail} obj={sf} name={sf.Fname + " " + sf.Lname} match={null}
                           photo={sf.Photo} studage={sf.DateOfBirth} depName={sf.DepName} year={sf.StudyingYear} sendData={this.getData}
                           userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
                       </Grid>
@@ -221,7 +175,7 @@ class CCFavorites extends Component {
                   </Grid>
                 </PerfectScrollbar>
               </Grid>
-            </Grid>
+            </Grid>}
           </div>
         </div>
         <FCTabNavigator />

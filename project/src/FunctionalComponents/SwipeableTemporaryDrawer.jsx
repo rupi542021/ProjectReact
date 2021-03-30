@@ -8,7 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -20,6 +19,8 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import EditIcon from '@material-ui/icons/Edit';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router-dom';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import SettingsIcon from '@material-ui/icons/Settings';
 const useStyles = makeStyles({
     list: {
         width: 250,
@@ -30,6 +31,7 @@ const useStyles = makeStyles({
 });
 const ListIcons = [<HomeIcon />, <GroupIcon />, <StarRoundedIcon />, <ThumbUpIcon fontSize="small"/>]
 const ListIcons2 = [<AccountCircleIcon />, <EditIcon />, <MailIcon />]
+const ListIcons3 = [ <SettingsIcon />, <MeetingRoomIcon />]
 export default function SwipeableTemporaryDrawer() {
     const classes = useStyles();
     const [state, setState] = React.useState({
@@ -86,7 +88,21 @@ export default function SwipeableTemporaryDrawer() {
                 break;
         }
     }
+    const handleClick3 = (index) => (event) => {
+        let path = '';
+        switch (index) {
 
+            case 0:
+                path = ``;
+                break;
+            case 1:
+                path = ``;
+                history.push(path);
+                break;
+            default:
+                break;
+        }
+    }
     const list = (anchor) => (
         <div style={{ direction: 'rtl', fontFamily: "Segoe UI" }}
             className={clsx(classes.list, {
@@ -113,6 +129,15 @@ export default function SwipeableTemporaryDrawer() {
                 {['הפרופיל שלי', 'עריכת פרופיל', 'הודעות'].map((text, index) => (
                     <ListItem button key={text} onClick={handleClick2(index)}>
                         <ListItemIcon>{ListIcons2[index]}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {[ 'הגדרות','התנתק'].map((text, index) => (
+                    <ListItem button key={text} onClick={handleClick3(index)}>
+                        <ListItemIcon>{ListIcons3[index]}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}

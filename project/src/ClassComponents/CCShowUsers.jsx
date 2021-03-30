@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom';
+import {  withRouter } from 'react-router-dom';
 import FCUserCard from '../FunctionalComponents/FCUserCard';
 import Grid from '@material-ui/core/Grid';
-import { Form, Radio, Select, DatePicker, Checkbox } from 'antd';
+import {  Select } from 'antd';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
 import SearchField from "react-search-field";
-import Button from '@material-ui/core/Button';
-import { MDBContainer } from "mdbreact";
 import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
@@ -18,7 +16,7 @@ const ScrollBarPage = () => {
   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
 }
 
-const filterByList = ["המחלקה שלי", "המחזור שלי", "הישוב שלי-מקור", "הישוב שלי-נוכחי"]
+const filterByList = ["המחלקה שלי", "המחזור שלי",  "גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי","מעוניינים בנסיעות משותפות"]
 //const studArr = [];
 const imgARR = [];
 class CCShowUsers extends Component {
@@ -45,6 +43,8 @@ class CCShowUsers extends Component {
     studOBJ = JSON.parse(studOBJ);
     this.setState({
       userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,
+      userHomeTownX: studOBJ.HomeTown.X,userHomeTownY: studOBJ.HomeTown.Y,
+      userAddressX: studOBJ.AddressStudying.X,userAddressY: studOBJ.AddressStudying.Y,CarPool:studOBJ.IntrestedInCarPool,
       userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist
     },()=>{console.log("this.state.userFriendslist", this.state.userFriendslist)})
 
@@ -94,7 +94,7 @@ class CCShowUsers extends Component {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,
-              Match: s.Match,
+              Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
               Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : "http://127.0.0.1:8887/" + s.Photo
             }
             //studArr.push(stud);
@@ -133,19 +133,29 @@ class CCShowUsers extends Component {
         else
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
-      if (filterBy === "הישוב שלי-מקור") {
-        let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
+      if (filterBy === "גרים קרוב אלי-מקור") {
+        var pow = require( 'math-power' );
+        let filterbydep = this.state.studentstArr.filter(s => pow(pow((s.HomeTown.X / 1000) - (this.state.userHomeTownX / 1000), 2) + pow((s.HomeTown.Y / 1000) - (this.state.userHomeTownY / 1000), 2),0.5) < 15)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
           this.setState({ studentstArr: filterbydep, text: "" })
         else
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
-      if (filterBy === "הישוב שלי-נוכחי") {
-        let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
+      if (filterBy === "גרים קרוב אלי-נוכחי") {
+        var pow = require( 'math-power' );
+        let filterbydep = this.state.studentstArr.filter(s => pow(pow((s.AddressStudying.X / 1000) - (this.state.userAddressX / 1000), 2) + pow((s.AddressStudying.Y / 1000) - (this.state.userAddressY / 1000), 2),0.5) < 15)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
           this.setState({ studentstArr: filterbydep, text: "" })
+        else
+          this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+      }
+      if (filterBy === "מעוניינים בנסיעות משותפות") {
+        let filterbycarPool = this.state.studentstArr.filter(s => s.IntrestedInCarPool == this.state.CarPool)
+        console.log(filterbycarPool);
+        if (filterbycarPool.length !== 0)
+          this.setState({ studentstArr: filterbycarPool, text: "" })
         else
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
@@ -157,47 +167,7 @@ class CCShowUsers extends Component {
     this.props.history.push("/userProfile2");
   }
 
-    // FilterUsers = (filterBy) => {
-    //   this.setState({ studentstArr: this.studArr, text: "" }, () => {
-    //     console.log("studArr in filter function:", this.studArr);
-    //     console.log("studentsArr in filter function:", this.state.studArr);
-    //     if (filterBy == "המחלקה שלי") {
-    //       let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
-    //       console.log(filterbydep);
-    //       if (filterbydep.length !== 0)
-    //         this.setState({ studentstArr: filterbydep, text: "" })
-    //       else
-    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-    //     }
-    //     if (filterBy == "choose") {
-    //       this.setState({ studentstArr: studArr, text: "" });
-    //     }
-    //     if (filterBy == "המחזור שלי") {
-    //       let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
-    //       console.log(filterbyclass);
-    //       if (filterbyclass.length !== 0)
-    //         this.setState({ studentstArr: filterbyclass, text: "" })
-    //       else
-    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-    //     }
-    //     if (filterBy == "הישוב שלי-מקור") {
-    //       let filterbydep = this.state.studentstArr.filter(s => s.HomeTown.Name == this.state.userHomeTown)
-    //       console.log(filterbydep);
-    //       if (filterbydep.length !== 0)
-    //         this.setState({ studentstArr: filterbydep, text: "" })
-    //       else
-    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-    //     }
-    //     if (filterBy == "הישוב שלי-נוכחי") {
-    //       let filterbydep = this.state.studentstArr.filter(s => s.AddressStudying.Name == this.state.userAddressS)
-    //       console.log(filterbydep);
-    //       if (filterbydep.length !== 0)
-    //         this.setState({ studentstArr: filterbydep, text: "" })
-    //       else
-    //         this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
-    //     }
-    //   });
-    // }
+   
     getData = (userPicked) => {
       console.log(userPicked);
       localStorage.setItem('chooseUser', JSON.stringify(userPicked));

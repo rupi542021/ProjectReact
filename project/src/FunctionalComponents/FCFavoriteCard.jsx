@@ -4,12 +4,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 
-import { Progress } from 'antd';
-import { OmitProps } from 'antd/lib/transfer/ListBody';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -90,7 +87,7 @@ export default function FCFavoriteCard(props) {
         image={props.photo}
         title="Live from space album cover"
       />
-      <div className={classes.details} style={{ width: "50vw" }} onClick={chooseUser}>
+      <div className={classes.details} style={{ width: "60vw" }} onClick={chooseUser}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "6vw" }}>
             {props.name + "   " + props.studage}

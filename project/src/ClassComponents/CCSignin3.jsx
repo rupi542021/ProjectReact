@@ -211,7 +211,6 @@ class CCSignin3 extends Component {
       console.log(newUrl);
       this.setState({ imgURL: newUrl })
 
-
       data.append("UploadedImage", file);
       data.append("name", studOBJ.Mail);
 

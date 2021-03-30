@@ -32,6 +32,7 @@ class CCUserProfile2 extends Component {
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: studOBJ.DateOfBirth, studDep: studOBJ.DepName
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
+      studCarPool:studOBJ.IntrestedInCarPool,studCar:studOBJ.IsAvailableCar,
        stutsYear: studOBJ.StudyingYear,match:studOBJ.Match,studPhoto:studOBJ.Photo
     })
 
@@ -50,12 +51,12 @@ class CCUserProfile2 extends Component {
             <i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
 
           </div>
-
+          {this.state.match!=0?
           <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
             <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
             <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }} 
             textAnchor="middle" x="40" y="45">{this.state.match}%</text>
-          </svg>
+          </svg>:""}
 
           <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 0 }}>
             <div className='rowC' style={{width:230}}>
