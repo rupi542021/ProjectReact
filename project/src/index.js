@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import * as serviceWorker from './registerServiceWorker';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
 
+
 ReactDOM.render(
-<BrowserRouter>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+<BrowserRouter basename={window.location.pathname || ""}>
+    
+      <Route component={App} />
+  
   </BrowserRouter>,
   document.getElementById('root')
 );
