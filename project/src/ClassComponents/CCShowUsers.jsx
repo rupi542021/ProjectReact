@@ -95,7 +95,7 @@ class CCShowUsers extends Component {
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,FriendsList:s.FriendsList,
               Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
-              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+s.Photo
+              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+s.Photo,
             }
             //studArr.push(stud);
             this.state.studentstArr.push(stud);
