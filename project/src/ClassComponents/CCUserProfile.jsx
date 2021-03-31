@@ -74,12 +74,13 @@ class CCUserProfile extends Component {
 
 
 
-        <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 30, marginRight: 20 }}>
+        <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 65, marginRight: 20 }}>
             <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
-            <h3 style={{ marginLeft: '27vw', fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            <h3 style={{  fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
-<ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}
+              <div style={{ position: 'absolute',marginRight:410,marginTop:20}}>
+<ReactRoundedImage style={{ zIndex: 3 }}
                   image={this.state.studPhoto}
 
                   roundedColor="#3D3D3D"
@@ -88,6 +89,7 @@ class CCUserProfile extends Component {
                   roundedSize="0"
 
                 /> 
+                </div>
           </div>
 
           <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />

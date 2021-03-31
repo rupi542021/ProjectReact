@@ -252,6 +252,10 @@ this.citiesList=[];
         });
     console.log('end');
   }
+  deleteImg=()=>{
+    this.setState({imgURL:"images/avatar.jpg"});
+    this.state.studOBJ.Photo="";
+  }
 
   render() {
     return (
@@ -262,7 +266,7 @@ this.citiesList=[];
           <div className='rowC' style={{ marginTop: 10 }}>
 
             <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
-
+<div>
             <ReactRoundedImage
               image={this.state.studOBJ !== {} ? this.state.imgURL : ''}
               roundedColor="#96a2aa"
@@ -270,12 +274,13 @@ this.citiesList=[];
               imageHeight="80"
               roundedSize="5" />
               <i class="bi bi-trash-fill"
-              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 10, marginTop: 55 }}></i>
+              onClick={this.deleteImg}
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i>
             <i class="bi bi-pencil-fill"
               onClick={() => this.fileInput.click()}
-              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 150, marginTop: 50 }}></i>
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 20, marginTop: -25 }}></i>
           </div>
-
+          </div>
           <input
             type="file"
             style={{ display: 'none' }}

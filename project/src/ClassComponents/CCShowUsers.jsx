@@ -45,7 +45,7 @@ class CCShowUsers extends Component {
       userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,
       userHomeTownX: studOBJ.HomeTown.X,userHomeTownY: studOBJ.HomeTown.Y,
       userAddressX: studOBJ.AddressStudying.X,userAddressY: studOBJ.AddressStudying.Y,CarPool:studOBJ.IntrestedInCarPool,
-      userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist
+      userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist===null?[]:studOBJ.Friendslist
     },()=>{console.log("this.state.userFriendslist", this.state.userFriendslist)})
 
     console.log(studOBJ.Mail)
