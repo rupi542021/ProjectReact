@@ -8,7 +8,6 @@ import Form from './ClassComponents/Form';
 import CCHangout from './ClassComponents/CCHangout';
 import CCHobbies from './ClassComponents/CCHobbies';
 import CCSignin3 from './ClassComponents/CCSignin3';
-import CCSignin2test from './ClassComponents/CCSignin2test';
 import CCShowUsers from './ClassComponents/CCShowUsers';
 //import CCEditProfile from './ClassComponents/CCEditProfile';
 import CCeditp from './ClassComponents/CCeditp';
@@ -79,9 +78,7 @@ function App() {
           <Form />
         </Route>
 
-        <Route path="/CCSignin2test" >
-          <CCSignin2test />
-        </Route>
+
 
         <Route path="/Favorites" >
           <CCFavorites/>

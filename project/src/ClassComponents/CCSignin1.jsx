@@ -3,9 +3,6 @@ import Swal from 'sweetalert2';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
-import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import Dimensions from 'react-dimensions'
-import background from "../img/background.jpg";
 
 class CCSignin1 extends Component {
 
@@ -51,7 +48,7 @@ class CCSignin1 extends Component {
     if (this.handleValidation()) {
       console.log(this.state.fields["email"].toLowerCase())
 
-      this.apiUrl = 'https://localhost:44325/API/students?email=' + this.state.fields["email"].toLowerCase();
+      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/API/students?email=' + this.state.fields["email"].toLowerCase();
       console.log('GETstart');
       fetch(this.apiUrl,
         {
