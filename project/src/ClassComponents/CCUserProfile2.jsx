@@ -38,6 +38,14 @@ class CCUserProfile2 extends Component {
 
   }
 
+  back2PrevPage = () =>
+  {
+    if(this.state.match!==0)
+    this.props.history.push("/showUsers");
+    else
+    this.props.history.push("/Favorites");
+  }
+
   render() {
     return (
 
@@ -46,7 +54,7 @@ class CCUserProfile2 extends Component {
         <div style={{ direction: 'rtl' ,height:551}}  >
           {/* https://icons.getbootstrap.com/ */}
           <div className='rowC' style={{ position: 'absolute', marginRight: 20 }}>
-          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={() => this.props.history.push("/showUsers")}></i>
+          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
             <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20  }}></i>
             <i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
 
