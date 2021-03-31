@@ -17,7 +17,7 @@ class CCEditHangouts extends Component {
     }
   }
   componentDidMount() {
-    this.apiUrl = 'https://localhost:44325/api/students/GetAllPleasures';
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllPleasures';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -96,7 +96,7 @@ class CCEditHangouts extends Component {
         <PrimarySearchAppBar />
 
         <div style={{ direction: 'rtl' }}>
-          <h4 style={{ marginTop: 10, marginBottom: 8, direction: 'rtl', color: '#3D3D3D' }}> מקומות בילוי </h4>
+          <h3 style={{ marginTop: 40, marginBottom: 30, direction: 'rtl', color: '#3D3D3D' }}> עריכת מקומות בילוי </h3>
           <Grid container>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={1}>
