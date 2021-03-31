@@ -173,20 +173,6 @@ this.citiesList=[];
     console.log("gender:", this.state.studOBJ.Gender);
   }
 
-  // chgCity = (city) => {
-  //   if (city !== "choose") {
-  //     let CityD = citiesList.find(s => s.Name === city);
-  //     this.state.studOBJ.HomeTown = CityD;
-  //   }
-  // }
-
-  // chgCurrentCity = (currentCity) => {
-  //   if (currentCity !== "choose") {
-  //     let currentCityD = citiesList.find(s => s.Name == currentCity)
-  //     this.state.studOBJ.AddressStudying = currentCityD;
-  //   }
-  // }
-
   chgCity = (event) => {
     let cityName = event.target.innerText;
     let city = this.citiesList.find(city => city.Name === cityName );
@@ -247,7 +233,7 @@ this.citiesList=[];
 
   updateInDB = (stud) => {
     console.log('start updating');
-    fetch('https://localhost:44325/api/students/updateStudentPtofile',
+    fetch('http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/updateStudentPtofile',
       {
         method: 'Put',
         body: JSON.stringify(stud),
@@ -306,25 +292,10 @@ this.citiesList=[];
             ref={fileInput => this.fileInput = fileInput} />
 
         </div>
-
-        <div className='rowC' style={{ direction: 'rtl', marginTop: 10 }}>
-          <p className='labels'> מגדר </p>
-          <Radio.Group onChange={this.chgGender} defaultValue={this.state.studOBJ.Gender}>
-            <Radio value="female">אישה</Radio>
-            <Radio value="male">גבר</Radio>
-            <Radio value="other">אחר</Radio>
-          </Radio.Group>
-        </div>
+        
         <div>
           <p className='labels'> עיר קבע </p>
-          {/* <Select style={{ width: 200 }} placeholder={this.state.studOBJ.HomeTown === undefined ? "" : this.state.studOBJ.HomeTown.Name}
-            onChange={this.chgCity}
-          >
-            <Select.Option value="choose"> בחר עיר</Select.Option>
-            {citiesList.map((city) => (
-              <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
-            ))}
-          </Select> */}
+
           <Autocomplete
                 options={this.citiesList}
                 getOptionLabel={(city) => city.Name}
@@ -336,14 +307,7 @@ this.citiesList=[];
               />
 
           <p className='labels'> מקום מגורים נוכחי </p>
-          {/* <Select style={{ width: 200 }} placeholder={this.state.studOBJ.AddressStudying === undefined ? "" : this.state.studOBJ.AddressStudying.Name}
-            onChange={this.chgCurrentCity}
-          >
-            <Select.Option value="choose"> בחר עיר</Select.Option>
-            {citiesList.map((city) => (
-              <Select.Option key={city.Id} value={city.Name}> {city.Name} </Select.Option>
-            ))}
-          </Select> */}
+
           <Autocomplete
                 options={this.citiesList}
                 getOptionLabel={(city) => city.Name}
@@ -357,12 +321,7 @@ this.citiesList=[];
         </div>
         <div>
           <p className='labels'> סטטוס </p>
-          {/* <Select style={{ width: 200}} placeholder={this.state.studOBJ.PersonalStatus} onChange={this.chgStatus}>
-            <Select.Option value="בחר">בחר</Select.Option>
-            <Select.Option value="רווק/ה">רווק/ה</Select.Option>
-            <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
-            <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
-          </Select> */}
+
           <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 }}>
 <InputLabel htmlFor="filled-age-native-simple">{this.state.studOBJ.PersonalStatus ==="" ? " בחר סטטוס " :this.state.studOBJ.PersonalStatus}</InputLabel>
 <Select

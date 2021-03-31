@@ -18,7 +18,7 @@ class CCEditHobbies extends Component {
     }
   }
   componentDidMount() {
-    this.apiUrl = 'https://localhost:44325/api/students/GetAllHoddies';
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllHoddies';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -97,7 +97,7 @@ class CCEditHobbies extends Component {
         <PrimarySearchAppBar />
 
         <div style={{ direction: 'rtl' }}>
-          <h4 style={{ marginTop: 10, marginBottom: 8, direction: 'rtl', color: '#3D3D3D' }}> תחביבים </h4>
+          <h3 style={{ marginTop: 40, marginBottom: 30, direction: 'rtl', color: '#3D3D3D' }}> עריכת תחביבים </h3>
           <Grid container>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={1}>

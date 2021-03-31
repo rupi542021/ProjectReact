@@ -59,7 +59,7 @@ export default function FCUserCard(props) {
       Student1mail: props.userMail,
       Student2mail: props.id
     }
-    let apiUrl = 'https://localhost:44325/api/students/AddToFavorites';
+    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/AddToFavorites';
     fetch(apiUrl,
       {
         method: 'POST',
@@ -95,7 +95,7 @@ export default function FCUserCard(props) {
       Student1mail: props.userMail,
       Student2mail: props.id
     }
-    let apiUrl = 'https://localhost:44325/api/students/DeleteFromFavorites';
+    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/DeleteFromFavorites';
     fetch(apiUrl,
       {
         method: 'Delete',
