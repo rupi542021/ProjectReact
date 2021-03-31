@@ -95,7 +95,7 @@ class CCShowUsers extends Component {
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,FriendsList:s.FriendsList,
               Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
-              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+s.Photo,
+              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+s.Photo,
             }
             //studArr.push(stud);
             this.state.studentstArr.push(stud);
@@ -115,7 +115,7 @@ class CCShowUsers extends Component {
           console.log('studentstArr in filter function', this.state.studentstArr);
     this.setState({ studentstArr: this.studArr, text: "" }, () => {
       if (filterBy === "המחלקה שלי") {
-        let filterbydep = this.state.studentstArr.filter(s => s.DepName == this.state.userDep)
+        let filterbydep = this.state.studentstArr.filter(s => s.DepName === this.state.userDep)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
           this.setState({ studentstArr: filterbydep, text: "" })
@@ -126,7 +126,7 @@ class CCShowUsers extends Component {
         this.setState({ studentstArr: this.studArr, text: "" });
       }
       if (filterBy === "המחזור שלי") {
-        let filterbyclass = this.state.studentstArr.filter(s => s.DepName == this.state.userDep && s.StudyingYear == this.state.userYear)
+        let filterbyclass = this.state.studentstArr.filter(s => s.DepName === this.state.userDep && s.StudyingYear === this.state.userYear)
         console.log(filterbyclass);
         if (filterbyclass.length !== 0)
           this.setState({ studentstArr: filterbyclass, text: "" })
@@ -196,9 +196,11 @@ class CCShowUsers extends Component {
       getFavoriteData = (mailToAddOrRemove, action) => {
         let newUserFriendslist = this.state.userFriendslist;
         if (action === "add")
-          newUserFriendslist.push(mailToAddOrRemove)
+         newUserFriendslist.push(mailToAddOrRemove);
+
         else if (action === "remove")
-          newUserFriendslist = newUserFriendslist.filter((s) => s !== mailToAddOrRemove)
+          newUserFriendslist = newUserFriendslist.filter((s) => s !== mailToAddOrRemove);
+
         this.setState({ userFriendslist: newUserFriendslist })
         let studOBJ = localStorage.getItem('student');
         studOBJ = JSON.parse(studOBJ);
