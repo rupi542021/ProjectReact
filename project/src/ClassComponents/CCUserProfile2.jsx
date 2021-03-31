@@ -82,7 +82,8 @@ class CCUserProfile2 extends Component {
         }
       });
   }
-  checkClick = () => { console.log("in checkClick function") }
+ 
+
   render() {
     return (
 
@@ -93,8 +94,8 @@ class CCUserProfile2 extends Component {
           <div className='rowC' style={{ position: 'absolute', marginRight: 20 }}>
             <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
             <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
-            {this.state.isFriend === true ? <i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }} onClick={() => alert("ok")}></i>
-              : <i className="bi-star" onClick={this.checkClick} style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
+            {this.state.isFriend === true ? <i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }} onClick={this.DeleteFromFavorites}></i>
+              :<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
 
           </div>
           {this.state.match != 0 ?
