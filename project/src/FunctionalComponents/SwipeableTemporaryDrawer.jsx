@@ -114,7 +114,7 @@ export default function SwipeableTemporaryDrawer() {
         >
             <div className='rowC' style={{ width: '100%', height: 50, backgroundColor: "#FAE8BE" }}>
                 <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
-                <img src="icons/high-five.png" style={{ width: 25, height: 25, marginBottom: 15, marginRight: 10 }}></img>
+                <img src="icons/high-five.png" alt="" style={{ width: 25, height: 25, marginBottom: 15, marginRight: 10 }}></img>
             </div>
             <List>
                 {['ראשי', 'כל המשתמשים', 'המועדפים שלי', 'היחידה ליזמות'].map((text, index) => (

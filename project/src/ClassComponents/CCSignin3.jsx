@@ -300,7 +300,7 @@ class CCSignin3 extends Component {
           <Form style={{ direction: 'rtl' }}>
             <Form.Item style={{ marginBottom: 0, width: '100%' }}>
               <p className='labels' >התמונה שלי  </p>
-              <div className='rowC'>
+              <div className='rowC' style={{marginBottom:10}}>
                 {/* <img src={this.state.imgURL} alt="Logo" /> */}
                 {this.state.imgURL !== null ? <div><ReactRoundedImage
                   image={this.state.imgURL}
@@ -374,7 +374,7 @@ class CCSignin3 extends Component {
               <Autocomplete
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto' }}
+                style={{ width: '50vw', margin: '0px auto',backgroundColor:'white' }}
                 renderInput={(params) => <TextField {...params} label="בחר עיר" variant="outlined" />}
                 size='small'
                // value={this.state.city}
@@ -400,7 +400,7 @@ class CCSignin3 extends Component {
               <Autocomplete
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto' }}
+                style={{ width: '50vw', margin: '0px auto' ,backgroundColor:'white', direction:'rtl'}}
                 renderInput={(params) => <TextField {...params} font-Family= "Segoe UI" label="בחר עיר" variant="outlined" />}
                 size='small'
                 onChange={this.chgCurrentCity}
@@ -421,7 +421,7 @@ class CCSignin3 extends Component {
 
             <Form.Item style={{ marginBottom: 10 }}>
             <p className='labels'> סטטוס </p>
-            <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 }}>
+            <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 ,backgroundColor:'white'}}>
 
               {/* <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
                 <Select.Option value="בחר">בחר</Select.Option>

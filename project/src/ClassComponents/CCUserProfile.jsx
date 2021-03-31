@@ -51,7 +51,7 @@ class CCUserProfile extends Component {
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
       stutsYear:studOBJ.StudyingYear,studCar:studOBJ.IsAvailableCar,studCarPool:studOBJ.IntrestedInCarPool,
-      studPhoto:'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
+      studPhoto: studOBJ.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
     })
 
   }
@@ -76,7 +76,7 @@ class CCUserProfile extends Component {
 
         <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 30, marginRight: 20 }}>
             <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
-            <h3 style={{ marginLeft: '15vw', fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            <h3 style={{ marginLeft: '27vw', fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
 <ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}

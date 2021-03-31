@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FCFavoriteCard(props) {
   const classes = useStyles();
-  const theme = useTheme();
+  //const theme = useTheme();
   //const percentage = 66;
   const chooseUser = () => {
     props.sendData(props.obj);
