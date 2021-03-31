@@ -76,8 +76,8 @@ const useStyles = makeStyles((theme) => ({
 
 function FCTabNavigator() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const history = useHistory();
 

@@ -35,7 +35,7 @@ this.citiesList=[];
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ imgURL: 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo })
+    this.setState({ imgURL: studOBJ.Photo === "" ? "images/avatar.jpg" :  'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo })
     console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
@@ -105,15 +105,11 @@ this.citiesList=[];
 
       let studOBJ = localStorage.getItem('student');
       studOBJ = JSON.parse(studOBJ);
-
-      //this.setState({ selectedFile: event.target.files[0].name });
       const file = event.target.files[0];
       console.log(file);
       const newUrl = URL.createObjectURL(file);
       console.log(newUrl);
       this.setState({ imgURL: newUrl })
-      //this.state.studOBJ.Photo=newUrl;
-
 
       data.append("UploadedImage", file);
       data.append("name", studOBJ.Mail);
@@ -124,10 +120,6 @@ this.citiesList=[];
         {
           method: 'POST',
           body: data,
-          // headers: new Headers({
-          //   // 'Content-Type': 'application/json; charset=UTF-8',
-          //   // 'Accept': 'application/json; charset=UTF-8'
-          // })
         })
         .then(res => {
           console.log('res=', res);
@@ -156,9 +148,6 @@ this.citiesList=[];
             console.log("err post=", error);
           });
       console.log('end');
-
-
-      //setSource(newUrl);
     }
 
     else {
@@ -268,7 +257,7 @@ this.citiesList=[];
     return (
       <div>
         <PrimarySearchAppBar />
-        <div className='container' style={{ direction: 'rtl' }}>
+        <div className='container' style={{ direction: 'rtl',marginBottom:15 }}>
           <h4 style={{ fontSize: '6vw', marginTop: '2vw' }}>עריכת פרופיל</h4>
           <div className='rowC' style={{ marginTop: 10 }}>
 
@@ -280,9 +269,11 @@ this.citiesList=[];
               imageWidth="80"
               imageHeight="80"
               roundedSize="5" />
+              <i class="bi bi-trash-fill"
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 10, marginTop: 55 }}></i>
             <i class="bi bi-pencil-fill"
               onClick={() => this.fileInput.click()}
-              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 170, marginTop: 50 }}></i>
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 150, marginTop: 50 }}></i>
           </div>
 
           <input
@@ -292,14 +283,14 @@ this.citiesList=[];
             ref={fileInput => this.fileInput = fileInput} />
 
         </div>
-        
+
         <div>
           <p className='labels'> עיר קבע </p>
 
           <Autocomplete
                 options={this.citiesList}
                 getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto', direction:'rtl' }}
+                style={{ width: '50vw', margin: '0px auto', direction:'rtl',backgroundColor:'white' }}
                 renderInput={(params) => <TextField {...params} label={this.state.studOBJ.HomeTown===undefined?"בחר עיר":this.state.studOBJ.HomeTown.Name} variant="outlined" />}
                 size='small'
                // value={this.state.city}
@@ -311,7 +302,7 @@ this.citiesList=[];
           <Autocomplete
                 options={this.citiesList}
                 getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto',direction:'rtl' }}
+                style={{ width: '50vw', margin: '0px auto',direction:'rtl' ,backgroundColor:'white'}}
                 renderInput={(params) => <TextField {...params} label={this.state.studOBJ.AddressStudying===undefined?"בחר עיר":this.state.studOBJ.AddressStudying.Name} 
                 variant="outlined"/>}
                 size='small'
@@ -322,7 +313,7 @@ this.citiesList=[];
         <div>
           <p className='labels'> סטטוס </p>
 
-          <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 }}>
+          <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 ,backgroundColor:'white'}}>
 <InputLabel htmlFor="filled-age-native-simple">{this.state.studOBJ.PersonalStatus ==="" ? " בחר סטטוס " :this.state.studOBJ.PersonalStatus}</InputLabel>
 <Select
 
