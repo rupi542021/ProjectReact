@@ -1,14 +1,11 @@
-import React, { Component,StyleSheet } from 'react'
+import React, { Component } from 'react'
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import { withRouter } from 'react-router-dom';
 import ReactRoundedImage from "react-rounded-image";
 import Grid from '@material-ui/core/Grid';
 import '../style.css';
-import { Circle,Rectangle} from 'react-shapes';
-import axios from 'axios';
+import { Rectangle} from 'react-shapes';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
-import { green } from '@material-ui/core/colors';
-import Icon from '@material-ui/core/Icon';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 class CCUserProfile extends Component {
@@ -21,13 +18,9 @@ class CCUserProfile extends Component {
       studHList: [],
       studImg:"",
       source: null
-
-
     }
   }
   componentDidMount() {
-
-
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
     let arr = studOBJ.DateOfBirth.split("T");
@@ -57,78 +50,9 @@ class CCUserProfile extends Component {
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: age, studDep: studOBJ.Dep.DepartmentName
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
-      stutsYear:studOBJ.StudyingYear,studCar:studOBJ.IsAvailableCar,studCarPool:studOBJ.IntrestedInCarPool
+      stutsYear:studOBJ.StudyingYear,studCar:studOBJ.IsAvailableCar,studCarPool:studOBJ.IntrestedInCarPool,
+      studPhoto:'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
     })
-
-
-
-
-
-
-      // axios
-      // .get(
-      //   'https://localhost:44325/API/students/'+studOBJ.Photo+'/photos',
-      //   { responseType: 'arraybuffer' },
-      // )
-      // .then(response => {
-      //   const base64 = btoa(
-      //     new Uint8Array(response.data).reduce(
-      //       (data, byte) => data + String.fromCharCode(byte),
-      //       '',
-      //     ),
-      //   );
-      //   let objectURL = 'data:image/jpeg;base64,'+window.btoa(base64);
-      //   //let imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      //   this.setState({ source: objectURL });
-      //   console.log(objectURL)
-      // });
-
-
-        console.log('GETstart');
-        fetch('https://localhost:44325/API/students/'+studOBJ.Photo+'/photos',
-          {
-            method: 'GET',
-            headers: new Headers({
-              'Content-Type': 'application/json; charset=UTF-8',
-              'Accept': 'application/json; charset=UTF-8'
-            })
-          })
-          .then((res) => {
-            console.log('res.ok', res.ok);
-            if (!res.ok) {
-            
-            }
-            return res.json();
-          })
-          .then(
-            (result) => {
-              console.log("fetch btnFetchGetStudents= ", result);
-             this.setState({studPhoto:result})
-            });
-
-      
-        //   .then(r => r.blob()).then(blob => {
-      //     //const newUrl = URL.createObjectURL(blob);  
-      //     console.log(newUrl)
-      //   this.setState({
-      //       source: newUrl
-      //      });
-
-      // //     var reader = new FileReader();
-      //     var b64 =null;
-      //     reader.onload = function() {
-      //          b64 = reader.result.replace(/^data:.+;base64,/, '');
- 
-      //     };
-      //     this.setState({
-      //       source: b64
-      //      });
-      //     console.log(b64)
-      //     reader.readAsDataURL(blob);
-      //     const newUrl = URL.createObjectURL(blob);
-      // console.log(newUrl);
-       
-      
 
   }
 
@@ -136,8 +60,6 @@ class CCUserProfile extends Component {
   {
     this.props.history.push("/editP");
   }
-
-
 
   render() {
     return (
