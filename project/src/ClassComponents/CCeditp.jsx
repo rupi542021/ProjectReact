@@ -35,7 +35,7 @@ this.citiesList=[];
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ imgURL: "http://127.0.0.1:8887/" + studOBJ.Photo })
+    this.setState({ imgURL: 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo })
     console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
@@ -119,7 +119,7 @@ this.citiesList=[];
       data.append("name", studOBJ.Mail);
 
       console.log("in post img function");
-      this.apiUrl = 'https://localhost:44325/api/students/uploadedFiles'
+      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
       fetch(this.apiUrl,
         {
           method: 'POST',

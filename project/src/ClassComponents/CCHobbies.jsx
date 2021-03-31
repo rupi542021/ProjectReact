@@ -19,7 +19,7 @@ class CCHobbies extends Component {
     }
   }
   componentDidMount() {
-    this.apiUrl = 'https://localhost:44325/api/students/GetAllHoddies';
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllHoddies';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
