@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import {  withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ReactRoundedImage from "react-rounded-image";
 import Grid from '@material-ui/core/Grid';
 import '../style.css';
-import {  Rectangle } from 'react-shapes';
+import { Rectangle } from 'react-shapes';
 import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -17,69 +17,108 @@ class CCUserProfile2 extends Component {
       studName: [],
       studAge: "",
       studPList: [],
-      studHList: []
+      studHList: [],
+      loginStud: [],
+      isFriend: false
 
 
     }
+
   }
   componentDidMount() {
     let studOBJ = localStorage.getItem('chooseUser');
     studOBJ = JSON.parse(studOBJ);
-
+    let loginStud = localStorage.getItem('student');
+    loginStud = JSON.parse(loginStud);
+    console.log("loginStud", loginStud)
+    this.setState({ loginStud: loginStud });
     //localStorage.setItem('student', JSON.stringify(studOBJ));
     console.log("studOBJ2show", studOBJ);
     this.setState({
       studName: studOBJ.Fname + " " + studOBJ.Lname, studAge: studOBJ.DateOfBirth, studDep: studOBJ.DepName
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
-      studCarPool:studOBJ.IntrestedInCarPool,studCar:studOBJ.IsAvailableCar,
-       stutsYear: studOBJ.StudyingYear,match:studOBJ.Match,studPhoto:studOBJ.Photo
+      studCarPool: studOBJ.IntrestedInCarPool, studCar: studOBJ.IsAvailableCar,
+      stutsYear: studOBJ.StudyingYear, match: studOBJ.Match, studPhoto: studOBJ.Photo, studMail: studOBJ.Mail
+    }, () => {
+      if (this.state.loginStud.Friendslist.includes(studOBJ.Mail))
+        this.setState({ isFriend: true });
     })
 
   }
 
-  back2PrevPage = () =>
-  {
-    if(this.state.match!==0)
-    this.props.history.push("/showUsers");
+  back2PrevPage = () => {
+    if (this.state.match !== 0)
+      this.props.history.push("/showUsers");
     else
-    this.props.history.push("/Favorites");
+      this.props.history.push("/Favorites");
   }
+
+  DeleteFromFavorites = () => {
+    console.log("in delete favorite function");
+    let sf = {
+      Student1mail: this.state.loginStud.Mail,
+      Student2mail: this.state.studMail
+    }
+    console.log("Student1mail", sf.Student1mail);
+    console.log("Student2mail", sf.Student2mail);
+    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/DeleteFromFavorites';
+    fetch(apiUrl,
+      {
+        method: 'Delete',
+        body: JSON.stringify(sf),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        console.log('res.ok', res.ok);
+        if (res.ok) {
+          console.log('student was deleted!');
+
+        }
+      });
+  }
+ 
 
   render() {
     return (
 
       <div>
         <PrimarySearchAppBar />
-        <div style={{ direction: 'rtl' ,height:551}}  >
+        <div style={{ direction: 'rtl', height: 551 }}  >
           {/* https://icons.getbootstrap.com/ */}
           <div className='rowC' style={{ position: 'absolute', marginRight: 20 }}>
-          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
-            <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20  }}></i>
-            <i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
+            <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
+            <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
+            {this.state.isFriend === true ? <i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }} onClick={this.DeleteFromFavorites}></i>
+              :<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
 
           </div>
-          {this.state.match!=0?
-          <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
-            <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
-            <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }} 
-            textAnchor="middle" x="40" y="45">{this.state.match}%</text>
-          </svg>:""}
+          {this.state.match != 0 ?
+            <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
+              <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
+              <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }}
+                textAnchor="middle" x="40" y="45">{this.state.match}%</text>
+            </svg> : ""}
 
           <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 0 }}>
-            <div className='rowC' style={{width:230}}>
-            <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
-            <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            <div className='rowC' style={{ width: 230 }}>
+              <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
+              <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             </div>
             <ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}
-                  image={this.state.studPhoto}
+              image={this.state.studPhoto}
 
-                  roundedColor="#3D3D3D"
-                  imageWidth="115"
-                  imageHeight="115"
-                  roundedSize="0"
+              roundedColor="#3D3D3D"
+              imageWidth="115"
+              imageHeight="115"
+              roundedSize="0"
 
-                /> 
+            />
           </div>
 
 
@@ -132,14 +171,14 @@ class CCUserProfile2 extends Component {
               </Grid>
             </Grid>
           </div>
-          {this.state.studCar?<div className='rowRight'><CheckIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>מגיע עם רכב</p></div>:
-<div className='rowRight'><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>לא מגיע עם רכב</p></div>}      
+          {this.state.studCar ? <div className='rowRight'><CheckIcon fontSize="small" /> <p className='labelsRight' style={{ fontSize: 15 }}>מגיע עם רכב</p></div> :
+            <div className='rowRight'><CloseIcon fontSize="small" /> <p className='labelsRight' style={{ fontSize: 15 }}>לא מגיע עם רכב</p></div>}
 
-{this.state.studCarPool?<div className='rowRight'><CheckIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>מעוניין בנסיעות משותפות</p></div>:
-<div className='rowRight' ><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:15}}>לא מעוניין בנסיעות משותפות</p></div>}  
+          {this.state.studCarPool ? <div className='rowRight'><CheckIcon fontSize="small" /> <p className='labelsRight' style={{ fontSize: 15 }}>מעוניין בנסיעות משותפות</p></div> :
+            <div className='rowRight' ><CloseIcon fontSize="small" /> <p className='labelsRight' style={{ fontSize: 15 }}>לא מעוניין בנסיעות משותפות</p></div>}
 
         </div>
-        <FCTabNavigator/>
+        <FCTabNavigator />
       </div>
     )
   }
