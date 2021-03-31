@@ -155,7 +155,7 @@ class CCFavorites extends Component {
         <div className="scrollbar mx-auto" style={{ width: "100vw", height: 500, maxHeight: "445px", marginTop: 20 }} >
 
           <div className='userList'>
-            {this.state.studentstArr.length==0?<h3 style={{}}>{this.state.text}</h3>:
+            {this.state.studentstArr.length==0&&this.state.loading==false?<h3>{this.state.text}</h3>:
             <Grid container >
 
               <Grid item xs={12}>

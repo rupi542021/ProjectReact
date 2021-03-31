@@ -80,7 +80,7 @@ class CCUserProfile extends Component {
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
               <div style={{ position: 'absolute',marginRight:410,marginTop:20}}>
-<ReactRoundedImage style={{ zIndex: 3 }}
+<ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
                   image={this.state.studPhoto}
 
                   roundedColor="#3D3D3D"
@@ -93,6 +93,7 @@ class CCUserProfile extends Component {
           </div>
 
           <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
+
           <div style={{ textAlign: 'right', marginRight: 10 }}>
             <h5 style={{ fontWeight: 'bold', marginTop: 10, fontSize: '5.5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
            

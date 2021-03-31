@@ -44,6 +44,15 @@ class CCUserProfile2 extends Component {
       if (this.state.loginStud.Friendslist.includes(studOBJ.Mail))
         this.setState({ isFriend: true });
     })
+    var countFriends=0;
+    console.log(studOBJ.FriendsList);
+    console.log(loginStud.Friendslist);
+    studOBJ.FriendsList.forEach(element => {
+      if(loginStud.Friendslist.includes(element))
+      countFriends++
+    });
+     console.log(countFriends);
+     this.setState({CommonFriends:countFriends})
 
   }
 
@@ -89,7 +98,7 @@ class CCUserProfile2 extends Component {
 
       <div>
         <PrimarySearchAppBar />
-        <div style={{ direction: 'rtl', height: 551 }}  >
+        <div style={{ direction: 'rtl', height: '83vh' }}  >
           {/* https://icons.getbootstrap.com/ */}
           <div className='rowC' style={{ position: 'absolute', marginRight: 20 }}>
             <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
@@ -124,10 +133,10 @@ class CCUserProfile2 extends Component {
 
 
 
-          <Rectangle width={'100%'} height={87} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
+          <Rectangle width={'100vw'} height={87} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
           <div style={{ textAlign: 'right', marginRight: 10 }}>
             <h5 style={{ fontWeight: 'bold', marginTop: 5, fontSize: '5.2vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
-            <p className='labelsRight' style={{ marginTop: 7, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "}</p>
+            <p className='labelsRight' style={{ marginTop: 7, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "+this.state.CommonFriends}</p>
             <p className='labelsRight' style={{ marginTop: 7 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
             <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>

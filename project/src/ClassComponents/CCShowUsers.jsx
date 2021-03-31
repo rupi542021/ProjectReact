@@ -49,7 +49,7 @@ class CCShowUsers extends Component {
     },()=>{console.log("this.state.userFriendslist", this.state.userFriendslist)})
 
     console.log(studOBJ.Mail)
-    console.log(studOBJ.DepName)
+    console.log(studOBJ.Dep.DepartmentName)
 
     this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
@@ -68,7 +68,6 @@ class CCShowUsers extends Component {
         (result) => {
           console.log("fetch GetAllUsers= ", result);
           result.forEach(s => {
-            console.log(s.Mail);
             let arr = s.DateOfBirth.split("T");
             var getAge = require('get-age')
             let age = getAge(arr[0])
@@ -93,7 +92,7 @@ class CCShowUsers extends Component {
             let stud = {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
-              AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,FriendsList:s.FriendsList,
+              AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,FriendsList:s.Friendslist,
               Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
               Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+s.Photo,
             }
@@ -102,7 +101,6 @@ class CCShowUsers extends Component {
           });
           this.studArr=this.state.studentstArr;
           console.log('studArr', this.studArr);
-          console.log('studentstArr', this.state.studentstArr);
           this.setState({ studentstArr: this.state.studentstArr });
           this.setState({ loading: false });
         }
@@ -162,7 +160,7 @@ class CCShowUsers extends Component {
     });
   }
   getData = (userPicked) => {
-    console.log(userPicked);
+    console.log("picked"+userPicked);
     localStorage.setItem('chooseUser', JSON.stringify(userPicked));
     this.props.history.push("/userProfile2");
   }
@@ -174,6 +172,8 @@ class CCShowUsers extends Component {
       this.props.history.push("/userProfile2");
 
     }
+
+
     // getFavoriteData = (mailToAdd) => {
     //   let studToAdd = {
     //     Mail: mailToAdd
@@ -250,7 +250,7 @@ class CCShowUsers extends Component {
 
 
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
-          <div className="scrollbar mx-auto" style={{ width: "100vw", height: 400, maxHeight: "370px", marginTop: 20 }} >
+          <div className="scrollbar mx-auto" style={{ width: "100vw", height: 500, maxHeight: "55vh", marginTop: 20 }} >
 
             <div className='userList'>
               <h3 style={{}}>{this.state.text}</h3>
@@ -265,18 +265,20 @@ class CCShowUsers extends Component {
                           <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
                             photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
                             isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1 === s.Mail) : false}
-                            userMail={this.state.userMail} sendFavoriteData={this.getFavoriteData} />
+                            userMail={this.state.userMail} flist={this.state.FriendsList} sendFavoriteData={this.getFavoriteData} />
                         </Grid>
                       ))
 
                       }
                     </Grid>
-                  </PerfectScrollbar>
+                  </PerfectScrollbar >
                 </Grid>
               </Grid>
             </div>
           </div>
+    
           <FCTabNavigator />
+  
         </div>
       )
     }
