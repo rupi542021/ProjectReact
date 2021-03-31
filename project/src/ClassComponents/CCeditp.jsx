@@ -52,7 +52,7 @@ this.citiesList=[];
   }
 
   fetchGetAllResidence = () => {
-    this.apiUrl = 'https://localhost:44325/api/students/GetAllResidences';
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
     console.log('GET cities start');
     fetch(this.apiUrl,
       {

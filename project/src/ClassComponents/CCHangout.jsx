@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import FCHangoutFrame from '../FunctionalComponents/FCHangoutFrame';
-import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import { Link, withRouter } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
+import {  withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
-import Rotation from 'react-rotation'
+
 
 class CCHangout extends Component {
   constructor(props) {
@@ -17,7 +15,7 @@ class CCHangout extends Component {
     }
   }
   componentDidMount() {
-    this.apiUrl='https://localhost:44325/api/students/GetAllPleasures';
+    this.apiUrl='http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllPleasures';
     console.log('GETstart');
     fetch(this.apiUrl,
       {

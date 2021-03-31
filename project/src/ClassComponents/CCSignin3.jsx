@@ -49,7 +49,7 @@ class CCSignin3 extends Component {
   }
 
   componentDidMount = () => {
-    this.apiUrl = 'https://localhost:44325/api/students/GetAllResidences';
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -215,7 +215,7 @@ class CCSignin3 extends Component {
       data.append("name", studOBJ.Mail);
 
       console.log("in post img function");
-      this.apiUrl = 'https://localhost:44325/api/students/uploadedFiles'
+      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
       fetch(this.apiUrl,
         {
           method: 'POST',
@@ -351,16 +351,16 @@ class CCSignin3 extends Component {
                 onClick={() => this.fileInput.click()}> בחירת תמונה</Button> */}
               </div>
             </Form.Item>
-            <Form.Item style={{ marginBottom: 10, width: '100%' }}>
-              {/* <div className='rowC'> */}
+            {/* <Form.Item style={{ marginBottom: 10, width: '100%' }}>
+      
               <p className='labels' style={{ marginBottom: 10 }}> מגדר </p>
               <Radio.Group onChange={this.chgGender}>
                 <Radio value="female"><span className='genderRB'>אישה</span></Radio>
                 <Radio value="male"><span className='genderRB'>גבר</span></Radio>
                 <Radio value="other"><span className='genderRB'>אחר</span></Radio>
               </Radio.Group>
-              {/* </div> */}
-            </Form.Item>
+            
+            </Form.Item> */}
             {/* 
           <Form.Item>
           <p className='labels'>תאריך לידה </p>

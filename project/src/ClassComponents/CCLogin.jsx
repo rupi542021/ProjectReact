@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
@@ -31,7 +31,7 @@ class CCLogin extends Component {
   btnLogin = () => {
     if (this.state.email !== "" && this.state.password !== "") {
       if (this.handleEmailValidation() === true) {
-        this.apiUrl = 'https://localhost:44325/api/students/' + this.state.email + '/' + this.state.password;
+        this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + this.state.email + '/' + this.state.password;
         console.log('GETstart');
         fetch(this.apiUrl,
           {
@@ -94,28 +94,6 @@ class CCLogin extends Component {
                 this.props.history.push("/userProfile");
 
               });
-              // }
-              // else if (result.Mail !== null) {
-              //   Swal.fire({
-              //     title: 'היי ' + result.Fname,
-              //     text: 'הסיסמא לא נכונה',
-              //     icon: 'error',
-              //     iconHtml: '',
-              //     confirmButtonText: 'סגור',
-              //     showCloseButton: true,
-              //   })
-              // }
-              // else {
-              //   Swal.fire({
-              //     title: 'המייל לא נמצא במערכת',
-              //     text: 'אנא הכנס מייל מחדש',
-              //     icon: 'error',
-              //     iconHtml: '',
-              //     confirmButtonText: 'סגור',
-              //     showCloseButton: true
-              //   })
-              // }
-
             })
           .catch((error) => {
             console.log("err get=", error);
