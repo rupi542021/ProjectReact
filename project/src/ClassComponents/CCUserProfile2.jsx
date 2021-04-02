@@ -5,7 +5,7 @@ import ReactRoundedImage from "react-rounded-image";
 import Grid from '@material-ui/core/Grid';
 import '../style.css';
 import { Rectangle } from 'react-shapes';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
@@ -46,6 +46,7 @@ class CCUserProfile2 extends Component {
     })
     var countFriends=0;
     console.log(studOBJ.FriendsList);
+    if(loginStud.Friendslist==null)loginStud.Friendslist=[];
     console.log(loginStud.Friendslist);
     studOBJ.FriendsList.forEach(element => {
       if(loginStud.Friendslist.includes(element))
@@ -107,7 +108,7 @@ class CCUserProfile2 extends Component {
               :<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
 
           </div>
-          {this.state.match != 0 ?
+          {this.state.match !== 0 ?
             <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
               <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
               <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ReactRoundedImage from "react-rounded-image";
-import { Radio } from 'antd';
+//import { Radio } from 'antd';
 import Button from '@material-ui/core/Button';
 import 'antd/dist/antd.css';
 import '../style.css';
@@ -348,17 +348,16 @@ label="בחר סטטוס"
             onChange={this.chgSwitchCarpool} checked={this.state.switchChecked} />
         </div>
 
-        <div className='rowC' style={{ marginTop: '2vh', marginBottom: '2.5vh' }}>
+        <div className='rowC' style={{ marginTop: '2vh', marginBottom: '2.9vh' }}>
           <Button variant="contained"
-            color="default"
-            style={{ marginRight: 20, fontFamily: "Segoe UI" }}
+            style={{ marginRight: 20, fontFamily: "Segoe UI",backgroundColor:"#96a2aa" }}
             onClick={(e) => {
               this.props.history.push("/editHobbies")
             }}><i class="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>תחביבים</Button>
 
           <Button variant="contained"
-            color="default"
-            style={{ fontFamily: "Segoe UI" }}
+            color="#96a2aa"
+            style={{ fontFamily: "Segoe UI",backgroundColor:"#96a2aa" }}
             onClick={() => { this.props.history.push("/editHangouts") }}>
             <i class="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>מקומות בילוי</Button>
         </div>
