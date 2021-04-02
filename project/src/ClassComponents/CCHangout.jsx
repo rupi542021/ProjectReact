@@ -96,7 +96,7 @@ class CCHangout extends Component {
     return (
       <div>
                 <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" }}>
-          <img src="icons/high-five.png" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
+          <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
         

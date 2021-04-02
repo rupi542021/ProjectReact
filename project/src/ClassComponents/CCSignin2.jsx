@@ -35,7 +35,7 @@ class CCSignin2 extends Component {
 
   validatePass = (pass) => {
     console.log("password for validation:", pass)
-    const reg = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
+    //const reg = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
     if (pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
 
       return true;
@@ -66,7 +66,7 @@ class CCSignin2 extends Component {
     return (
       <div>
         <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" }}>
-          <img src="icons/high-five.png" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
+          <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
 

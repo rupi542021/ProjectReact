@@ -1,25 +1,23 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import FCFavoriteCard from '../FunctionalComponents/FCFavoriteCard';
 import Grid from '@material-ui/core/Grid';
-import { Form, Radio, Select, DatePicker, Checkbox } from 'antd';
+// import { Form, Radio, Select, DatePicker, Checkbox } from 'antd';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
 import SearchField from "react-search-field";
-import Button from '@material-ui/core/Button';
-import { MDBContainer } from "mdbreact";
+// import Button from '@material-ui/core/Button';
+// import { MDBContainer } from "mdbreact";
 import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
-const ScrollBarPage = () => {
-  const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
-}
+// const ScrollBarPage = () => {
+//   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
+// }
 
-const filterByList = ["המחלקה שלי", "המחזור שלי", "הישוב שלי-מקור", "הישוב שלי-נוכחי"]
-const imgARR = [];
 class CCFavorites extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +30,6 @@ class CCFavorites extends Component {
       text: "אין מועדפים",
       loading: false,
       userFriendslist: [],
-
-
     }
     this.studArr = [];
   }
@@ -92,7 +88,7 @@ class CCFavorites extends Component {
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,
               Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
-              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo == "" ? "images/avatar.jpg" : "http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/"+s.Photo
+              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : "http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/"+s.Photo
             }
             //studArr.push(stud);
             this.state.studentstArr.push(stud);
@@ -126,7 +122,7 @@ class CCFavorites extends Component {
 
   SearchUser = (val) => {
     let filtered_list = this.state.studentstArr.filter((item) => item.Fname.includes(val) || item.Lname.includes(val));
-    if (val == "")
+    if (val === "")
       this.setState({ studentstArr: this.studArr });
     else
       this.setState({ studentstArr: filtered_list })
@@ -155,7 +151,7 @@ class CCFavorites extends Component {
         <div className="scrollbar mx-auto" style={{ width: "100vw", height: 500, maxHeight: "445px", marginTop: 20 }} >
 
           <div className='userList'>
-            {this.state.studentstArr.length==0&&this.state.loading==false?<h3>{this.state.text}</h3>:
+            {this.state.studentstArr.length===0&&this.state.loading===false?<h3>{this.state.text}</h3>:
             <Grid container >
 
               <Grid item xs={12}>

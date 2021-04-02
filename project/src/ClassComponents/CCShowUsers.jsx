@@ -12,13 +12,13 @@ import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
-const ScrollBarPage = () => {
-  const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
-}
+// const ScrollBarPage = () => {
+//   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
+// }
 
 const filterByList = ["המחלקה שלי", "המחזור שלי",  "גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי","מעוניינים בנסיעות משותפות"]
 //const studArr = [];
-const imgARR = [];
+//const imgARR = [];
 class CCShowUsers extends Component {
   constructor(props) {
     super(props);
@@ -109,6 +109,7 @@ class CCShowUsers extends Component {
   }
 
   FilterUsers = (filterBy) => {
+    var pow = require( 'math-power' );
     console.log('studArr in filter function', this.studArr);
           console.log('studentstArr in filter function', this.state.studentstArr);
     this.setState({ studentstArr: this.studArr, text: "" }, () => {
@@ -132,7 +133,6 @@ class CCShowUsers extends Component {
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
       if (filterBy === "גרים קרוב אלי-מקור") {
-        var pow = require( 'math-power' );
         let filterbydep = this.state.studentstArr.filter(s => pow(pow((s.HomeTown.X / 1000) - (this.state.userHomeTownX / 1000), 2) + pow((s.HomeTown.Y / 1000) - (this.state.userHomeTownY / 1000), 2),0.5) < 15)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
@@ -141,7 +141,6 @@ class CCShowUsers extends Component {
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
       if (filterBy === "גרים קרוב אלי-נוכחי") {
-        var pow = require( 'math-power' );
         let filterbydep = this.state.studentstArr.filter(s => pow(pow((s.AddressStudying.X / 1000) - (this.state.userAddressX / 1000), 2) + pow((s.AddressStudying.Y / 1000) - (this.state.userAddressY / 1000), 2),0.5) < 15)
         console.log(filterbydep);
         if (filterbydep.length !== 0)
@@ -150,7 +149,7 @@ class CCShowUsers extends Component {
           this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
       }
       if (filterBy === "מעוניינים בנסיעות משותפות") {
-        let filterbycarPool = this.state.studentstArr.filter(s => s.IntrestedInCarPool == this.state.CarPool)
+        let filterbycarPool = this.state.studentstArr.filter(s => s.IntrestedInCarPool === this.state.CarPool)
         console.log(filterbycarPool);
         if (filterbycarPool.length !== 0)
           this.setState({ studentstArr: filterbycarPool, text: "" })
@@ -210,7 +209,7 @@ class CCShowUsers extends Component {
     
     SearchUser = (val) => {
       let filtered_list = this.state.studentstArr.filter((item) => item.Fname.includes(val) || item.Lname.includes(val));
-      if (val == "")
+      if (val === "")
         this.setState({ studentstArr: this.studArr });
       else
         this.setState({ studentstArr: filtered_list })
@@ -219,9 +218,6 @@ class CCShowUsers extends Component {
     render() {
       return (
         <div className='container1'>
-
-
-
           <PrimarySearchAppBar />
           <div style={{ direction: 'rtl' }}>
             <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26 }}>בוא נמצא חברים חדשים!</h3>

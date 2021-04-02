@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Radio} from 'antd';
+import { Form} from 'antd';
 import 'antd/dist/antd.css';
 import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
@@ -68,7 +68,7 @@ class CCSignin3 extends Component {
           console.log("fetch GetAllResidences= ", result);
 
           result.forEach(s => {
-            if (s.Name != "") {
+            if (s.Name !== "") {
               let city = { Name: s.Name, Id: s.Id, X: s.X, Y: s.Y }
               citiesList.push(city);
             }
@@ -290,7 +290,7 @@ class CCSignin3 extends Component {
     return (
       <div>
                 <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" }}>
-          <img src="icons/high-five.png" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
+          <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
         <div>

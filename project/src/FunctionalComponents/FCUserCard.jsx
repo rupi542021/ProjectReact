@@ -1,6 +1,6 @@
 import React from 'react'
 import '../style.css';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -150,7 +150,7 @@ export default function FCUserCard(props) {
       </div>
 
       <div style={{ marginTop: 30, width: "20vw" }}>
-        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} strokeColor={props.match>60?"#99e831":"#4a74ff"}/>
+        <Progress type="circle" percent={props.match} strokeWidth={6} width={40} strokeColor={props.match>70?"#99e831":"#4a74ff"}/>
       </div>
 
       <div style={{ width: 40, marginTop: 5 }}>

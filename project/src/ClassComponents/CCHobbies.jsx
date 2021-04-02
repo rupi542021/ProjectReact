@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import FCHangoutFrame from '../FunctionalComponents/FCHangoutFrame';
-import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import { Link, withRouter } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
+import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
-import Rotation from 'react-rotation';
 import Swal from 'sweetalert2';
 
 
@@ -171,7 +168,7 @@ class CCHobbies extends Component {
     return (
       <div>
                <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" }}>
-          <img src="icons/high-five.png" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
+          <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
 
