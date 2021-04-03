@@ -13,15 +13,21 @@ class CCSignin2 extends Component {
       password: "",
       passConfirmed: false,
       err: "",
-      errConfirm: ""
+      errConfirm: "",
+      ucAprroved: false
     }
   }
   showUsingTerms = () => {
+    console.log("using tems before approval:" , this.state.ucAprroved)
     Swal.fire({
       text: "תלחץ על מסכים נו",
       height: 1000,
       confirmButtonText: 'מסכים',
-    })
+    }).then(() => {
+      this.setState({ucAprroved:true},
+        () => {console.log("using tems after approval:" , this.state.ucAprroved)
+      });
+    });
   }
 
   handluserPassword = (e) => {
@@ -29,7 +35,7 @@ class CCSignin2 extends Component {
       this.setState({ password: e.target.value, err: "" });
     }
     else {
-      this.setState({ err: "הכתובת שהכנסת אינה תקינה" })
+      this.setState({ err: "הסיסמה שהזנת אינה תקינה" })
     }
   }
 
@@ -53,14 +59,34 @@ class CCSignin2 extends Component {
   btnNext2Confirm = () => {
     //להוסיף תנאי שהמשתמש אישר את תנאי השימוש
     if (this.state.passConfirmed === true) {
+      if(this.state.ucAprroved===true){
       let stud = localStorage.getItem('student');
       stud = JSON.parse(stud);
       stud.Password = this.state.password;
       localStorage.setItem('student', JSON.stringify(stud));
       console.log(stud);
       this.props.history.push("/signin3");
+      }
+      else {
+        let msg = "יש לאשר תנאי שימוש";
+        this.handleErrors(msg)
+      }
     }
-    else this.setState({ message: "אימות הסיסמה נכשל!" });
+    else {
+      let msg = "אימות הסיסמה נכשל";
+      this.handleErrors(msg)
+    }
+  }
+
+  handleErrors = (msg) =>
+  {
+    Swal.fire({
+      text: msg,
+      icon: 'error',
+      iconHtml: '',
+      confirmButtonText: 'סגור',
+      showCloseButton: true
+    })
   }
   render() {
     return (
@@ -97,11 +123,11 @@ class CCSignin2 extends Component {
         />
         <div style={{ color: "#de0d1b" }}>{this.state.errConfirm}</div>
         <br />
-        <p onClick={this.showUsingTerms} style={{ marginTop: 30, color: "blue" }}>תנאי שימוש</p>
+        <p onClick={this.showUsingTerms} style={{width:"fit-content", margin:'auto' ,marginTop: 20, color: "blue" }}>תנאי שימוש</p>
 
         <Button variant="contained"
           style={{
-            paddingTop: 0, marginRight: 10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
+            paddingTop: 0, marginRight: 10, marginTop:40 ,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
             fontFamily: "Segoe UI", height: 35
           }}
           onClick={this.btnNext2Confirm}>
