@@ -183,7 +183,9 @@ class CCFavorites extends Component {
             </Grid>}
           </div>
         </div>
-        <FCTabNavigator />
+        <div style={{position:'fixed',bottom:0, width:'100%'}}>
+          <FCTabNavigator />
+          </div>
       </div>
     )
   }

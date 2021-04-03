@@ -151,7 +151,9 @@ class CCUserProfile extends Component {
 <div className='rowRight' ><CloseIcon fontSize="small"/> <p className='labelsRight' style={{fontSize:16}}>לא מעוניין בנסיעות משותפות</p></div>}  
         </div>
         </div>
-        <FCTabNavigator />
+        <div style={{position:'fixed',bottom:0, width:'100%'}}>
+          <FCTabNavigator />
+          </div>
       </div>
     )
   }
