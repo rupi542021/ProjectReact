@@ -273,10 +273,10 @@ this.citiesList=[];
               imageWidth="80"
               imageHeight="80"
               roundedSize="5" />
-              <i class="bi bi-trash-fill"
+              <i className="bi bi-trash-fill"
               onClick={this.deleteImg}
               style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i>
-            <i class="bi bi-pencil-fill"
+            <i className="bi bi-pencil-fill"
               onClick={() => this.fileInput.click()}
               style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 20, marginTop: -25 }}></i>
           </div>
@@ -353,13 +353,13 @@ label="בחר סטטוס"
             style={{ marginRight: 20, fontFamily: "Segoe UI",backgroundColor:"#96a2aa" }}
             onClick={(e) => {
               this.props.history.push("/editHobbies")
-            }}><i class="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>תחביבים</Button>
+            }}><i className="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>תחביבים</Button>
 
           <Button variant="contained"
             color="#96a2aa"
             style={{ fontFamily: "Segoe UI",backgroundColor:"#96a2aa" }}
             onClick={() => { this.props.history.push("/editHangouts") }}>
-            <i class="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>מקומות בילוי</Button>
+            <i className="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>מקומות בילוי</Button>
         </div>
 
         <div>
@@ -371,7 +371,7 @@ label="בחר סטטוס"
 <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
          fontFamily: "Segoe UI",height:35}}
          onClick={() => this.props.history.push("/userprofile")}
-        > <i class="bi bi-arrow-right-short"
+        > <i className="bi bi-arrow-right-short"
         style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
         </Button>
         </div>
