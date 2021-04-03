@@ -67,19 +67,21 @@ class CCUserProfile extends Component {
       <div>
         <PrimarySearchAppBar />
         <div style={{ direction: 'rtl',height:'83vh' }}  >
-       
+       <div>
         <i className="bi bi-pencil-fill" 
-        style={{marginRight:5, position:'absolute',color: '#3D3D3D', fontSize: 24}} 
+        style={{right:'5%', position:'absolute',color: '#3D3D3D', fontSize: 24}} 
         onClick={this.handleEditProfile} ></i>
+</div>
 
 
-
-        <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 65, marginRight: 20 }}>
+        <div style={{ position: 'absolute', zIndex: 10, top: '15%', marginRight: 10,display:'flex',flexDirection:'row', width:'100%' }}>
+          <div style={{marginTop:'5%', display:'flex',flexDirection:'row'}}>
             <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
-            <h3 style={{  fontSize: '6.5vw' }}>{this.state.studAge}</h3>
+            <h3 style={{  fontSize: '7vw' }}>{this.state.studAge}</h3>
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
-              <div style={{ position: 'absolute',marginRight:410,marginTop:20}}>
+              </div>
+              <div style={{ position: 'absolute',left:'10%'}}>
 <ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
                   image={this.state.studPhoto}
 
@@ -95,7 +97,7 @@ class CCUserProfile extends Component {
           <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
 
           <div style={{ textAlign: 'right', marginRight: 10 }}>
-            <h5 style={{ fontWeight: 'bold', marginTop: 10, fontSize: '5.5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
+            <h5 style={{width:'60%', fontWeight: 'bold', marginTop: 10, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
            
             <p className='labelsRight' style={{ marginTop: 15 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>

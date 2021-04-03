@@ -161,19 +161,19 @@ class CCUserProfile2 extends Component {
             </svg> : ""}
 
           <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 0 }}>
-            <div className='rowC' style={{ width: 230 }}>
+            <div style={{ width: 230,display:'flex',flexDirection:'row', marginRight:10}}>
               <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
               <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             </div>
-            <ReactRoundedImage style={{ position: 'absolute', zIndex: 3 }}
+            <div style={{marginLeft:'5%'}}>
+            <ReactRoundedImage style={{position: 'absolute', zIndex: 3}}
               image={this.state.studPhoto}
-
               roundedColor="#3D3D3D"
               imageWidth="115"
               imageHeight="115"
               roundedSize="0"
-
             />
+            </div>
           </div>
 
 
@@ -181,9 +181,9 @@ class CCUserProfile2 extends Component {
 
           <Rectangle width={'100vw'} height={87} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
           <div style={{ textAlign: 'right', marginRight: 10 }}>
-            <h5 style={{ fontWeight: 'bold', marginTop: 5, fontSize: '5.2vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
-            <p className='labelsRight' style={{ marginTop: 7, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "+this.state.CommonFriends}</p>
-            <p className='labelsRight' style={{ marginTop: 7 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
+            <p style={{ width:'60%',fontWeight: 'bold', marginTop: 5, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</p>
+            <p className='labelsRight' style={{ marginTop: 5, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "+this.state.CommonFriends}</p>
+            <p className='labelsRight' style={{ marginTop: 5 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
             <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
 
