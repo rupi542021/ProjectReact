@@ -45,9 +45,9 @@ class CCUserProfile2 extends Component {
         this.setState({ isFriend: true });
     })
     var countFriends=0;
-    console.log(studOBJ.FriendsList);
-    if(loginStud.Friendslist==null)loginStud.Friendslist=[];
-    console.log(loginStud.Friendslist);
+    console.log("friends of userProfile2: ",studOBJ.FriendsList);
+    if(loginStud.Friendslist===null)loginStud.Friendslist=[];
+    console.log("friends of loginStud: ",loginStud.Friendslist);
     studOBJ.FriendsList.forEach(element => {
       if(loginStud.Friendslist.includes(element))
       countFriends++

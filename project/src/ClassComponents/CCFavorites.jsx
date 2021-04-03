@@ -13,6 +13,8 @@ import SearchField from "react-search-field";
 import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
+import Button from '@material-ui/core/Button';
+
 
 // const ScrollBarPage = () => {
 //   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
@@ -86,7 +88,7 @@ class CCFavorites extends Component {
             let stud = {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname, DateOfBirth: age,
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
-              AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,
+              AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,FriendsList:s.Friendslist,
               Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
               Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : "http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/"+s.Photo
             }
@@ -151,7 +153,14 @@ class CCFavorites extends Component {
         <div className="scrollbar mx-auto" style={{ width: "100vw", height: 500, maxHeight: "445px", marginTop: 20 }} >
 
           <div className='userList'>
-            {this.state.studentstArr.length===0&&this.state.loading===false?<h3>{this.state.text}</h3>:
+            {this.state.studentstArr.length===0&&this.state.loading===false?
+            <div>
+            <h3>{this.state.text}</h3>
+            <Button variant="contained"
+            style={{ marginTop:'40%',paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+            onClick={() => this.props.history.push("/showUsers")}> חיפוש חברים </Button>
+            </div>
+            :
             <Grid container >
 
               <Grid item xs={12}>
