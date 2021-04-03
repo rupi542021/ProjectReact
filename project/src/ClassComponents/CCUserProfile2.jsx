@@ -124,6 +124,12 @@ class CCUserProfile2 extends Component {
 
         if (res.ok) {
           console.log('post succeeded');
+          console.log("FriendList before updating:" , this.state.loginStud.Friendslist);
+          this.state.loginStud.Friendslist.push(sf.Student2mail);
+          console.log("FriendList after updating:" , this.state.loginStud.Friendslist);
+          console.log(sf.Student2mail + ' was added!');
+          this.setState({loginStud:this.state.loginStud, isFriend: true});
+          localStorage.setItem('student', JSON.stringify(this.state.loginStud)); 
         }
       },
         (error) => {
