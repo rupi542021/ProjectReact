@@ -18,7 +18,7 @@ class CCUserProfile2 extends Component {
       studAge: "",
       studPList: [],
       studHList: [],
-      loginStud: [],
+      loginStud: {},
       isFriend: false
 
 
@@ -52,7 +52,7 @@ class CCUserProfile2 extends Component {
       if(loginStud.Friendslist.includes(element))
       countFriends++
     });
-     console.log(countFriends);
+     console.log("mutual friends:",countFriends);
      this.setState({CommonFriends:countFriends})
 
   }
@@ -86,11 +86,50 @@ class CCUserProfile2 extends Component {
         console.log('res=', res);
         console.log('res.status', res.status);
         console.log('res.ok', res.ok);
-        if (res.ok) {
-          console.log('student was deleted!');
-
+        if (res.ok) {        
+          console.log("FriendList before filter:" , this.state.loginStud.Friendslist);
+          let newFriendList = this.state.loginStud.Friendslist.filter((friend) => friend!==sf.Student2mail);
+          console.log("FriendList after filter:" , this.state.loginStud.Friendslist);
+          console.log(sf.Student2mail + ' was deleted!');
+          this.state.loginStud.Friendslist = newFriendList;
+          this.setState({loginStud:this.state.loginStud, isFriend: false});
+          localStorage.setItem('student', JSON.stringify(this.state.loginStud)); 
         }
       });
+  }
+
+   AddToFavorites = () => {
+    console.log("in post favorite function");
+    let sf = {
+      Student1mail: this.state.loginStud.Mail,
+      Student2mail: this.state.studMail
+    }
+    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/AddToFavorites';
+    fetch(apiUrl,
+      {
+        method: 'POST',
+        body: JSON.stringify(sf),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        if (res.status === 201) {
+          console.log('favorite created:)');
+        }
+        console.log('res.ok', res.ok);
+
+        if (res.ok) {
+          console.log('post succeeded');
+        }
+      },
+        (error) => {
+          console.log("err post=", error);
+        });
+    console.log('end')
   }
  
 
@@ -101,11 +140,11 @@ class CCUserProfile2 extends Component {
         <PrimarySearchAppBar />
         <div style={{ direction: 'rtl', height: '83vh' }}  >
           {/* https://icons.getbootstrap.com/ */}
-          <div className='rowC' style={{ position: 'absolute', marginRight: 20 }}>
+          <div className='rowC' style={{ position: 'absolute', marginRight: 20, zIndex:16 }}>
             <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
             <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
             {this.state.isFriend === true ? <i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }} onClick={this.DeleteFromFavorites}></i>
-              :<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
+              :<i className="bi-star" onClick={this.AddToFavorites} style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
 
           </div>
           {this.state.match !== 0 ?
