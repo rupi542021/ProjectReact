@@ -15,6 +15,7 @@ import CCEditHobbies from './ClassComponents/CCEditHobbies';
 import CCEditHangouts from './ClassComponents/CCEditHangouts';
 import CCUserProfile2 from './ClassComponents/CCUserProfile2';
 import CCFavorites from './ClassComponents/CCFavorites';
+import FCChat from './FunctionalComponents/FCChat';
 
 
 
@@ -83,6 +84,11 @@ function App() {
 
         <Route path="/Favorites" >
           <CCFavorites/>
+        </Route>
+
+        
+        <Route path="/chat" >
+          <FCChat/>
         </Route>
       </Switch>
     </div>
