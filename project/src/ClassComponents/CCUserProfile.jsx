@@ -81,7 +81,7 @@ class CCUserProfile extends Component {
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
               </div>
-              <div style={{ position: 'absolute',left:'10%'}}>
+              <div style={{ position: 'absolute',left:'6%',top:'-7%'}}>
 <ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
                   image={this.state.studPhoto}
 

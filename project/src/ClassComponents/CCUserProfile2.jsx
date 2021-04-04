@@ -154,7 +154,7 @@ class CCUserProfile2 extends Component {
 
           </div>
           {this.state.match !== 0 ?
-            <svg style={{ position: 'absolute', zIndex: 15, marginRight: '20vw' }}>
+            <svg style={{ position: 'absolute', zIndex: 15, marginRight: '23vw' }}>
               <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
               <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }}
                 textAnchor="middle" x="40" y="45">{this.state.match}%</text>
@@ -165,7 +165,7 @@ class CCUserProfile2 extends Component {
               <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
               <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             </div>
-            <div style={{marginLeft:'5%'}}>
+            <div style={{marginLeft:'2%'}}>
             <ReactRoundedImage style={{position: 'absolute', zIndex: 3}}
               image={this.state.studPhoto}
               roundedColor="#3D3D3D"
@@ -181,7 +181,7 @@ class CCUserProfile2 extends Component {
 
           <Rectangle width={'100vw'} height={87} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
           <div style={{ textAlign: 'right', marginRight: 10 }}>
-            <p style={{ width:'60%',fontWeight: 'bold', marginTop: 5, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</p>
+            <p style={{ width:'100%',fontWeight: 'bold', marginTop: 5, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</p>
             <p className='labelsRight' style={{ marginTop: 5, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "+this.state.CommonFriends}</p>
             <p className='labelsRight' style={{ marginTop: 5 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
