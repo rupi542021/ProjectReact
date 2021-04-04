@@ -17,6 +17,7 @@ import CCUserProfile2 from './ClassComponents/CCUserProfile2';
 import CCFavorites from './ClassComponents/CCFavorites';
 
 
+
 // const names = ["avi", "ben", "char"];
 
 function App() {
@@ -83,7 +84,6 @@ function App() {
         <Route path="/Favorites" >
           <CCFavorites/>
         </Route>
-
       </Switch>
     </div>
   );

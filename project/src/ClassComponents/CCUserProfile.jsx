@@ -97,7 +97,7 @@ class CCUserProfile extends Component {
           <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
 
           <div style={{ textAlign: 'right', marginRight: 10 }}>
-            <h5 style={{width:'60%', fontWeight: 'bold', marginTop: 10, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
+            <h5 style={{width:'100%', fontWeight: 'bold', marginTop: 10, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
            
             <p className='labelsRight' style={{ marginTop: 15 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
