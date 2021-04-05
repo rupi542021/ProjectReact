@@ -38,7 +38,7 @@ const [user]=useAuthState(auth);
          <PrimarySearchAppBar />
 <HeaderUser/>
       <section>
-        {user?<ChatRoom/>:<SignIn/>}
+        <ChatRoom/>
       </section>
     </div>
   );
@@ -46,29 +46,10 @@ const [user]=useAuthState(auth);
 function HeaderUser() {
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
-  let loginStud = localStorage.getItem('student');
-  loginStud = JSON.parse(loginStud);
+
 
   return(
 <header className="headerMSG">{studOBJ.Fname+" "+studOBJ.Lname}</header>
-  )
-  
-}
-function SignIn(){
-  const singInWithGoogle =()=>{
-    const provider=new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
-  
-  }
-  return(
-    <button className="sign-in" onClick={singInWithGoogle}>Sign in with Google</button>
-
-  )
-}
-
-function SignOut() {
-  return auth.currentUser && (
-    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
   )
 }
 
@@ -83,11 +64,26 @@ function ChatRoom(){
   const sendMessage=async(e)=>{
     e.preventDefault();
     const {uid,photoURL}=auth.currentUser;
+
+    let loginStud = localStorage.getItem('student');
+    loginStud = JSON.parse(loginStud);
+    const userMail=loginStud.Mail;
+    const userPhoto='http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
+
+    let studOBJ = localStorage.getItem('chooseUser');
+    studOBJ = JSON.parse(studOBJ);
+    const userMail2Chat=studOBJ.Mail;
+    const userPhoto2Chat=studOBJ.Photo;
+
+
+
     await messagesRef.add({
       text: formValue,
       createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL
+      userMail,
+      userMail2Chat,
+      userPhoto,
+      userPhoto2Chat
     })
     setFromValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -117,21 +113,35 @@ function ChatRoom(){
 }
 
 function ChatMessage(props){
-  const {text,uid,photoURL}=props.message;
-  const messageClass=uid === auth.currentUser.uid?'sent':'received';
- 
-  let studOBJ = localStorage.getItem('chooseUser');
-  studOBJ = JSON.parse(studOBJ);
   let loginStud = localStorage.getItem('student');
   loginStud = JSON.parse(loginStud);
+  // const userMail=loginStud.Mail;
+  // const userPhoto=loginStud.Photo === "" ? "images/avatar.jpg" :'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
 
-  let IMGsrc=studOBJ.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
+  const {createdAt,text,userMail,userMail2Chat,userPhoto,userPhoto2Chat}=props.message;
+  const messageClass=userMail === loginStud.Mail?'sent':'received';
+  console.log(new Date(createdAt.seconds*1000));
+  const timeMSG=new Date(createdAt.seconds*1000).toString()
+  
+  console.log(timeMSG);
+  var timeS=timeMSG.split(' ');
+  console.log(timeS[4]);
+  var timemmhh=timeS[4].split(':');
+  var timeH=timeS[1]+" "+timeS[2]+" "+timemmhh[0]+":"+timemmhh[1];
+  const uPhoto=messageClass === 'sent'?userPhoto2Chat:userPhoto;
 
-  return (
-    <div className={'message ${messageClass}'} style={{direction:'rtl'}}>
-      <img className='imgMSG' src="images/avatar.jpg"/>
+  console.log(uPhoto);
+  console.log(messageClass);
+
+  return (<>
+    <div className={'message '+messageClass} style={{direction:'rtl'}}>
+    
+      <img className='imgMSG' src={uPhoto}/>
       <p className='textMSG'>{text}</p>
+     
   </div>
+  <p className='timeStamp'>{timeH}</p>
+  </>
   )
 }
 export default withRouter(FCChat)
