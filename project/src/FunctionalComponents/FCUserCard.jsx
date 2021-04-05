@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Typography from '@material-ui/core/Typography';
 
-
+import { useHistory } from 'react-router-dom';
 import { Progress } from 'antd';
 
 const useStyles = makeStyles((theme) => ({
@@ -116,7 +116,12 @@ export default function FCUserCard(props) {
         }
       });
   }
-
+  const history = useHistory();
+  const toChat = () =>{ 
+    chooseUser();
+    let path = `chat`; 
+    history.push(path);
+  }
 
   return (
     <Card className={classes.root} style={{ direction: 'rtl', width: "95vw" }}>
@@ -154,7 +159,7 @@ export default function FCUserCard(props) {
       </div>
 
       <div style={{ width: 40, marginTop: 5 }}>
-        <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }}></i>
+        <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={toChat}></i>
         {props.isFavorite ?
           (<i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={DeleteFromFavorites}></i>) :
           (<i className="bi-star" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={AddToFavorites}></i>)}

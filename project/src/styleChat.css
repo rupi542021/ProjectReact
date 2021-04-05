@@ -18,10 +18,10 @@
   
   
   
-  .App header {
+  .App .headerMSG {
     background-color: #96a2aa;
-    height: 3vh; 
-     min-height: 50px;
+    height: 2vh; 
+     min-height: 40px;
     color: #3D3D3D;
     /* position: fixed; */
     width: 100%;
@@ -31,8 +31,10 @@
     align-items: center;
     justify-content: space-between;
      z-index: 99;
-    /* padding: 10px;  */
+    padding-top: 5px;  
     box-sizing: border-box;
+    font-size: 20px;
+    font-weight: bold;
   }
   
   .App section {
@@ -46,12 +48,12 @@
   
   main {
     padding: 10px;
-    height: 80vh;
+    height: 75vh;
     margin: 10vh 0 10vh;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    margin-top: -60px;
+    margin-top: -95px;
   }
   
   main::-webkit-scrollbar {

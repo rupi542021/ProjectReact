@@ -36,12 +36,23 @@ const [user]=useAuthState(auth);
   return (
     <div className="App">
          <PrimarySearchAppBar />
-<header>פה יהיה שם המשתמש שאיתו אנחנו מדברים</header>
+<HeaderUser/>
       <section>
         {user?<ChatRoom/>:<SignIn/>}
       </section>
     </div>
   );
+}
+function HeaderUser() {
+  let studOBJ = localStorage.getItem('chooseUser');
+  studOBJ = JSON.parse(studOBJ);
+  let loginStud = localStorage.getItem('student');
+  loginStud = JSON.parse(loginStud);
+
+  return(
+<header className="headerMSG">{studOBJ.Fname+" "+studOBJ.Lname}</header>
+  )
+  
 }
 function SignIn(){
   const singInWithGoogle =()=>{
@@ -80,6 +91,8 @@ function ChatRoom(){
     })
     setFromValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
+
+    
   }
   return(
     <>
@@ -107,9 +120,16 @@ function ChatMessage(props){
   const {text,uid,photoURL}=props.message;
   const messageClass=uid === auth.currentUser.uid?'sent':'received';
  
+  let studOBJ = localStorage.getItem('chooseUser');
+  studOBJ = JSON.parse(studOBJ);
+  let loginStud = localStorage.getItem('student');
+  loginStud = JSON.parse(loginStud);
+
+  let IMGsrc=studOBJ.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
+
   return (
     <div className={'message ${messageClass}'} style={{direction:'rtl'}}>
-      <img className='imgMSG' src={photoURL}/>
+      <img className='imgMSG' src="images/avatar.jpg"/>
       <p className='textMSG'>{text}</p>
   </div>
   )
