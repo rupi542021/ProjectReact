@@ -296,7 +296,7 @@ class CCSignin3 extends Component {
         <div>
           <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
             style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
-          <h4 style={{ marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>היי {this.state.firstName}, ספר/י לנו קצת על עצמך</h4>
+          <h4 style={{ fontSize:'6vw',marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>היי {this.state.firstName}, ספר/י לנו קצת על עצמך</h4>
           <Form style={{ direction: 'rtl' }}>
             <Form.Item style={{ marginBottom: 0, width: '100%' }}>
               <p className='labels' >התמונה שלי  </p>

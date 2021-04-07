@@ -51,7 +51,7 @@ class CCUserProfile extends Component {
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
       stutsYear:studOBJ.StudyingYear,studCar:studOBJ.IsAvailableCar,studCarPool:studOBJ.IntrestedInCarPool,
-      studPhoto: studOBJ.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
+      studPhoto: (studOBJ.Photo === ""||studOBJ.Photo === null) ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo
     })
 
   }
@@ -75,13 +75,13 @@ class CCUserProfile extends Component {
 
 
         <div style={{ position: 'absolute', zIndex: 10, top: '15%', marginRight: 10,display:'flex',flexDirection:'row', width:'100%' }}>
-          <div style={{marginTop:'5%', display:'flex',flexDirection:'row'}}>
-            <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
+          <div style={{marginTop:25, display:'flex',flexDirection:'row'}}>
+            <h3 style={{ marginLeft: '4vw', fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
             <h3 style={{  fontSize: '7vw' }}>{this.state.studAge}</h3>
             {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
               style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
               </div>
-              <div style={{ position: 'absolute',left:'6%',top:'-7%'}}>
+              <div style={{ position: 'absolute',left:'4%',top:'0%'}}>
 <ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
                   image={this.state.studPhoto}
 
