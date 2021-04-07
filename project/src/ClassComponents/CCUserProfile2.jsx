@@ -137,7 +137,9 @@ class CCUserProfile2 extends Component {
         });
     console.log('end')
   }
- 
+   toChat = () =>{ 
+    this.props.history.push("/chat");
+  }
 
   render() {
     return (
@@ -148,7 +150,7 @@ class CCUserProfile2 extends Component {
           {/* https://icons.getbootstrap.com/ */}
           <div className='rowC' style={{ position: 'absolute', marginRight: 20, zIndex:16 }}>
             <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={this.back2PrevPage}></i>
-            <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>
+            <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }} onClick={this.toChat}></i>
             {this.state.isFriend === true ? <i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }} onClick={this.DeleteFromFavorites}></i>
               :<i className="bi-star" onClick={this.AddToFavorites} style={{ color: '#3D3D3D', fontSize: 28, marginRight: 20 }}></i>}
 
@@ -160,20 +162,22 @@ class CCUserProfile2 extends Component {
                 textAnchor="middle" x="40" y="45">{this.state.match}%</text>
             </svg> : ""}
 
-          <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 0 }}>
-            <div style={{ width: '100%',display:'flex',flexDirection:'row', marginRight:10}}>
-              <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
-              <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
-            </div>
-            <div style={{marginLeft:'2%'}}>
-            <ReactRoundedImage style={{position: 'absolute', zIndex: 3}}
-              image={this.state.studPhoto}
-              roundedColor="#3D3D3D"
-              imageWidth="115"
-              imageHeight="115"
-              roundedSize="0"
-            />
-            </div>
+ 
+
+          <div style={{ position: 'absolute', zIndex: 10, top: '13%', marginRight: 10,display:'flex',flexDirection:'row', width:'100%' }}>
+          <div style={{marginTop:25, display:'flex',flexDirection:'row'}}>
+            <h3 style={{ marginLeft: '4vw', fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
+            <h3 style={{  fontSize: '7vw' }}>{this.state.studAge}</h3>
+              </div>
+              <div style={{ position: 'absolute',left:'8%',top:'0%'}}>
+<ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
+                  image={this.state.studPhoto}
+                  roundedColor="#3D3D3D"
+                  imageWidth="115"
+                  imageHeight="115"
+                  roundedSize="0"
+                /> 
+                </div>
           </div>
 
 

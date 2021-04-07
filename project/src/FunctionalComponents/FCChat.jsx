@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import '../styleChat.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { withRouter } from 'react-router-dom';
 
 import firebase from 'firebase/app';
@@ -26,7 +26,9 @@ firebase.initializeApp({
 const auth=firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
-
+function backPage() {
+  
+}
 function FCChat() {
 
 const [user]=useAuthState(auth);
@@ -49,12 +51,13 @@ function HeaderUser() {
 
 
   return(
-<header className="headerMSG">{studOBJ.Fname+" "+studOBJ.Lname}</header>
+<header className="headerMSG">{studOBJ.Fname+" "+studOBJ.Lname}<ArrowForwardIosIcon style={{position:'fixed',right:2,marginTop:2}} onClick={backPage}/></header>
   )
 }
 
 function ChatRoom(){
-  const dummy = useRef();
+  let msgArr=[];
+  //const dummy = useRef();
   const messagesRef=firestore.collection('messages');
   const query=messagesRef.orderBy('createdAt').limit(25);
 
@@ -84,11 +87,9 @@ function ChatRoom(){
       userMail2Chat,
       userPhoto,
       userPhoto2Chat
-    })
+    }).then()
     setFromValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
-
-    
+    // dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
   return(
     <>
@@ -96,7 +97,7 @@ function ChatRoom(){
 
 {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
 
-<span ref={dummy}></span>
+{/* <span ref={dummy}></span> */}
 
 </main>
 
@@ -115,32 +116,35 @@ function ChatRoom(){
 function ChatMessage(props){
   let loginStud = localStorage.getItem('student');
   loginStud = JSON.parse(loginStud);
+  let studOBJ = localStorage.getItem('chooseUser');
+  studOBJ = JSON.parse(studOBJ);
+
   // const userMail=loginStud.Mail;
   // const userPhoto=loginStud.Photo === "" ? "images/avatar.jpg" :'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
-
+console.log(props);
   const {createdAt,text,userMail,userMail2Chat,userPhoto,userPhoto2Chat}=props.message;
   const messageClass=userMail === loginStud.Mail?'sent':'received';
-  console.log(new Date(createdAt.seconds*1000));
-  const timeMSG=new Date(createdAt.seconds*1000).toString()
-  
+ 
+  const timeMSG= createdAt!==null?new Date(createdAt.seconds*1000).toString():"";
   console.log(timeMSG);
+  if(timeMSG!==""){
   var timeS=timeMSG.split(' ');
   console.log(timeS[4]);
   var timemmhh=timeS[4].split(':');
   var timeH=timeS[1]+" "+timeS[2]+" "+timemmhh[0]+":"+timemmhh[1];
-  const uPhoto=messageClass === 'sent'?userPhoto2Chat:userPhoto;
-
-  console.log(uPhoto);
+  }
   console.log(messageClass);
 
   return (<>
+  {(userMail === loginStud.Mail&&userMail2Chat===studOBJ.Mail)||(userMail2Chat === loginStud.Mail&&userMail===studOBJ.Mail)?<div>
     <div className={'message '+messageClass} style={{direction:'rtl'}}>
     
-      <img className='imgMSG' src={uPhoto}/>
+      <img className='imgMSG' src={userPhoto}/>
       <p className='textMSG'>{text}</p>
      
   </div>
   <p className={'timeStamp'+messageClass}>{timeH}</p>
+  </div>:""}
   </>
   )
 }
