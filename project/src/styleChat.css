@@ -142,7 +142,7 @@
   .textMSG {
     max-width: 500px;
     margin-bottom: 12px;
-    line-height: 24px;
+    line-height: 16px;
     padding: 10px 20px;
     border-radius: 25px;
     position: relative;
@@ -156,14 +156,21 @@
     display: flex;
     align-items: center;
   }
-  .timeStamp{
-    font-size: small;
+  .timeStampreceived{
+    font-size: 12px;
     color: black;
+    text-align: left;
+    margin-top: -10px;
+    margin-left: 60px;
 
-
- 
   }
-  
+  .timeStampsent{
+    font-size: 12px;
+    color: black;
+    text-align: right;
+    margin-top: -10px;
+    margin-right: 60px;
+  }
   .received {
     flex-direction: row-reverse;
   }

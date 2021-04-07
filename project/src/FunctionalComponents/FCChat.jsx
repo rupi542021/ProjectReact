@@ -140,7 +140,7 @@ function ChatMessage(props){
       <p className='textMSG'>{text}</p>
      
   </div>
-  <p className='timeStamp'>{timeH}</p>
+  <p className={'timeStamp'+messageClass}>{timeH}</p>
   </>
   )
 }
