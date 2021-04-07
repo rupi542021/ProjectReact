@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(7),
+    marginRight: theme.spacing(0),
   },
   title: {
     display: 'none',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
+      marginLeft: theme.spacing(2),
       width: 'auto',
     },
   },
@@ -95,14 +95,13 @@ function FCTabNavigator() {
   }
  
   return (
-    <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor:"#FAE8BE"}}>
+    <div className={classes.grow}  style={{position:'fixed',bottom:0,width:'100%'}}>
+      <AppBar position="static" style={{backgroundColor:"#FAE8BE",width:'100%'}}>
         
-        <Toolbar>
+        <Toolbar style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
         <IconButton
             edge="start"
             className={classes.menuButton}
-            style={{marginLeft:10}}
             // color="#3D3D3D"
             aria-label="open drawer"
           >
@@ -112,6 +111,7 @@ function FCTabNavigator() {
           <IconButton
             edge="start"
             className={classes.menuButton}
+             style={{marginLeft:'10%'}}
             onClick={toFavorites}
             // color="#3D3D3D"
             aria-label="open drawer"
@@ -121,7 +121,7 @@ function FCTabNavigator() {
           <IconButton
             edge="start"
             className={classes.menuButton}
-            style={{}}
+            style={{marginLeft:'10%'}}
             size="28px"
             onClick={toUsers}
             aria-label="open drawer"
@@ -131,7 +131,7 @@ function FCTabNavigator() {
           <IconButton
             edge="start"
             className={classes.menuButton}
-            style={{}}
+            style={{marginLeft:'10%'}}
             onClick={toProflie}
           >
             <AccountCircleIcon />

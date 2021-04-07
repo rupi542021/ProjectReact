@@ -134,9 +134,9 @@ export default function FCUserCard(props) {
       <div className={classes.details} style={{ width: "50vw" }} onClick={chooseUser}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "6vw" }}>
-            {props.name + "   " + props.studage}
+            {props.name}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.8vw" }}>
+          <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
             {props.depName + " - " + props.year + "'"}
           </Typography>
         </CardContent>

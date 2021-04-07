@@ -78,18 +78,14 @@ class CCUserProfile extends Component {
           <div style={{marginTop:25, display:'flex',flexDirection:'row'}}>
             <h3 style={{ marginLeft: '4vw', fontWeight: 'bold', fontSize: '7vw' }}>{this.state.studName}</h3>
             <h3 style={{  fontSize: '7vw' }}>{this.state.studAge}</h3>
-            {/* <Circle r={55} fill={{ color: '#3D3D3D' }}
-              style={{ position: 'absolute', zIndex: 3 }}> </Circle> */}
               </div>
               <div style={{ position: 'absolute',left:'4%',top:'0%'}}>
 <ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
                   image={this.state.studPhoto}
-
                   roundedColor="#3D3D3D"
                   imageWidth="115"
                   imageHeight="115"
                   roundedSize="0"
-
                 /> 
                 </div>
           </div>

@@ -272,7 +272,7 @@ class CCShowUsers extends Component {
               </Grid>
             </div>
           </div>
-         <div style={{position:'fixed',bottom:0}}>
+         <div>
           <FCTabNavigator />
           </div>
         </div>
