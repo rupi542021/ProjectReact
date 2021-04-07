@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
 import '../style.css';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 class CCLogin extends Component {
@@ -14,10 +16,28 @@ class CCLogin extends Component {
       password: "",
       showPassword: false,
       errors: {},
+      isChecked: false
     }
 
 
   }
+
+  
+  componentDidMount() {
+    console.log(localStorage.checkbox, localStorage.student);
+    let studOBJ = JSON.parse(localStorage.getItem('student'));
+    console.log("studOBJ:", studOBJ)
+    if (localStorage.checkbox && localStorage.student !== "") {
+      console.log("condition is true");
+        this.setState({
+            isChecked: true,
+            email: studOBJ.Mail,
+            password: studOBJ.Password
+        })
+    }
+}
+
+
   handluserEmail = (e) => {
     this.state.errors["email"] = "";
     this.setState({ errors: this.state.errors, email: e.target.value.toLowerCase() })
@@ -27,6 +47,12 @@ class CCLogin extends Component {
     this.setState({ errors: this.state.errors, password: e.target.value })
   }
 
+  onChangeCheckbox = (e) => {
+    console.log("remember checbox: ", e.target.checked)
+    this.setState({
+        isChecked: e.target.checked
+    })
+}
 
   btnLogin = () => {
     if (this.state.email !== "" && this.state.password !== "") {
@@ -91,6 +117,7 @@ class CCLogin extends Component {
                 
               }).then(() => {
 
+                localStorage.setItem('checkbox',this.state.isChecked);
                 this.props.history.push("/userProfile");
 
               });
@@ -165,6 +192,12 @@ class CCLogin extends Component {
         />
         <p style={{ color: "#de0d1b" }}>{this.state.errors.pass}</p>
         <br />
+        <FormControlLabel
+            control={<Checkbox value={this.state.isChecked} color="primary" />}
+            label="Remember me"
+            onChange={this.onChangeCheckbox}
+          />
+          <br/>
         <Button variant="contained"
           style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", width: '60%' }}
           onClick={this.btnLogin}
