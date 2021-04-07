@@ -157,7 +157,7 @@ class CCSignin1 extends Component {
               </fieldset>
             </div>
             <Button variant="contained" onClick={this.logIn} type='submit'
-              style={{ backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+              style={{ backgroundColor: "#FAE8BE", fontSize: '3vh',width:'30vw', borderRadius: 20, fontFamily: "Segoe UI" }}
               >אימות<i className="bi bi-shield-check" style={{ color: '#3D3D3D', fontSize: 20,marginLeft:5}}></i></Button>
           </form>
         </div>

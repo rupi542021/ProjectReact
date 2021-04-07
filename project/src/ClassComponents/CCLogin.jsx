@@ -22,20 +22,20 @@ class CCLogin extends Component {
 
   }
 
-  
+
   componentDidMount() {
     console.log(localStorage.checkbox, localStorage.student);
     let studOBJ = JSON.parse(localStorage.getItem('student'));
     console.log("studOBJ:", studOBJ)
     if (localStorage.checkbox && localStorage.student !== "") {
       console.log("condition is true");
-        this.setState({
-            isChecked: true,
-            email: studOBJ.Mail,
-            password: studOBJ.Password
-        })
+      this.setState({
+        isChecked: true,
+        email: studOBJ.Mail,
+        password: studOBJ.Password
+      }, () => { console.log("this.state.email, pass ", this.state.email, this.state.password) })
     }
-}
+  }
 
 
   handluserEmail = (e) => {
@@ -50,9 +50,9 @@ class CCLogin extends Component {
   onChangeCheckbox = (e) => {
     console.log("remember checbox: ", e.target.checked)
     this.setState({
-        isChecked: e.target.checked
+      isChecked: e.target.checked
     })
-}
+  }
 
   btnLogin = () => {
     if (this.state.email !== "" && this.state.password !== "") {
@@ -114,10 +114,11 @@ class CCLogin extends Component {
                 iconHtml: '',
                 confirmButtonText: 'המשך',
                 showCloseButton: true,
-                
-              }).then(() => {
 
-                localStorage.setItem('checkbox',this.state.isChecked);
+              }).then(() => {
+                if (this.state.isChecked)
+                  localStorage.setItem('checkbox', this.state.isChecked);
+                else localStorage.removeItem('checkbox');
                 this.props.history.push("/userProfile");
 
               });
@@ -125,7 +126,7 @@ class CCLogin extends Component {
           .catch((error) => {
             console.log("err get=", error);
             Swal.fire({
-              text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית':error.message,
+              text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית' : error.message,
               icon: 'error',
               iconHtml: '',
               confirmButtonText: 'סגור',
@@ -174,30 +175,29 @@ class CCLogin extends Component {
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
         <h3 style={{ marginTop: 100 }}> ! ברוכים הבאים </h3>
-
+        <div style={{textAlign:'end',width: '50vw', margin: '0px auto',marginBottom: 40}}>
         <TextField
           label="Email"
           variant="outlined"
           onChange={this.handluserEmail}
           style={{ marginTop: 20 }}
+          value={this.state.email}
         />
         <p style={{ color: "#de0d1b" }}>{this.state.errors.email}</p>
         <TextField
           label="Password"
           type="password"
-          autoComplete="current-password"
+         // autoComplete="current-password"
           variant="outlined"
+          value = {this.state.password}
           onChange={this.handluserPassword}
-          style={{ margin: 5 }}
         />
         <p style={{ color: "#de0d1b" }}>{this.state.errors.pass}</p>
-        <br />
-        <FormControlLabel
-            control={<Checkbox value={this.state.isChecked} color="primary" />}
-            label="Remember me"
-            onChange={this.onChangeCheckbox}
-          />
-          <br/>
+        <div>
+        <span className='labelsSmall' style={{paddingRight:'2vw', fontSize:'2vh'}}>זכור אותי</span>
+        <input type='checkbox' checked={this.state.isChecked} onChange={this.onChangeCheckbox} />
+        </div>
+        </div>
         <Button variant="contained"
           style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", width: '60%' }}
           onClick={this.btnLogin}
