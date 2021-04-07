@@ -11,8 +11,10 @@ import 'mdbreact/dist/css/mdb.css';
 
 
 ReactDOM.render(
- <BrowserRouter basename={window.location.pathname || ""}>   
-      <Route component={App} />
+<BrowserRouter>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root')
 );
