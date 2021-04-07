@@ -161,7 +161,7 @@ class CCUserProfile2 extends Component {
             </svg> : ""}
 
           <div className='rowC' style={{ position: 'absolute', zIndex: 10, marginTop: 17, marginRight: 0 }}>
-            <div style={{ width: 230,display:'flex',flexDirection:'row', marginRight:10}}>
+            <div style={{ width: '100%',display:'flex',flexDirection:'row', marginRight:10}}>
               <h3 style={{ marginLeft: 20, fontWeight: 'bold', fontSize: '6.5vw' }}>{this.state.studName}</h3>
               <h3 style={{ marginLeft: 0, fontSize: '6.5vw' }}>{this.state.studAge}</h3>
             </div>
