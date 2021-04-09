@@ -64,7 +64,7 @@ class CCUserProfile extends Component {
   render() {
     return (
 
-      <div>
+      <div style={{ height:'100vh' }}>
         <PrimarySearchAppBar />
         <div style={{ direction: 'rtl',height:'83vh' }}  >
        <div>
