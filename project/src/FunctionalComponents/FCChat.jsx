@@ -3,7 +3,7 @@ import '../styleChat.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { withRouter } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -26,9 +26,7 @@ firebase.initializeApp({
 const auth=firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
-function backPage() {
-  
-}
+
 function FCChat() {
 
 const [user]=useAuthState(auth);
@@ -49,14 +47,23 @@ function HeaderUser() {
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
 
+  const history = useHistory();
+  const backPage=() =>{ 
+    history.goBack();
+  }
 
   return(
-<header className="headerMSG">{studOBJ.Fname+" "+studOBJ.Lname}<ArrowForwardIosIcon style={{position:'fixed',right:2,marginTop:2}} onClick={backPage}/></header>
+<header className="headerMSG">
+{studOBJ.Fname+" "+studOBJ.Lname}
+<ArrowForwardIosIcon style={{position:'absolute',right:2,marginTop:2}} 
+onClick={backPage}/>
+
+</header>
   )
 }
 
 function ChatRoom(){
-  let msgArr=[];
+  //let msgArr=[];
   //const dummy = useRef();
   const messagesRef=firestore.collection('messages');
   const query=messagesRef.orderBy('createdAt').limit(25);
@@ -133,13 +140,17 @@ console.log(props);
   var timemmhh=timeS[4].split(':');
   var timeH=timeS[1]+" "+timeS[2]+" "+timemmhh[0]+":"+timemmhh[1];
   }
+  var PhotoFrom="";
   console.log(messageClass);
+  if(userPhoto==="http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/")
+  PhotoFrom="images/avatar.jpg";
+  else PhotoFrom=userPhoto
 
   return (<>
   {(userMail === loginStud.Mail&&userMail2Chat===studOBJ.Mail)||(userMail2Chat === loginStud.Mail&&userMail===studOBJ.Mail)?<div>
     <div className={'message '+messageClass} style={{direction:'rtl'}}>
     
-      <img className='imgMSG' src={userPhoto}/>
+      <img className='imgMSG' src={PhotoFrom}/>
       <p className='textMSG'>{text}</p>
      
   </div>
