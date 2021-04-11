@@ -97,6 +97,7 @@ export default function SwipeableTemporaryDrawer() {
                 break;
             case 1:
                 path = ``;
+                localStorage.clear();
                 history.push(path);
                 break;
             default:
