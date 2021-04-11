@@ -150,15 +150,15 @@ this.citiesList=[];
           })
           .catch((error) => {
             console.log("err post=", error);
-            //  this.setState({ imgURL: "images/avatar.jpg" })
-            //  this.state.studOBJ.Photo = "";
-            // Swal.fire({
-            //   text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית' : error.message,
-            //   icon: 'error',
-            //   iconHtml: '',
-            //   confirmButtonText: 'סגור',
-            //   showCloseButton: true
-            // })
+             this.setState({ imgURL: "images/avatar.jpg" })
+             this.state.studOBJ.Photo = "";
+            Swal.fire({
+              text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית' : error.message,
+              icon: 'error',
+              iconHtml: '',
+              confirmButtonText: 'סגור',
+              showCloseButton: true
+            })
           });
       console.log('end');
     }

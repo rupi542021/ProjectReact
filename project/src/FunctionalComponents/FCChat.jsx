@@ -72,29 +72,26 @@ function ChatRoom(){
   const [formValue,setFromValue]= useState('');
 
   const sendMessage=async(e)=>{
+   
     e.preventDefault();
-    const {uid,photoURL}=auth.currentUser;
 
     let loginStud = localStorage.getItem('student');
     loginStud = JSON.parse(loginStud);
-    const userMail=loginStud.Mail;
-    const userPhoto='http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
+    const FromMail=loginStud.Mail;
+    //const userPhoto='http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
 
     let studOBJ = localStorage.getItem('chooseUser');
     studOBJ = JSON.parse(studOBJ);
-    const userMail2Chat=studOBJ.Mail;
-    const userPhoto2Chat=studOBJ.Photo;
-
-
-
+    const ToMail=studOBJ.Mail;
+    //const userPhoto2Chat=studOBJ.Photo;
+   
+    console.log(formValue)
     await messagesRef.add({
       text: formValue,
       createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-      userMail,
-      userMail2Chat,
-      userPhoto,
-      userPhoto2Chat
-    }).then()
+      FromMail,
+      ToMail
+    })
     setFromValue('');
     // dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
@@ -128,26 +125,26 @@ function ChatMessage(props){
 
   // const userMail=loginStud.Mail;
   // const userPhoto=loginStud.Photo === "" ? "images/avatar.jpg" :'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
-console.log(props);
-  const {createdAt,text,userMail,userMail2Chat,userPhoto,userPhoto2Chat}=props.message;
-  const messageClass=userMail === loginStud.Mail?'sent':'received';
+// console.log(props);
+  const {createdAt,text,FromMail,ToMail}=props.message;
+  const messageClass=FromMail === loginStud.Mail?'sent':'received';
  
   const timeMSG= createdAt!==null?new Date(createdAt.seconds*1000).toString():"";
-  console.log(timeMSG);
+  //console.log(timeMSG);
   if(timeMSG!==""){
   var timeS=timeMSG.split(' ');
-  console.log(timeS[4]);
+  //console.log(timeS[4]);
   var timemmhh=timeS[4].split(':');
   var timeH=timeS[1]+" "+timeS[2]+" "+timemmhh[0]+":"+timemmhh[1];
   }
   var PhotoFrom="";
-  console.log(messageClass);
-  if(userPhoto==="http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/")
+  //console.log(messageClass);
+  //if(userPhoto==="http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/")
   PhotoFrom="images/avatar.jpg";
-  else PhotoFrom=userPhoto
+  //else PhotoFrom=userPhoto
 
   return (<>
-  {(userMail === loginStud.Mail&&userMail2Chat===studOBJ.Mail)||(userMail2Chat === loginStud.Mail&&userMail===studOBJ.Mail)?<div>
+  {(FromMail === loginStud.Mail&&ToMail===studOBJ.Mail)||(ToMail === loginStud.Mail&&FromMail===studOBJ.Mail)?<div>
     <div className={'message '+messageClass} style={{direction:'rtl'}}>
     
       <img className='imgMSG' src={PhotoFrom}/>
