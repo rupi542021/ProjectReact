@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-
+import Swal from 'sweetalert2';
 //const citiesList = [];
 
 class CCeditp extends Component {
@@ -128,6 +128,9 @@ this.citiesList=[];
           if (res.status === 201) {
             console.log('uploadedFile created:)');
           }
+          if (res.status === 400) {
+            throw Error('אופס! משהו לא עבד. אנא נסה שנית');
+          }
           console.log('res.ok', res.ok);
 
           if (res.ok) {
@@ -144,9 +147,18 @@ this.citiesList=[];
             this.setState({ urlimg: result, selectedFile: imgNameInServer })
             this.state.studOBJ.Photo = imgNameInServer;
 
-          },
-          (error) => {
+          })
+          .catch((error) => {
             console.log("err post=", error);
+            //  this.setState({ imgURL: "images/avatar.jpg" })
+            //  this.state.studOBJ.Photo = "";
+            // Swal.fire({
+            //   text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית' : error.message,
+            //   icon: 'error',
+            //   iconHtml: '',
+            //   confirmButtonText: 'סגור',
+            //   showCloseButton: true
+            // })
           });
       console.log('end');
     }
