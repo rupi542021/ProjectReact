@@ -64,9 +64,9 @@ class CCUserProfile extends Component {
   render() {
     return (
 
-      <div style={{ height:'100vh' }}>
+      <div style={{ height:'100vh' ,width:'100%' }}>
         <PrimarySearchAppBar />
-        <div style={{ direction: 'rtl',height:'83vh' }}  >
+        <div style={{ direction: 'rtl',height:'83vh',width:'100%' }}  >
        <div>
         <i className="bi bi-pencil-fill" 
         style={{right:'5%', position:'absolute',color: '#3D3D3D', fontSize: 24}} 

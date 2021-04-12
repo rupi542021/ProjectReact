@@ -1,6 +1,8 @@
  .AppChat {
     text-align: center;
     /* max-width: 728px; */
+    max-width: 500px;
+    max-height: 850px;
     margin: 0 auto;
     background-image: url(./img/imageedit.png);
   
