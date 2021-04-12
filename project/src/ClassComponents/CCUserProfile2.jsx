@@ -161,9 +161,9 @@ class CCUserProfile2 extends Component {
           </div>
           {this.state.match !== 0 ?
             <svg style={{ position: 'absolute', zIndex: 15, marginRight: '23vw' }}>
-              <circle cx="40" cy="40" r="6.5vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
-              <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '5vw', fontFamily: "Segoe UI" }}
-                textAnchor="middle" x="40" y="45">{this.state.match}%</text>
+              <circle cx="45" cy="40" r="6vw" fill="#FAE8BE" stroke="#3D3D3D" strokeWidth="2" />
+              <text style={{ fontWeight: 'bold', color: '#3D3D3D', fontSize: '4.5vw', fontFamily: "Segoe UI" }}
+                textAnchor="middle" x="45" y="45">{this.state.match}%</text>
             </svg> : ""}
 
  
