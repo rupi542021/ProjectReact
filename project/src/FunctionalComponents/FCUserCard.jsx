@@ -120,7 +120,10 @@ export default function FCUserCard(props) {
   const toChat = () =>{ 
     chooseUser();
     let path = `chat`; 
-    history.push(path);
+    history.push({
+      pathname: path  ,
+      state: { PageBack: 'showUsers' }
+  });
   }
 
   return (

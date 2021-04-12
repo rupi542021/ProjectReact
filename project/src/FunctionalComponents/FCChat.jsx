@@ -2,15 +2,15 @@ import React, { useRef, useState } from 'react';
 import '../styleChat.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { withRouter } from 'react-router-dom';
+import { useLocation, withRouter } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
 
-import {useAuthState} from 'react-firebase-hooks/auth';
-import {useCollectionData} from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import SendIcon from '@material-ui/icons/Send';
 
 firebase.initializeApp({
@@ -23,101 +23,119 @@ firebase.initializeApp({
   measurementId: "G-S667RQB4PS"
 })
 
-const auth=firebase.auth();
+const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
 function FCChat() {
 
-const [user]=useAuthState(auth);
+  //const [user]=useAuthState(auth);
 
 
 
   return (
-    <div className="App">
-         <PrimarySearchAppBar />
-<HeaderUser/>
+    <div className="AppChat">
+      <PrimarySearchAppBar />
+      <HeaderUser />
       <section>
-        <ChatRoom/>
+        <ChatRoom />
       </section>
     </div>
   );
 }
 function HeaderUser() {
+  const location = useLocation();
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
 
   const history = useHistory();
-  const backPage=() =>{ 
-    history.goBack();
+  const backPage = () => {
+    history.push(location.state.PageBack);
+    //this.props.location.state.PageBack
   }
 
-  return(
-<header className="headerMSG">
-{studOBJ.Fname+" "+studOBJ.Lname}
-<ArrowForwardIosIcon style={{position:'absolute',right:2,marginTop:2}} 
-onClick={backPage}/>
+  return (
+    <header className="headerMSG">
+      {studOBJ.Fname + " " + studOBJ.Lname}
+      <ArrowForwardIosIcon style={{ float: 'right', marginTop: 2 }}
+        onClick={backPage} />
 
-</header>
+    </header>
   )
 }
 
-function ChatRoom(){
+function ChatRoom() {
   //let msgArr=[];
-  //const dummy = useRef();
-  const messagesRef=firestore.collection('messages');
-  const query=messagesRef.orderBy('createdAt').limit(25);
+  let loginStud = localStorage.getItem('student');
+  loginStud = JSON.parse(loginStud);
 
-  const [messages]=useCollectionData(query, {idField:'id'});
-  const [formValue,setFromValue]= useState('');
+  let studOBJ = localStorage.getItem('chooseUser');
+  studOBJ = JSON.parse(studOBJ);
 
-  const sendMessage=async(e)=>{
-   
+  const CreateRoom = async () => {
+    await RoomsRef.add({
+      RoomName: loginStud.Mail+','+studOBJ.Mail,
+      LastMassage:""
+    })
+  }
+  const RoomsRef = firestore.collection('ChatRooms');
+  const queryR = RoomsRef.orderBy('RoomName');
+  const [ChatRooms] = useCollectionData(queryR, { idField: 'id' });
+
+  var ifRoomExist=ChatRooms && ChatRooms.find(room=>room.RoomName==(loginStud.Mail+','+studOBJ.Mail)||room.RoomName==(studOBJ.Mail+','+loginStud.Mail))
+ console.log(ifRoomExist)
+  if(ifRoomExist===undefined){
+  CreateRoom();
+ }
+
+  const dummy = useRef();
+
+
+  const messagesRef = firestore.collection('messages');
+  // const query=messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef.orderBy('createdAt');
+  //const query=messagesRef.where('FromMail','==',loginStud.Mail);
+
+  const [messages] = useCollectionData(query, { idField: 'id' });
+  const [formValue, setFromValue] = useState('');
+  const ToMail = studOBJ.Mail;
+  const FromMail = loginStud.Mail;
+  const sendMessage = async (e) => {
+
     e.preventDefault();
 
-    let loginStud = localStorage.getItem('student');
-    loginStud = JSON.parse(loginStud);
-    const FromMail=loginStud.Mail;
-    //const userPhoto='http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
-
-    let studOBJ = localStorage.getItem('chooseUser');
-    studOBJ = JSON.parse(studOBJ);
-    const ToMail=studOBJ.Mail;
-    //const userPhoto2Chat=studOBJ.Photo;
-   
     console.log(formValue)
     await messagesRef.add({
       text: formValue,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       FromMail,
       ToMail
     })
     setFromValue('');
-    // dummy.current.scrollIntoView({ behavior: 'smooth' });
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
-  return(
+  return (
     <>
-     <main>
+      <main>
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+        <span ref={dummy}></span>
+      </main>
 
-{messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      <form className='formMSG' onSubmit={sendMessage}>
+        <button type="submit"
+          disabled={!formValue}
+          style={{ transform: "rotate(-180deg)" }}>
+          <SendIcon fontSize="large" /></button>
 
-{/* <span ref={dummy}></span> */}
+        <input className='inputMSG' value={formValue} onChange={(e) => setFromValue(e.target.value)} />
 
-</main>
-
-    <form className='formMSG'onSubmit={sendMessage}>
-    <button type="submit" disabled={!formValue} style={{transform: "rotate(-180deg)"}}>
-       <SendIcon fontSize="large"/></button>
-
-      <input className='inputMSG' value={formValue}  onChange={(e)=>setFromValue(e.target.value)}/>
-
-    </form>
+      </form>
     </>
   )
 
 }
 
-function ChatMessage(props){
+function ChatMessage(props) {
   let loginStud = localStorage.getItem('student');
   loginStud = JSON.parse(loginStud);
   let studOBJ = localStorage.getItem('chooseUser');
@@ -125,34 +143,36 @@ function ChatMessage(props){
 
   // const userMail=loginStud.Mail;
   // const userPhoto=loginStud.Photo === "" ? "images/avatar.jpg" :'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
-// console.log(props);
-  const {createdAt,text,FromMail,ToMail}=props.message;
-  const messageClass=FromMail === loginStud.Mail?'sent':'received';
- 
-  const timeMSG= createdAt!==null?new Date(createdAt.seconds*1000).toString():"";
+  // console.log(props);
+  const { createdAt, text, FromMail, ToMail } = props.message;
+  const messageClass = FromMail === loginStud.Mail ? 'sent' : 'received';
+
+  const timeMSG = createdAt !== null ? new Date(createdAt.seconds * 1000).toString() : "";
   //console.log(timeMSG);
-  if(timeMSG!==""){
-  var timeS=timeMSG.split(' ');
-  //console.log(timeS[4]);
-  var timemmhh=timeS[4].split(':');
-  var timeH=timeS[1]+" "+timeS[2]+" "+timemmhh[0]+":"+timemmhh[1];
+  if (timeMSG !== "") {
+    var timeS = timeMSG.split(' ');
+    //console.log(timeS[4]);
+    var timemmhh = timeS[4].split(':');
+    var timeH = timeS[1] + " " + timeS[2] + " " + timemmhh[0] + ":" + timemmhh[1];
   }
-  var PhotoFrom="";
+  var PhotoFrom = "images/avatar.jpg";
   //console.log(messageClass);
-  //if(userPhoto==="http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/")
-  PhotoFrom="images/avatar.jpg";
-  //else PhotoFrom=userPhoto
+  if (FromMail === loginStud.Mail && (loginStud.Photo !== ""))
+    PhotoFrom = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + loginStud.Photo
+  if (FromMail === studOBJ.Mail && (studOBJ.Photo !== "" || studOBJ.Photo !== null))
+    PhotoFrom = studOBJ.Photo
 
   return (<>
-  {(FromMail === loginStud.Mail&&ToMail===studOBJ.Mail)||(ToMail === loginStud.Mail&&FromMail===studOBJ.Mail)?<div>
-    <div className={'message '+messageClass} style={{direction:'rtl'}}>
-    
-      <img className='imgMSG' src={PhotoFrom}/>
-      <p className='textMSG'>{text}</p>
-     
-  </div>
-  <p className={'timeStamp'+messageClass}>{timeH}</p>
-  </div>:""}
+    {(FromMail === loginStud.Mail && ToMail === studOBJ.Mail) || (ToMail === loginStud.Mail && FromMail === studOBJ.Mail) ?
+      <div>
+        <div className={'message ' + messageClass} style={{ direction: 'rtl' }}>
+
+          <img className='imgMSG' src={PhotoFrom} />
+          <p className='textMSG'>{text}</p>
+
+        </div>
+        <p className={'timeStamp' + messageClass}>{timeH}</p>
+      </div> : ""}
   </>
   )
 }

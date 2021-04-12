@@ -71,7 +71,7 @@ function ChatRoom(){
   //let msgArr=[];
   //const dummy = useRef();
   const messagesRef=firestore.collection('messages');
-  const query=messagesRef.orderBy('createdAt').limit(25);
+  const query=messagesRef.orderBy('createdAt');
 
   const [messages]=useCollectionData(query, {idField:'id'});
   // const [formValue,setFromValue]= useState('');
@@ -107,7 +107,7 @@ function ChatRoom(){
      <>
      <main>
 
- {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+ {messages && messages.map(msg =>{console.log(msg); return <ChatMessage key={msg.id} message={msg} />})}
 
  {/* <span ref={dummy}></span> */}
 
@@ -133,27 +133,27 @@ function ChatMessage(props){
 
   // const userMail=loginStud.Mail;
   // const userPhoto=loginStud.Photo === "" ? "images/avatar.jpg" :'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
-console.log(props);
-  const {createdAt,text,userMail,userMail2Chat,userPhoto,userPhoto2Chat}=props.message;
-  const messageClass=userMail === loginStud.Mail?'sent':'received';
+//console.log(props);
+  const {createdAt,text,FromMail,ToMail}=props.message;
+  const messageClass=FromMail === loginStud.Mail?'sent':'received';
  
   const timeMSG= createdAt!==null?new Date(createdAt.seconds*1000).toString():"";
-  console.log(timeMSG);
+  //console.log(timeMSG);
   if(timeMSG!==""){
   var timeS=timeMSG.split(' ');
-  console.log(timeS[4]);
+  //console.log(timeS[4]);
   var timemmhh=timeS[4].split(':');
   var timeH=timeS[1]+" "+timeS[2]+" "+timemmhh[0]+":"+timemmhh[1];
   }
   var PhotoFrom="";
   var ChatUser="";
-  console.log(messageClass);
+ // console.log(messageClass);
 
-  PhotoFrom=userPhoto===loginStud.Photo?userPhoto2Chat:userPhoto;
-  ChatUser=userMail===loginStud.Mail?userMail2Chat:userMail;
+  //PhotoFrom=userPhoto===loginStud.Photo?userPhoto2Chat:userPhoto;
+  ChatUser=FromMail===loginStud.Mail?ToMail:FromMail;
 
   return (<>
-  {(userMail === loginStud.Mail||userMail2Chat===loginStud.Mail)?<div style={{backgroundColor:'white'}}>
+  {(FromMail === loginStud.Mail||ToMail===loginStud.Mail)?<div style={{backgroundColor:'white'}}>
     <h4>{ChatUser}</h4>
     <div className={'message sent'} style={{direction:'rtl'}}>
     

@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,7 +77,15 @@ export default function FCFavoriteCard(props) {
         }
       });
   }
-
+  const history = useHistory();
+  const toChat = () =>{ 
+    chooseUser();
+    let path = `chat`; 
+    history.push({
+      pathname: path  ,
+      state: { PageBack: 'Favorites' }
+  });
+  }
 
   return (
     <Card className={classes.root} style={{ direction: 'rtl', width: "95vw" }}>
@@ -111,7 +119,7 @@ export default function FCFavoriteCard(props) {
       </div>
 
       <div style={{ width: 40, marginTop: 5 }}>
-        <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }}></i>
+        <i className="bi-chat" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={toChat}></i>
         <i className="bi-star-fill" style={{ color: '#3D3D3D', fontSize: 28 }} onClick={DeleteFromFavorites}></i>
       </div>
     </Card>

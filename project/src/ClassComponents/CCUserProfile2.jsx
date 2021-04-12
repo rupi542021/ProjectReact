@@ -138,7 +138,11 @@ class CCUserProfile2 extends Component {
     console.log('end')
   }
    toChat = () =>{ 
-    this.props.history.push("/chat");
+    //this.props.history.push("/chat");
+    this.props.history.push({
+      pathname: "/chat"  ,
+      state: { PageBack: 'userProfile2' }
+  });
   }
 
   render() {
