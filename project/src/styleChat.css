@@ -4,7 +4,7 @@
     max-width: 500px;
     max-height: 850px;
     margin: 0 auto;
-    background-image: url(./img/imageedit.png);
+    /* background-image: url(./img/imageedit.png); */
   
     background-position: center;
     background-repeat: no-repeat;
@@ -39,11 +39,11 @@
     
     justify-content: center;
     /* min-height: 100vh; */
-    background-image: url(./img/imageedit.png);
+    /* background-image: url(./img/imageedit.png); */
     
   }
   
-  main {
+  .mainRoom {
     padding: 10px;
     height: 75vh;
     /* margin: 10vh 0 10vh; */
@@ -52,7 +52,15 @@
     flex-direction: column;
     /* margin-top: -95px; */
   }
-  
+  .mainAll{
+    padding: 10px;
+    height: 65vh;
+    /* margin: 10vh 0 10vh; */
+    overflow-y: scroll;
+    /* display: flex; */
+    flex-direction: column;
+    /* margin-top: -95px; */
+  }
   main::-webkit-scrollbar {
     width: 0.25rem;
   }

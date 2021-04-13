@@ -82,7 +82,8 @@ export default function SwipeableTemporaryDrawer() {
                 history.push(path);
                 break;
             case 2:
-                path = ``;
+                path = `AllChats2`;
+                history.push(path);
                 break;
             default:
                 break;

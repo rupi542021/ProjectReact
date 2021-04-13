@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState,useEffect } from 'react';
 import '../styleChat.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -94,11 +94,14 @@ function ChatRoom() {
 
 
   const messagesRef = firestore.collection('messages');
-  // const query=messagesRef.orderBy('createdAt').limit(25);
   const query = messagesRef.orderBy('createdAt');
-  //const query=messagesRef.where('FromMail','==',loginStud.Mail);
-
   const [messages] = useCollectionData(query, { idField: 'id' });
+  var FilterArr=[];
+  if(messages!=null)
+    FilterArr=messages.filter(m=>
+      (m.FromMail === loginStud.Mail && m.ToMail === studOBJ.Mail) || (m.ToMail === loginStud.Mail && m.FromMail === studOBJ.Mail))
+
+  if(dummy.current!=null)dummy.current.scrollIntoView()
   const [formValue, setFromValue] = useState('');
   const ToMail = studOBJ.Mail;
   const FromMail = loginStud.Mail;
@@ -118,8 +121,8 @@ function ChatRoom() {
   }
   return (
     <>
-      <main>
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      <main className='mainRoom'>
+        {FilterArr && FilterArr.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <span ref={dummy}></span>
       </main>
 
@@ -165,7 +168,7 @@ function ChatMessage(props) {
     PhotoFrom = studOBJ.Photo
 
   return (<>
-    {(FromMail === loginStud.Mail && ToMail === studOBJ.Mail) || (ToMail === loginStud.Mail && FromMail === studOBJ.Mail) ?
+   
       <div>
         <div className={'message ' + messageClass} style={{ direction: 'rtl' }}>
 
@@ -174,7 +177,7 @@ function ChatMessage(props) {
 
         </div>
         <p className={'timeStamp' + messageClass}>{timeH}</p>
-      </div> : ""}
+      </div> 
   </>
   )
 }
