@@ -7,8 +7,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import '../styleChat.css';
 import Typography from '@material-ui/core/Typography';
 
-import { useHistory } from 'react-router-dom';
-import { Progress } from 'antd';
 
 const useStyles = makeStyles((theme) => ({
   root: {

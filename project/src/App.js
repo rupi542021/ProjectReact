@@ -16,7 +16,6 @@ import CCEditHangouts from './ClassComponents/CCEditHangouts';
 import CCUserProfile2 from './ClassComponents/CCUserProfile2';
 import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
-import FCAllChats from './FunctionalComponents/FCAllChats';
 import CCAllChats from './ClassComponents/CCAllChats';
 
 
@@ -92,9 +91,7 @@ function App() {
         <Route path="/chat" >
           <FCChat/>
         </Route>
-        <Route path="/AllChats" >
-          <FCAllChats/>
-        </Route>
+
 
         <Route path="/AllChats2" >
           <CCAllChats/>

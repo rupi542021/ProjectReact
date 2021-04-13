@@ -7,14 +7,10 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import React, { Component } from 'react'
-import FCUserCard from '../FunctionalComponents/FCUserCard';
-import Grid from '@material-ui/core/Grid';
-import { Select } from 'antd';
+
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
 import SearchField from "react-search-field";

@@ -9,7 +9,6 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import SendIcon from '@material-ui/icons/Send';
 
