@@ -17,13 +17,35 @@ import CCUserProfile2 from './ClassComponents/CCUserProfile2';
 import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
 import CCAllChats from './ClassComponents/CCAllChats';
+import CCTesting from './ClassComponents/CCTesting';
 
 
 
 // const names = ["avi", "ben", "char"];
 
 function App() {
-
+    if ("geolocation" in navigator) {
+      console.log("Available");
+    //   navigator.geolocation.getCurrentPosition(function(position) {
+    //     console.log("Latitude is :", position.coords.latitude);
+    //     console.log("Longitude is :", position.coords.longitude);
+    //   });
+    //   navigator.geolocation.getCurrentPosition(function(position) {
+    //     console.log(position)
+    //   },
+    //   function(error) {
+    //     console.error("Error Code = " + error.code + " - " + error.message);
+    //   });
+      navigator.geolocation.watchPosition(function(position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      },
+        function(error) {
+          console.error("Error Code = " + error.code + " - " + error.message);
+        });
+    } else {
+      console.log("Not Available");
+    }
   // let namelist = names.map((name, index) =>
   // (<a href="#" className="list-group-item list-group-item-action"
   //   key={index}>{index}.{name}</a>));
@@ -80,6 +102,7 @@ function App() {
         <Route path="/form" >
           <Form />
         </Route>
+ 
 
 
 
