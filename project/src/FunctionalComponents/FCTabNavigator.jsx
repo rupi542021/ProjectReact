@@ -10,6 +10,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { withRouter } from 'react-router-dom';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
+import MailIcon from '@material-ui/icons/Mail';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -93,6 +94,10 @@ function FCTabNavigator() {
     let path = `Favorites`; 
     history.push(path);
   }
+  const toAllChats = () =>{ 
+    let path = `AllChats2`; 
+    history.push(path);
+  }
  
   return (
     <div className={classes.grow}  style={{position:'fixed',bottom:0,width:'100%'}}>
@@ -102,10 +107,11 @@ function FCTabNavigator() {
         <IconButton
             edge="start"
             className={classes.menuButton}
+            onClick={toAllChats}
             // color="#3D3D3D"
             aria-label="open drawer"
           >
-            <ThumbUpIcon fontSize="small"/>
+            <MailIcon fontSize="small"/>
           </IconButton>
 
           <IconButton

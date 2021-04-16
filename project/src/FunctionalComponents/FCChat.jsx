@@ -8,7 +8,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
-
+import Moment from 'react-moment';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import SendIcon from '@material-ui/icons/Send';
 
@@ -145,20 +145,9 @@ function ChatMessage(props) {
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
 
-  // const userMail=loginStud.Mail;
-  // const userPhoto=loginStud.Photo === "" ? "images/avatar.jpg" :'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+loginStud.Photo;
-  // console.log(props);
   const { createdAt, text, FromMail, ToMail } = props.message;
   const messageClass = FromMail === loginStud.Mail ? 'sent' : 'received';
 
-  const timeMSG = createdAt !== null ? new Date(createdAt.seconds * 1000).toString() : "";
-  //console.log(timeMSG);
-  if (timeMSG !== "") {
-    var timeS = timeMSG.split(' ');
-    //console.log(timeS[4]);
-    var timemmhh = timeS[4].split(':');
-    var timeH = timeS[1] + " " + timeS[2] + " " + timemmhh[0] + ":" + timemmhh[1];
-  }
   var PhotoFrom = "images/avatar.jpg";
   //console.log(messageClass);
   if (FromMail === loginStud.Mail && (loginStud.Photo !== ""))
@@ -175,7 +164,12 @@ function ChatMessage(props) {
           <p className='textMSG'>{text}</p>
 
         </div>
-        <p className={'timeStamp' + messageClass}>{timeH}</p>
+        <p className={'timeStamp' + messageClass}>
+          {createdAt !== null ?
+        <Moment format=" DD/MM hh:mm" style={{fontSize:12}}>
+                {new Date(createdAt.seconds * 1000).toString()}
+            </Moment>:""}
+          </p>
       </div> 
   </>
   )

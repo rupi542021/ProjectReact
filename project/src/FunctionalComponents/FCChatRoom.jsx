@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import '../styleChat.css';
 import Typography from '@material-ui/core/Typography';
-
+import Moment from 'react-moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,14 +18,14 @@ const useStyles = makeStyles((theme) => ({
   details: {
     display: 'flex',
     flexDirection: 'column',
-    width: 160,
+    width: 290,
     textAlign: 'right',
     padding: 0
   },
   content: {
     flex: '1 0 auto',
     padding: 1,
-    marginTop: 25,
+    marginTop: 10,
     marginRight: 5
   },
   cover: {
@@ -76,7 +76,7 @@ export default function FCChatRoom(props) {
         image={props.Photo}
         title="Live from space album cover"
       />
-      <div className={classes.details} style={{ width: "50vw" }} 
+      <div className={classes.details} style={{ width: "53vw" }} 
       onClick={chooseUser}
       >
         <CardContent className={classes.content}>
@@ -84,10 +84,18 @@ export default function FCChatRoom(props) {
             {props.Fname+' '+props.Lname}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
-            {props.text }
+            {props.text}
           </Typography>
         </CardContent>
     
+      </div>
+      <div>
+      <Typography className={classes.title} color="textSecondary" gutterBottom style={{width:80}}>
+         
+          <Moment format=" DD/MM hh:mm" style={{fontSize:12}}>
+                {new Date(props.createdAt.seconds * 1000).toString()}
+            </Moment>
+        </Typography>
       </div>
     </Card>
   );
