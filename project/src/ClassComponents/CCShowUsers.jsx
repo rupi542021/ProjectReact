@@ -12,13 +12,8 @@ import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 
-// const ScrollBarPage = () => {
-//   const scrollContainerStyle = { width: "800px", maxHeight: "400px" };
-// }
 
 const filterByList = ["המחלקה שלי", "המחזור שלי",  "גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי","מעוניינים בנסיעות משותפות"]
-//const studArr = [];
-//const imgARR = [];
 class CCShowUsers extends Component {
   constructor(props) {
     super(props);
@@ -172,26 +167,6 @@ class CCShowUsers extends Component {
 
     }
 
-
-    // getFavoriteData = (mailToAdd) => {
-    //   let studToAdd = {
-    //     Mail: mailToAdd
-    //   }
-      // getFavoriteData = (mailToAddOrRemove, action) => {
-      //   let studToAddOrRemove = {
-      //     Mail: mailToAddOrRemove
-      //   }
-      //   let newUserFriendslist = this.state.userFriendslist;
-      //   if (action === "add")
-      //     newUserFriendslist.push(studToAddOrRemove)
-      //   else if (action === "remove")
-      //     newUserFriendslist = newUserFriendslist.filter((s) => s.Mail !== studToAddOrRemove.Mail)
-      //   this.setState({ userFriendslist: newUserFriendslist })
-      //   let studOBJ = localStorage.getItem('student');
-      //   studOBJ = JSON.parse(studOBJ);
-      //   studOBJ.Friendslist = newUserFriendslist;
-      //   localStorage.setItem('student', JSON.stringify(studOBJ));
-      // }
       getFavoriteData = (mailToAddOrRemove, action) => {
         let newUserFriendslist = this.state.userFriendslist;
         if (action === "add")

@@ -84,7 +84,7 @@ export default function FCChatRoom(props) {
             {props.Fname+' '+props.Lname}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
-            {props.text}
+            {props.text.length>20?props.text.slice(0,18)+" ...":props.text}
           </Typography>
         </CardContent>
     
@@ -92,7 +92,7 @@ export default function FCChatRoom(props) {
       <div>
       <Typography className={classes.title} color="textSecondary" gutterBottom style={{width:80}}>
          
-          <Moment format=" DD/MM hh:mm" style={{fontSize:12}}>
+          <Moment format=" DD/MM hh:mm" style={{fontSize:12,zIndex:10}}>
                 {new Date(props.createdAt.seconds * 1000).toString()}
             </Moment>
         </Typography>

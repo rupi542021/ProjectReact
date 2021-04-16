@@ -30,12 +30,6 @@ if (!firebase.apps.length) {
   });
 }
 
-
-// const auth = firebase.auth();
-// const firestore = firebase.firestore();
-// const analytics = firebase.analytics();
-// const messagesRef = firestore.collection('messages');
-// const query = messagesRef.orderBy('createdAt');
 export const db = firebase.firestore();
 
 class CCAllChats extends Component {
@@ -75,46 +69,6 @@ class CCAllChats extends Component {
       console.log('msgArr', messages);
  
 
-
-      // this.msgArr && this.msgArr.forEach(m => {
-      //   if (studOBJ.Mail === m.ToMail || studOBJ.Mail === m.FromMail) {
-      //     this.AllMsgByUser.push(m);
-      //   }
-      //   if (studOBJ.Mail === m.FromMail) this.state.studChatWith.push(m.ToMail);
-      //   if (studOBJ.Mail === m.ToMail) this.state.studChatWith.push(m.FromMail);
-      // });
-      // this.setState({ studChatWith: this.state.studChatWith });
-      // console.log('studChatWith', this.state.studChatWith);
-      // console.log('AllMsgByUser', this.AllMsgByUser);
-
-      // this.state.studChatWith.map(stud => {
-      //   if (this.state.uniqueTags.indexOf(stud) === -1) {
-      //     this.state.uniqueTags.push(stud)
-      //   }
-      // });
-//try to get distinct rooms massages by same to or from 
-      //try1-for this one the order by needs to be 'desc'
-      // var flags = [], output = [], l = this.AllMsgByUser.length, i;
-      // for (i = 0; i < l; i++) {
-      //   if (flags[this.AllMsgByUser[i].tomail]||flags[this.AllMsgByUser[i].frommail]) continue;
-      //   flags[this.AllMsgByUser[i].tomail] = true;
-      //   output.push(this.AllMsgByUser[i]);
-      // }
-      // console.log('output', output)
-
-      //try2-for this one the order by dont needs to be 'desc'
-      // const key = 'tomail';
-
-      // const arrayUniqueByKey = [...new Map(this.AllMsgByUser.map(item =>
-      //   [item[key], item])).values()];
-      
-      // console.log('arrayUniqueByKey',arrayUniqueByKey);
-
-      //end 
-
-      // this.setState({ uniqueTags: this.state.uniqueTags });
-      // console.log('chatwithUni', this.state.uniqueTags);
-      // return this.state.uniqueTags
     })
 
     this.setState({ loading: true })
@@ -199,7 +153,6 @@ class CCAllChats extends Component {
 
         <section>
           <div style={{ direction: 'rtl' }}>
-            {/* <ChatRoom arr={studentstArr}/> */}
             <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginBottom: 25 }}>ההודעות שלי</h3>
             <div style={{ marginBottom: 25 }}>
               <SearchField
@@ -215,7 +168,6 @@ class CCAllChats extends Component {
           <main className='mainAll'>
             {this.state.messages && this.state.messages.map((s, index) =>
               <FCChatRoom key={index} {...s} sendData={this.getData} />)}
-
 
           </main>
         </section>

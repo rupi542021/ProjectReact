@@ -17,8 +17,6 @@ import CCUserProfile2 from './ClassComponents/CCUserProfile2';
 import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
 import CCAllChats from './ClassComponents/CCAllChats';
-import CCTesting from './ClassComponents/CCTesting';
-
 
 
 // const names = ["avi", "ben", "char"];
