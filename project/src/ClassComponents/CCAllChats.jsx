@@ -112,9 +112,9 @@ class CCAllChats extends Component {
 
       //end 
 
-      this.setState({ uniqueTags: this.state.uniqueTags });
-      console.log('chatwithUni', this.state.uniqueTags);
-      return this.state.uniqueTags
+      // this.setState({ uniqueTags: this.state.uniqueTags });
+      // console.log('chatwithUni', this.state.uniqueTags);
+      // return this.state.uniqueTags
     })
 
     this.setState({ loading: true })
