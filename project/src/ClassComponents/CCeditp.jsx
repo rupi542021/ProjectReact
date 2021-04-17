@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ReactRoundedImage from "react-rounded-image";
-//import { Radio } from 'antd';
 import Button from '@material-ui/core/Button';
 import 'antd/dist/antd.css';
 import '../style.css';
@@ -13,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Swal from 'sweetalert2';
-//const citiesList = [];
+import loaderGIF from '../img/loader.gif';
 
 class CCeditp extends Component {
   constructor(props) {
@@ -25,8 +24,10 @@ class CCeditp extends Component {
       comeWithCar: false,
       imgURL: null,
       selectedFile: null,
+      loading: false,
     }
 this.citiesList=[];
+this.imgChange=false;
   }
 
   componentDidMount = () => {
@@ -68,7 +69,7 @@ this.citiesList=[];
       })
       .then(
         (result) => {
-          console.log("fetch GetAllResidences= ", result);
+          //console.log("fetch GetAllResidences= ", result);
           result.forEach(s => {
             if (s.Name !== "") {
               let city = { Name: s.Name, Id: s.Id, X: s.X, Y: s.Y }
@@ -100,6 +101,7 @@ this.citiesList=[];
   // }
 
   btnFile = (event) => {
+    this.setState({ loading: true })
     console.log(event.target.files[0]);
     var data = new FormData();
     if (event.target.value.length > 0) {
@@ -144,8 +146,12 @@ this.citiesList=[];
             console.log("fetch btnFetchuploadedFile= ", result);
             let imgNameInServer = result.split('\\').pop();
             console.log(imgNameInServer);
-            this.setState({ urlimg: result, selectedFile: imgNameInServer })
+            this.setState({ selectedFile: imgNameInServer })
             this.state.studOBJ.Photo = imgNameInServer;
+            let updatedProfile = this.state.studOBJ;
+            localStorage.setItem('student', JSON.stringify(updatedProfile));
+            this.setState({ loading: false})
+            this.imgChange=true;
 
           })
           .catch((error) => {
@@ -161,10 +167,12 @@ this.citiesList=[];
             })
           });
       console.log('end');
+      
+     
     }
 
     else {
-      this.setState({ selectedFile: null })
+      this.setState({ selectedFile: "" })
     }
 
   }
@@ -230,7 +238,12 @@ this.citiesList=[];
       localStorage.setItem('student', JSON.stringify(updatedProfile));
       console.log("updated profile: ", updatedProfile);
       this.updateInDB(updatedProfile);
-      this.props.history.push("/userProfile");
+      //this.props.history.push("/userProfile");
+      
+      this.props.history.push({
+        pathname: "/userProfile",
+        state: { ifImgChagne: this.imgChange }
+      });
   }
 
   updateInDB = (stud) => {
@@ -280,6 +293,9 @@ this.citiesList=[];
 
             <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
 <div>
+{this.state.loading ? <img src={loaderGIF} alt="loading..." 
+style={{ width: 80, height: 80, zIndex:10 ,borderRadius:'50%',backgroundColor: 'rgba(0,0,0,0.3)',
+padding:15}} /> : <>
             <ReactRoundedImage
               image={this.state.studOBJ !== {} ? this.state.imgURL : ''}
               roundedColor="#96a2aa"
@@ -292,7 +308,7 @@ this.citiesList=[];
             <i className="bi bi-pencil-fill"
               onClick={() => this.fileInput.click()}
               style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 20, marginTop: -25 }}></i>
-          </div>
+        </> } </div>
           </div>
           <input
             type="file"

@@ -1,15 +1,10 @@
-//import React, { useRef, useState, useEffect } from 'react';
 import '../styleChat.css';
-
 import { withRouter } from 'react-router-dom';
-
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
-
 import React, { Component } from 'react'
-
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
@@ -18,6 +13,7 @@ import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import FCChatRoom from '../FunctionalComponents/FCChatRoom';
+
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: "AIzaSyCSHnFe2MHnBKhRHQrwACoNLo5cerY5W74",
@@ -45,8 +41,6 @@ class CCAllChats extends Component {
       messages: []
 
     }
-
-    this.msgArr = [];
     this.AllMsgByUser = [];
     
   }
@@ -66,14 +60,11 @@ class CCAllChats extends Component {
               messages.push(messageObj);
        } })
       
-      console.log('msgArr', messages);
- 
+      console.log('messages', messages);
 
     })
 
     this.setState({ loading: true })
-
-    //this.setState({ userMail: studOBJ.Mail });
 
     this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
@@ -92,14 +83,10 @@ class CCAllChats extends Component {
         (result) => {
           console.log("fetch GetAllUsers= ", result);
           result.forEach(s => {
-
-
             let stud = {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname,
               Photo: s.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
             }
-            //studArr.push(stud);
-            //if (this.state.uniqueTags.includes(s.Mail))
                 studArr.push(stud);
           });
           
@@ -116,25 +103,23 @@ class CCAllChats extends Component {
             m.Photo=studArr[index].Photo;
           });
           console.log('messageswithName',messages)
+         
 
           this.setState({ loading: false ,messages:messages});
+          this.AllMsgByUser=messages;
         }
       )
   }
 
   componentDidMount() {
-    //alert('in did mount')
-    //this.setState({ loading: true })
     this.fetchMessages()
-
   }
   SearchUser = (val) => {
-    let filtered_list = this.state.studentstArr.filter((item) => item.Fname.includes(val) || item.Lname.includes(val));
+    let filtered_list = this.state.messages.filter((item) => item.Fname.includes(val) || item.Lname.includes(val));
     if (val === "")
-      this.setState({ studentstArr: this.studArr });
+      this.setState({ messages:this.AllMsgByUser });
     else
-      this.setState({ studentstArr: filtered_list })
-
+      this.setState({ messages: filtered_list })
   }
   getData = (userPicked) => {
     console.log("picked" + userPicked);
@@ -158,9 +143,6 @@ class CCAllChats extends Component {
               <SearchField
                 onChange={this.SearchUser}
                 placeholder="חיפוש..."
-
-                // onChange={onChange}
-                //searchText="חפש חבר"
                 classNames="test-class"
               /></div>
           </div>

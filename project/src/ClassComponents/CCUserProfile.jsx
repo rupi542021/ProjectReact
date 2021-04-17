@@ -21,6 +21,7 @@ class CCUserProfile extends Component {
     }
   }
   componentDidMount() {
+
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
     let arr = studOBJ.DateOfBirth.split("T");
@@ -80,6 +81,7 @@ class CCUserProfile extends Component {
             <h3 style={{  fontSize: '7vw' }}>{this.state.studAge}</h3>
               </div>
               <div style={{ position: 'absolute',left:'4%',top:'0%'}}>
+              
 <ReactRoundedImage style={{ zIndex: 3,shadowColor: "#000"}}
                   image={this.state.studPhoto}
                   roundedColor="#3D3D3D"
@@ -93,6 +95,7 @@ class CCUserProfile extends Component {
           <Rectangle width={'100%'} height={100} fill={{ color: '#FEFFAE' }} style={{ position: 'absolute', zIndex: 1 }} />
 
           <div style={{ textAlign: 'right', marginRight: 10 }}>
+
             <h5 style={{width:'100%', fontWeight: 'bold', marginTop: 10, fontSize: '5vw' }}>{this.state.studDep + " - " + this.state.stutsYear + "'"}</h5>
            
             <p className='labelsRight' style={{ marginTop: 15 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>

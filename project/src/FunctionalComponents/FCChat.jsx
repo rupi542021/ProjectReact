@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import '../styleChat.css';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
