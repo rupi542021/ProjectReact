@@ -152,7 +152,7 @@ this.imgChange=false;
             localStorage.setItem('student', JSON.stringify(updatedProfile));
             this.setState({ loading: false})
             this.imgChange=true;
-
+            localStorage.setItem('photoChanged', true);
           })
           .catch((error) => {
             console.log("err post=", error);

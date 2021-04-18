@@ -78,6 +78,7 @@ class CCSignin3 extends Component {
 
         }
       )
+      
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
     this.setState({firstName:studOBJ.Fname, status:studOBJ.PersonalStatus, comeWithCar:studOBJ.IsAvailableCar, 

@@ -21,6 +21,10 @@ class CCUserProfile extends Component {
     }
   }
   componentDidMount() {
+    if(localStorage.getItem('photoChanged')){
+      window.location.reload();
+      localStorage.removeItem("photoChanged");
+    }
 
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
