@@ -38,6 +38,7 @@ class CCSignin3 extends Component {
         city: "",
         currentCity: "",
         status: "",
+       // disable2Proceed:false
       },
       errors: {},
       selectedFile: null,
@@ -79,9 +80,16 @@ class CCSignin3 extends Component {
       )
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({firstName:studOBJ.Fname })
+    this.setState({firstName:studOBJ.Fname, status:studOBJ.PersonalStatus, comeWithCar:studOBJ.IsAvailableCar, 
+      switchChecked:studOBJ.IntrestedInCarPool})
     if (studOBJ.HomeTown != null) {
-      this.setState({ currentCity: studOBJ.AddressStudying, city: studOBJ.HomeTown})
+      this.setState({ currentCity: studOBJ.AddressStudying, city: studOBJ.HomeTown});
+      this.state.input["city"] = studOBJ.HomeTown;
+      this.state.input["currentCity"] = studOBJ.AddressStudying;
+    }
+    if(studOBJ.PhotoURL!==undefined && studOBJ.PhotoURL!==null){
+     this.setState({imgURL: 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.PhotoURL,
+    selectedFile:studOBJ.PhotoURL});
     }
 
   }
@@ -215,6 +223,8 @@ class CCSignin3 extends Component {
       data.append("name", studOBJ.Mail);
 
       console.log("in post img function");
+      this.setState({disable2Proceed:true},()=>{
+      console.log('disable2Proceed before:', this.state.disable2Proceed);
       this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
       fetch(this.apiUrl,
         {
@@ -244,15 +254,19 @@ class CCSignin3 extends Component {
             console.log("fetch btnFetchuploadedFile= ", result);
             let imgNameInServer = result.split('\\').pop();
             console.log(imgNameInServer);
-            this.setState({ urlimg: result, selectedFile: imgNameInServer })
-
+            this.setState({ urlimg: result, selectedFile: imgNameInServer},()=>{
+              console.log('selectedFile after:', this.state.selectedFile);
+              this.setState({ disable2Proceed:false },()=>{
+                console.log('disable2Proceed after:', this.state.disable2Proceed);
+              }); 
+          });
           },
           (error) => {
             console.log("err post=", error);
           });
       console.log('end');
 
-
+    });
       //setSource(newUrl);
     }
 
@@ -261,6 +275,7 @@ class CCSignin3 extends Component {
     }
 
   }
+
 
   chgYesCarpoolCBX = () => {
     this.setState({
@@ -280,6 +295,16 @@ class CCSignin3 extends Component {
     }
     );
     this.setState({ errors: {} });
+  }
+
+  deleteImg=()=>{
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
+    this.setState({imgURL:null, selectedFile:null});
+    studOBJ.PhotoURL=null;
+    studOBJ.Photo=null;
+    localStorage.setItem('student',JSON.stringify(studOBJ));
+    // need to delete img from db
   }
 
 
@@ -310,7 +335,11 @@ class CCSignin3 extends Component {
                   imageHeight="80"
                   roundedSize="5"
 
-                />  <i class="bi bi-pencil-fill"
+                />
+                 <i className="bi bi-trash-fill"
+              onClick={this.deleteImg}
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i> 
+                 <i class="bi bi-pencil-fill"
                 onClick={() => this.fileInput.click()}
                 style={{ color: '#3D3D3D', fontSize: 18, position: 'absolute', zIndex: 15, marginRight: 20, marginTop:-24}}></i>
             <input
@@ -375,7 +404,7 @@ class CCSignin3 extends Component {
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
                 style={{ width: '50vw', margin: '0px auto',backgroundColor:'white' }}
-                renderInput={(params) => <TextField {...params} label="בחר עיר" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} label={this.state.city === null ?"בחר עיר":this.state.city.Name} variant="outlined" />}
                 size='small'
                // value={this.state.city}
                 onChange={this.chgCity}
@@ -401,7 +430,7 @@ class CCSignin3 extends Component {
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
                 style={{ width: '50vw', margin: '0px auto' ,backgroundColor:'white', direction:'rtl'}}
-                renderInput={(params) => <TextField {...params} font-Family= "Segoe UI" label="בחר עיר" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} font-Family= "Segoe UI" label={this.state.currentCity === null ?"בחר עיר":this.state.currentCity.Name} variant="outlined" />}
                 size='small'
                 onChange={this.chgCurrentCity}
                 onFocus={() => { this.setState({ errors: {} }) }}
@@ -429,7 +458,7 @@ class CCSignin3 extends Component {
                 <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
                 <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
               </Select> */}
-        <InputLabel htmlFor="filled-age-native-simple" style={{fontFamily: "Segoe UI"}}>בחר סטטוס</InputLabel>
+        <InputLabel htmlFor="filled-age-native-simple" style={{fontFamily: "Segoe UI"}}> {this.state.status ==="" || this.state.status ===null ? " בחר סטטוס " :this.state.status} </InputLabel>
         <Select
           value={this.state.status}
           onChange={this.chgStatus}
@@ -463,11 +492,13 @@ class CCSignin3 extends Component {
             <Form.Item>
 
                         <Button variant="contained" 
-        style={{paddingTop:0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
+        style={{paddingTop:0,marginRight:10,marginTop:'1vh' ,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
         fontFamily: "Segoe UI",height:35 }}
-        onClick={this.btnNext}>
+        onClick={this.btnNext}
+        disabled = {this.state.disable2Proceed}
+        >
         <i class="bi bi-arrow-left-short"
-        style={{ color: '#3D3D3D', fontSize: 32}}></i>
+        style={{ color: '#3D3D3D', fontSize: '4.5vh'}}></i>
         </Button>
             </Form.Item>
           </Form>
