@@ -52,15 +52,14 @@ export default function FCUnitCard(props) {
   //const theme = useTheme();
   //const percentage = 66;
   var showin=true;
+  const [showResults, setShowResults] = React.useState(false)
+  const showInput = () => setShowResults(true)
   const chooseUser = () => {
     props.sendData(props.obj);
   
   }
  
- const showInput=()=>{
-    showin=false;
-    console.log(showin)
- }
+
   const history = useHistory();
   const toChat = () =>{ 
     chooseUser();
@@ -73,18 +72,55 @@ export default function FCUnitCard(props) {
   const [formValue, setFromValue] = useState('');
   const sendMessage = async (e) => {
 
-    e.preventDefault();
-
+    //e.preventDefault();
+    setShowResults(false)
     console.log(formValue)
   showin=false
     setFromValue('');
     
   }
+  const selectArrival=()=>{
+    console.log("in post arrival function");
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
+    let sf = {
+      Mail: studOBJ.Mail,
+      EventCode: props.EventCode
+    }
+    let apiUrl = 'https://localhost:44325/api/theUnit/AddToArrivals';
+    fetch(apiUrl,
+      {
+        method: 'POST',
+        body: JSON.stringify(sf),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        if (res.status === 201) {
+          console.log('arrival created:)');
+        }
+        console.log('res.ok', res.ok);
+
+        if (res.ok) {
+          console.log('post succeeded');
+          //props.sendFavoriteData(props.id,"add");
+          //לעשות שישנה את הכפתור לכיתוב 'לא אגיע' או משהו כזה. וליצור פונקציה של מחיקה (אולי בכפתור אחר)
+        }
+      },
+        (error) => {
+          console.log("err post=", error);
+        });
+    console.log('end')
+  }
   return (
-    <Card className={classes.root} style={{ direction: 'rtl', width: "95vw" }}>
+    <Card className={classes.root} style={{ direction: 'rtl', width: "95vw",height:showResults?190:140 }}>
       
      {props.EventImage!=""? <CardMedia
-     style={{height:120}}
+     style={{height:showResults?130:140}}
         onClick={chooseUser}
         className={classes.cover}
         image={'https://localhost:44325/'+props.EventImage}
@@ -111,12 +147,12 @@ export default function FCUnitCard(props) {
       </div>
       <div style={{ width: 40, marginTop: 5  }}>
         <Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 16, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="black" >אגיע!</Button>
+        color="default" onClick={selectArrival} >אגיע!</Button>
           <Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 16, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="black" onClick={showInput}>הגב</Button>
+        color="default" onClick={showInput}>הגב</Button>
       </div>
 
-      {showin==true?<div style={{width:'100%',marginTop:120,position:'absolute',direction:'rtl'}}>
+      {showResults?<div style={{width:'100%',marginTop:130,position:'absolute',direction:'rtl'}}>
       <input className='inputMSG' value={formValue} onChange={(e) => setFromValue(e.target.value)} />
 
         <button type="submit"
