@@ -129,7 +129,9 @@ class CCHangout extends Component {
         </Button>
         <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
          fontFamily: "Segoe UI",height:35}}
-        onClick={()=>this.props.history.push("/signin3")}
+        onClick={()=>{this.props.history.push("/signin3");
+      localStorage.setItem('back2signin3',true);
+      }}
         > <i class="bi bi-arrow-right-short"
         style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
         </Button>

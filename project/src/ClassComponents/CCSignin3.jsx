@@ -50,6 +50,10 @@ class CCSignin3 extends Component {
   }
 
   componentDidMount = () => {
+    if(localStorage.getItem('back2signin3')){
+      window.location.reload();
+      localStorage.removeItem("back2signin3");
+    }
     this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
     console.log('GETstart');
     fetch(this.apiUrl,
@@ -257,7 +261,7 @@ class CCSignin3 extends Component {
             console.log(imgNameInServer);
             this.setState({ urlimg: result, selectedFile: imgNameInServer},()=>{
               console.log('selectedFile after:', this.state.selectedFile);
-              this.setState({ disable2Proceed:false },()=>{
+              this.setState({disable2Proceed:false },()=>{
                 console.log('disable2Proceed after:', this.state.disable2Proceed);
               }); 
           });
@@ -327,6 +331,7 @@ class CCSignin3 extends Component {
             <Form.Item style={{ marginBottom: 0, width: '100%' }}>
               <p className='labels' >התמונה שלי  </p>
               <div className='rowC' style={{marginBottom:10}}>
+
                 {/* <img src={this.state.imgURL} alt="Logo" /> */}
                 {this.state.imgURL !== null ? <div><ReactRoundedImage
                   image={this.state.imgURL}

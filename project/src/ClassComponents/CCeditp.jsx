@@ -101,7 +101,7 @@ this.imgChange=false;
   // }
 
   btnFile = (event) => {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     console.log(event.target.files[0]);
     var data = new FormData();
     if (event.target.value.length > 0) {
@@ -150,7 +150,7 @@ this.imgChange=false;
             this.state.studOBJ.Photo = imgNameInServer;
             let updatedProfile = this.state.studOBJ;
             localStorage.setItem('student', JSON.stringify(updatedProfile));
-            this.setState({ loading: false})
+            this.setState({ loading: false});
             this.imgChange=true;
             localStorage.setItem('photoChanged', true);
           })
