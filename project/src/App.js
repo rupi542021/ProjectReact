@@ -17,7 +17,7 @@ import CCUserProfile2 from './ClassComponents/CCUserProfile2';
 import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
 import CCAllChats from './ClassComponents/CCAllChats';
-
+import CCTheUnit from './ClassComponents/CCTheUnit';
 
 // const names = ["avi", "ben", "char"];
 
@@ -100,22 +100,18 @@ function App() {
         <Route path="/form" >
           <Form />
         </Route>
- 
-
-
-
         <Route path="/Favorites" >
           <CCFavorites/>
         </Route>
-
-        
         <Route path="/chat" >
           <FCChat/>
         </Route>
-
-
         <Route path="/AllChats2" >
           <CCAllChats/>
+        </Route>
+
+        <Route path="/TheUnit" >
+          <CCTheUnit/>
         </Route>
       </Switch>
     </div>

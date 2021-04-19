@@ -64,7 +64,8 @@ export default function SwipeableTemporaryDrawer() {
                 history.push(path);
                 break;
             case 3:
-                path = ``;
+                path = `TheUnit`;
+                history.push(path);
                 break;
             default:
                 break;
