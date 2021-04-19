@@ -135,7 +135,7 @@ class CCShowUsers extends Component {
         this.setState({ filteredList:  filteredList});
       }
       else
-        this.setState({ studentstArr: [], text: "אין תוצאות בסינון זה" })
+        this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" })
     });
   }
   getData = (userPicked) => {
