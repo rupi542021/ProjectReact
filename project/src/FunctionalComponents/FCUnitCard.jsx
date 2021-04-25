@@ -5,12 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-
+import Swal from 'sweetalert2';
 import Typography from '@material-ui/core/Typography';
 import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
 import Button from '@material-ui/core/Button';
+import { Today } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -54,15 +55,12 @@ export default function FCUnitCard(props) {
   var showin=true;
   const [showResults, setShowResults] = React.useState(false)
   const showInput = () => setShowResults(true)
-  const chooseUser = () => {
-    props.sendData(props.obj);
+
   
-  }
- 
+  const toQuestionnaire = () =>{ }
 
   const history = useHistory();
   const toChat = () =>{ 
-    chooseUser();
     let path = `chat`; 
     history.push({
       pathname: path  ,
@@ -71,21 +69,117 @@ export default function FCUnitCard(props) {
   }
   const [formValue, setFromValue] = useState('');
   const sendMessage = async (e) => {
+   
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
 
     //e.preventDefault();
     setShowResults(false)
     console.log(formValue)
-  showin=false
+    if(props.Type=='event'){
+    console.log("in post event comment function");
+    let ec = {
+      Student: studOBJ,
+      FbEventNum: props.Code,
+      CommentText:formValue,
+      CommentDate:new Date().toLocaleString()
+    }
+    let apiUrl = 'https://localhost:44325/api/theUnit/eventComment';
+    fetch(apiUrl,
+      {
+        method: 'POST',
+        body: JSON.stringify(ec),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        if (res.status === 201) {
+          console.log('eventComment created:)');
+        }
+        console.log('res.ok', res.ok);
+
+        if (res.ok) {
+          console.log('post succeeded');
+          Swal.fire({
+            title: 'תגובתך נשלחה בהצלחה',
+            //text: ' :) ברוכים השבים',
+            icon: 'success',
+            iconHtml: '',
+            confirmButtonText: 'סגור',
+            showCloseButton: true,
+
+          })
+        }
+      },
+        (error) => {
+          console.log("err post=", error);
+        });
+    console.log('end')}
+    else{
+      console.log("in post ad comment function");
+      let ec = {
+        Student: studOBJ,
+        FbAdsNum: props.Code,
+        CommentText:formValue,
+        CommentDate:new Date().toLocaleString()
+      }
+      let apiUrl = 'https://localhost:44325/api/theUnit/adComment';
+      fetch(apiUrl,
+        {
+          method: 'POST',
+          body: JSON.stringify(ec),
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+          })
+        })
+        .then(res => {
+          console.log('res=', res);
+          console.log('res.status', res.status);
+          if (res.status === 201) {
+            console.log('adComment created:)');
+          }
+          console.log('res.ok', res.ok);
+  
+          if (res.ok) {
+            console.log('post succeeded');
+            Swal.fire({
+              title: 'תגובתך נשלחה בהצלחה',
+              //text: ' :) ברוכים השבים',
+              icon: 'success',
+              iconHtml: '',
+              confirmButtonText: 'סגור',
+              showCloseButton: true,
+  
+            })
+          }
+        },
+          (error) => {
+            console.log("err post=", error);
+          });
+      console.log('end')
+    }
+  
+
+    showin=false
     setFromValue('');
     
   }
+  const [btnText, setbtnText] = React.useState(props.Arrival?'אגיע!':'לא אגיע');
   const selectArrival=()=>{
-    console.log("in post arrival function");
+
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
+
+    if(btnText=='אגיע!'){
+      console.log("in post arrival function");
     let sf = {
       Mail: studOBJ.Mail,
-      EventCode: props.EventCode
+      EventCode: props.Code
     }
     let apiUrl = 'https://localhost:44325/api/theUnit/AddToArrivals';
     fetch(apiUrl,
@@ -107,6 +201,7 @@ export default function FCUnitCard(props) {
 
         if (res.ok) {
           console.log('post succeeded');
+          setbtnText('לא אגיע')
           //props.sendFavoriteData(props.id,"add");
           //לעשות שישנה את הכפתור לכיתוב 'לא אגיע' או משהו כזה. וליצור פונקציה של מחיקה (אולי בכפתור אחר)
         }
@@ -116,29 +211,63 @@ export default function FCUnitCard(props) {
         });
     console.log('end')
   }
+  
+else{
+  console.log("in delete arrival function");
+  let studOBJ = localStorage.getItem('student');
+  studOBJ = JSON.parse(studOBJ);
+  let sf = {
+    Mail: studOBJ.Mail,
+    EventCode: props.Code
+  }
+  let apiUrl = 'https://localhost:44325/api/theUnit/DeleteArrival';
+  fetch(apiUrl,
+    {
+      method: 'Delete',
+      body: JSON.stringify(sf),
+      headers: new Headers({
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset=UTF-8'
+      })
+    })
+    .then(res => {
+      console.log('res=', res);
+      console.log('res.status', res.status);
+      console.log('res.ok', res.ok);
+      if (res.ok) {
+        console.log('student was deleted!');
+        setbtnText('אגיע!')
+        //props.sendFavoriteData(props.id,"remove");
+      }
+    });
+
+}
+  }
   return (
     <Card className={classes.root} style={{ direction: 'rtl', width: "95vw",height:showResults?190:140 }}>
       
-     {props.EventImage!=""? <CardMedia
+     {props.Image!==""&&props.Image!==null? <CardMedia
      style={{height:showResults?130:140}}
-        onClick={chooseUser}
+       
         className={classes.cover}
-        image={'https://localhost:44325/'+props.EventImage}
+        image={'https://localhost:44325/'+props.Image}
         title="Live from space album cover"
       />:""}
-      <div className={classes.details} style={{width:props.EventImage!=""?200:280}} onClick={chooseUser}>
+      <div className={classes.details} style={{width:props.Image!=""&&props.Image!=null?200:280}} >
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "5.7vw" }}>
-            {props.Eventname}
+            {props.Title}
           </Typography>
           <Typography variant="subtitle1"  style={{ fontFamily: "Segoe UI", fontSize: "4.5vw" }}>
 
-            <Moment format=" DD/MM/YYYY">
-                {props.EventDate}
-            </Moment>
+            {props.Type=='event'?<Moment format=" DD/MM/YYYY">
+                {props.subTitle}
+            </Moment>:''}
+            {props.Type=='qr'?
+                props.subTitle:''}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
-            { props.EventText}
+            { props.Content}
           </Typography>
 
         </CardContent>
@@ -146,10 +275,13 @@ export default function FCUnitCard(props) {
 
       </div>
       <div style={{ width: 40, marginTop: 5  }}>
-        <Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 16, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="default" onClick={selectArrival} >אגיע!</Button>
-          <Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 16, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="default" onClick={showInput}>הגב</Button>
+        {props.Type=="event"?<Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
+        color="default" onClick={selectArrival} >{btnText}</Button>:''}
+         {props.Type!=='qr'?<Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
+        color="default" onClick={showInput}>הגב</Button>:
+        <Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
+        color="default" onClick={toQuestionnaire}>למענה על השאלון</Button>
+        }
       </div>
 
       {showResults?<div style={{width:'100%',marginTop:130,position:'absolute',direction:'rtl'}}>

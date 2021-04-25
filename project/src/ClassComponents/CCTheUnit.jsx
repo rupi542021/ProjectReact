@@ -18,17 +18,19 @@ class CCTheUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventsState:[],
+      allPostsState:[],
 
       curTime : new Date().toLocaleString(),
     }
-   this.events=[];
+   this.allPosts=[];
   }
 
   componentDidMount() {
 
-let today='';
-    this.apiUrl = 'https://localhost:44325/api/Events/geteventdetail';
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
+
+    this.apiUrl = 'https://localhost:44325/api/theUnit/getAllEvents';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -45,17 +47,115 @@ let today='';
         (result) => {
           console.log("fetch GetAllEvents= ", result);
           result.forEach(s => {
-            s.EventDate=new Date(s.EventDate.split('T')[0]);
-            today=new Date(this.state.curTime.split(',')[0])
-            if(s.EventDate>=today)
-              this.events.push(s);
+            // s.EventDate=new Date(s.EventDate.split('T')[0]);
+            // today=new Date(this.state.curTime.split(',')[0])
+            // if(s.EventDate>=today)
+            let boo=true;
+            s.Studentsinevent.forEach(stud => {
+              if(stud.Mail==studOBJ.Mail) {boo=false; return;}
+            });
+            let unitPost={
+              Code:s.EventCode,
+              Title:s.Eventname,
+              Image:s.EventImage,
+              subTitle:s.EventDate,
+              Content:s.EventText,
+              Arrival:boo,
+              Type:'event'
+            }
+            this.allPosts.push(unitPost);
           });
-console.log(this.events)
-this.events.sort((a, b) => a.EventDate - b.EventDate)
-this.setState({eventsState:this.events})
+console.log(this.allPosts)
+this.allPosts.sort((a, b) => a.subTitle - b.subTitle)
+this.setState({allPostsState:this.allPosts})
         }
       )
 
+
+
+      this.apiUrl = 'https://localhost:44325/api/theUnit/getAllAds';
+      console.log('GETstart');
+      fetch(this.apiUrl,
+        {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+          })
+        })
+        .then((res) => {
+          return res.json();
+        })
+        .then(
+          (result) => {
+            console.log("fetch GetAllAds= ", result);
+            result.forEach(s => {
+              let unitPost={
+                Code:s.AdsCode,
+                Title:s.SubSubject,
+                Image:s.AdsImage,
+                subTitle:"",
+                Content:s.AdsText,
+                Type:'ad'
+              }
+              this.allPosts.push(unitPost);
+            });
+  console.log(this.allPosts)
+  //this.allPosts.sort((a, b) => a.subTitle - b.subTitle)
+  this.setState({allPostsState:this.allPosts})
+          }
+        )
+        switch (studOBJ.StudyingYear) {
+          case 'א':
+            studOBJ.StudyingYear = 1
+            break;
+          case 'ב':
+            studOBJ.StudyingYear = 2
+            break;
+          case 'ג':
+            studOBJ.StudyingYear = 3
+            break;
+          case 'ד':
+            studOBJ.StudyingYear = 4
+            break;
+
+          default:
+            break;
+        }
+        console.log('DepartmentCode',studOBJ.Dep.DepartmentCode);
+        console.log('StudyingYear',studOBJ.StudyingYear);
+        this.apiUrl = 'https://localhost:44325/api/theUnit/getAllQuestionnaires/'+studOBJ.Dep.DepartmentCode+'/'+studOBJ.StudyingYear;
+      console.log('GETstart');
+      fetch(this.apiUrl,
+        {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+          })
+        })
+        .then((res) => {
+          return res.json();
+        })
+        .then(
+          (result) => {
+            console.log("fetch GetAllQuestionnaires= ", result);
+            result.forEach(s => {
+              let unitPost={
+                Code:s.QuestionnaireNum,
+                Title:s.SubQr,
+                Image:"",
+                subTitle:s.Dep.DepartmentName+' - '+s.QuestionnaireYear,
+                Content:"",
+                Type:'qr'
+              }
+              this.allPosts.push(unitPost);
+            });
+  console.log(this.allPosts)
+  //this.allPosts.sort((a, b) => a.subTitle - b.subTitle)
+  this.setState({allPostsState:this.allPosts})
+          }
+        )
   }
 
   
@@ -95,7 +195,7 @@ this.setState({eventsState:this.events})
                 <Grid item xs={12}>
                   <PerfectScrollbar>
                     <Grid container justify="center" spacing={1}>
-                      {this.state.eventsState.map((e, index) => (
+                      {this.state.allPostsState.map((e, index) => (
 
                         <Grid key={index} item>
                           <FCUnitCard key={index} {...e}/>
