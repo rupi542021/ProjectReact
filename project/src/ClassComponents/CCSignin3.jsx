@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form } from 'antd';
+import { Form} from 'antd';
 import 'antd/dist/antd.css';
 import Button from '@material-ui/core/Button';
 import { Progress } from 'antd';
@@ -38,7 +38,7 @@ class CCSignin3 extends Component {
         city: "",
         currentCity: "",
         status: "",
-        // disable2Proceed:false
+       // disable2Proceed:false
       },
       errors: {},
       selectedFile: null,
@@ -50,7 +50,7 @@ class CCSignin3 extends Component {
   }
 
   componentDidMount = () => {
-    if (localStorage.getItem('back2signin3')) {
+    if(localStorage.getItem('back2signin3')){
       window.location.reload();
       localStorage.removeItem("back2signin3");
     }
@@ -82,23 +82,19 @@ class CCSignin3 extends Component {
 
         }
       )
-
+      
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({
-      firstName: studOBJ.Fname, status: studOBJ.PersonalStatus, comeWithCar: studOBJ.IsAvailableCar,
-      switchChecked: studOBJ.IntrestedInCarPool
-    })
+    this.setState({firstName:studOBJ.Fname, status:studOBJ.PersonalStatus, comeWithCar:studOBJ.IsAvailableCar, 
+      switchChecked:studOBJ.IntrestedInCarPool})
     if (studOBJ.HomeTown != null) {
-      this.setState({ currentCity: studOBJ.AddressStudying, city: studOBJ.HomeTown });
+      this.setState({ currentCity: studOBJ.AddressStudying, city: studOBJ.HomeTown});
       this.state.input["city"] = studOBJ.HomeTown;
       this.state.input["currentCity"] = studOBJ.AddressStudying;
     }
-    if (studOBJ.PhotoURL !== undefined && studOBJ.PhotoURL !== null) {
-      this.setState({
-        imgURL: 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.PhotoURL,
-        selectedFile: studOBJ.PhotoURL
-      });
+    if(studOBJ.PhotoURL!==undefined && studOBJ.PhotoURL!==null){
+     this.setState({imgURL: 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.PhotoURL,
+    selectedFile:studOBJ.PhotoURL});
     }
 
   }
@@ -115,11 +111,11 @@ class CCSignin3 extends Component {
 
   chgCity = (event) => {
     let cityName = event.target.innerText;
-    let city = citiesList.find(city => city.Name === cityName);
+    let city = citiesList.find(city => city.Name === cityName );
     console.log("cityName:", cityName);
     console.log("city:", city);
-    this.setState({ city: city }, () => {
-      this.state.input["city"] = this.state.city;
+    this.setState({city:city}, () => {
+    this.state.input["city"] = this.state.city;
     })
 
 
@@ -127,10 +123,10 @@ class CCSignin3 extends Component {
 
   chgCurrentCity = (event) => {
     let cityName = event.target.innerText;
-    let city = citiesList.find(city => city.Name === cityName);
+    let city = citiesList.find(city => city.Name === cityName );
     console.log("cityName:", cityName);
     console.log("city:", city);
-    this.setState({ currentCity: city }, () => {
+    this.setState({currentCity:city},() => {
       this.state.input["currentCity"] = this.state.currentCity;
     })
 
@@ -138,8 +134,8 @@ class CCSignin3 extends Component {
 
   chgStatus = (event) => {
     let status = event.target.value
-    console.log("status:", status);
-    this.setState({ status: status });
+      console.log("status:", status);
+      this.setState({ status: status });
     //let input = {};
     this.state.input["status"] = this.state.status;
   }
@@ -232,50 +228,50 @@ class CCSignin3 extends Component {
       data.append("name", studOBJ.Mail);
 
       console.log("in post img function");
-      this.setState({ disable2Proceed: true }, () => {
-        console.log('disable2Proceed before:', this.state.disable2Proceed);
-        this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
-        fetch(this.apiUrl,
-          {
-            method: 'POST',
-            body: data,
-            // headers: new Headers({
-            //   // 'Content-Type': 'application/json; charset=UTF-8',
-            //   // 'Accept': 'application/json; charset=UTF-8'
-            // })
-          })
-          .then(res => {
-            console.log('res=', res);
+      this.setState({disable2Proceed:true},()=>{
+      console.log('disable2Proceed before:', this.state.disable2Proceed);
+      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
+      fetch(this.apiUrl,
+        {
+          method: 'POST',
+          body: data,
+          // headers: new Headers({
+          //   // 'Content-Type': 'application/json; charset=UTF-8',
+          //   // 'Accept': 'application/json; charset=UTF-8'
+          // })
+        })
+        .then(res => {
+          console.log('res=', res);
 
-            if (res.status === 201) {
-              console.log('uploadedFile created:)');
-            }
-            console.log('res.ok', res.ok);
+          if (res.status === 201) {
+            console.log('uploadedFile created:)');
+          }
+          console.log('res.ok', res.ok);
 
-            if (res.ok) {
-              console.log('post succeeded');
-            }
+          if (res.ok) {
+            console.log('post succeeded');
+          }
 
-            return res.json()
-          })
-          .then(
-            (result) => {
-              console.log("fetch btnFetchuploadedFile= ", result);
-              let imgNameInServer = result.split('\\').pop();
-              console.log(imgNameInServer);
-              this.setState({ urlimg: result, selectedFile: imgNameInServer }, () => {
-                console.log('selectedFile after:', this.state.selectedFile);
-                this.setState({ disable2Proceed: false }, () => {
-                  console.log('disable2Proceed after:', this.state.disable2Proceed);
-                });
-              });
-            },
-            (error) => {
-              console.log("err post=", error);
-            });
-        console.log('end');
+          return res.json()
+        })
+        .then(
+          (result) => {
+            console.log("fetch btnFetchuploadedFile= ", result);
+            let imgNameInServer = result.split('\\').pop();
+            console.log(imgNameInServer);
+            this.setState({ urlimg: result, selectedFile: imgNameInServer},()=>{
+              console.log('selectedFile after:', this.state.selectedFile);
+              this.setState({disable2Proceed:false },()=>{
+                console.log('disable2Proceed after:', this.state.disable2Proceed);
+              }); 
+          });
+          },
+          (error) => {
+            console.log("err post=", error);
+          });
+      console.log('end');
 
-      });
+    });
       //setSource(newUrl);
     }
 
@@ -306,13 +302,13 @@ class CCSignin3 extends Component {
     this.setState({ errors: {} });
   }
 
-  deleteImg = () => {
+  deleteImg=()=>{
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ imgURL: null, selectedFile: null });
-    studOBJ.PhotoURL = null;
-    studOBJ.Photo = null;
-    localStorage.setItem('student', JSON.stringify(studOBJ));
+    this.setState({imgURL:null, selectedFile:null});
+    studOBJ.PhotoURL=null;
+    studOBJ.Photo=null;
+    localStorage.setItem('student',JSON.stringify(studOBJ));
     // need to delete img from db
   }
 
@@ -323,18 +319,18 @@ class CCSignin3 extends Component {
 
     return (
       <div>
-        <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE", top: 0 }}>
+                <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" ,top:0}}>
           <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
         <div>
           <Progress percent={33} showInfo={false} strokeColor="#3D3D3D" trailColor='white' strokeWidth={15}
             style={{ width: 300, marginTop: 10, transform: `rotate(180deg)` }} />
-          <h4 style={{ fontSize: '6vw', marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>היי {this.state.firstName}, ספר/י לנו קצת על עצמך</h4>
+          <h4 style={{ fontSize:'6vw',marginTop: 5, direction: 'rtl', color: '#3D3D3D' }}>היי {this.state.firstName}, ספר/י לנו קצת על עצמך</h4>
           <Form style={{ direction: 'rtl' }}>
             <Form.Item style={{ marginBottom: 0, width: '100%' }}>
               <p className='labels' >התמונה שלי  </p>
-              <div className='rowC' style={{ marginBottom: 10 }}>
+              <div className='rowC' style={{marginBottom:10}}>
 
                 {/* <img src={this.state.imgURL} alt="Logo" /> */}
                 {this.state.imgURL !== null ? <div><ReactRoundedImage
@@ -346,20 +342,20 @@ class CCSignin3 extends Component {
                   roundedSize="5"
 
                 />
-                  <i className="bi bi-trash-fill"
-                    onClick={this.deleteImg}
-                    style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i>
-                  <i class="bi bi-pencil-fill"
-                    onClick={() => this.fileInput.click()}
-                    style={{ color: '#3D3D3D', fontSize: 18, position: 'absolute', zIndex: 15, marginRight: 20, marginTop: -24 }}></i>
-                  <input
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={this.btnFile}
-                    ref={fileInput => this.fileInput = fileInput} />
-                </div> :
+                 <i className="bi bi-trash-fill"
+              onClick={this.deleteImg}
+              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i> 
+                 <i class="bi bi-pencil-fill"
+                onClick={() => this.fileInput.click()}
+                style={{ color: '#3D3D3D', fontSize: 18, position: 'absolute', zIndex: 15, marginRight: 20, marginTop:-24}}></i>
+            <input
+            type="file"
+            style={{ display: 'none' }}
+            onChange={this.btnFile}
+            ref={fileInput => this.fileInput = fileInput} />
+            </div>:
                   <div>
-                    {/* <input
+                    <input
                       accept="image/*"
 
                       id="icon-button-file"
@@ -367,12 +363,7 @@ class CCSignin3 extends Component {
                       capture="environment"
                       hidden
                       onChange={this.btnFile} ref={fileInput => this.fileInput = fileInput}
-                    /> */}
-                    <input
-                      type="file"
-                      style={{ display: 'none' }}
-                      onChange={this.btnFile}
-                      ref={fileInput => this.fileInput = fileInput} />
+                    />
                     <label htmlFor="icon-button-file">
                       <IconButton
                         color="primary"
@@ -418,10 +409,10 @@ class CCSignin3 extends Component {
               <Autocomplete
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto', backgroundColor: 'white' }}
-                renderInput={(params) => <TextField {...params} label={this.state.city === null ? "בחר עיר" : this.state.city.Name} variant="outlined" />}
+                style={{ width: '50vw', margin: '0px auto',backgroundColor:'white' }}
+                renderInput={(params) => <TextField {...params} label={this.state.city === null ?"בחר עיר":this.state.city.Name} variant="outlined" />}
                 size='small'
-                // value={this.state.city}
+               // value={this.state.city}
                 onChange={this.chgCity}
                 onFocus={() => { this.setState({ errors: {} }) }}
               />
@@ -444,8 +435,8 @@ class CCSignin3 extends Component {
               <Autocomplete
                 options={citiesList}
                 getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto', backgroundColor: 'white', direction: 'rtl' }}
-                renderInput={(params) => <TextField {...params} font-Family="Segoe UI" label={this.state.currentCity === null ? "בחר עיר" : this.state.currentCity.Name} variant="outlined" />}
+                style={{ width: '50vw', margin: '0px auto' ,backgroundColor:'white', direction:'rtl'}}
+                renderInput={(params) => <TextField {...params} font-Family= "Segoe UI" label={this.state.currentCity === null ?"בחר עיר":this.state.currentCity.Name} variant="outlined" />}
                 size='small'
                 onChange={this.chgCurrentCity}
                 onFocus={() => { this.setState({ errors: {} }) }}
@@ -464,27 +455,27 @@ class CCSignin3 extends Component {
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 10 }}>
-              <p className='labels'> סטטוס </p>
-              <FormControl variant="outlined" style={{ width: '50vw', margin: '0px auto', paddingInlineStart: 0, backgroundColor: 'white' }}>
+            <p className='labels'> סטטוס </p>
+            <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 ,backgroundColor:'white'}}>
 
-                {/* <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
+              {/* <Select style={{ width: 200 }} placeholder="בחר" onChange={this.chgStatus}>
                 <Select.Option value="בחר">בחר</Select.Option>
                 <Select.Option value="רווק/ה">רווק/ה</Select.Option>
                 <Select.Option value="נשוי/ה">נשוי/ה</Select.Option>
                 <Select.Option value="ידוע/ה בציבור">ידוע/ה בציבור</Select.Option>
               </Select> */}
-                <InputLabel htmlFor="filled-age-native-simple" style={{ fontFamily: "Segoe UI" }}> {this.state.status === "" || this.state.status === null ? " בחר סטטוס " : this.state.status} </InputLabel>
-                <Select
-                  value={this.state.status}
-                  onChange={this.chgStatus}
-                  label="בחר סטטוס"
-                >
-                  <option style={{ fontFamily: "Segoe UI" }} value="">בחר</option>
-                  <option style={{ fontFamily: "Segoe UI" }} value="רווק/ה">רווק/ה</option>
-                  <option style={{ fontFamily: "Segoe UI" }} value="נשוי/ה">נשוי/ה</option>
-                  <option style={{ fontFamily: "Segoe UI" }} value="ידוע/ה בציבור">ידוע/ה בציבור</option>
-                </Select>
-              </FormControl>
+        <InputLabel htmlFor="filled-age-native-simple" style={{fontFamily: "Segoe UI"}}> {this.state.status ==="" || this.state.status ===null ? " בחר סטטוס " :this.state.status} </InputLabel>
+        <Select
+          value={this.state.status}
+          onChange={this.chgStatus}
+          label="בחר סטטוס"
+        >
+          <option style={{fontFamily: "Segoe UI"}} value="">בחר</option>
+          <option style={{fontFamily: "Segoe UI"}} value="רווק/ה">רווק/ה</option>
+          <option style={{fontFamily: "Segoe UI"}} value="נשוי/ה">נשוי/ה</option>
+          <option style={{fontFamily: "Segoe UI"}} value="ידוע/ה בציבור">ידוע/ה בציבור</option>
+        </Select>
+        </FormControl>
             </Form.Item>
             <Form.Item style={{ marginBottom: 2 }}>
               {/* <p className='labels'> מעוניין בנסיעות משותפות </p>
@@ -506,17 +497,15 @@ class CCSignin3 extends Component {
             </Form.Item>
             <Form.Item>
 
-              <Button variant="contained"
-                style={{
-                  paddingTop: 0, marginRight: 10, marginTop: '1vh', backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
-                  fontFamily: "Segoe UI", height: 35
-                }}
-                onClick={this.btnNext}
-                disabled={this.state.disable2Proceed}
-              >
-                <i class="bi bi-arrow-left-short"
-                  style={{ color: '#3D3D3D', fontSize: '4.5vh' }}></i>
-              </Button>
+                        <Button variant="contained" 
+        style={{paddingTop:0,marginRight:10,marginTop:'1vh' ,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, 
+        fontFamily: "Segoe UI",height:35 }}
+        onClick={this.btnNext}
+        disabled = {this.state.disable2Proceed}
+        >
+        <i class="bi bi-arrow-left-short"
+        style={{ color: '#3D3D3D', fontSize: '4.5vh'}}></i>
+        </Button>
             </Form.Item>
           </Form>
         </div >

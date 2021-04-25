@@ -18,7 +18,6 @@ import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
 import CCAllChats from './ClassComponents/CCAllChats';
 import CCTheUnit from './ClassComponents/CCTheUnit';
-import CCUserPriority from './ClassComponents/CCUserPriority';
 
 // const names = ["avi", "ben", "char"];
 
@@ -113,9 +112,6 @@ function App() {
 
         <Route path="/TheUnit" >
           <CCTheUnit/>
-        </Route>
-        <Route path="/priority" >
-         <CCUserPriority/>
         </Route>
       </Switch>
     </div>

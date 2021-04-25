@@ -105,7 +105,6 @@ class CCSignin1 extends Component {
         )
         .catch((error) => {
           console.log("err get=", error.message);
-          console.log("err get=", error);
           Swal.fire({
                 title: error.message,
                 icon: 'error',

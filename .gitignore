@@ -8,5 +8,3 @@ project/src/ClassComponents/formDetails.jsx
 project/src/ClassComponents/PersonalDetailsFormValidation.jsx
 project/.eslintcache
 project/src/ClassComponents/CCPriority.jsx
-project/src/FunctionalComponents/FCDragList.jsx
-project/src/dragList.css
