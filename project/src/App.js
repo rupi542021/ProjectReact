@@ -18,6 +18,8 @@ import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
 import CCAllChats from './ClassComponents/CCAllChats';
 import CCTheUnit from './ClassComponents/CCTheUnit';
+import CCPriority from './ClassComponents/CCPriority';
+import CCPreferncesRanges from './ClassComponents/CCPreferncesRanges';
 
 // const names = ["avi", "ben", "char"];
 
@@ -112,6 +114,13 @@ function App() {
 
         <Route path="/TheUnit" >
           <CCTheUnit/>
+        </Route>
+
+        <Route path="/priority" >
+          <CCPriority/>
+        </Route>
+        <Route path="/ranges" >
+          <CCPreferncesRanges/>
         </Route>
       </Switch>
     </div>
