@@ -11,12 +11,15 @@ import Moment from 'react-moment';
 import { useHistory } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
 import Button from '@material-ui/core/Button';
-import { Today } from '@material-ui/icons';
+import CloseIcon from '@material-ui/icons/Close';
+import TodayIcon from '@material-ui/icons/Today';
+import EmailIcon from '@material-ui/icons/Email';
+import HelpIcon from '@material-ui/icons/Help';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     width: 350,
-    height: 190
+    //height: 290
   },
   details: {
     display: 'flex',
@@ -54,8 +57,15 @@ export default function FCUnitCard(props) {
   //const percentage = 66;
   var showin=true;
   const [showResults, setShowResults] = React.useState(false)
-  const showInput = () => setShowResults(true)
-
+  const [showM, setShowM] = React.useState(false)
+  const [cardHeight, setCardHeight] = React.useState(props.Type=="event"?140:115)
+  const showInput = () => {setShowResults(true);setCardHeight(cardHeight+50)}
+  
+  const showMore = () => {
+    setShowM(true);
+    if(showResults)
+   { setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46+50)}
+    else setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46)}
   
   const toQuestionnaire = () =>{ }
 
@@ -74,7 +84,8 @@ export default function FCUnitCard(props) {
     studOBJ = JSON.parse(studOBJ);
 
     //e.preventDefault();
-    setShowResults(false)
+    setShowResults(false);
+    setCardHeight(cardHeight-50)
     console.log(formValue)
     if(props.Type=='event'){
     console.log("in post event comment function");
@@ -202,8 +213,7 @@ export default function FCUnitCard(props) {
         if (res.ok) {
           console.log('post succeeded');
           setbtnText('לא אגיע')
-          //props.sendFavoriteData(props.id,"add");
-          //לעשות שישנה את הכפתור לכיתוב 'לא אגיע' או משהו כזה. וליצור פונקציה של מחיקה (אולי בכפתור אחר)
+         
         }
       },
         (error) => {
@@ -244,16 +254,16 @@ else{
 }
   }
   return (
-    <Card className={classes.root} style={{ direction: 'rtl', width: "95vw",height:showResults?190:140 }}>
+    <Card className={classes.root} style={{ direction: 'rtl', width: "95vw",height:cardHeight }}>
       
      {props.Image!==""&&props.Image!==null? <CardMedia
-     style={{height:showResults?130:140}}
+     style={{borderRadius:'50%',width:60,height:60,margin:5}}
        
         className={classes.cover}
         image={'https://localhost:44325/'+props.Image}
         title="Live from space album cover"
       />:""}
-      <div className={classes.details} style={{width:props.Image!=""&&props.Image!=null?200:280}} >
+      <div className={classes.details} style={{width:props.Image!=""&&props.Image!=null?210:280}} >
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "5.7vw" }}>
             {props.Title}
@@ -266,31 +276,36 @@ else{
             {props.Type=='qr'?
                 props.subTitle:''}
           </Typography>
+          <div style={{marginRight:props.Image!=""&&props.Image!=null?-60:5,height:cardHeight-70}}>
           <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
-            { props.Content}
+            {props.Content.length>90&&!showM?<>{props.Content.slice(0,90)} <Button color="primary" onClick={showMore} style={{fontFamily: "Segoe UI",padding:0}}>קרא עוד...</Button></>:props.Content}
           </Typography>
+          </div>
 
         </CardContent>
 
 
       </div>
       <div style={{ width: 40, marginTop: 5  }}>
-        {props.Type=="event"?<Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="default" onClick={selectArrival} >{btnText}</Button>:''}
+      {props.Type=="ad"? <EmailIcon fontSize="default" style={{marginRight:20,color: '#3D3D3D',marginBottom:10}}/>:''}
+     
+        {props.Type=="event"?<><TodayIcon fontSize="default" style={{marginRight:20,color: '#3D3D3D'}}/><Button  style={{ marginTop:10, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
+        color="default" onClick={selectArrival} >{btnText}</Button></>:''}
          {props.Type!=='qr'?<Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
         color="default" onClick={showInput}>הגב</Button>:
-        <Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="default" onClick={toQuestionnaire}>למענה על השאלון</Button>
+        <><HelpIcon style={{marginRight:20,color: '#3D3D3D',marginBottom:10}}/><Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
+        color="default" onClick={toQuestionnaire}>למענה</Button></>
         }
       </div>
 
-      {showResults?<div style={{width:'100%',marginTop:130,position:'absolute',direction:'rtl'}}>
+      {showResults?<div style={{width:'100%',marginTop:cardHeight-60,position:'absolute',direction:'rtl'}}>
+        <CloseIcon fontSize="small" onClick={() => {setShowResults(false);setCardHeight(cardHeight-50)}} style={{marginTop: -25,marginLeft:10,color: '#3D3D3D'}}/>
       <input className='inputMSG' value={formValue} onChange={(e) => setFromValue(e.target.value)} />
 
         <button type="submit"
           disabled={!formValue}
           onClick={sendMessage}
-          style={{ transform: "rotate(-180deg)" }}>
+          style={{ transform: "rotate(-180deg)",marginRight:10,marginBottom:25 }}>
           <SendIcon fontSize="large" /></button>
      
       </div>:''}

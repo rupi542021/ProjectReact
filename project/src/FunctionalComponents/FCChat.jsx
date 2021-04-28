@@ -58,7 +58,7 @@ function HeaderUser() {
   return (
     <header className="headerMSG">
       {studOBJ.Fname + " " + studOBJ.Lname}
-      <ArrowForwardIosIcon style={{ float: 'right', marginTop: 2 }}
+      <ArrowForwardIosIcon style={{ float: 'right', marginTop: 2 ,marginRight:7}}
         onClick={backPage} />
 
     </header>

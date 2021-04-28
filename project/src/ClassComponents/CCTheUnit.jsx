@@ -141,11 +141,34 @@ this.setState({allPostsState:this.allPosts})
           (result) => {
             console.log("fetch GetAllQuestionnaires= ", result);
             result.forEach(s => {
+
+              switch (s.QuestionnaireYear) {
+                case 0:
+                  s.QuestionnaireYear=""
+                  break;
+                case 1:
+                  s.QuestionnaireYear="-שנה א'"
+                  break;
+                case 2:
+                  s.QuestionnaireYear="-שנה ב'"
+                  break;
+                case 3:
+                  s.QuestionnaireYear="-שנה ג'"
+                  break;
+                case 4:
+                  s.QuestionnaireYear="-שנה ד'"
+                  break;
+                default:
+                  break;
+              }
+              if(s.Dep.DepartmentCode==15){
+                s.Dep.DepartmentName="כלל המחלקות"
+              }
               let unitPost={
                 Code:s.QuestionnaireNum,
                 Title:s.SubQr,
                 Image:"",
-                subTitle:s.Dep.DepartmentName+' - '+s.QuestionnaireYear,
+                subTitle:s.Dep.DepartmentName+' '+s.QuestionnaireYear,
                 Content:"",
                 Type:'qr'
               }
@@ -164,9 +187,9 @@ this.setState({allPostsState:this.allPosts})
         <div className='container1'>
           <PrimarySearchAppBar />
           <div style={{ direction: 'rtl' }}>
-            <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 24 }}>היחידה למעורבות ויזמות חברתית</h3>
+            <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 24, marginTop: 10 }}>היחידה למעורבות ויזמות חברתית</h3>
 
-             <p style={{ color: '#3D3D3D', fontSize: 17 }}>בוא להיות מוערב בחברה והקהילה שלך</p>
+             <p style={{ color: '#3D3D3D', fontSize: 17 , marginTop: 8}}>בוא להיות מוערב בחברה והקהילה שלך</p>
            {/* <div style={{ marginBottom: 15 }}>
               <SearchField
                 onChange={this.SearchUser}
@@ -186,7 +209,7 @@ this.setState({allPostsState:this.allPosts})
 
 
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
-          <div className="scrollbar mx-auto" style={{ width: "100vw", height: 600, maxHeight: "65vh", marginTop: 40 }} >
+          <div className="scrollbar mx-auto" style={{ width: "100vw", height: 650, maxHeight: "70vh", marginTop: 10 }} >
 
             <div className='userList'>
               <h3 style={{}}>{this.state.text}</h3>
