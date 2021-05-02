@@ -66,17 +66,21 @@ export default function FCUnitCard(props) {
     if(showResults)
    { setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46+50)}
     else setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46)}
-  
-  const toQuestionnaire = () =>{ }
-
-  const history = useHistory();
-  const toChat = () =>{ 
-    let path = `chat`; 
+    const history = useHistory();
+  const toQuestionnaire = () =>{ 
+    let q={
+      code:props.Code,
+      title:props.Title
+    }
+    localStorage.setItem('Questionnaire',  JSON.stringify(q));
+    let path = `Questionnaire`; 
     history.push({
       pathname: path  ,
-      state: { PageBack: 'showUsers' }
+      state: { PageBack: 'TheUnit' }
   });
   }
+
+
   const [formValue, setFromValue] = useState('');
   const sendMessage = async (e) => {
    

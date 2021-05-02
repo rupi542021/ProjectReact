@@ -190,20 +190,7 @@ this.setState({allPostsState:this.allPosts})
             <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 24, marginTop: 10 }}>היחידה למעורבות ויזמות חברתית</h3>
 
              <p style={{ color: '#3D3D3D', fontSize: 17 , marginTop: 8}}>בוא להיות מוערב בחברה והקהילה שלך</p>
-           {/* <div style={{ marginBottom: 15 }}>
-              <SearchField
-                onChange={this.SearchUser}
-                placeholder="חיפוש..."
-
-                classNames="test-class"
-              /></div>
-            <Select style={{ width: 200, marginBottom: 5 }} placeholder="סנן לפי"
-              onChange={this.FilterUsers}>
-              <Select.Option value="choose">כל המשתמשים</Select.Option>
-              {filterByList.map((filterBy) => (
-                <Select.Option key={filterBy} value={filterBy}>{filterBy}</Select.Option>
-              ))}
-            </Select> */}
+ 
           </div>
 
 

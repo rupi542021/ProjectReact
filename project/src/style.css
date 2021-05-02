@@ -38,6 +38,7 @@ color: #4947e7;
 }
 .App{
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .genderRB{
