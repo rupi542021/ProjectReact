@@ -18,10 +18,8 @@ import CCFavorites from './ClassComponents/CCFavorites';
 import FCChat from './FunctionalComponents/FCChat';
 import CCAllChats from './ClassComponents/CCAllChats';
 import CCTheUnit from './ClassComponents/CCTheUnit';
-// import CCPriority from './ClassComponents/CCPriority';
 import CCPreferncesRanges from './ClassComponents/CCPreferncesRanges';
-
-// const names = ["avi", "ben", "char"];
+import CCUserPrefernces from './ClassComponents/CCUserPrefernces';
 
 function App() {
     if ("geolocation" in navigator) {
@@ -46,14 +44,6 @@ function App() {
     } else {
       console.log("Not Available");
     }
-  // let namelist = names.map((name, index) =>
-  // (<a href="#" className="list-group-item list-group-item-action"
-  //   key={index}>{index}.{name}</a>));
-
-
-  // function getDateFromChild(data) {
-  //   console.log('in parent from data=', data)
-  // }
 
   return (
     <div className="App">
@@ -115,10 +105,9 @@ function App() {
         <Route path="/TheUnit" >
           <CCTheUnit/>
         </Route>
-
-        {/* <Route path="/priority" >
-          <CCPriority/>
-        </Route> */}
+        <Route path="/userPrefernces" >
+          <CCUserPrefernces/>
+        </Route>
         <Route path="/ranges" >
           <CCPreferncesRanges/>
         </Route>
