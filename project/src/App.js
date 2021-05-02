@@ -20,7 +20,7 @@ import CCAllChats from './ClassComponents/CCAllChats';
 import CCTheUnit from './ClassComponents/CCTheUnit';
 import CCPreferncesRanges from './ClassComponents/CCPreferncesRanges';
 import CCUserPrefernces from './ClassComponents/CCUserPrefernces';
-
+import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
 function App() {
     if ("geolocation" in navigator) {
       console.log("Available");
@@ -110,6 +110,9 @@ function App() {
         </Route>
         <Route path="/ranges" >
           <CCPreferncesRanges/>
+        </Route>
+        <Route path="/Questionnaire" >
+          <CCQuestionnaire/>
         </Route>
       </Switch>
     </div>
