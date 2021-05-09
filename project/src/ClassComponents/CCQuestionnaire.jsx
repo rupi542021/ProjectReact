@@ -7,6 +7,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
 import "../scrollbar.css";
+import Swal from 'sweetalert2';
 import loaderGIF from '../img/loader.gif';
 import FCQuestion from '../FunctionalComponents/FCQuestion';
 import Button from '@material-ui/core/Button';
@@ -20,9 +21,11 @@ class CCQuestionnaire extends Component {
     }
 
     componentDidMount() {
-
+        let studOBJ = localStorage.getItem('student');
+        studOBJ = JSON.parse(studOBJ);
+        this.setState({mail:studOBJ.Mail})
         let Qr = JSON.parse(localStorage.getItem('Questionnaire'));
-        this.setState({title:Qr.title})
+        this.setState({title:Qr.title,code:Qr.code})
         this.apiUrl = 'https://localhost:44325/api/theUnit/getAllQuestions/'+Qr.code;
         console.log('GETstart');
         fetch(this.apiUrl,
@@ -49,6 +52,76 @@ class CCQuestionnaire extends Component {
           )
     
     }
+    getData = (q) => {
+        console.log("qAns"+q.questionnum, q);
+        localStorage.setItem('qAns'+q.questionnum, JSON.stringify(q));
+      }
+    sendQ=()=>{
+        let AllQues=[];
+        let q="";
+        this.state.QuestionsState.forEach(q => {
+            q=localStorage.getItem('qAns'+q.Questionnum)
+            q = JSON.parse(q);
+            q.questionnaireNum=this.state.code;
+            q.mail=this.state.mail;
+            AllQues.push(q);
+        });
+        console.log('AllQues',AllQues)
+
+        console.log("in post questionnair function");
+    console.log("questionnair in post finction", AllQues);
+    this.apiUrl = 'https://localhost:44325/api/theUnit/postQuestionnairAns'
+    fetch(this.apiUrl,
+      {
+        method: 'POST',
+        body: JSON.stringify(AllQues),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+        console.log('res=', res);
+        console.log('res.status', res.status);
+        if (res.status === 201) {
+          console.log('questionnair ansers was post');
+        }
+        console.log('res.ok', res.ok);
+
+        if (res.ok) {
+          console.log('post succeeded');
+          Swal.fire({
+            title: 'תשובך התקבלה בהצלחה',
+            text: "תודה על שיתוף הפעולה", 
+            icon: 'success',
+            iconHtml: '',
+            confirmButtonText: 'המשך',
+            showCloseButton: true
+          }).then(() => {
+
+            this.props.history.push("/TheUnit");
+
+          });
+        }
+
+        else if (!res.ok) {
+          throw Error('אופס! משהו לא עבד. אנא נסה שנית');
+        }
+
+       // return res.json()
+      })
+      .catch((error) => {
+        console.log("err get=", error.message);
+        Swal.fire({
+              title: "!אופס",
+              text: "משהו לא עבד. אנא נסה שנית", 
+              icon: 'error',
+              iconHtml: '',
+              confirmButtonText: 'סגור',
+              showCloseButton: true
+            })
+      })
+      }
 
     render() {
         return (
@@ -69,7 +142,7 @@ class CCQuestionnaire extends Component {
                       {this.state.QuestionsState.map((q, index) => (
 
                         <Grid key={index} item>
-                          <FCQuestion key={index} {...q}/>
+                          <FCQuestion key={index} {...q} sendData={this.getData}/>
                         </Grid>
                       ))
 
@@ -82,7 +155,7 @@ class CCQuestionnaire extends Component {
           </div>
           <Button variant="contained"
           style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", width: '40%' }}
-        >שלח שאלון</Button>
+        onClick={this.sendQ}>שלח שאלון</Button>
 
                 </div>
                 <div>

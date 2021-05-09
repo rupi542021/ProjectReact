@@ -145,14 +145,6 @@ class CCShowUsers extends Component {
     this.props.history.push("/userProfile2");
   }
 
-
-  getData = (userPicked) => {
-    console.log(userPicked);
-    localStorage.setItem('chooseUser', JSON.stringify(userPicked));
-    this.props.history.push("/userProfile2");
-
-  }
-
   getFavoriteData = (mailToAddOrRemove, action) => {
     let newUserFriendslist = this.state.userFriendslist;
     if (action === "add")

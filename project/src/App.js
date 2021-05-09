@@ -35,8 +35,8 @@ function App() {
     //     console.error("Error Code = " + error.code + " - " + error.message);
     //   });
       navigator.geolocation.watchPosition(function(position) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
+        //console.log("Latitude is :", position.coords.latitude);
+        //console.log("Longitude is :", position.coords.longitude);
       },
         function(error) {
           console.error("Error Code = " + error.code + " - " + error.message);

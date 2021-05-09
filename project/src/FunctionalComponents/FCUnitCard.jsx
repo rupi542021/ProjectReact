@@ -55,17 +55,21 @@ export default function FCUnitCard(props) {
   const classes = useStyles();
   //const theme = useTheme();
   //const percentage = 66;
+ const cardH=props.Content.length>66?(props.Content.length/33)*46:(props.Type=="event"?140:115);
+
   var showin=true;
   const [showResults, setShowResults] = React.useState(false)
-  const [showM, setShowM] = React.useState(false)
-  const [cardHeight, setCardHeight] = React.useState(props.Type=="event"?140:115)
-  const showInput = () => {setShowResults(true);setCardHeight(cardHeight+50)}
+  //const [showM, setShowM] = React.useState(true)
+  //const [cardHeight, setCardHeight] = React.useState(props.Type=="event"?140:115)
+ //const [cardHeight, setCardHeight] = React.useState(props.Type=="event"?(((props.Content.length/(props.Image!=""&&props.Image!=null?33:40)))*46):115)
+ const [cardHeight, setCardHeight] = React.useState(cardH) 
+ const showInput = () => {setShowResults(true);setCardHeight(cardHeight+50)}
   
-  const showMore = () => {
-    setShowM(true);
-    if(showResults)
-   { setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46+50)}
-    else setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46)}
+  // const showMore = () => {
+  //   setShowM(true);
+  //   if(showResults)
+  //  { setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46+50)}
+  //   else setCardHeight(((props.Content.length/(props.Image!=""&&props.Image!=null?33:38)))*46)}
     const history = useHistory();
   const toQuestionnaire = () =>{ 
     let q={
@@ -280,9 +284,10 @@ else{
             {props.Type=='qr'?
                 props.subTitle:''}
           </Typography>
-          <div style={{marginRight:props.Image!=""&&props.Image!=null?-60:5,height:cardHeight-70}}>
+          <div style={{marginRight:props.Type=="event"&&props.Image!==""&&props.Image!==null?-60:0,height:cardHeight-70}}>
           <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
-            {props.Content.length>90&&!showM?<>{props.Content.slice(0,90)} <Button color="primary" onClick={showMore} style={{fontFamily: "Segoe UI",padding:0}}>קרא עוד...</Button></>:props.Content}
+            {/* {props.Content.length>90&&!showM?<>{props.Content.slice(0,90)} <Button color="primary" onClick={showMore} style={{fontFamily: "Segoe UI",padding:0}}>קרא עוד...</Button></>:props.Content} */}
+            {props.Content}
           </Typography>
           </div>
 
