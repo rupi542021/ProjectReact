@@ -104,7 +104,8 @@ class CCUserProfile extends Component {
            
             <p className='labelsRight' style={{ marginTop: 15 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
-            <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
+            {this.state.studStatus!==null&&this.state.studStatus!==""?<p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>:""}
+            
 
             {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p> : ""}
 

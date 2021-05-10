@@ -102,8 +102,9 @@ class CCHobbies extends Component {
 
   postStudent2DB = (student) => {
     console.log("in post student function");
-    console.log("studetOBJ in post finction", student);
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students'
+    console.log("studetOBJ in post function", student);
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students';
+   // this.apiUrl = 'https://localhost:44366/api/students';
     fetch(this.apiUrl,
       {
         method: 'POST',
@@ -122,25 +123,31 @@ class CCHobbies extends Component {
         console.log('res.ok', res.ok);
 
         if (res.ok) {
-          console.log('post succeeded');
-          Swal.fire({
-            title: 'הפרופיל נוצר בהצלחה',
-            icon: 'success',
-            iconHtml: '',
-            confirmButtonText: 'המשך',
-            showCloseButton: true
-          }).then(() => {
-
-            this.props.history.push("/userProfile");
-
-          });
+          console.log('post succeeded');          
+          
         }
 
         else if (!res.ok) {
           throw Error('אופס! משהו לא עבד. אנא נסה שנית');
         }
 
-       // return res.json()
+        return res.json()
+      }).then((result)=>{
+        console.log("result", result);
+        student.Preflist = result.Preflist;
+        console.log("student after post", student);
+        localStorage.setItem('student', JSON.stringify(student));
+        Swal.fire({
+          title: 'הפרופיל נוצר בהצלחה',
+          icon: 'success',
+          iconHtml: '',
+          confirmButtonText: 'המשך',
+          showCloseButton: true
+        }).then(() => {
+
+          this.props.history.push("/userProfile");
+
+        });
       })
       .catch((error) => {
         console.log("err get=", error.message);

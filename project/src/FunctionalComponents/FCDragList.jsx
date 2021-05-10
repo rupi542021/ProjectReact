@@ -86,7 +86,7 @@ function FCDragList(props) {
             icon: "success",
           });
         }
-        return res.json();
+        //return res.json();
       })
 
   }

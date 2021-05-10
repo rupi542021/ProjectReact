@@ -193,8 +193,8 @@ class CCUserProfile2 extends Component {
             <p className='labelsRight' style={{ marginTop: 5, color: "#FEFFAE", fontSize: '5.2vw' }}>{"חברים משותפים: "+this.state.CommonFriends}</p>
             <p className='labelsRight' style={{ marginTop: 5 }}>{"מקום מגורים - מקור: " + this.state.studHomeTown}</p>
             <p className='labelsRight'>{"מקום מגורים - נוכחי: " + this.state.studAddressStudying}</p>
-            <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>
-
+            {/* <p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p> */}
+            {this.state.studStatus!==null&&this.state.studStatus!==""?<p className='labelsRight'>{"סטטוס: " + this.state.studStatus}</p>:""}
             {this.state.studPList !== null ? <p className='labelsRight'>מקומות בילוי:</p> : ""}
 
             <Grid container>
