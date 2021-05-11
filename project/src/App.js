@@ -21,6 +21,8 @@ import CCTheUnit from './ClassComponents/CCTheUnit';
 import CCPreferncesRanges from './ClassComponents/CCPreferncesRanges';
 import CCUserPrefernces from './ClassComponents/CCUserPrefernces';
 import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
+import CCSettings from './ClassComponents/CCSettings';
+import CCChangePassword from './ClassComponents/CCChangePassword';
 function App() {
     if ("geolocation" in navigator) {
       console.log("Available");
@@ -105,8 +107,14 @@ function App() {
         <Route path="/TheUnit" >
           <CCTheUnit/>
         </Route>
+        <Route path="/Settings" >
+          <CCSettings/>
+        </Route>
         <Route path="/userPrefernces" >
           <CCUserPrefernces/>
+        </Route>
+        <Route path="/ChangePassword" >
+          <CCChangePassword/>
         </Route>
         <Route path="/ranges" >
           <CCPreferncesRanges/>

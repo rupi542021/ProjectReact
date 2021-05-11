@@ -95,7 +95,8 @@ export default function SwipeableTemporaryDrawer() {
         switch (index) {
 
             case 0:
-                path = ``;
+                path = `Settings`;
+                history.push(path);
                 break;
             case 1:
                 path = ``;
