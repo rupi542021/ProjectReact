@@ -141,6 +141,11 @@ this.setState({allPostsState:this.allPosts})
           (result) => {
             console.log("fetch GetAllQuestionnaires= ", result);
             result.forEach(s => {
+              
+              let boo=false;
+            s.StudentsAns.forEach(mail => {
+              if(mail==studOBJ.Mail) {boo=true; return;}
+            });
 
               switch (s.QuestionnaireYear) {
                 case 0:
@@ -164,23 +169,29 @@ this.setState({allPostsState:this.allPosts})
               if(s.Dep.DepartmentCode==15){
                 s.Dep.DepartmentName="כלל המחלקות"
               }
+              const date1 = new Date(s.EndPublishDate);
+              const date2 = new Date();
+              const diffInMs = Math.abs(date2 - date1);
+              const diffinDays=Math.round(diffInMs / (1000 * 60 * 60 * 24))
+              console.log("diffinDays"+diffinDays)
+              
               let unitPost={
                 Code:s.QuestionnaireNum,
                 Title:s.SubQr,
                 Image:"",
                 subTitle:s.Dep.DepartmentName+' '+s.QuestionnaireYear,
-                Content:"",
+                Content:diffinDays+" ימים נותרו למענה",
+                Arrival:boo,
                 Type:'qr'
               }
               this.allPosts.push(unitPost);
             });
   console.log(this.allPosts)
-  //this.allPosts.sort((a, b) => a.subTitle - b.subTitle)
   this.setState({allPostsState:this.allPosts})
           }
         )
   }
-
+ 
   
     render() {
       return (

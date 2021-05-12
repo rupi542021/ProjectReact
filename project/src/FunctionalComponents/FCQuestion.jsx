@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 export default function FCQuestion(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState();
   const { TextArea } = Input;
   const [InputValue, setInputValue] = useState('');
   const arr1=props.Anslist.map(e=>false)
@@ -123,7 +123,7 @@ export default function FCQuestion(props) {
                 a !== "" ?
                   <FormControlLabel
                     control={
-                      <Checkbox id={index+1} 
+                      <Checkbox key={index} id={index+1} 
                         onChange={handleChangeCheck}
                         name={a} color="default" />}
                     label={a} />

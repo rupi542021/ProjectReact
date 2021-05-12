@@ -38,6 +38,14 @@ const isLocalhost = Boolean(
         } else {
           // This is running on localhost. Lets check if a service worker still exists or not.
           checkValidServiceWorker(swUrl);
+
+
+          navigator.serviceWorker.ready.then(registration=>{
+            console.log(
+              "this web app is being served cache-first by a service "+
+              "worker."
+            );
+          });
         }
       });
     }
