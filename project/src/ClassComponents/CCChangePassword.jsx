@@ -151,7 +151,7 @@ class CCChangePassword extends Component {
     return (
       <div>
         <PrimarySearchAppBar />
-        <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw',position:'absolute', right:'7vw' }} 
+        <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw',position:'absolute', right:0 }} 
         onClick={()=>this.props.history.push('/Settings')}></i>
         <div>
           <h5 style={{ marginTop: '10vh', fontWeight: 500 }}>סיסמה נוכחית</h5>

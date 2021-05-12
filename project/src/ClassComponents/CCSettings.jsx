@@ -49,19 +49,20 @@ class CCSettings extends Component {
           console.log('deleteProfile succeeded');
           swal(" החשבון נמחק :( מקווים לראותך שוב", {
             icon: "success",
-          }).then( ()=>{this.props.history.push("");}        
+          }).then( ()=>{
+            localStorage.clear();
+            this.props.history.push("");}        
           );
         }
         else{
           Swal.fire({
-            text: ":( אופס.. משהו השתבש",
+            text:":( אופס.. משהו השתבש",
             icon: 'error',
             iconHtml: '',
             confirmButtonText: 'סגור',
             showCloseButton: true
           })
         }
-        //return res.json();
       })
  }
 
@@ -73,7 +74,7 @@ class CCSettings extends Component {
           <h2 style={{ marginTop: '5vh', fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>הגדרות</h2>
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '10vh' }}>
             <div style={{ height: '11vh', width: '35vw', backgroundColor: '#FAE8BE', border: "0.1vh black solid", borderRadius: '30vh', margin: '3vw' }}
-              onClick={() => { alert('ok') }}>
+              onClick={() => { this.props.history.push("/PreferncesRanges") }}>
               <i className="bi bi-sliders fa-2x" ></i><br />
               <p style={{ fontWeight: 500, fontSize: '2vh' }}>הגדרת טווחים</p>
             </div>

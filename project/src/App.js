@@ -116,6 +116,9 @@ function App() {
         <Route path="/ChangePassword" >
           <CCChangePassword/>
         </Route>
+        <Route path="/PreferncesRanges" >
+          <CCPreferncesRanges/>
+        </Route>
         <Route path="/ranges" >
           <CCPreferncesRanges/>
         </Route>
