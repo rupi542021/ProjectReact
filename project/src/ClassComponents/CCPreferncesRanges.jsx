@@ -6,86 +6,23 @@ import { withRouter } from 'react-router-dom';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import swal from 'sweetalert';
-import Slider from '@material-ui/core/Slider';
 import PrettoSlider from '../FunctionalComponents/PrettoSlider1';
+import PrettoSlider2 from '../FunctionalComponents/PrettoSlider2';
 
 class CCPreferncesRanges extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newPassword: "",
-      newPassConfirmed: false,
-      userPassErr: "",
-      newPassErr: "",
-      errConfirm: "",
       studOBJ: JSON.parse(localStorage.getItem('student')),
       distance1: 15,
       distance2: 15,
-    }
-  }
-
-  handleuserPassword = (e) => {
-    let userPass = this.state.studOBJ.Password;
-    let pass = e.target.value;
-    console.log("userPass:", userPass);
-    console.log("pass:", pass);
-    if (pass === userPass) {
-      this.setState({ userPassErr: "" });
-    }
-    else {
-      this.setState({ userPassErr: "הסיסמה שהזנת אינה תואמת" });
-    }
-    if (pass === "") {
-      this.setState({ userPassErr: "" });
-    }
-  }
-
-  handleNewPassword = (e) => {
-    console.log("newPass:", e.target.value);
-    if (this.validatePass(e.target.value) === true) {
-      this.setState({ newPassword: e.target.value, newPassErr: "" });
-    }
-    else {
-      this.setState({ newPassErr: "הסיסמה שהזנת אינה תקינה" });
-    }
-    if (e.target.value === "") {
-      this.setState({ newPassErr: "" });
-    }
-  }
-
-  validatePass = (pass) => {
-    console.log("password for validation:", pass)
-    if (pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
-      return true;
-    }
-    else return false;
-  }
-
-
-  handleConfirmNewPassword = (e) => {
-    if (e.target.value === this.state.newPassword && this.state.newPassword !== "")
-      this.setState({ newPassConfirmed: e.target.value, errConfirm: "", passConfirmed: true });
-    else this.setState({ errConfirm: "אנא הכנס סיסמת אימות זהה", passConfirmed: false });
-    if (e.target.value === "") {
-      this.setState({ errConfirm: "", passConfirmed: false });
+      ageRange:3
     }
   }
 
   btnNext2Confirm = () => {
-    if (this.state.passConfirmed === true && this.state.newPassword !== "") {
-      if (this.state.newPassConfirmed === this.state.newPassword) {
         this.handleSwal();
       }
-      else {
-        let msg = "הסיסמאות שהזנת אינן זהות";
-        this.handleErrors(msg);
-      }
-    }
-    else {
-      let msg = "אימות הסיסמה נכשל";
-      this.handleErrors(msg);
-    }
-  }
 
   handleSwal = () => {
     swal({
@@ -95,19 +32,9 @@ class CCPreferncesRanges extends Component {
     })
       .then((willSave) => {
         if (willSave) {
-          this.UpdatePasswordInDB(this.state.studOBJ, this.state.newPassword);
+          //לעדכן בשרת
         }
       });
-  }
-
-  handleErrors = (msg) => {
-    Swal.fire({
-      text: msg,
-      icon: 'error',
-      iconHtml: '',
-      confirmButtonText: 'סגור',
-      showCloseButton: true
-    })
   }
 
   UpdatePasswordInDB = (stud, pass) => {
@@ -158,9 +85,18 @@ class CCPreferncesRanges extends Component {
     //setValue(newValue);
   };
 
-//   getDist1 = (dist1) =>{
-// this.setState({distance1:dist1},()=>{console.log("distance1",this.state.distance1)});
-//   }
+  getDist1 = (dist1) => {
+    this.setState({ distance1: dist1 }, () => { console.log("distance1", this.state.distance1) });
+  }
+
+  getDist2 = (dist2) => {
+    this.setState({ distance2: dist2 }, () => { console.log("distance2", this.state.distance2) });
+  }
+
+  handleNumberInput = (e) =>{
+    console.log("number input: ", e.target.value);
+    this.setState({ageRange: e.target.value})
+  }
 
   render() {
     return (
@@ -168,54 +104,34 @@ class CCPreferncesRanges extends Component {
         <PrimarySearchAppBar />
         <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: 0 }}
           onClick={() => this.props.history.push('/Settings')}></i>
-        <PrettoSlider distance1={this.state.distance1}  />
         <div>
-          <h5 style={{ marginTop: '10vh', fontWeight: 500 }}>סיסמה נוכחית</h5>
-          <TextField
-            id="outlined-password-input"
-            label="הכנס סיסמה"
-            type="password"
-            autoComplete="current-password"
-            variant="outlined"
-            onChange={this.handleuserPassword}
-          />
-          <div style={{ color: "#de0d1b", fontSize: '2vh', fontWeight: 400 }}>{this.state.userPassErr}</div>
+          <div>
+          <h5 style={{ marginTop: '10vh', fontWeight: 500,fontSize:'5vw' }}>מקום מגורים נוכחי</h5>
+          <PrettoSlider distance1={this.state.distance1} sendVal2Parent={this.getDist1} />          
         </div>
         <div>
-          <h5 style={{ marginTop: '5vh', fontWeight: 500 }}>סיסמה חדשה</h5>
-          <TextField
-            id="outlined-password-input"
-            label="הכנס סיסמה"
-            type="password"
-            autoComplete="current-password"
-            variant="outlined"
-            onChange={this.handleNewPassword}
-          />
-          <div style={{ color: "#de0d1b", fontSize: '2vh', fontWeight: 400 }}>{this.state.newPassErr}</div>
-          <br />
+          <h5 style={{ marginTop: '2vh', fontWeight: 500,fontSize:'5vw' }}>מקום מגורים קבע</h5>
+          <PrettoSlider2 distance2={this.state.distance2} sendVal2Parent2={this.getDist2} />
         </div>
         <div>
-          <h5 style={{ fontWeight: 500 }}>אימות סיסמה חדשה</h5>
+          <h5 style={{ marginTop: '2vh',fontWeight: 500,fontSize:'5vw' }}>טווח גילאים</h5>
           <TextField
-            id="outlined-password-input"
-            label="הכנס סיסמה"
-            type="password"
-            autoComplete="current-password"
-            variant="outlined"
-            onChange={this.handleConfirmNewPassword}
-          />
-          <div style={{ color: "#de0d1b", fontSize: '2vh', fontWeight: 400 }}>{this.state.errConfirm}</div>
-          <br />
+          label="הכנס מספר"
+          type="number"
+          variant="outlined"
+          onChange={this.handleNumberInput}
+        />
         </div>
         <Button variant="contained"
           style={{
-            paddingTop: 0, marginRight: 10, marginTop: 40, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
+            paddingTop: 0, marginRight: 10, marginTop: '10vh', backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
             fontFamily: "Segoe UI", height: 35
           }}
           onClick={this.btnNext2Confirm}>
           <i class="bi bi-check2"
             style={{ color: '#3D3D3D', fontSize: 32 }}></i>
         </Button>
+        </div>
         <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <FCTabNavigator />
         </div>

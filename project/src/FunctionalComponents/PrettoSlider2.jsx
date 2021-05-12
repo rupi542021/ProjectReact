@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Slider from '@material-ui/core/Slider';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-export default function PrettoSlider1(props) {
-  const PrettoSlider = withStyles({
+export default function PrettoSlider2(props) {
+  const PrettoSlider2 = withStyles({
     root: {
       color: '#52af77',
       height: 8,
@@ -41,12 +41,12 @@ export default function PrettoSlider1(props) {
   const handleBlur =(e) =>
   {
     console.log("in handleDragEnd",e.target.innerText);
-    props.sendVal2Parent(e.target.innerText);
+    props.sendVal2Parent2(e.target.innerText);
   }
 
   return (
     <div style={{width:'70vw', margin:'0px auto'}}>
-      <PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={props.distance1}
+      <PrettoSlider2 valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={props.distance2}
       onChange = {handleSliderChange}
       onBlur={handleBlur} />
     </div>
