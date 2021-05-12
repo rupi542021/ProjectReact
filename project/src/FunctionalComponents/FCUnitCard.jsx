@@ -298,12 +298,14 @@ else{
       <div style={{ width: 40, marginTop: 5  }}>
       {props.Type=="ad"? <EmailIcon fontSize="default" style={{marginRight:20,color: '#3D3D3D',marginBottom:10}}/>:''}
      
-        {props.Type=="event"?<><TodayIcon fontSize="default" style={{marginRight:20,color: '#3D3D3D'}}/><Button  style={{ marginTop:10, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
+        {props.Type=="event"?<><TodayIcon fontSize="default" style={{marginRight:20,color: '#3D3D3D'}}/>
+        <Button  style={{ marginTop:10, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
         color="default" onClick={selectArrival} >{btnText}</Button></>:''}
+        
          {props.Type!=='qr'?<Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
         color="default" onClick={showInput}>הגב</Button>:
         <><HelpIcon style={{marginRight:20,color: '#3D3D3D',marginBottom:10}}/><Button  style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 14, borderRadius: 15, fontFamily: "Segoe UI" }} 
-        color="default" onClick={toQuestionnaire}>למענה</Button></>
+        color="default" disabled={props.Arrival} onClick={toQuestionnaire}>למענה</Button></>
         }
       </div>
 

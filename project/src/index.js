@@ -8,6 +8,7 @@ import * as serviceWorker from './registerServiceWorker';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
+import {initializeFirebase,askForPermissionToReceiveNotifications} from './FunctionalComponents/push-notification'
 
 
 ReactDOM.render(
@@ -23,4 +24,8 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+initializeFirebase();
+if(!localStorage.getItem("notification-token")){
+  askForPermissionToReceiveNotifications();
+}
 serviceWorker.register();

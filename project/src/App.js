@@ -23,6 +23,9 @@ import CCUserPrefernces from './ClassComponents/CCUserPrefernces';
 import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
 import CCSettings from './ClassComponents/CCSettings';
 import CCChangePassword from './ClassComponents/CCChangePassword';
+import { askForPermissionToReceiveNotifications } from './FunctionalComponents/push-notification';
+
+
 function App() {
     if ("geolocation" in navigator) {
       console.log("Available");
@@ -123,6 +126,7 @@ function App() {
           <CCQuestionnaire/>
         </Route>
       </Switch>
+     
     </div>
   );
 }

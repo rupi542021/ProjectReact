@@ -7,6 +7,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../style.css';
 import "../scrollbar.css";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Swal from 'sweetalert2';
 import loaderGIF from '../img/loader.gif';
 import FCQuestion from '../FunctionalComponents/FCQuestion';
@@ -44,7 +45,10 @@ class CCQuestionnaire extends Component {
               console.log("fetch getAllQuestions= ", result);
               result.forEach(q => {
                 console.log('Anslist=',q.Anslist);
+                const arr1=q.Anslist.map(e=>false)
                  this.Questions.push(q);
+                 q.studAns=arr1;
+                 localStorage.setItem('qAns'+q.Questionnum, JSON.stringify(q));
               });
      console.log(this.Questions)
      this.setState({QuestionsState:this.Questions})
@@ -59,6 +63,8 @@ class CCQuestionnaire extends Component {
     sendQ=()=>{
         let AllQues=[];
         let q="";
+        console.log("this.state.code: "+this.state.code);
+        console.log(this.state.QuestionsState);
         this.state.QuestionsState.forEach(q => {
             q=localStorage.getItem('qAns'+q.Questionnum)
             q = JSON.parse(q);
@@ -122,12 +128,17 @@ class CCQuestionnaire extends Component {
             })
       })
       }
+      backPage=()=>{
+        this.props.history.push("/TheUnit");
+      }
 
     render() {
         return (
             <div className='container1'>
                 <PrimarySearchAppBar />
                 <div style={{ direction: 'rtl' }}>
+                <ArrowForwardIosIcon style={{ float: 'right', marginTop: 2 ,marginRight:7}}
+        onClick={this.backPage} />
                     <h3 style={{marginTop:10}}>{this.state.title}</h3>
                 {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
           <div className="scrollbar mx-auto" style={{ width: "100vw", height: 550, maxHeight: "59vh", marginTop: 10 }} >
