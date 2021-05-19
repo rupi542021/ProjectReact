@@ -17,7 +17,7 @@ const isLocalhost = Boolean(
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
       )
   );
-  
+
   export function register() {
     if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       // The URL constructor is available in all browsers that support SW.
@@ -49,6 +49,14 @@ const isLocalhost = Boolean(
         }
       });
     }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./firebase-messaging-sw.jsx')
+        .then(function(registration) {
+          console.log('Registration successful, scope is:', registration.scope);
+        }).catch(function(err) {
+          console.log('Service worker registration failed, error:', err);
+        });
+      }
   }
   
   function registerValidSW(swUrl) {
@@ -113,5 +121,8 @@ const isLocalhost = Boolean(
         registration.unregister();
       });
     }
+  }
+  export function pushN() {
+  
   }
 

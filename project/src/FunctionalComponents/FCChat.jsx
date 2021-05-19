@@ -58,7 +58,7 @@ function HeaderUser() {
   return (
     <header className="headerMSG">
       {studOBJ.Fname + " " + studOBJ.Lname}
-      <ArrowForwardIosIcon style={{ float: 'right', marginTop: 2 ,marginRight:7}}
+      <ArrowForwardIosIcon style={{ float: 'right', marginTop: 2, marginRight: 7 }}
         onClick={backPage} />
 
     </header>
@@ -73,21 +73,21 @@ function ChatRoom() {
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
 
-  const CreateRoom = async () => {
-    await RoomsRef.add({
-      RoomName: loginStud.Mail+','+studOBJ.Mail,
-      LastMassage:""
-    })
-  }
-  const RoomsRef = firestore.collection('ChatRooms');
-  const queryR = RoomsRef.orderBy('RoomName');
-  const [ChatRooms] = useCollectionData(queryR, { idField: 'id' });
+  //   const CreateRoom = async () => {
+  //     await RoomsRef.add({
+  //       RoomName: loginStud.Mail+','+studOBJ.Mail,
+  //       LastMassage:""
+  //     })
+  //   }
+  //   const RoomsRef = firestore.collection('ChatRooms');
+  //   const queryR = RoomsRef.orderBy('RoomName');
+  //   const [ChatRooms] = useCollectionData(queryR, { idField: 'id' });
 
-  var ifRoomExist=ChatRooms && ChatRooms.find(room=>room.RoomName==(loginStud.Mail+','+studOBJ.Mail)||room.RoomName==(studOBJ.Mail+','+loginStud.Mail))
- console.log(ifRoomExist)
-  if(ifRoomExist===undefined){
-  CreateRoom();
- }
+  //   var ifRoomExist=ChatRooms && ChatRooms.find(room=>room.RoomName==(loginStud.Mail+','+studOBJ.Mail)||room.RoomName==(studOBJ.Mail+','+loginStud.Mail))
+  //  console.log(ifRoomExist)
+  //   if(ifRoomExist===undefined){
+  //   CreateRoom();
+  //  }
 
   const dummy = useRef();
 
@@ -95,12 +95,22 @@ function ChatRoom() {
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt');
   const [messages] = useCollectionData(query, { idField: 'id' });
-  var FilterArr=[];
-  if(messages!=null)
-    FilterArr=messages.filter(m=>
+  var FilterArr = [];
+  if (messages != null)
+    FilterArr = messages.filter(m =>
       (m.FromMail === loginStud.Mail && m.ToMail === studOBJ.Mail) || (m.ToMail === loginStud.Mail && m.FromMail === studOBJ.Mail))
-
-  if(dummy.current!=null)dummy.current.scrollIntoView()
+   
+    
+  const messagesRef1 = firestore.collection('UnitMessagesEvents');
+  const query1 = messagesRef1.orderBy('createdAt');
+  const [messages1] = useCollectionData(query1, { idField: 'id' });
+  console.log('messages1',messages1)
+  var FilterArrU = [];
+  if (messages1 != null)
+    FilterArrU = messages1.filter(m =>
+       (m.ToMail === loginStud.Mail&&studOBJ.Lname==""))
+    
+  if (dummy.current != null) dummy.current.scrollIntoView()
   const [formValue, setFromValue] = useState('');
   const ToMail = studOBJ.Mail;
   const FromMail = loginStud.Mail;
@@ -121,10 +131,11 @@ function ChatRoom() {
   return (
     <>
       <main className='mainRoom'>
+      {FilterArrU && FilterArrU.map(msg => <ChatMessageU key={msg.id} message={msg} />)}
         {FilterArr && FilterArr.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <span ref={dummy}></span>
       </main>
-
+{studOBJ.Lname!==""?
       <form className='formMSG' onSubmit={sendMessage}>
         <button type="submit"
           disabled={!formValue}
@@ -133,7 +144,7 @@ function ChatRoom() {
 
         <input className='inputMSG' value={formValue} onChange={(e) => setFromValue(e.target.value)} />
 
-      </form>
+      </form>:""}
     </>
   )
 
@@ -156,21 +167,59 @@ function ChatMessage(props) {
     PhotoFrom = studOBJ.Photo
 
   return (<>
-   
-      <div>
-        <div className={'message ' + messageClass} style={{ direction: 'rtl' }}>
+    <div>
+     
+      <div className={'message ' + messageClass} style={{ direction: 'rtl' }}>
 
-          <img className='imgMSG' src={PhotoFrom} />
-          <p className='textMSG'>{text}</p>
+        <img className='imgMSG' src={PhotoFrom} />
+        <p className='textMSG'>{text}</p>
 
-        </div>
-        <p className={'timeStamp' + messageClass}>
-          {createdAt !== null ?
-        <Moment format=" DD/MM hh:mm" style={{fontSize:12}}>
-                {new Date(createdAt.seconds * 1000).toString()}
-            </Moment>:""}
-          </p>
-      </div> 
+      </div>
+      <p className={'timeStamp' + messageClass}>
+        {createdAt !== null ?
+          <Moment format=" DD/MM hh:mm" style={{ fontSize: 12 }}>
+            {new Date(createdAt.seconds * 1000).toString()}
+          </Moment> : ""}
+      </p>
+    </div>
+  </>
+  )
+}
+function ChatMessageU(props) {
+  let loginStud = localStorage.getItem('student');
+  loginStud = JSON.parse(loginStud);
+  let studOBJ = localStorage.getItem('chooseUser');
+  studOBJ = JSON.parse(studOBJ);
+
+  const { createdAt, text, myComent,EventID, ToMail } = props.message;
+  //const messageClass = FromMail === loginStud.Mail ? 'sent' : 'received';
+
+  var PhotoFrom = "images/avatar.jpg";
+  //console.log(messageClass);
+  // if (FromMail === loginStud.Mail && (loginStud.Photo !== ""))
+  //   PhotoFrom = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + loginStud.Photo
+  // if (FromMail === studOBJ.Mail && (studOBJ.Photo !== "" || studOBJ.Photo !== null))
+  //   PhotoFrom = studOBJ.Photo
+
+  return (<>
+    <div>
+     
+      <div style={{ direction: 'rtl' }}>
+
+        {/* <img className='imgMSG' src={PhotoFrom} /> */}
+        <p className='textMSG'>{EventID}</p>
+        <p className='textMSG'>{myComent}</p>
+
+        <p className='textMSG'>{text}</p>
+
+      </div>
+      <p className={'timeStamp received'}>
+        {createdAt !== null ?
+          <Moment format=" DD/MM hh:mm" style={{ fontSize: 12 }}>
+            {new Date(createdAt.seconds * 1000).toString()}
+          </Moment> : ""}
+      </p>
+    </div>
   </>
   )
 }

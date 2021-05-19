@@ -38,7 +38,9 @@ class CCAllChats extends Component {
       studChatWith: [],
       uniqueTags: [],
       user: false,
-      messages: []
+      messages: [],
+      messagesU: []
+
 
     }
     this.AllMsgByUser = [];
@@ -63,7 +65,21 @@ class CCAllChats extends Component {
       console.log('messages', messages);
 
     })
+    let messagesU=[];
+    const query1 = db.collection('UnitMessagesEvents').orderBy('createdAt','desc');
+    query1.onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const messageObj = change.doc.data()
+        if (studOBJ.Mail === messageObj.ToMail) {
+          if(!messages.some(msg=>
+            messageObj.ToMail==msg.ToMail))
+              messagesU.push(messageObj);
+       } })
+      
+      console.log('messagesU', messagesU);
+      this.setState({messagesU:messagesU})
 
+    })
     this.setState({ loading: true })
 
     this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
@@ -148,6 +164,9 @@ class CCAllChats extends Component {
           </div>
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
           <main className='mainAll'>
+          {this.state.messagesU && this.state.messagesU.map((s, index) =>
+              <FCChatRoom key={index} {...s} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />)}
+
             {this.state.messages && this.state.messages.map((s, index) =>
               <FCChatRoom key={index} {...s} sendData={this.getData} />)}
 

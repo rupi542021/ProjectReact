@@ -24,6 +24,7 @@ export const askForPermissionToReceiveNotifications = async () => {
     console.log('Your token is:', token);
     return token;
   } catch (error) {
+    console.log('error askForPermissionToReceiveNotifications');
     console.error(error);
   }
 }
