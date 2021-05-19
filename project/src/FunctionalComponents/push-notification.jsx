@@ -13,7 +13,8 @@ export const initializeFirebase = () => {
         });
       }
 }
- 
+const messaging = firebase.messaging();
+
 export const askForPermissionToReceiveNotifications = async () => {
   try {
     const messaging = firebase.messaging();
@@ -28,3 +29,8 @@ export const askForPermissionToReceiveNotifications = async () => {
     console.error(error);
   }
 }
+messaging.onMessage(payload => {
+  console.log("Message received. ", payload);
+  const { title, ...options } = payload.notification;
+});
+
