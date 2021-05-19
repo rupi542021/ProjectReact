@@ -38,17 +38,28 @@ export default function PrettoSlider1(props) {
     console.log("in handleSliderChange",e.target.innerText);    
   }
 
-  const handleBlur =(e) =>
-  {
-    console.log("in handleDragEnd",e.target.innerText);
-    props.sendVal2Parent(e.target.innerText);
+  const storeDist1 =(e) => {
+    let dist = e.target.innerText;
+    console.log("in storeDist1",dist);
+    updatedist1(dist);
+    localStorage.setItem('dist1',dist);
   }
+
+  // const handleBlur =(e) =>
+  // {
+  //   console.log("in handleDragEnd",e.target.innerText);
+  //   props.sendVal2Parent(e.target.innerText);
+  // }
+
+  const [dist1, updatedist1] = useState(props.distance1);
 
   return (
     <div style={{width:'70vw', margin:'0px auto'}}>
-      <PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={props.distance1}
+      <PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={dist1}
       onChange = {handleSliderChange}
-      onBlur={handleBlur} />
+      // onBlur={handleBlur}
+      onChangeCommitted={storeDist1}
+       />
     </div>
   )
 }
