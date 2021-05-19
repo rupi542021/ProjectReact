@@ -191,7 +191,7 @@ function ChatMessageU(props) {
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
 
-  const { createdAt, text, myComent,EventID, ToMail } = props.message;
+  const { createdAt, text, myComent,EventDate,EventTitle, ToMail } = props.message;
   //const messageClass = FromMail === loginStud.Mail ? 'sent' : 'received';
 
   var PhotoFrom = "images/avatar.jpg";
@@ -204,21 +204,22 @@ function ChatMessageU(props) {
   return (<>
     <div>
      
-      <div style={{ direction: 'rtl' }}>
+      <div className='UnitMSG' style={{ direction: 'rtl' }}>
 
         {/* <img className='imgMSG' src={PhotoFrom} /> */}
-        <p className='textMSG'>{EventID}</p>
-        <p className='textMSG'>{myComent}</p>
+        <p>{"האירוע: "+EventTitle}</p>
+        <p>{"שייתקיים בתאריך: "+EventDate}</p>
+        <p>{"תגובתך: "+myComent}</p>
 
-        <p className='textMSG'>{text}</p>
-
-      </div>
-      <p className={'timeStamp received'}>
+        <p className='textMSG'>{"מענה היחידה: "+text}</p>
+        <p className={'timeStampUnit'}>
         {createdAt !== null ?
           <Moment format=" DD/MM hh:mm" style={{ fontSize: 12 }}>
             {new Date(createdAt.seconds * 1000).toString()}
           </Moment> : ""}
       </p>
+      </div>
+     
     </div>
   </>
   )
