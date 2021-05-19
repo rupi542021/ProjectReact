@@ -14,9 +14,9 @@ class CCPreferncesRanges extends Component {
     super(props);
     this.state = {
       studOBJ: JSON.parse(localStorage.getItem('student')),
-      distance1: 15,
-      distance2: 15,
-      ageRange:3
+      // distance1: 15,
+      // distance2: 15,
+      // ageRange:3
     }
   }
 
@@ -107,11 +107,11 @@ class CCPreferncesRanges extends Component {
         <div>
           <div>
           <h5 style={{ marginTop: '10vh', fontWeight: 500,fontSize:'5vw' }}>מקום מגורים נוכחי</h5>
-          <PrettoSlider distance1={this.state.distance1} sendVal2Parent={this.getDist1} />          
+          <PrettoSlider distance1={this.state.studOBJ.HomeDist} sendVal2Parent={this.getDist1} />          
         </div>
         <div>
           <h5 style={{ marginTop: '2vh', fontWeight: 500,fontSize:'5vw' }}>מקום מגורים קבע</h5>
-          <PrettoSlider2 distance2={this.state.distance2} sendVal2Parent2={this.getDist2} />
+          <PrettoSlider2 distance2={this.state.studOBJ.StudyingDist} sendVal2Parent2={this.getDist2} />
         </div>
         <div>
           <h5 style={{ marginTop: '2vh',fontWeight: 500,fontSize:'5vw' }}>טווח גילאים</h5>
@@ -120,6 +120,7 @@ class CCPreferncesRanges extends Component {
           type="number"
           variant="outlined"
           onChange={this.handleNumberInput}
+          defaultValue={this.state.studOBJ.AgesRange}
         />
         </div>
         <Button variant="contained"
