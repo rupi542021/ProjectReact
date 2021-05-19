@@ -49,14 +49,6 @@ const isLocalhost = Boolean(
         }
       });
     }
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./firebase-messaging-sw.jsx')
-        .then(function(registration) {
-          console.log('Registration successful, scope is:', registration.scope);
-        }).catch(function(err) {
-          console.log('Service worker registration failed, error:', err);
-        });
-      }
   }
   
   function registerValidSW(swUrl) {
@@ -126,3 +118,53 @@ const isLocalhost = Boolean(
   
   }
 
+  var CACHE_NAME = 'Better Together';
+  var urlsToCache = [
+    '/index.html',
+    '/index.css',
+    '/style.css',
+    '/img'
+  ];
+  
+  // Install a service worker
+  window.addEventListener('install', event => {
+    // Perform install steps
+    event.waitUntil(
+      caches.open(CACHE_NAME)
+        .then(function(cache) {
+          console.log('Opened cache');
+          return cache.addAll(urlsToCache);
+        })
+    );
+  });
+  
+  // Cache and return requests
+  window.addEventListener('fetch', event => {
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response) {
+          // Cache hit - return response
+          if (response) {
+            return response;
+          }
+          return fetch(event.request);
+        }
+      )
+    );
+  });
+  
+  // Update a service worker
+  window.addEventListener('activate', event => {
+    var cacheWhitelist = ['pwa-task-manager'];
+    event.waitUntil(
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheWhitelist.indexOf(cacheName) === -1) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+    );
+  });
