@@ -33,16 +33,17 @@ export default function PrettoSlider1(props) {
     },
   })(Slider);
 
-  const handleSliderChange =(e) =>
-  {
-    console.log("in handleSliderChange",e.target.innerText);    
-  }
+  // const handleSliderChange =(e) =>
+  // {
+  //   console.log("in handleSliderChange",e.target.innerText);    
+  // }
 
   const storeDist1 =(e) => {
     let dist = e.target.innerText;
     console.log("in storeDist1",dist);
-    updatedist1(dist);
-    localStorage.setItem('dist1',dist);
+    //updatedist1(dist);
+    // localStorage.setItem('dist1',dist);
+    props.sendVal2Parent(dist);
   }
 
   // const handleBlur =(e) =>
@@ -51,12 +52,12 @@ export default function PrettoSlider1(props) {
   //   props.sendVal2Parent(e.target.innerText);
   // }
 
-  const [dist1, updatedist1] = useState(props.distance1);
+  //const [dist1, updatedist1] = useState(props.distance1);
 
   return (
     <div style={{width:'70vw', margin:'0px auto'}}>
-      <PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={dist1}
-      onChange = {handleSliderChange}
+      <PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={props.distance1}
+      //onChange = {handleSliderChange}
       // onBlur={handleBlur}
       onChangeCommitted={storeDist1}
        />

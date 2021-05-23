@@ -93,7 +93,7 @@ function FCDragList(props) {
 
  
   return (
-    <div style={{ marginTop: '5vh' }}>
+    <div>
       <div style={{ direction: 'rtl', width: '50%', margin: '0px auto' }}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="preferences">

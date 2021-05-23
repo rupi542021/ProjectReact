@@ -9,20 +9,30 @@ import swal from 'sweetalert';
 import PrettoSlider from '../FunctionalComponents/PrettoSlider1';
 import PrettoSlider2 from '../FunctionalComponents/PrettoSlider2';
 
+
 class CCPreferncesRanges extends Component {
   constructor(props) {
     super(props);
     this.state = {
       studOBJ: JSON.parse(localStorage.getItem('student')),
-      // distance1: 15,
-      // distance2: 15,
-      // ageRange:3
+
     }
   }
 
+  componentDidMount = () => {
+    console.log("this.state.ageRange before:", this.state.ageRange);
+    let stud = JSON.parse(localStorage.getItem('student'));
+    console.log("stud:", stud)
+    this.setState({
+      distance1: stud.HomeDist,
+      distance2: stud.StudyingDist,
+      ageRange: stud.AgesRange
+    }, () => { console.log("this.state.ageRange after:", this.state.ageRange) });
+
+  }
   btnNext2Confirm = () => {
-        this.handleSwal();
-      }
+    this.handleSwal();
+  }
 
   handleSwal = () => {
     swal({
@@ -32,19 +42,45 @@ class CCPreferncesRanges extends Component {
     })
       .then((willSave) => {
         if (willSave) {
+          this.updateRangesInDB(this.state.studOBJ)
           //לעדכן בשרת
         }
       });
   }
 
-  UpdatePasswordInDB = (stud, pass) => {
-    console.log("in UpdatePasswordInDB ", stud, pass);
-    // let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ pass +'/updateUserPassword';
-    let apiUrl = 'https://localhost:44366/API/students/' + pass + '/updateUserPassword';
+
+  getDist1 = (dist1) => {
+    console.log("dist1:", dist1);
+    this.setState({ distance1: dist1 }, () => {
+      console.log("this.state.distance1", this.state.distance1);
+      localStorage.setItem('dist1', this.state.distance1);
+    });
+  }
+
+  getDist2 = (dist2) => {
+    console.log("dist2:", dist2);
+    this.setState({ distance2: dist2 }, () => {
+      console.log("this.state.distance2", this.state.distance2);
+      localStorage.setItem('dist2', this.state.distance2);
+    });
+  }
+
+  handleNumberInput = (e) => {
+    console.log("number input: ", e.target.value);
+    this.setState({ ageRange: e.target.value }, () => { localStorage.setItem('newAgeRange', this.state.ageRange); })
+  }
+
+  updateRangesInDB = (stud2Update) => {
+    stud2Update.HomeDist = this.state.distance1;
+    stud2Update.StudyingDist = this.state.distance2;
+    stud2Update.AgesRange = this.state.ageRange;
+    console.log("stud2Update:", stud2Update);
+    // let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/updateUserPrefRanges';
+    let apiUrl = 'https://localhost:44366/API/students/updateUserPrefRanges';
     fetch(apiUrl,
       {
         method: 'Put',
-        body: JSON.stringify(stud),
+        body: JSON.stringify(stud2Update),
         headers: new Headers({
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset=UTF-8'
@@ -56,12 +92,17 @@ class CCPreferncesRanges extends Component {
         console.log('res.ok', res.ok);
         if (res.ok) {
           console.log('UpdatePreferencesInDB succeeded');
-          this.state.studOBJ.Password = pass;
-          localStorage.setItem('student', JSON.stringify(this.state.studOBJ));
+          this.state.studOBJ = stud2Update;
+          localStorage.setItem('student', JSON.stringify(stud2Update));
           console.log("this.state.studOBJ", this.state.studOBJ);
-          swal(":) הסיסמה עודכנה בהצלחה", {
+          swal(":) השינויים נשמרו בהצלחה", {
             icon: "success",
-          }).then(() => { this.props.history.push("/Settings"); }
+          }).then(() => {
+            localStorage.removeItem('dist1');
+            localStorage.removeItem('dist2');
+            localStorage.removeItem('newAgeRange');
+            this.props.history.push("/Settings");
+          }
           );
         }
         else {
@@ -77,61 +118,71 @@ class CCPreferncesRanges extends Component {
       })
   }
 
-  handleSliderChange = (event, newValue) => {
-    // console.log("event", event);
-    //console.log("newValue", newValue);
-    this.setState({ distance1: newValue });
-
-    //setValue(newValue);
-  };
-
-  getDist1 = (dist1) => {
-    this.setState({ distance1: dist1 }, () => { console.log("distance1", this.state.distance1) });
+  goBack2PrevPage = () => {
+    localStorage.removeItem('dist1');
+    localStorage.removeItem('dist2');
+    localStorage.removeItem('newAgeRange');
+    this.props.history.push('/Settings');
   }
 
-  getDist2 = (dist2) => {
-    this.setState({ distance2: dist2 }, () => { console.log("distance2", this.state.distance2) });
+  handleResetBTN = () => {
+    console.log("this.state.ageRange before reset:", this.state.ageRange)
+    this.setState({
+      distance1: this.state.studOBJ.HomeDist,
+      distance2: this.state.studOBJ.StudyingDist,
+      ageRange: this.state.studOBJ.AgesRange
+    },()=>{console.log("this.state.ageRange after reset:", this.state.ageRange)})
+    localStorage.removeItem('dist1');
+    localStorage.removeItem('dist2');
+    localStorage.removeItem('newAgeRange');
   }
 
-  handleNumberInput = (e) =>{
-    console.log("number input: ", e.target.value);
-    this.setState({ageRange: e.target.value})
-  }
 
   render() {
     return (
       <div>
         <PrimarySearchAppBar />
         <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: 0 }}
-          onClick={() => this.props.history.push('/Settings')}></i>
+          onClick={this.goBack2PrevPage}></i>
         <div>
           <div>
-          <h5 style={{ marginTop: '10vh', fontWeight: 500,fontSize:'5vw' }}>מקום מגורים נוכחי</h5>
-          <PrettoSlider distance1={this.state.studOBJ.HomeDist} sendVal2Parent={this.getDist1} />          
-        </div>
-        <div>
-          <h5 style={{ marginTop: '2vh', fontWeight: 500,fontSize:'5vw' }}>מקום מגורים קבע</h5>
-          <PrettoSlider2 distance2={this.state.studOBJ.StudyingDist} sendVal2Parent2={this.getDist2} />
-        </div>
-        <div>
-          <h5 style={{ marginTop: '2vh',fontWeight: 500,fontSize:'5vw' }}>טווח גילאים</h5>
-          <TextField
-          label="הכנס מספר"
-          type="number"
-          variant="outlined"
-          onChange={this.handleNumberInput}
-          defaultValue={this.state.studOBJ.AgesRange}
-        />
-        </div>
-        <Button variant="contained"
-          style={{
-            paddingTop: 0, marginRight: 10, marginTop: '10vh', backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
-            fontFamily: "Segoe UI", height: 35
+            <h5 style={{ marginTop: '10vh', fontWeight: 500, fontSize: '5vw' }}>מרחק ממקום מגורים נוכחי</h5>
+            <PrettoSlider distance1={this.state.distance1} sendVal2Parent={this.getDist1} />
+          </div>
+          <div>
+            <h5 style={{ marginTop: '2vh', fontWeight: 500, fontSize: '5vw' }}>מרחק ממקום מגורים קבע</h5>
+            <PrettoSlider2 distance2={this.state.distance2} sendVal2Parent2={this.getDist2} />
+          </div>
+          <div>
+            <h5 style={{ marginTop: '2vh', fontWeight: 500, fontSize: '5vw' }}>טווח גילאים</h5>
+            <TextField
+              label="הכנס מספר"
+              type="number"
+              variant="outlined"
+              onChange={this.handleNumberInput}
+              defaultValue={this.state.ageRange !== undefined ? this.state.ageRange : this.state.studOBJ.AgesRange}
+            />
+          </div>
+          <div style={{position:'absolute', bottom:'10vh'}}>
+          <Button variant="contained"
+            style={{
+              backgroundColor: "#FAE8BE", borderRadius: 20,
+              fontFamily: "Segoe UI", height: '5vh'
+            }}
+            onClick={this.btnNext2Confirm}>
+            <i class="bi bi-check2"
+              style={{ color: '#3D3D3D', fontSize: '7vw' }}></i>
+          </Button>
+          <Button variant="contained" style={{
+            backgroundColor: "#FAE8BE", fontSize: '4.5vw', borderRadius: 20,
+            fontFamily: "Segoe UI", height: '5vh'
           }}
-          onClick={this.btnNext2Confirm}>
-          <i class="bi bi-check2"
-            style={{ color: '#3D3D3D', fontSize: 32 }}></i>
-        </Button>
+            onClick={this.handleResetBTN}
+          > אפס
+        {/* <i class="bi bi-arrow-right-short"
+        style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i> */}
+          </Button>
+          </div>
         </div>
         <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <FCTabNavigator />
