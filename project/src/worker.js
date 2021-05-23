@@ -114,9 +114,6 @@ const isLocalhost = Boolean(
       });
     }
   }
-  export function pushN() {
-  
-  }
 
   var CACHE_NAME = 'Better Together';
   var urlsToCache = [

@@ -29,8 +29,9 @@ export const askForPermissionToReceiveNotifications = async () => {
     console.error(error);
   }
 }
-messaging.onMessage(payload => {
-  console.log("Message received. ", payload);
-  const { title, ...options } = payload.notification;
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    messaging.onMessage((payload) => {
+      resolve(payload);
+    });
 });
-

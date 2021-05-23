@@ -23,10 +23,18 @@ import CCUserPrefernces from './ClassComponents/CCUserPrefernces';
 import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
 import CCSettings from './ClassComponents/CCSettings';
 import CCChangePassword from './ClassComponents/CCChangePassword';
-import { askForPermissionToReceiveNotifications } from './FunctionalComponents/push-notification';
+import { askForPermissionToReceiveNotifications,onMessageListener } from './FunctionalComponents/push-notification';
+import { useEffect } from 'react';
 
 
 function App() {
+  useEffect(()=>{
+    onMessageListener().then(payload => {
+      // setShow(true);
+      // setNotification({title: payload.notification.title, body: payload.notification.body})
+      console.log(payload);
+    }).catch(err => console.log('failed: ', err));
+  },[])
     if ("geolocation" in navigator) {
       console.log("Available");
     //   navigator.geolocation.getCurrentPosition(function(position) {
@@ -49,6 +57,7 @@ function App() {
     } else {
       console.log("Not Available");
     }
+
 
   return (
     <div className="App">
