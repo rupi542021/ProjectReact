@@ -64,7 +64,7 @@ export default function FCChatRoom(props) {
 
   return (
     <Card className={classes.root} style={{ direction: 'rtl', width: "95vw",marginBottom:5 }}>
-      <CardMedia
+<CardMedia
       style={{
         width: 60,
         height: 60,
@@ -76,11 +76,11 @@ export default function FCChatRoom(props) {
         image={props.Photo}
         title="Live from space album cover"
       />
-      <div className={classes.details} style={{ width: "53vw" }} 
+      <div className={classes.details} style={{ width:"53vw" }} 
       onClick={chooseUser}
       >
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "6vw" }}>
+          <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: props.Lname!==""?"6vw":"5vw"}}>
             {props.Fname+' '+props.Lname}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>

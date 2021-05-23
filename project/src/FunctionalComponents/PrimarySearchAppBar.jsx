@@ -12,7 +12,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import '../style.css';
 import SwipeableTemporaryDrawer from './SwipeableTemporaryDrawer';
-
+import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -89,6 +89,12 @@ export default function FCTabNavigator() {
     setAnchorEl(event.currentTarget);
   };
 
+  const history = useHistory();
+  const handleGo2Messges=()=>{
+    history.push(`AllChats2`);
+
+  }
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -134,7 +140,7 @@ export default function FCTabNavigator() {
       style={{ direction: 'rtl' }}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={handleGo2Messges}>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />

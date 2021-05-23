@@ -33,22 +33,16 @@ export default function PrettoSlider2(props) {
     },
   })(Slider);
 
-  const handleSliderChange =(e) =>
-  {
-    console.log("in handleSliderChange",e.target.innerText);    
-  }
-
-  const handleBlur =(e) =>
-  {
-    console.log("in handleDragEnd",e.target.innerText);
-    props.sendVal2Parent2(e.target.innerText);
+  const storeDist2 =(e) => {
+    let dist = e.target.innerText;
+    console.log("in storeDist2",dist);
+    props.sendVal2Parent2(dist);
   }
 
   return (
     <div style={{width:'70vw', margin:'0px auto'}}>
       <PrettoSlider2 valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={props.distance2}
-      onChange = {handleSliderChange}
-      onBlur={handleBlur} />
+       onChangeCommitted={storeDist2} />
     </div>
   )
 }

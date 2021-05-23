@@ -23,9 +23,8 @@ import CCUserPrefernces from './ClassComponents/CCUserPrefernces';
 import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
 import CCSettings from './ClassComponents/CCSettings';
 import CCChangePassword from './ClassComponents/CCChangePassword';
-import { askForPermissionToReceiveNotifications,onMessageListener } from './FunctionalComponents/push-notification';
+import {onMessageListener } from './FunctionalComponents/push-notification';
 import { useEffect } from 'react';
-
 
 function App() {
   useEffect(()=>{
@@ -35,6 +34,7 @@ function App() {
       console.log(payload);
     }).catch(err => console.log('failed: ', err));
   },[])
+
     if ("geolocation" in navigator) {
       console.log("Available");
     //   navigator.geolocation.getCurrentPosition(function(position) {
@@ -139,6 +139,7 @@ function App() {
         </Route>
       </Switch>
      
+
     </div>
   );
 }

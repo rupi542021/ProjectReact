@@ -156,7 +156,18 @@
     background-color: #e6e9ebe0; 
     direction: rtl;
   }
-  
+  .UnitMSG {
+    max-width: 500px;
+    margin-bottom: 12px;
+    line-height: 16px;
+    padding: 10px 20px 0.1px 10px;
+    border-radius: 25px;
+    position: relative;
+    color: #3D3D3D;
+    text-align: center;
+    background-color: #fdfdfde0; 
+    direction: rtl;
+  }
   .message {
     display: flex;
     align-items: center;
@@ -167,6 +178,14 @@
     text-align: left;
     margin-top: -10px;
     margin-left: 60px;
+
+  }
+  .timeStampUnit{
+    font-size: 12px;
+
+    text-align: left;
+    margin-top: -10px;
+
 
   }
   .timeStampsent{

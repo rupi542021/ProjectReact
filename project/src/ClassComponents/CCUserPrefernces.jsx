@@ -46,11 +46,11 @@ class CCUserPrefernces extends Component {
     this.state = {
       userPreferences: [],
     }
-    this.studOBJ = JSON.parse(localStorage.getItem('student')); 
+    this.studOBJ = JSON.parse(localStorage.getItem('student'));
   }
 
   componentDidMount = () => {
-   // this.getPreferncesFromDB(studOBJ.Mail);
+    // this.getPreferncesFromDB(studOBJ.Mail);
     console.log('userPreferences before:', this.state.userPreferences);
     let userPreferences = [];
     // for (let p = 0; p < this.studOBJ.Preflist.length; p++) {
@@ -58,7 +58,7 @@ class CCUserPrefernces extends Component {
     //   userPreferences.push(pr);   
     // }
     console.log("this.studOBJ.Preflist", this.studOBJ.Preflist);
-    this.setState({ userPreferences: this.studOBJ.Preflist}, () => { console.log('userPreferences after:', this.state.userPreferences); });
+    this.setState({ userPreferences: this.studOBJ.Preflist }, () => { console.log('userPreferences after:', this.state.userPreferences); });
   }
 
   // getPreferncesFromDB=(mail)=>
@@ -136,13 +136,17 @@ class CCUserPrefernces extends Component {
   render() {
     return (
       <div>
-        <PrimarySearchAppBar />
         <div>
+          <PrimarySearchAppBar />
+          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: 0 }}
+            onClick={() => this.props.history.push('/Settings')}></i>
+        </div>
+        <div style={{ marginTop: '5vh' }}>
           <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>מה חשוב לך במציאת חבר?</h3>
           {/* <p style={{ color: '#3D3D3D', fontSize: '3vh', fontWeight:500}}> סדר לפי עדיפות </p> */}
+          {this.state.userPreferences.length > 0 ?
+            <FCDragList preferences={this.state.userPreferences} studOBJ={this.studOBJ} /> : ''}
         </div>
-        {this.state.userPreferences.length > 0 ?
-          <FCDragList preferences={this.state.userPreferences} studOBJ = {this.studOBJ}/> : ''}
         <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <FCTabNavigator />
         </div>

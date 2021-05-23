@@ -107,8 +107,28 @@ function ChatRoom() {
   console.log('messages1',messages1)
   var FilterArrU = [];
   if (messages1 != null)
-    FilterArrU = messages1.filter(m =>
-       (m.ToMail === loginStud.Mail&&studOBJ.Lname==""))
+  {
+    messages1.forEach(m => {
+      if((m.ToMail === loginStud.Mail&&studOBJ.Lname==="")){
+      m.type="ev";
+      FilterArrU.push(m);  }
+    });
+  }
+
+  const messagesRef2 = firestore.collection('UnitMessagesAds');
+  const query2 = messagesRef2.orderBy('createdAt');
+  const [messages2] = useCollectionData(query2, { idField: 'id' });
+  console.log('messages2',messages2)
+  
+  if (messages2 != null)
+  {
+    messages2.forEach(m => {
+      if((m.ToMail === loginStud.Mail&&studOBJ.Lname==="")){
+      m.type="ad";
+      FilterArrU.push(m);  }
+    });
+  }
+
     
   if (dummy.current != null) dummy.current.scrollIntoView()
   const [formValue, setFromValue] = useState('');
@@ -130,8 +150,8 @@ function ChatRoom() {
   }
   return (
     <>
-      <main className='mainRoom'>
-      {FilterArrU && FilterArrU.map(msg => <ChatMessageU key={msg.id} message={msg} />)}
+      <main className='mainRoom' style={{height:FilterArr.length>0?"75vh":"85vh"}}>
+      {FilterArrU && FilterArrU.map(msg => <ChatMessageU key={msg.id} message={msg} type={msg.type}/>)}
         {FilterArr && FilterArr.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <span ref={dummy}></span>
       </main>
@@ -191,7 +211,9 @@ function ChatMessageU(props) {
   let studOBJ = localStorage.getItem('chooseUser');
   studOBJ = JSON.parse(studOBJ);
 
-  const { createdAt, text, myComent,EventID, ToMail } = props.message;
+  const { createdAt, text, myComent,EventDate,EventTitle, ToMail ,AdTitle,AdContent} = props.message;
+
+ 
   //const messageClass = FromMail === loginStud.Mail ? 'sent' : 'received';
 
   var PhotoFrom = "images/avatar.jpg";
@@ -204,21 +226,22 @@ function ChatMessageU(props) {
   return (<>
     <div>
      
-      <div style={{ direction: 'rtl' }}>
+      <div className='UnitMSG' style={{ direction: 'rtl' }}>
 
         {/* <img className='imgMSG' src={PhotoFrom} /> */}
-        <p className='textMSG'>{EventID}</p>
-        <p className='textMSG'>{myComent}</p>
+        <p>{props.type=="ev"?"האירוע: "+EventTitle:"כותרת הפרסום: "+AdTitle}</p>
+        <p>{props.type=="ev"?"שייתקיים בתאריך: "+EventDate:"תוכן הפרסום: "+AdContent}</p>
+        <p>{"תגובתך: "+myComent}</p>
 
-        <p className='textMSG'>{text}</p>
-
-      </div>
-      <p className={'timeStamp received'}>
+        <p className='textMSG'>{"מענה היחידה: "+text}</p>
+        <p className={'timeStampUnit'}>
         {createdAt !== null ?
           <Moment format=" DD/MM hh:mm" style={{ fontSize: 12 }}>
             {new Date(createdAt.seconds * 1000).toString()}
           </Moment> : ""}
       </p>
+      </div>
+     
     </div>
   </>
   )
