@@ -13,6 +13,7 @@ import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import FCChatRoom from '../FunctionalComponents/FCChatRoom';
+import { now } from 'moment';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -39,7 +40,8 @@ class CCAllChats extends Component {
       uniqueTags: [],
       user: false,
       messages: [],
-      messagesU: []
+      messagesU: [],
+      createdAt:""
 
 
     }
@@ -65,9 +67,26 @@ class CCAllChats extends Component {
       console.log('messages', messages);
 
     })
-    let messagesU=[];
+    var messagesU=[];
     const query1 = db.collection('UnitMessagesEvents').orderBy('createdAt','desc');
     query1.onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const messageObj = change.doc.data()
+        if (studOBJ.Mail === messageObj.ToMail) {
+          if(!messagesU.some(msg=>
+            messageObj.ToMail==msg.ToMail))
+              messagesU.push(messageObj);
+       } })
+      
+      console.log('messagesU1', messagesU);
+
+      
+      this.setState({messagesU:messagesU})
+
+    })
+
+    const query2 = db.collection('UnitMessagesAds').orderBy('createdAt','desc');
+    query2.onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         const messageObj = change.doc.data()
         if (studOBJ.Mail === messageObj.ToMail) {
@@ -76,10 +95,15 @@ class CCAllChats extends Component {
               messagesU.push(messageObj);
        } })
       
-      console.log('messagesU', messagesU);
-      this.setState({messagesU:messagesU})
+      console.log('messagesU2', messagesU);
 
+      
+      //console.log('messagesU[messagesU.length-1].createdAt', messagesU[messagesU.length-1].createdAt);
+       if(messagesU.length>0)
+        this.setState({messagesU:messagesU[messagesU.length-1],createdAt:messagesU[messagesU.length-1].createdAt})
+        else this.setState({messagesU:null})
     })
+
     this.setState({ loading: true })
 
     this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
@@ -162,15 +186,15 @@ class CCAllChats extends Component {
                 classNames="test-class"
               /></div>
           </div>
-          {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : ""}
+          {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : 
           <main className='mainAll'>
-          {this.state.messagesU && this.state.messagesU.map((s, index) =>
-              <FCChatRoom key={index} {...s} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />)}
-
+          {this.state.messagesU!==null?
+              <FCChatRoom createdAt={this.state.createdAt} Photo={"icons/theUnit.png"} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />:""}
+ 
             {this.state.messages && this.state.messages.map((s, index) =>
               <FCChatRoom key={index} {...s} sendData={this.getData} />)}
 
-          </main>
+          </main>}
         </section>
         <div>
           <FCTabNavigator />
