@@ -25,6 +25,9 @@ import CCSettings from './ClassComponents/CCSettings';
 import CCChangePassword from './ClassComponents/CCChangePassword';
 import { askForPermissionToReceiveNotifications } from './FunctionalComponents/push-notification';
 
+//מדריך חדש 23/5
+import {useState} from 'react';
+import { getToken, onMessageListener } from './firebase';
 
 function App() {
     if ("geolocation" in navigator) {
@@ -49,6 +52,21 @@ function App() {
     } else {
       console.log("Not Available");
     }
+
+//מדריך חדש 23/5
+    getToken();
+
+    const [show, setShow] = useState(false);
+  
+    onMessageListener().then(message => {
+      setShow(true);
+    }).catch(err => console.log('failed: ', err));
+
+    const [isTokenFound, setTokenFound] = useState(false);
+getToken(setTokenFound);
+
+localStorage.setItem("isTokenFound",isTokenFound)
+
 
   return (
     <div className="App">
@@ -130,6 +148,7 @@ function App() {
         </Route>
       </Switch>
      
+
     </div>
   );
 }

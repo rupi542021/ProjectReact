@@ -26,7 +26,10 @@ ReactDOM.render(
 reportWebVitals();
 initializeFirebase();
 
-if(!localStorage.getItem("notification-token")){
-  askForPermissionToReceiveNotifications();
-}
+// if(!localStorage.getItem("notification-token")){
+//   askForPermissionToReceiveNotifications();
+// }
 serviceWorker.register();
+
+//,
+//"homepage": "https://proj.ruppin.ac.il/igroup54/test2/A/mobile2"
