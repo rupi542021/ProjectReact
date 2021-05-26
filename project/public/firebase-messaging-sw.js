@@ -4,12 +4,12 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
 
 // Initialize the Firebase app in the service worker by passing the generated config
 var firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCSHnFe2MHnBKhRHQrwACoNLo5cerY5W74",
+  authDomain: "chat-firebase-6a710.firebaseapp.com",
+  projectId: "chat-firebase-6a710",
+  storageBucket: "chat-firebase-6a710.appspot.com",
+  messagingSenderId: "814599624459",
+  appId: "1:814599624459:web:5ad9f7936fe596703f340e",
 };
 
 firebase.initializeApp(firebaseConfig);

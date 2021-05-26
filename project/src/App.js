@@ -32,32 +32,12 @@ function App() {
       // setShow(true);
       // setNotification({title: payload.notification.title, body: payload.notification.body})
       console.log(payload);
+      alert("new push");
     }).catch(err => console.log('failed: ', err));
   },[])
 
-    if ("geolocation" in navigator) {
-      console.log("Available");
-    //   navigator.geolocation.getCurrentPosition(function(position) {
-    //     console.log("Latitude is :", position.coords.latitude);
-    //     console.log("Longitude is :", position.coords.longitude);
-    //   });
-    //   navigator.geolocation.getCurrentPosition(function(position) {
-    //     console.log(position)
-    //   },
-    //   function(error) {
-    //     console.error("Error Code = " + error.code + " - " + error.message);
-    //   });
-      navigator.geolocation.watchPosition(function(position) {
-        //console.log("Latitude is :", position.coords.latitude);
-        //console.log("Longitude is :", position.coords.longitude);
-      },
-        function(error) {
-          console.error("Error Code = " + error.code + " - " + error.message);
-        });
-    } else {
-      console.log("Not Available");
-    }
 
+ 
 
   return (
     <div className="App">
@@ -143,5 +123,66 @@ function App() {
     </div>
   );
 }
+export const getLocation= (studMail) =>{
+  if ("geolocation" in navigator) {
+    console.log("Available");
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     console.log("Latitude is :", position.coords.latitude);
+  //     console.log("Longitude is :", position.coords.longitude);
+  //   });
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     console.log(position)
+  //   },
+  //   function(error) {
+  //     console.error("Error Code = " + error.code + " - " + error.message);
+  //   });
+    navigator.geolocation.watchPosition(function(position) {
+      console.log("Latitude X is :", position.coords.latitude);
+      console.log("Longitude Y is :", position.coords.longitude);
 
+      console.log("in post locations function");
+      let location = {
+        Mail:studMail,
+        X: position.coords.latitude,
+        Y: position.coords.longitude
+      }
+      console.log("location",location)
+      
+      let apiUrl = 'https://localhost:44325/API/students/PostLocation';
+      fetch(apiUrl,
+        {
+          method: 'POST',
+          body: JSON.stringify(location),
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+          })
+        })
+        .then(res => {
+          console.log('res=', res);
+          console.log('res.status', res.status);
+          if (res.status === 201) {
+            console.log('location saved :)');
+          }
+          console.log('res.ok', res.ok);
+  
+          if (res.ok) {
+            console.log('post succeeded');
+            
+          }
+        },
+          (error) => {
+            console.log("err post=", error);
+          });
+      console.log('end post locations function')
+    
+
+    },
+      function(error) {
+        console.error("Error Code = " + error.code + " - " + error.message);
+      });
+  } else {
+    console.log("Not Available");
+  }
+}
 export default withRouter(App);

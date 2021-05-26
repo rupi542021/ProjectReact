@@ -11,7 +11,7 @@ import SearchField from "react-search-field";
 import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
-
+import {getLocation} from '../App'
 
 const filterByList = ["המחלקה שלי", "המחזור שלי", "גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
 class CCShowUsers extends Component {
@@ -33,9 +33,14 @@ class CCShowUsers extends Component {
   }
 
   componentDidMount() {
+    
+
     this.setState({ loading: true })
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
+
+    getLocation(studOBJ.Mail)
+
     this.setState({
       userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,
       userHomeTownX: studOBJ.HomeTown.X, userHomeTownY: studOBJ.HomeTown.Y,

@@ -104,7 +104,7 @@ function ChatRoom() {
   const messagesRef1 = firestore.collection('UnitMessagesEvents');
   const query1 = messagesRef1.orderBy('createdAt');
   const [messages1] = useCollectionData(query1, { idField: 'id' });
-  console.log('messages1',messages1)
+  //console.log('messages1',messages1)
   var FilterArrU = [];
   if (messages1 != null)
   {
@@ -118,7 +118,7 @@ function ChatRoom() {
   const messagesRef2 = firestore.collection('UnitMessagesAds');
   const query2 = messagesRef2.orderBy('createdAt');
   const [messages2] = useCollectionData(query2, { idField: 'id' });
-  console.log('messages2',messages2)
+  //console.log('messages2',messages2)
   
   if (messages2 != null)
   {
