@@ -121,7 +121,7 @@ function FCDragList(props) {
           <Button variant="contained"
             style={{
               backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
-              fontFamily: "Segoe UI", height: '5vh', position: 'absolute', left: 5
+              fontFamily: "Segoe UI", height: '5vh', position: 'absolute', left: '1vw'
             }}
           onClick={handleSwal}
           >
@@ -130,7 +130,7 @@ function FCDragList(props) {
           </Button>
           <Button variant="contained" style={{
             backgroundColor: "#FAE8BE", fontSize: 17, borderRadius: 20,
-            fontFamily: "Segoe UI", height: '5vh', position: 'absolute', right: 5
+            fontFamily: "Segoe UI", height: '5vh', position: 'absolute', right: '1vw'
           }}
             onClick={handleResetBTN}
           > אפס

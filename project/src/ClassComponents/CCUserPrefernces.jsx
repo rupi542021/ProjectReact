@@ -138,7 +138,7 @@ class CCUserPrefernces extends Component {
       <div>
         <div>
           <PrimarySearchAppBar />
-          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: 0 }}
+          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: '1vw' }}
             onClick={() => this.props.history.push('/Settings')}></i>
         </div>
         <div style={{ marginTop: '5vh' }}>

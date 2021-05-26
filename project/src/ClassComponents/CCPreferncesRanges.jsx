@@ -142,7 +142,7 @@ class CCPreferncesRanges extends Component {
     return (
       <div>
         <PrimarySearchAppBar />
-        <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: 0 }}
+        <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: '1vw' }}
           onClick={this.goBack2PrevPage}></i>
         <div>
           <div>
@@ -163,11 +163,11 @@ class CCPreferncesRanges extends Component {
               defaultValue={this.state.ageRange !== undefined ? this.state.ageRange : this.state.studOBJ.AgesRange}
             />
           </div>
-          <div style={{position:'absolute', bottom:'10vh'}}>
+          <div style={{marginTop:'20vh'}}>
           <Button variant="contained"
             style={{
               backgroundColor: "#FAE8BE", borderRadius: 20,
-              fontFamily: "Segoe UI", height: '5vh'
+              fontFamily: "Segoe UI", height: '5vh', position:'absolute', left: '1vw'
             }}
             onClick={this.btnNext2Confirm}>
             <i class="bi bi-check2"
@@ -175,7 +175,7 @@ class CCPreferncesRanges extends Component {
           </Button>
           <Button variant="contained" style={{
             backgroundColor: "#FAE8BE", fontSize: '4.5vw', borderRadius: 20,
-            fontFamily: "Segoe UI", height: '5vh'
+            fontFamily: "Segoe UI", height: '5vh',position:'absolute', right: '1vw'
           }}
             onClick={this.handleResetBTN}
           > אפס
