@@ -91,7 +91,10 @@ class CCSettings extends Component {
               <p style={{ fontWeight: 500, fontSize: '2vh' }}>שינוי סיסמה</p>
             </div>
             <div style={{ height: '11vh', width: '35vw', backgroundColor: '#FAE8BE', border: "0.1vh black solid", borderRadius: '30vh', margin: '3vw' }}
-              onClick={() => { this.props.history.push("/editP") }}>
+              onClick={() => {  this.props.history.push({
+                pathname: '/editP',
+                state: { PageBack: '/Settings' } });}
+                }>
               <i className="bi bi-pencil-square fa-2x" ></i><br />
               <p style={{ fontWeight: 500, fontSize: '2vh' }}>עריכת פרופיל</p>
             </div>

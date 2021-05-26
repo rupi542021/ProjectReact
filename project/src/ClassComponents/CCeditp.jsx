@@ -26,8 +26,8 @@ class CCeditp extends Component {
       selectedFile: null,
       loading: false,
     }
-this.citiesList=[];
-this.imgChange=false;
+    this.citiesList = [];
+    this.imgChange = false;
   }
 
   componentDidMount = () => {
@@ -37,7 +37,7 @@ this.imgChange=false;
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ imgURL: studOBJ.Photo === "" ? "images/avatar.jpg" :  'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/'+studOBJ.Photo })
+    this.setState({ imgURL: studOBJ.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo })
     console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
@@ -150,25 +150,25 @@ this.imgChange=false;
             this.state.studOBJ.Photo = imgNameInServer;
             let updatedProfile = this.state.studOBJ;
             localStorage.setItem('student', JSON.stringify(updatedProfile));
-            this.setState({ loading: false});
-            this.imgChange=true;
+            this.setState({ loading: false });
+            this.imgChange = true;
             localStorage.setItem('photoChanged', true);
           })
-          .catch((error) => {
-            console.log("err post=", error);
-             this.setState({ imgURL: "images/avatar.jpg" })
-             this.state.studOBJ.Photo = "";
-            Swal.fire({
-              text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית' : error.message,
-              icon: 'error',
-              iconHtml: '',
-              confirmButtonText: 'סגור',
-              showCloseButton: true
-            })
-          });
+        .catch((error) => {
+          console.log("err post=", error);
+          this.setState({ imgURL: "images/avatar.jpg" })
+          this.state.studOBJ.Photo = "";
+          Swal.fire({
+            text: error.message === 'Failed to fetch' ? 'אופס! משהו לא עבד. אנא נסה שנית' : error.message,
+            icon: 'error',
+            iconHtml: '',
+            confirmButtonText: 'סגור',
+            showCloseButton: true
+          })
+        });
       console.log('end');
-      
-     
+
+
     }
 
     else {
@@ -185,7 +185,7 @@ this.imgChange=false;
 
   chgCity = (event) => {
     let cityName = event.target.innerText;
-    let city = this.citiesList.find(city => city.Name === cityName );
+    let city = this.citiesList.find(city => city.Name === cityName);
     console.log("cityName:", cityName);
     console.log("city:", city);
     this.state.studOBJ.HomeTown = city;
@@ -193,7 +193,7 @@ this.imgChange=false;
 
   chgCurrentCity = (event) => {
     let cityName = event.target.innerText;
-    let city = this.citiesList.find(city => city.Name === cityName );
+    let city = this.citiesList.find(city => city.Name === cityName);
     console.log("cityName:", cityName);
     console.log("city:", city);
     this.state.studOBJ.AddressStudying = city;
@@ -205,8 +205,8 @@ this.imgChange=false;
 
   chgStatus = (event) => {
     let status = event.target.value
-      console.log("status:", status);
-      this.state.studOBJ.PersonalStatus = status;
+    console.log("status:", status);
+    this.state.studOBJ.PersonalStatus = status;
 
   }
 
@@ -233,17 +233,17 @@ this.imgChange=false;
   }
 
   btnSave = () => {
-      //if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose"&&this.state.selectedFile!==null) {
-      let updatedProfile = this.state.studOBJ;
-      localStorage.setItem('student', JSON.stringify(updatedProfile));
-      console.log("updated profile: ", updatedProfile);
-      this.updateInDB(updatedProfile);
-      //this.props.history.push("/userProfile");
-      
-      this.props.history.push({
-        pathname: "/userProfile",
-        state: { ifImgChagne: this.imgChange }
-      });
+    //if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose"&&this.state.selectedFile!==null) {
+    let updatedProfile = this.state.studOBJ;
+    localStorage.setItem('student', JSON.stringify(updatedProfile));
+    console.log("updated profile: ", updatedProfile);
+    this.updateInDB(updatedProfile);
+    //this.props.history.push("/userProfile");
+
+    this.props.history.push({
+      pathname: "/userProfile",
+      state: { ifImgChagne: this.imgChange }
+    });
   }
 
   updateInDB = (stud) => {
@@ -278,37 +278,46 @@ this.imgChange=false;
         });
     console.log('end');
   }
-  deleteImg=()=>{
-    this.setState({imgURL:"images/avatar.jpg"});
-    this.state.studOBJ.Photo="";
+  deleteImg = () => {
+    this.setState({ imgURL: "images/avatar.jpg" });
+    this.state.studOBJ.Photo = "";
+  }
+
+
+  back2Page=()=>
+  {
+   let path = this.props.location.state.PageBack;
+   this.props.history.push(path);
+
   }
 
   render() {
     return (
       <div>
         <PrimarySearchAppBar />
-        <div className='container' style={{ direction: 'rtl',marginBottom:15 }}>
+        <div className='container' style={{ direction: 'rtl', marginBottom: 15 }}>
           <h4 style={{ fontSize: '6vw', marginTop: '2vw' }}>עריכת פרופיל</h4>
           <div className='rowC' style={{ marginTop: 10 }}>
-
             <h4 style={{ color: '#3D3D3D', marginLeft: 20, fontWeight: 'bold', fontSize: '6vw' }}> {this.state.studOBJ.Fname} {this.state.studOBJ.Lname}  </h4>
-<div>
-{this.state.loading ? <img src={loaderGIF} alt="loading..." 
-style={{ width: 80, height: 80, zIndex:10 ,borderRadius:'50%',backgroundColor: 'rgba(0,0,0,0.3)',
-padding:15}} /> : <>
-            <ReactRoundedImage
-              image={this.state.studOBJ !== {} ? this.state.imgURL : ''}
-              roundedColor="#96a2aa"
-              imageWidth="80"
-              imageHeight="80"
-              roundedSize="5" />
-              <i className="bi bi-trash-fill"
-              onClick={this.deleteImg}
-              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i>
-            <i className="bi bi-pencil-fill"
-              onClick={() => this.fileInput.click()}
-              style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 20, marginTop: -25 }}></i>
-        </> } </div>
+            <div>
+              {this.state.loading ? <img src={loaderGIF} alt="loading..."
+                style={{
+                  width: 80, height: 80, zIndex: 10, borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.3)',
+                  padding: 15
+                }} /> : <>
+                <ReactRoundedImage
+                  image={this.state.studOBJ !== {} ? this.state.imgURL : ''}
+                  roundedColor="#96a2aa"
+                  imageWidth="80"
+                  imageHeight="80"
+                  roundedSize="5" />
+                <i className="bi bi-trash-fill"
+                  onClick={this.deleteImg}
+                  style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: -40, marginTop: -25 }}></i>
+                <i className="bi bi-pencil-fill"
+                  onClick={() => this.fileInput.click()}
+                  style={{ color: '#3D3D3D', fontSize: 24, position: 'absolute', zIndex: 15, marginRight: 20, marginTop: -25 }}></i>
+              </>} </div>
           </div>
           <input
             type="file"
@@ -322,45 +331,45 @@ padding:15}} /> : <>
           <p className='labels'> עיר קבע </p>
 
           <Autocomplete
-                options={this.citiesList}
-                getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto', direction:'rtl',backgroundColor:'white' }}
-                renderInput={(params) => <TextField {...params} label={this.state.studOBJ.HomeTown===undefined?"בחר עיר":this.state.studOBJ.HomeTown.Name} variant="outlined" />}
-                size='small'
-               // value={this.state.city}
-                onChange={this.chgCity}
-              />
+            options={this.citiesList}
+            getOptionLabel={(city) => city.Name}
+            style={{ width: '50vw', margin: '0px auto', direction: 'rtl', backgroundColor: 'white' }}
+            renderInput={(params) => <TextField {...params} label={this.state.studOBJ.HomeTown === undefined ? "בחר עיר" : this.state.studOBJ.HomeTown.Name} variant="outlined" />}
+            size='small'
+            // value={this.state.city}
+            onChange={this.chgCity}
+          />
 
           <p className='labels'> מקום מגורים נוכחי </p>
 
           <Autocomplete
-                options={this.citiesList}
-                getOptionLabel={(city) => city.Name}
-                style={{ width: '50vw', margin: '0px auto',direction:'rtl' ,backgroundColor:'white'}}
-                renderInput={(params) => <TextField {...params} label={this.state.studOBJ.AddressStudying===undefined?"בחר עיר":this.state.studOBJ.AddressStudying.Name} 
-                variant="outlined"/>}
-                size='small'
-                onChange={this.chgCurrentCity}
-              
-              />
+            options={this.citiesList}
+            getOptionLabel={(city) => city.Name}
+            style={{ width: '50vw', margin: '0px auto', direction: 'rtl', backgroundColor: 'white' }}
+            renderInput={(params) => <TextField {...params} label={this.state.studOBJ.AddressStudying === undefined ? "בחר עיר" : this.state.studOBJ.AddressStudying.Name}
+              variant="outlined" />}
+            size='small'
+            onChange={this.chgCurrentCity}
+
+          />
         </div>
         <div>
           <p className='labels'> סטטוס </p>
 
-          <FormControl variant="outlined" style={{ width: '50vw',margin: '0px auto',paddingInlineStart:0 ,backgroundColor:'white'}}>
-<InputLabel htmlFor="filled-age-native-simple">{this.state.studOBJ.PersonalStatus ==="" ? " בחר סטטוס " :this.state.studOBJ.PersonalStatus}</InputLabel>
-<Select
+          <FormControl variant="outlined" style={{ width: '50vw', margin: '0px auto', paddingInlineStart: 0, backgroundColor: 'white' }}>
+            <InputLabel htmlFor="filled-age-native-simple">{this.state.studOBJ.PersonalStatus === "" ? " בחר סטטוס " : this.state.studOBJ.PersonalStatus}</InputLabel>
+            <Select
 
-value={this.state.status}
-onChange={this.chgStatus}
-label="בחר סטטוס"
->
-<option value="">בחר</option>
-<option value="רווק/ה">רווק/ה</option>
-<option  value="נשוי/ה">נשוי/ה</option>
-<option value="ידוע/ה בציבור">ידוע/ה בציבור</option>
-</Select>
-</FormControl>
+              value={this.state.status}
+              onChange={this.chgStatus}
+              label="בחר סטטוס"
+            >
+              <option value="">בחר</option>
+              <option value="רווק/ה">רווק/ה</option>
+              <option value="נשוי/ה">נשוי/ה</option>
+              <option value="ידוע/ה בציבור">ידוע/ה בציבור</option>
+            </Select>
+          </FormControl>
         </div>
         <div>
           <p className='labels'> מגיע עם רכב </p>
@@ -379,30 +388,32 @@ label="בחר סטטוס"
 
         <div className='rowC' style={{ marginTop: '2vh', marginBottom: '2.9vh' }}>
           <Button variant="contained"
-            style={{ marginRight: 20, fontFamily: "Segoe UI",backgroundColor:"#96a2aa" }}
+            style={{ marginRight: 20, fontFamily: "Segoe UI", backgroundColor: "#96a2aa" }}
             onClick={(e) => {
               this.props.history.push("/editHobbies")
             }}><i className="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>תחביבים</Button>
 
           <Button variant="contained"
             color="#96a2aa"
-            style={{ fontFamily: "Segoe UI",backgroundColor:"#96a2aa" }}
+            style={{ fontFamily: "Segoe UI", backgroundColor: "#96a2aa" }}
             onClick={() => { this.props.history.push("/editHangouts") }}>
             <i className="bi bi-pencil-fill" style={{ marginRight: 8 }}></i>מקומות בילוי</Button>
         </div>
 
         <div>
           <Button variant="contained"
-            style={{ paddingTop: 0,marginRight:10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
+            style={{ paddingTop: 0, marginRight: 10, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
             onClick={this.btnSave}> שמור </Button>
 
 
-<Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
-         fontFamily: "Segoe UI",height:35}}
-         onClick={() => this.props.history.push("/userprofile")}
-        > <i className="bi bi-arrow-right-short"
-        style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
-        </Button>
+          <Button variant="contained" style={{
+            paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
+            fontFamily: "Segoe UI", height: 35
+          }}
+            onClick={this.back2Page}
+          > <i className="bi bi-arrow-right-short"
+            style={{ paddingTop: 0, color: '#3D3D3D', fontSize: 32 }}></i>
+          </Button>
         </div>
       </div>
 

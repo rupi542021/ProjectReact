@@ -79,8 +79,12 @@ export default function SwipeableTemporaryDrawer() {
                 history.push(path);
                 break;
             case 1:
-                path = `editP`;
-                history.push(path);
+                // path = `editP`;
+                // history.push(path);
+                history.push({
+                    pathname: '/editP',
+                    state: { PageBack: '/userProfile' }
+                  });
                 break;
             case 2:
                 path = `AllChats2`;
