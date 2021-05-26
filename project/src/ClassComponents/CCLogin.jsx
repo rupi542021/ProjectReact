@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import '../style.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 class CCLogin extends Component {
@@ -16,7 +17,8 @@ class CCLogin extends Component {
       password: "",
       showPassword: false,
       errors: {},
-      isChecked: false
+      isChecked: false,
+     loading:true
     }
 
 
@@ -57,6 +59,7 @@ class CCLogin extends Component {
   btnLogin = () => {
     if (this.state.email !== "" && this.state.password !== "") {
       if (this.handleEmailValidation() === true) {
+        this.setState({loading:false});
       //this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + this.state.email + '/' + this.state.password;
       this.apiUrl = 'https://localhost:44366/API/students/' + this.state.email + '/' + this.state.password;
      //לבדוק פונקצית getURL ולעשות תנאי
@@ -133,7 +136,7 @@ class CCLogin extends Component {
               iconHtml: '',
               confirmButtonText: 'סגור',
               showCloseButton: true
-            })
+            }).then(()=>{this.setState({loading:true})})
           });
       }
     }
@@ -176,7 +179,10 @@ class CCLogin extends Component {
           <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
+        {this.state.loading===false?<div style={{marginTop:'50vh'}}> <CircularProgress color='black'/><br/><h5>...טוען</h5></div>
+        :<div>
         <h3 style={{ marginTop: 100 }}> ! ברוכים הבאים </h3>
+        
         <div style={{textAlign:'end',width: '50vw', margin: '0px auto',marginBottom: 40}}>
         <TextField
           label="Email"
@@ -211,6 +217,7 @@ class CCLogin extends Component {
           <span> עדיין אין לך חשבון אצלנו ? </span>
           <span className="pressSignUp" onClick={() => { this.props.history.push("/signin") }}> להרשמה :) </span>
         </div>
+        </div>}
       </div>
     )
   }
