@@ -61,7 +61,7 @@ class CCLogin extends Component {
       if (this.handleEmailValidation() === true) {
         this.setState({loading:false});
       //this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + this.state.email + '/' + this.state.password;
-      this.apiUrl = 'https://localhost:44366/API/students/' + this.state.email + '/' + this.state.password;
+      this.apiUrl = 'https://localhost:44325/API/students/' + this.state.email + '/' + this.state.password;
      //לבדוק פונקצית getURL ולעשות תנאי
         console.log('GETstart');
         fetch(this.apiUrl,
@@ -204,6 +204,12 @@ class CCLogin extends Component {
         <div>
         <span className='labelsSmall' style={{paddingRight:'2vw', fontSize:'2vh'}}>זכור אותי</span>
         <input type='checkbox' checked={this.state.isChecked} onChange={this.onChangeCheckbox} />
+        </div>
+        <div style={{marginTop:'2vh'}}>
+        <span className='pressSignUp' 
+        style={{fontSize:'2vh'}}
+        onclick={{}}
+        >?שכחת סיסמה</span>
         </div>
         </div>
         <Button variant="contained"
