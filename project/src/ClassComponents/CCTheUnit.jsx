@@ -186,6 +186,8 @@ this.setState({allPostsState:this.allPosts})
               }
               this.allPosts.push(unitPost);
             });
+           //   this.allPosts.sort((a, b) => a.Code - b.Code)
+              this.allPosts.sort((a, b) => a.Title.localeCompare(b.Title))
   console.log(this.allPosts)
   this.setState({allPostsState:this.allPosts})
           }

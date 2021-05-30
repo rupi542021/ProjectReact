@@ -27,6 +27,7 @@ import {onMessageListener } from './FunctionalComponents/push-notification';
 import { useEffect } from 'react';
 
 function App() {
+  console.log("start");
   useEffect(()=>{
     onMessageListener().then(payload => {
       // setShow(true);
@@ -36,8 +37,13 @@ function App() {
     }).catch(err => console.log('failed: ', err));
   },[])
 
-
- 
+  let studOBJ = localStorage.getItem('student');
+  studOBJ = JSON.parse(studOBJ);
+  console.log("studOBJ",studOBJ)
+if(studOBJ!==null){
+    getLocation(studOBJ.Mail)
+    console.log("in get location",studOBJ.Mail)
+  }
 
   return (
     <div className="App">
@@ -124,6 +130,7 @@ function App() {
   );
 }
 export const getLocation= (studMail) =>{
+  console.log("in get location222",studMail)
   if ("geolocation" in navigator) {
     console.log("Available");
   //   navigator.geolocation.getCurrentPosition(function(position) {
@@ -161,20 +168,13 @@ export const getLocation= (studMail) =>{
         .then(res => {
           console.log('res=', res);
           console.log('res.status', res.status);
-          if (res.status === 201) {
-            console.log('location saved :)');
-          }
-          console.log('res.ok', res.ok);
-  
-          if (res.ok) {
-            console.log('post succeeded');
-            
-          }
+          console.log('end post locations function')
+      
         },
           (error) => {
             console.log("err post=", error);
           });
-      console.log('end post locations function')
+  
     
 
     },

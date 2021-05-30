@@ -26,5 +26,7 @@ if(!localStorage.getItem("notification-token")){
 }
 serviceWorker.register();
 
+
+
 //,
 //"homepage": "https://proj.ruppin.ac.il/igroup54/test2/A/mobile2"

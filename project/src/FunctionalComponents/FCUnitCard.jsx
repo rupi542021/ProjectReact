@@ -55,14 +55,15 @@ export default function FCUnitCard(props) {
   const classes = useStyles();
   //const theme = useTheme();
   //const percentage = 66;
- const cardH=props.Content.length>66?(props.Content.length/33)*46:(props.Type=="event"?140:115);
-
+//console.log(props.Content.length+" ^ "+props.Title)
+ //const cardH=props.Content.length>69?(props.Content.length/32)*52:(props.Type==="event"?140:30);
+ //console.log(cardH+" ^ "+props.Title)
   var showin=true;
   const [showResults, setShowResults] = React.useState(false)
   //const [showM, setShowM] = React.useState(true)
   //const [cardHeight, setCardHeight] = React.useState(props.Type=="event"?140:115)
  //const [cardHeight, setCardHeight] = React.useState(props.Type=="event"?(((props.Content.length/(props.Image!=""&&props.Image!=null?33:40)))*46):115)
- const [cardHeight, setCardHeight] = React.useState(cardH) 
+ const [cardHeight, setCardHeight] = React.useState(props.Content.length>69?(props.Content.length/32)*55:(props.Type==="event"?140:105)) 
  const showInput = () => {setShowResults(true);setCardHeight(cardHeight+50)}
   
   // const showMore = () => {

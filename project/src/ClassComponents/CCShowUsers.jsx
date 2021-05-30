@@ -39,7 +39,6 @@ class CCShowUsers extends Component {
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
 
-    getLocation(studOBJ.Mail)
 
     this.setState({
       userDep: studOBJ.Dep.DepartmentName, userYear: studOBJ.StudyingYear, userHomeTown: studOBJ.HomeTown.Name,

@@ -7,7 +7,7 @@ import '../style.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import {getLocation} from '../App'
 
 class CCLogin extends Component {
   constructor(props) {
@@ -112,6 +112,10 @@ class CCLogin extends Component {
               }
 
               localStorage.setItem('student', JSON.stringify(result));
+              let studOBJ = localStorage.getItem('student');
+              studOBJ = JSON.parse(studOBJ);
+          
+              getLocation(studOBJ.Mail)
               Swal.fire({
                 title: 'היי ' + result.Fname,
                 text: ' :) ברוכים השבים',
@@ -124,7 +128,7 @@ class CCLogin extends Component {
                 if (this.state.isChecked)
                   localStorage.setItem('checkbox', this.state.isChecked);
                 else localStorage.removeItem('checkbox');
-                this.props.history.push("/userProfile");
+                this.props.history.push("/showUsers");
 
               });
             })
