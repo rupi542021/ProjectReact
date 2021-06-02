@@ -145,8 +145,36 @@ function ChatRoom() {
       FromMail,
       ToMail
     })
+    
     setFromValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
+
+    let apiUrl = 'https://fcm.googleapis.com/fcm/send';
+
+    // Modified
+    var payload = {
+        "notification": {
+            "title": "יש לך הודעה חדשה מ"+loginStud.Fname,
+            "body": "!"
+        },
+        "to": "dC6f4yeZqSW9crm949pDgm:APA91bEa2cm-pJSEKSzqrs5vcMpp3dUkX8y1NorajUqdouAa1jA5js86zd9-G62ZKqeHbm0Yli1TiZmoZPSI9dHOKBbRQn0_-cctoKcU8DFHrtVKs2OAKYw_nKx9YABuVYxAPqEpM-eL"
+    }
+
+    fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: new Headers({
+            "Authorization": "key=AAAAvanr1ws:APA91bF-z_Z9tPmxtA5BWWCnuFBYCHzqS0MWQvx_fEXkSXJwLOwYdRqdw5-2YqFqAW6vfnV73E8iOWG5kx2RlfD7-98YlgLEWuPsEQq-LJSb-8lHtkb9E9XGYAryo2F-3N6xeAA-ZXNY",
+            'Content-type': 'application/json; charset=UTF-8' //very important to add the 'charset=UTF-8'!!!!
+        })
+    })
+        .then(res => {
+            console.log('res=', res);
+            return res.json()
+        })
+
+
+
   }
   return (
     <>

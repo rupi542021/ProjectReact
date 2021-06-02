@@ -24,18 +24,34 @@ import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
 import CCSettings from './ClassComponents/CCSettings';
 import CCChangePassword from './ClassComponents/CCChangePassword';
 import {onMessageListener } from './FunctionalComponents/push-notification';
-import { useEffect } from 'react';
+import { useEffect,useRef, useState } from 'react';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 function App() {
+  const [open, setOpen] = useState(false);
   console.log("start");
+
+  onMessageListener().then(payload => {
+    setOpen(true);
+    console.log(payload.notification.title);
+  }).catch(err => console.log('failed: ', err));
+  
   useEffect(()=>{
-    onMessageListener().then(payload => {
-      // setShow(true);
-      // setNotification({title: payload.notification.title, body: payload.notification.body})
-      console.log(payload);
-      alert("new push");
-    }).catch(err => console.log('failed: ', err));
-  },[])
+
+    console.log("in use effect");
+  //   onMessageListener().then(payload => {
+  //     //setOpen(true);
+      
+  //     // setShow(true);
+  //     // setNotification({title: payload.notification.title, body: payload.notification.body})
+  //     console.log(payload);
+  //     console.log(payload.notification.title);
+  //     alert("new push");
+
+  //   }).catch(err => console.log('failed: ', err));
+  // },[])
+  })
 
   let studOBJ = localStorage.getItem('student');
   studOBJ = JSON.parse(studOBJ);
@@ -44,10 +60,24 @@ if(studOBJ!==null){
     getLocation(studOBJ.Mail)
     console.log("in get location",studOBJ.Mail)
   }
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
+    setOpen(false);
+  };
   return (
     <div className="App">
-      
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          This is a success message!
+        </Alert>
+      </Snackbar>
+
       <Switch>
         <Route exact path="/" >
           <CCLogin />

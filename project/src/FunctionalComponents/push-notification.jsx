@@ -23,6 +23,7 @@ export const askForPermissionToReceiveNotifications = async () => {
 
     const token = await messaging.getToken();
     console.log('Your token is:', token);
+    localStorage.setItem("MyToken",token);
     return token;
   } catch (error) {
     console.log('error askForPermissionToReceiveNotifications');
