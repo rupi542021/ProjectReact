@@ -61,7 +61,7 @@ class CCLogin extends Component {
       if (this.handleEmailValidation() === true) {
         this.setState({loading:false});
       //this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + this.state.email + '/' + this.state.password;
-      this.apiUrl = 'https://localhost:44325/API/students/' + this.state.email + '/' + this.state.password;
+      this.apiUrl = 'https://localhost:44366/API/students/' + this.state.email + '/' + this.state.password;
      //לבדוק פונקצית getURL ולעשות תנאי
         console.log('GETstart');
         fetch(this.apiUrl,
@@ -113,8 +113,7 @@ class CCLogin extends Component {
 
               localStorage.setItem('student', JSON.stringify(result));
               let studOBJ = localStorage.getItem('student');
-              studOBJ = JSON.parse(studOBJ);
-          
+              studOBJ = JSON.parse(studOBJ);       
               getLocation(studOBJ.Mail)
               Swal.fire({
                 title: 'היי ' + result.Fname,
@@ -128,6 +127,11 @@ class CCLogin extends Component {
                 if (this.state.isChecked)
                   localStorage.setItem('checkbox', this.state.isChecked);
                 else localStorage.removeItem('checkbox');
+                let userToken = localStorage.getItem('MyToken');
+                console.log("userToken:",userToken);
+                if (userToken!==null) {
+                  this.postTokenInDB(studOBJ,userToken);
+                } 
                 this.props.history.push("/showUsers");
 
               });
@@ -140,7 +144,9 @@ class CCLogin extends Component {
               iconHtml: '',
               confirmButtonText: 'סגור',
               showCloseButton: true
-            }).then(()=>{this.setState({loading:true})})
+            }).then(()=>{
+              this.setState({loading:true});}
+              )
           });
       }
     }
@@ -158,6 +164,34 @@ class CCLogin extends Component {
 
     }
 
+  }
+
+  postTokenInDB = (studOBJ,token) =>{
+    console.log("in postTokenInDB function");
+    console.log("token:", token);
+    console.log("studOBJ:", studOBJ);
+    //this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students';
+    this.apiUrl = 'https://localhost:44366/api/students/' + studOBJ.Mail + '/updateToken';
+    fetch(this.apiUrl,
+      {
+        method: 'PUT',
+        body: JSON.stringify(token),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then(res => {
+
+        if (res.ok) {
+          console.log('post token succeeded');
+          studOBJ.Token = token;                    
+        }
+
+        else if (!res.ok) {
+          console.log("error in post token:" , res)
+        }
+      })
   }
 
   handleEmailValidation = () => {
