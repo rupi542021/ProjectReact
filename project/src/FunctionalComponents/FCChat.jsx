@@ -157,7 +157,7 @@ function ChatRoom() {
             "title": "יש לך הודעה חדשה מ"+loginStud.Fname,
             "body": "!"
         },
-        "to": "dC6f4yeZqSW9crm949pDgm:APA91bEa2cm-pJSEKSzqrs5vcMpp3dUkX8y1NorajUqdouAa1jA5js86zd9-G62ZKqeHbm0Yli1TiZmoZPSI9dHOKBbRQn0_-cctoKcU8DFHrtVKs2OAKYw_nKx9YABuVYxAPqEpM-eL"
+        "to": "dC6f4yeZqSW9crm949pDgm:APA91bEfsd8XdNaXPi4MANHLNK0UhzYZidmlq4SFRUab5sZf35RlHENKDph74WV_WnmGxsXvZKgVSqPH6ZRdV6sW9pFNZvZLwjN0FguiuO1wpCSd2Pq0k0zqR69EIRukE5PlrneAafN4"
     }
 
     fetch(apiUrl, {
@@ -172,8 +172,6 @@ function ChatRoom() {
             console.log('res=', res);
             return res.json()
         })
-
-
 
   }
   return (
