@@ -91,7 +91,10 @@ class CCHobbies extends Component {
     let today = new Date();
     studOBJ.RegistrationDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     // studOBJ.RegistrationDate = new Date().toLocaleString();
-
+    let userToken = localStorage.getItem('MyToken');
+    if (userToken!==null) {
+      studOBJ.Token = userToken;
+    } 
     localStorage.setItem('student', JSON.stringify(studOBJ));
     //this.props.history.push("/hobbies");
     console.log("studOBJ2post", studOBJ);

@@ -130,7 +130,7 @@ class CCLogin extends Component {
                 let userToken = localStorage.getItem('MyToken');
                 console.log("userToken:",userToken);
                 if (userToken!==null) {
-                  this.postTokenInDB(studOBJ,userToken);
+                  this.updateTokenInDB(studOBJ,userToken);
                 } 
                 this.props.history.push("/showUsers");
 
@@ -166,11 +166,11 @@ class CCLogin extends Component {
 
   }
 
-  postTokenInDB = (studOBJ,token) =>{
+  updateTokenInDB = (studOBJ,token) =>{
     console.log("in postTokenInDB function");
     console.log("token:", token);
     console.log("studOBJ:", studOBJ);
-    //this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students';
+    //this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ studOBJ.Mail + '/updateToken';
     this.apiUrl = 'https://localhost:44366/api/students/' + studOBJ.Mail + '/updateToken';
     fetch(this.apiUrl,
       {
