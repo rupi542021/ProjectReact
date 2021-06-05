@@ -24,33 +24,35 @@ import CCQuestionnaire from './ClassComponents/CCQuestionnaire';
 import CCSettings from './ClassComponents/CCSettings';
 import CCChangePassword from './ClassComponents/CCChangePassword';
 import {onMessageListener } from './FunctionalComponents/push-notification';
-import { useEffect,useRef, useState } from 'react';
-
+import React, { useEffect,useRef, useState } from 'react';
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useHistory } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { store } from 'react-notifications-component';
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { blueGrey } from '@material-ui/core/colors';
 function App() {
+  const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [payloadTitle, setPayloadTitle] =useState('mgs');
   console.log("start");
 
   onMessageListener().then(payload => {
+
     setOpen(true);
+   
+    setPayloadTitle(payload.notification.title)
     console.log(payload.notification.title);
   }).catch(err => console.log('failed: ', err));
   
   useEffect(()=>{
 
     console.log("in use effect");
-  //   onMessageListener().then(payload => {
-  //     //setOpen(true);
-      
-  //     // setShow(true);
-  //     // setNotification({title: payload.notification.title, body: payload.notification.body})
-  //     console.log(payload);
-  //     console.log(payload.notification.title);
-  //     alert("new push");
 
-  //   }).catch(err => console.log('failed: ', err));
-  // },[])
   })
 
   let studOBJ = localStorage.getItem('student');
@@ -67,16 +69,56 @@ if(studOBJ!==null){
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
+  const [state, setState] = React.useState({
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const go2Chats = () =>{ 
+   
+    history.push(`AllChats2`);
+  }
+  const { vertical, horizontal } = state;
   return (
     <div className="App">
-              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          This is a success message!
+      {/* <ReactNotification /> */}
+              {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} >
+        <Alert onClose={handleClose} severity="info" >
+       {payloadTitle}
         </Alert>
-      </Snackbar>
+        </Snackbar>
+         */}
+
+
+
+        <Snackbar
+        action={
+          <React.Fragment>
+                        <IconButton
+              aria-label="close"
+              color="inherit"
+              //className={classes.close}
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Button color="secondary" size="small" onClick={go2Chats}>
+              להודעות
+            </Button>
+
+          </React.Fragment>
+        }
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        
+        message={payloadTitle}
+        key={vertical + horizontal}
+        style={{marginTop:60,backgroundColor:"#FAE8BE",color:"#FAE8BE"}}
+      />
+      
 
       <Switch>
         <Route exact path="/" >
@@ -159,6 +201,8 @@ if(studOBJ!==null){
     </div>
   );
 }
+
+
 export const getLocation= (studMail) =>{
   console.log("in get location222",studMail)
   if ("geolocation" in navigator) {
