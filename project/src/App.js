@@ -35,10 +35,12 @@ import { store } from 'react-notifications-component';
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import { blueGrey } from '@material-ui/core/colors';
+import ChatIcon from '@material-ui/icons/Chat';
 function App() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [payloadTitle, setPayloadTitle] =useState('mgs');
+
   console.log("start");
 
   onMessageListener().then(payload => {
@@ -46,7 +48,10 @@ function App() {
     setOpen(true);
    
     setPayloadTitle(payload.notification.title)
+
     console.log(payload.notification.title);
+    console.log(payload.notification.body);
+    localStorage.setItem('chooseUser', payload.notification.body);
   }).catch(err => console.log('failed: ', err));
   
   useEffect(()=>{
@@ -77,7 +82,7 @@ if(studOBJ!==null){
   });
   const go2Chats = () =>{ 
    
-    history.push(`AllChats2`);
+    history.push(`chat`);
   }
   const { vertical, horizontal } = state;
   return (
@@ -95,7 +100,18 @@ if(studOBJ!==null){
         <Snackbar
         action={
           <React.Fragment>
+            <IconButton
+            style={{position:'absolute',right: '275px'}}
+              aria-label="close"
+              color="inherit"
+              //className={classes.close}
+              onClick={go2Chats}
+            >
+              <ChatIcon />
+            </IconButton>
+
                         <IconButton
+                        style={{position:'absolute',right: '310px'}}
               aria-label="close"
               color="inherit"
               //className={classes.close}
@@ -103,9 +119,6 @@ if(studOBJ!==null){
             >
               <CloseIcon />
             </IconButton>
-            <Button color="secondary" size="small" onClick={go2Chats}>
-              להודעות
-            </Button>
 
           </React.Fragment>
         }
@@ -116,7 +129,7 @@ if(studOBJ!==null){
         
         message={payloadTitle}
         key={vertical + horizontal}
-        style={{marginTop:60,backgroundColor:"#FAE8BE",color:"#FAE8BE"}}
+        style={{marginTop:60,backgroundColor:"#FAE8BE",color:"#FAE8BE", direction: 'rtl', fontFamily: "Segoe UI"}}
       />
       
 
@@ -230,7 +243,7 @@ export const getLocation= (studMail) =>{
       console.log("location",location)
       
       //let apiUrl = 'https://localhost:44325/API/students/PostLocation';
-      let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
+      let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
       fetch(apiUrl,
         {
           method: 'POST',
