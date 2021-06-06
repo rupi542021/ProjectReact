@@ -30,7 +30,7 @@ class CCSettings extends Component {
 
  deleteProfile=(mail)=>{
   console.log("in deleteProfile ",mail );
-   let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ mail +'/deleteUserProfile';
+   let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ mail +'/deleteUserProfile';
    //let apiUrl = 'https://localhost:44366/API/students/'+ mail +'/deleteUserProfile';
     fetch(apiUrl,
       {

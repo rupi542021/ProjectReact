@@ -56,7 +56,7 @@ class CCUserProfile extends Component {
       , studHomeTown: studOBJ.HomeTown.Name, studAddressStudying: studOBJ.AddressStudying.Name,
       studStatus: studOBJ.PersonalStatus, studPList: studOBJ.Plist, studHList: studOBJ.Hlist,
       stutsYear: studOBJ.StudyingYear, studCar: studOBJ.IsAvailableCar, studCarPool: studOBJ.IntrestedInCarPool,
-      studPhoto: (studOBJ.Photo === "" || studOBJ.Photo === null) ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo
+      studPhoto: (studOBJ.Photo === "" || studOBJ.Photo === null) ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo
     })
 
   }

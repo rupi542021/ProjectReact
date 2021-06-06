@@ -230,7 +230,7 @@ class CCSignin3 extends Component {
       console.log("in post img function");
       this.setState({disable2Proceed:true},()=>{
       console.log('disable2Proceed before:', this.state.disable2Proceed);
-      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
+      this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
       fetch(this.apiUrl,
         {
           method: 'POST',

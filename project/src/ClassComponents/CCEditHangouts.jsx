@@ -17,7 +17,7 @@ class CCEditHangouts extends Component {
     }
   }
   componentDidMount() {
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllPleasures';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllPleasures';
     console.log('GETstart');
     fetch(this.apiUrl,
       {

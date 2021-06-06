@@ -27,7 +27,7 @@ class CCQuestionnaire extends Component {
         this.setState({mail:studOBJ.Mail})
         let Qr = JSON.parse(localStorage.getItem('Questionnaire'));
         this.setState({title:Qr.title,code:Qr.code})
-        this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/getAllQuestions/'+Qr.code;
+        this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/getAllQuestions/'+Qr.code;
         //this.apiUrl = 'https://localhost:44325/api/theUnit/getAllQuestions/'+Qr.code;
         console.log('GETstart');
         fetch(this.apiUrl,
@@ -77,7 +77,7 @@ class CCQuestionnaire extends Component {
 
         console.log("in post questionnair function");
     console.log("questionnair in post finction", AllQues);
-    this.apiUrl = 'https://localhost:44325/api/theUnit/postQuestionnairAns'
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/postQuestionnairAns'
     fetch(this.apiUrl,
       {
         method: 'POST',

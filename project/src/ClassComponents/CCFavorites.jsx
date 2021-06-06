@@ -46,7 +46,7 @@ class CCFavorites extends Component {
     }, () => { console.log("this.state.userFriendslist", this.state.userFriendslist) })
     console.log(studOBJ.Mail)
     console.log(studOBJ.DepName)
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/GetAllFavorites';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/GetAllFavorites';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -91,7 +91,7 @@ class CCFavorites extends Component {
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus,FriendsList:s.Friendslist,
               Match: s.Match,IntrestedInCarPool:s.IntrestedInCarPool,IsAvailableCar:s.IsAvailableCar,
               Token:s.Token,
-              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : "http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/"+s.Photo
+              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : "https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/"+s.Photo
             }
             //studArr.push(stud);
             this.state.studentstArr.push(stud);

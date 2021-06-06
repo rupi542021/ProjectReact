@@ -72,7 +72,7 @@ class CCUserProfile2 extends Component {
     }
     console.log("Student1mail", sf.Student1mail);
     console.log("Student2mail", sf.Student2mail);
-    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/DeleteFromFavorites';
+    let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/DeleteFromFavorites';
     fetch(apiUrl,
       {
         method: 'Delete',
@@ -104,7 +104,7 @@ class CCUserProfile2 extends Component {
       Student1mail: this.state.loginStud.Mail,
       Student2mail: this.state.studMail
     }
-    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/AddToFavorites';
+    let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/AddToFavorites';
     fetch(apiUrl,
       {
         method: 'POST',

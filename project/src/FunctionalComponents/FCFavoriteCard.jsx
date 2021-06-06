@@ -57,7 +57,7 @@ export default function FCFavoriteCard(props) {
       Student1mail: props.userMail,
       Student2mail: props.id
     }
-    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/DeleteFromFavorites';
+    let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/DeleteFromFavorites';
     fetch(apiUrl,
       {
         method: 'Delete',

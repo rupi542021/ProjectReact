@@ -75,7 +75,7 @@ class CCPreferncesRanges extends Component {
     stud2Update.StudyingDist = this.state.distance2;
     stud2Update.AgesRange = this.state.ageRange;
     console.log("stud2Update:", stud2Update);
-     let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/updateUserPrefRanges';
+     let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/updateUserPrefRanges';
    // let apiUrl = 'https://localhost:44366/API/students/updateUserPrefRanges';
     fetch(apiUrl,
       {

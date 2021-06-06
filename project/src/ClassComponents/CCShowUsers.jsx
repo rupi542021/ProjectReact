@@ -50,7 +50,7 @@ class CCShowUsers extends Component {
     console.log(studOBJ.Mail)
     console.log(studOBJ.Dep.DepartmentName)
 
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
     //this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
     fetch(this.apiUrl,
@@ -95,7 +95,7 @@ class CCShowUsers extends Component {
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus, FriendsList: s.Friendslist,
               Match: s.Match, IntrestedInCarPool: s.IntrestedInCarPool, IsAvailableCar: s.IsAvailableCar,
               Token:s.Token,
-              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
+              Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
             }
             //studArr.push(stud);
             this.state.studentstArr.push(stud);

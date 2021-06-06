@@ -62,7 +62,7 @@ function FCDragList(props) {
    console.log("in postNewPreferences2DB",preferences );
   //  studOBJ.Preflist = preferences;
   //  console.log("in studOBJ",studOBJ.Preflist);
-   let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + mail + '/updateUserPreferences';
+   let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + mail + '/updateUserPreferences';
   // let apiUrl = 'https://localhost:44325/API/students/' + mail + '/updateUserPreferences';
     fetch(apiUrl,
       {

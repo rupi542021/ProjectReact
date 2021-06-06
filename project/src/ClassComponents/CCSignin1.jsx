@@ -48,7 +48,7 @@ class CCSignin1 extends Component {
     if (this.handleValidation()) {
       console.log(this.state.fields["email"].toLowerCase())
       //this.apiUrl = 'https://localhost:44366/API/students?email=' + this.state.fields["email"].toLowerCase();
-      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/API/students?email=' + this.state.fields["email"].toLowerCase();
+      this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/API/students?email=' + this.state.fields["email"].toLowerCase();
       console.log('GETstart');
       fetch(this.apiUrl,
         {

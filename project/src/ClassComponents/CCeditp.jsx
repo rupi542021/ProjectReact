@@ -37,7 +37,7 @@ class CCeditp extends Component {
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ imgURL: studOBJ.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo })
+    this.setState({ imgURL: studOBJ.Photo === "" ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo })
     console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
@@ -54,7 +54,7 @@ class CCeditp extends Component {
   }
 
   fetchGetAllResidence = () => {
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
     console.log('GET cities start');
     fetch(this.apiUrl,
       {
@@ -118,7 +118,7 @@ class CCeditp extends Component {
       data.append("name", studOBJ.Mail);
 
       console.log("in post img function");
-      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
+      this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
       fetch(this.apiUrl,
         {
           method: 'POST',
@@ -248,7 +248,7 @@ class CCeditp extends Component {
 
   updateInDB = (stud) => {
     console.log('start updating');
-    fetch('http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/updateStudentPtofile',
+    fetch('https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/updateStudentPtofile',
       {
         method: 'Put',
         body: JSON.stringify(stud),

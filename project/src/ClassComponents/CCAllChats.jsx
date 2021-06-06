@@ -105,7 +105,7 @@ class CCAllChats extends Component {
     })
 
     this.setState({ loading: true })
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
    // this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
     fetch(this.apiUrl,
@@ -126,7 +126,7 @@ class CCAllChats extends Component {
             let stud = {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname,
               Token:s.Token,
-              Photo: s.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
+              Photo: s.Photo === "" ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
             }
                 studArr.push(stud);
           });
