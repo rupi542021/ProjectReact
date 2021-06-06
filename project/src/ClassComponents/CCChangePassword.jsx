@@ -109,8 +109,8 @@ class CCChangePassword extends Component {
 
   UpdatePasswordInDB = (stud,pass) => {
     console.log("in UpdatePasswordInDB ",stud, pass );
-  // let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ pass +'/updateUserPassword';
-   let apiUrl = 'https://localhost:44366/API/students/'+ pass +'/updateUserPassword';
+   let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ pass +'/updateUserPassword';
+   //let apiUrl = 'https://localhost:44366/API/students/'+ pass +'/updateUserPassword';
     fetch(apiUrl,
       {
         method: 'Put',

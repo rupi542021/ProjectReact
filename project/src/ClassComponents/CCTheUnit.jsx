@@ -29,8 +29,8 @@ class CCTheUnit extends Component {
 
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-
-    this.apiUrl = 'https://localhost:44325/api/theUnit/getAllEvents';
+    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/getAllEvents';
+    //this.apiUrl = 'https://localhost:44325/api/theUnit/getAllEvents';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -72,8 +72,8 @@ this.setState({allPostsState:this.allPosts})
       )
 
 
-
-      this.apiUrl = 'https://localhost:44325/api/theUnit/getAllAds';
+      this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/getAllAds';
+      //this.apiUrl = 'https://localhost:44325/api/theUnit/getAllAds';
       console.log('GETstart');
       fetch(this.apiUrl,
         {
@@ -124,7 +124,8 @@ this.setState({allPostsState:this.allPosts})
         }
         console.log('DepartmentCode',studOBJ.Dep.DepartmentCode);
         console.log('StudyingYear',studOBJ.StudyingYear);
-        this.apiUrl = 'https://localhost:44325/api/theUnit/getAllQuestionnaires/'+studOBJ.Dep.DepartmentCode+'/'+studOBJ.StudyingYear;
+        this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/getAllQuestionnaires/'+studOBJ.Dep.DepartmentCode+'/'+studOBJ.StudyingYear;
+       // this.apiUrl = 'https://localhost:44325/api/theUnit/getAllQuestionnaires/'+studOBJ.Dep.DepartmentCode+'/'+studOBJ.StudyingYear;
       console.log('GETstart');
       fetch(this.apiUrl,
         {
