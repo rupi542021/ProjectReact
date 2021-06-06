@@ -104,7 +104,9 @@ export default function SwipeableTemporaryDrawer() {
                 break;
             case 1:
                 path = ``;
+                let Ltoken=localStorage.getItem('MyToken');
                 localStorage.clear();
+                localStorage.setItem('MyToken',Ltoken)
                 history.push(path);
                 break;
             default:
