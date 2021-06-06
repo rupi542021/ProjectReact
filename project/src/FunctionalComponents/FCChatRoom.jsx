@@ -55,7 +55,8 @@ export default function FCChatRoom(props) {
           Mail:props.FromMail==studOBJ.Mail?props.ToMail:props.FromMail,
           Photo:props.Photo,
           Lname:props.Lname,
-          Fname:props.Fname
+          Fname:props.Fname,
+          Token:props.Token
       }
     props.sendData(sOBJ);
   

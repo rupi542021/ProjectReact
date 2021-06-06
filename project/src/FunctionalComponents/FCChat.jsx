@@ -157,7 +157,7 @@ function ChatRoom() {
             "title": "יש לך הודעה חדשה מ"+loginStud.Fname,
             "body": "!"
         },
-        "to": "dC6f4yeZqSW9crm949pDgm:APA91bEfsd8XdNaXPi4MANHLNK0UhzYZidmlq4SFRUab5sZf35RlHENKDph74WV_WnmGxsXvZKgVSqPH6ZRdV6sW9pFNZvZLwjN0FguiuO1wpCSd2Pq0k0zqR69EIRukE5PlrneAafN4"
+        "to": studOBJ.Token
     }
 
     fetch(apiUrl, {

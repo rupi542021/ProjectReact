@@ -106,7 +106,7 @@ class CCAllChats extends Component {
 
     this.setState({ loading: true })
 
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
+    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -125,7 +125,7 @@ class CCAllChats extends Component {
           result.forEach(s => {
             let stud = {
               Mail: s.Mail, Fname: s.Fname, Lname: s.Lname,
-              //Token:s.Token,
+              Token:s.Token,
               Photo: s.Photo === "" ? "images/avatar.jpg" : 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
             }
                 studArr.push(stud);
@@ -142,7 +142,7 @@ class CCAllChats extends Component {
             m.Lname=studArr[index].Lname;
             m.Fname=studArr[index].Fname
             m.Photo=studArr[index].Photo;
-            //m.Token=studArr[index].Token;
+            m.Token=studArr[index].Token;
           });
           console.log('messageswithName',messages)
          
