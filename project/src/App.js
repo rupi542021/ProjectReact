@@ -229,7 +229,8 @@ export const getLocation= (studMail) =>{
       }
       console.log("location",location)
       
-      let apiUrl = 'https://localhost:44325/API/students/PostLocation';
+      //let apiUrl = 'https://localhost:44325/API/students/PostLocation';
+      let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
       fetch(apiUrl,
         {
           method: 'POST',

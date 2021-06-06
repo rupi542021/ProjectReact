@@ -104,7 +104,8 @@ export default function FCUnitCard(props) {
       CommentText:formValue,
       CommentDate:new Date().toLocaleString()
     }
-    let apiUrl = 'https://localhost:44325/api/theUnit/eventComment';
+    //let apiUrl = 'https://localhost:44325/api/theUnit/eventComment';
+    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/eventComment';
     fetch(apiUrl,
       {
         method: 'POST',
@@ -147,7 +148,8 @@ export default function FCUnitCard(props) {
         CommentText:formValue,
         CommentDate:new Date().toLocaleString()
       }
-      let apiUrl = 'https://localhost:44325/api/theUnit/adComment';
+      //let apiUrl = 'https://localhost:44325/api/theUnit/adComment';
+      let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/adComment';
       fetch(apiUrl,
         {
           method: 'POST',
@@ -201,7 +203,8 @@ export default function FCUnitCard(props) {
       Mail: studOBJ.Mail,
       EventCode: props.Code
     }
-    let apiUrl = 'https://localhost:44325/api/theUnit/AddToArrivals';
+   // let apiUrl = 'https://localhost:44325/api/theUnit/AddToArrivals';
+    let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/AddToArrivals';
     fetch(apiUrl,
       {
         method: 'POST',
@@ -239,7 +242,8 @@ else{
     Mail: studOBJ.Mail,
     EventCode: props.Code
   }
-  let apiUrl = 'https://localhost:44325/api/theUnit/DeleteArrival';
+  //let apiUrl = 'https://localhost:44325/api/theUnit/DeleteArrival';
+  let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/theUnit/DeleteArrival';
   fetch(apiUrl,
     {
       method: 'Delete',
@@ -269,7 +273,8 @@ else{
      style={{borderRadius:'50%',width:60,height:60,margin:5}}
        
         className={classes.cover}
-        image={'https://localhost:44325/'+props.Image}
+        //image={'https://localhost:44325/'+props.Image}
+        image={'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedImages/'+props.Image}
         title="Live from space album cover"
       />:""}
       <div className={classes.details} style={{width:props.Image!=""&&props.Image!=null?210:280}} >
