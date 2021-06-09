@@ -145,16 +145,17 @@ class CCPreferncesRanges extends Component {
         <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: '1vw' }}
           onClick={this.goBack2PrevPage}></i>
         <div>
+          <h4 style={{ marginTop: '10vh', fontWeight: 700, fontSize: '6vw' }}>:אני רוצה שהחברים שלי יימצאו ב</h4>
           <div>
-            <h5 style={{ marginTop: '10vh', fontWeight: 500, fontSize: '5vw' }}>מרחק ממקום מגורים נוכחי</h5>
+            <h5 style={{ marginTop: '5vh', fontWeight: 500, fontSize: '5vw' }}>מרחק ממקום מגורים נוכחי (ק"מ)</h5>
             <PrettoSlider distance1={this.state.distance1} sendVal2Parent={this.getDist1} />
           </div>
           <div>
-            <h5 style={{ marginTop: '2vh', fontWeight: 500, fontSize: '5vw' }}>מרחק ממקום מגורים קבע</h5>
+            <h5 style={{ marginTop: '2vh', fontWeight: 500, fontSize: '5vw' }}>מרחק ממקום מגורים קבע (ק"מ)</h5>
             <PrettoSlider2 distance2={this.state.distance2} sendVal2Parent2={this.getDist2} />
           </div>
           <div>
-            <h5 style={{ marginTop: '2vh', fontWeight: 500, fontSize: '5vw' }}>טווח גילאים</h5>
+            <h5 style={{ marginTop: '2vh', fontWeight: 500, fontSize: '5vw' }}>טווח גילאים (שנים)</h5>
             <TextField
               label="הכנס מספר"
               type="number"
@@ -163,11 +164,11 @@ class CCPreferncesRanges extends Component {
               defaultValue={this.state.ageRange !== undefined ? this.state.ageRange : this.state.studOBJ.AgesRange}
             />
           </div>
-          <div style={{marginTop:'20vh'}}>
+          <div style={{marginTop:'8vh'}}>
           <Button variant="contained"
             style={{
               backgroundColor: "#FAE8BE", borderRadius: 20,
-              fontFamily: "Segoe UI", height: '5vh', position:'absolute', left: '1vw'
+              fontFamily: "Segoe UI", height: '5vh', marginRight:'5vw'
             }}
             onClick={this.btnNext2Confirm}>
             <i class="bi bi-check2"
@@ -175,7 +176,7 @@ class CCPreferncesRanges extends Component {
           </Button>
           <Button variant="contained" style={{
             backgroundColor: "#FAE8BE", fontSize: '4.5vw', borderRadius: 20,
-            fontFamily: "Segoe UI", height: '5vh',position:'absolute', right: '1vw'
+            fontFamily: "Segoe UI", height: '5vh',marginLeft:'5vw'
           }}
             onClick={this.handleResetBTN}
           > אפס
