@@ -177,7 +177,7 @@ class CCAllChats extends Component {
     return (
       <div className="App">
         <PrimarySearchAppBar />
-
+{this.state.messages.length==0&&this.state.messagesU.length==0?<h3>אין הודעות</h3>:
         <section>
           <div style={{ direction: 'rtl' }}>
             <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginBottom: 25 }}>ההודעות שלי</h3>
@@ -189,7 +189,8 @@ class CCAllChats extends Component {
               /></div>
           </div>
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : 
-          <main className='mainAll'>
+         
+         <main className='mainAll'>
           {this.state.messagesU!==null?
               <FCChatRoom createdAt={this.state.createdAt} Photo={"icons/theUnit.png"} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />:""}
  
@@ -197,7 +198,7 @@ class CCAllChats extends Component {
               <FCChatRoom key={index} {...s} sendData={this.getData} />)}
 
           </main>}
-        </section>
+        </section>}
         <div>
           <FCTabNavigator />
         </div>
