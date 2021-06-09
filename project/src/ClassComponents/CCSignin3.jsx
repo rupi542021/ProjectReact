@@ -355,25 +355,29 @@ class CCSignin3 extends Component {
             ref={fileInput => this.fileInput = fileInput} />
             </div>:
                   <div>
-                    <input
-                      accept="image/*"
-
-                      id="icon-button-file"
-                      type="file"
-                      capture="environment"
-                      hidden
-                      onChange={this.btnFile} ref={fileInput => this.fileInput = fileInput}
-                    />
+                    
                     <label htmlFor="icon-button-file">
                       <IconButton
                         color="primary"
                         aria-label="upload picture"
                         component="span"
                       >
-                        <AddAPhotoIcon style={{ fontSize: 35, color: "#3D3D3D" }} />
+                        <AddAPhotoIcon style={{ fontSize: 35, color: "#3D3D3D" }} onClick={() => this.fileInput.click()}  />
 
                       </IconButton>
-                    </label></div>}
+                    </label>
+                    <input
+                      // accept="image/*"
+
+                      // id="icon-button-file"
+                      type="file"
+                      style={{ display: 'none' }}
+                      // capture="environment"
+                      // hidden
+                      onChange={this.btnFile} 
+                      ref={fileInput => this.fileInput = fileInput}
+                    />
+                    </div>}
 
 
                 {/* // <input
