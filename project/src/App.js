@@ -51,7 +51,9 @@ function App() {
 
     console.log(payload.notification.title);
     console.log(payload.notification.body);
-    localStorage.setItem('chooseUser', payload.notification.body);
+    let studLogin = JSON.parse(payload.notification.body);
+    studLogin.Photo='https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' +studLogin.Photo;
+    localStorage.setItem('chooseUser', JSON.stringify(studLogin));
   }).catch(err => console.log('failed: ', err));
   
   useEffect(()=>{
