@@ -83,9 +83,12 @@ if(studOBJ!==null){
     horizontal: 'center',
   });
   const go2Chats = () =>{ 
-   
-    history.push(`chat`);
+    history.push({
+      pathname: `chat`,
+      state: { PageBack: 'AllChats2' }
+    });
   }
+
   const { vertical, horizontal } = state;
   return (
     <div className="App">
