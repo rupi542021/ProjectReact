@@ -177,7 +177,6 @@ class CCAllChats extends Component {
     return (
       <div className="App">
         <PrimarySearchAppBar />
-{this.state.messages.length==0&&this.state.messagesU.length==0?<h3>אין הודעות</h3>:
         <section>
           <div style={{ direction: 'rtl' }}>
             <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginBottom: 25 }}>ההודעות שלי</h3>
@@ -188,17 +187,20 @@ class CCAllChats extends Component {
                 classNames="test-class"
               /></div>
           </div>
+
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : 
+                    this.state.messages.length==0&&this.state.messagesU==null?<h3  style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginTop: 50 }}>אין הודעות</h3>:
+
          
          <main className='mainAll'>
-          {this.state.messagesU!==null?
+          {this.state.messagesU && this.state.messagesU!==null?
               <FCChatRoom createdAt={this.state.createdAt} Photo={"icons/theUnit.png"} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />:""}
  
             {this.state.messages && this.state.messages.map((s, index) =>
               <FCChatRoom key={index} {...s} sendData={this.getData} />)}
 
           </main>}
-        </section>}
+        </section>
         <div>
           <FCTabNavigator />
         </div>
