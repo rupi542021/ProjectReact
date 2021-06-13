@@ -92,6 +92,27 @@ class CCHangout extends Component {
     this.props.history.push("/hobbies");
     
   }
+
+  btnBack=()=>{
+    let studOBJ=localStorage.getItem('student');
+    studOBJ=JSON.parse(studOBJ);
+    studOBJ.Plist = this.state.hangoutArr.filter(hang=>hang.Choose);
+    if(studOBJ.Plist.length > 0)
+    {
+      let newPlist=[];
+      let newHangout;
+      studOBJ.Plist.forEach(hang => {newHangout ={Pcode: hang.Pcode, Pname: hang.Pname, Picon: hang.Picon};
+        newPlist.push(newHangout);
+      });
+      studOBJ.Plist = newPlist;
+      console.log("New Plist = " , studOBJ.Plist);
+    }
+    
+    console.log(studOBJ);
+    localStorage.setItem('student', JSON.stringify(studOBJ));
+    this.props.history.push("/signin3");
+    localStorage.setItem('back2signin3',true);
+  }
   render() {
     return (
       <div>
@@ -129,9 +150,10 @@ class CCHangout extends Component {
         </Button>
         <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
          fontFamily: "Segoe UI",height:35}}
-        onClick={()=>{this.props.history.push("/signin3");
-      localStorage.setItem('back2signin3',true);
-      }}
+      //   onClick={()=>{this.props.history.push("/signin3");
+      // localStorage.setItem('back2signin3',true);
+      // }}
+      onClick={this.btnBack}
         > <i class="bi bi-arrow-right-short"
         style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
         </Button>
