@@ -175,7 +175,7 @@ export default function FCTabNavigator() {
       <AppBar position="static" style={{backgroundColor:"#FAE8BE"}}>
         
         <Toolbar>
-        <div className={classes.sectionMobile}>
+        {/* <div className={classes.sectionMobile}>
             <IconButton
             style={{paddingLeft:0}}
               aria-label="show more"
@@ -186,8 +186,8 @@ export default function FCTabNavigator() {
             >
               <MoreIcon />
             </IconButton>
-          </div>
-          <img src="icons/high-five.png" alt="" style={{width:30,height:30,marginBottom:15,marginRight:10}}></img>
+          </div> */}
+          <img src="icons/high-five.png" alt="" style={{width:30,height:30,marginBottom:15,marginRight:10,marginLeft:20}}></img>
           <h4 style={{color:"#3D3D3D",fontSize:'7vw'}}>Better Together</h4>
  
           <div className={classes.grow} />
