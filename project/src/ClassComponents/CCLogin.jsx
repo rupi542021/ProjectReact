@@ -5,9 +5,6 @@ import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
 import '../style.css';
 import loaderGIF from '../img/loader.gif';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {getLocation} from '../App'
 
 class CCLogin extends Component {

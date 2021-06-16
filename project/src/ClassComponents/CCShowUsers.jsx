@@ -12,8 +12,9 @@ import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import {getLocation} from '../App'
+import Swal from 'sweetalert2';
 
-const filterByList = ["המחלקה שלי", "המחזור שלי","בקרבת מקום" ,"גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
+const filterByList = ["המחלקה שלי", "המחזור שלי","נמצאים בקרבת מקום" ,"גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
 class CCShowUsers extends Component {
   constructor(props) {
     super(props);
@@ -122,8 +123,8 @@ class CCShowUsers extends Component {
         case "המחזור שלי":
           filteredList = this.state.studentstArr.filter(s => s.DepName === this.state.userDep && s.StudyingYear === this.state.userYear);
           break;
-          case "בקרבת מקום":
-          this.getCloseFriends();       
+          case "נמצאים בקרבת מקום":
+          this.getCloseFriends()    
           break;
         case "גרים קרוב אלי-מקור":
           filteredList = this.state.studentstArr.filter(s => pow(pow((s.HomeTown.X / 1000) - (this.state.userHomeTownX / 1000), 2) + pow((s.HomeTown.Y / 1000) - (this.state.userHomeTownY / 1000), 2), 0.5) < 15);
@@ -163,6 +164,16 @@ class CCShowUsers extends Component {
         })
       })
       .then((res) => {
+        console.log("res.ok = ", res.ok);
+        if (!res.ok) {
+          switch (res.status) {
+            case 404:
+              throw Error('אין משתמשים שקרובים אחד לשני');
+            default:
+              throw Error('אופס! משהו לא עבד. אנא נסה שנית');
+
+          }
+        }
         return res.json();
         //להוסיף ניהול שגיאות
       })
@@ -171,7 +182,7 @@ class CCShowUsers extends Component {
           console.log("fetch GetCloseUsers= ", result);
           let studOBJ = localStorage.getItem('student');
           studOBJ = JSON.parse(studOBJ);
-          result = result.filter(sf => sf.Student1mail === studOBJ.Mail);
+          result = result.filter(sf => sf.Student1mail === studOBJ.Mail || sf.Student2mail === studOBJ.Mail);
           console.log("result after FILTER= ", result);
           let closeFriendsArr = [];
           console.log("this.studArr= ", this.studArr);
@@ -188,9 +199,18 @@ class CCShowUsers extends Component {
           else
             this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" });
             this.setState({ loading: false });
-         //return closeFriendsArr;
+
   }
-      )
+      )  .catch((error) => {
+        console.log("err get=", error);
+        Swal.fire({
+          text: error.message,
+          icon: 'error',
+          iconHtml: '',
+          confirmButtonText: 'סגור',
+          showCloseButton: true
+        })
+      });
 }
 
   getData = (userPicked) => {
