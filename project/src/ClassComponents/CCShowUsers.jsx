@@ -13,7 +13,7 @@ import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import {getLocation} from '../App'
 
-const filterByList = ["המחלקה שלי", "המחזור שלי", "גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
+const filterByList = ["המחלקה שלי", "המחזור שלי","בקרבת מקום" ,"גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
 class CCShowUsers extends Component {
   constructor(props) {
     super(props);
@@ -122,6 +122,9 @@ class CCShowUsers extends Component {
         case "המחזור שלי":
           filteredList = this.state.studentstArr.filter(s => s.DepName === this.state.userDep && s.StudyingYear === this.state.userYear);
           break;
+          case "בקרבת מקום":
+          this.getCloseFriends();       
+          break;
         case "גרים קרוב אלי-מקור":
           filteredList = this.state.studentstArr.filter(s => pow(pow((s.HomeTown.X / 1000) - (this.state.userHomeTownX / 1000), 2) + pow((s.HomeTown.Y / 1000) - (this.state.userHomeTownY / 1000), 2), 0.5) < 15);
           break;
@@ -135,15 +138,61 @@ class CCShowUsers extends Component {
           filteredList = this.studArr;
           break;
       }
-      if (filteredList.length !== 0) {
-        console.log(filteredList);
-        this.setState({ studentstArr: filteredList, text: "" });
-        this.setState({ filteredList:  filteredList});
-      }
-      else
-        this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" })
+        if (filteredList.length !== 0) {
+          console.log(filteredList);
+          this.setState({ studentstArr: filteredList, text: "" });
+          this.setState({ filteredList:  filteredList});
+        }
+        else
+          this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" })
     });
   }
+
+  getCloseFriends = () => 
+  {
+    this.setState({ loading: true })
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetCloseStudents';
+    //this.apiUrl = 'https://localhost:44325/api/students/GetCloseStudents';
+    console.log('GETstart');
+    fetch(this.apiUrl,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8'
+        })
+      })
+      .then((res) => {
+        return res.json();
+        //להוסיף ניהול שגיאות
+      })
+      .then(
+        (result) => {
+          console.log("fetch GetCloseUsers= ", result);
+          let studOBJ = localStorage.getItem('student');
+          studOBJ = JSON.parse(studOBJ);
+          result = result.filter(sf => sf.Student1mail === studOBJ.Mail);
+          console.log("result after FILTER= ", result);
+          let closeFriendsArr = [];
+          console.log("this.studArr= ", this.studArr);
+          for (let i = 0; i < result.length; i++) {
+            let idx = this.studArr.findIndex(s=> s.Mail === result[i].Student2mail);
+            console.log("idx", idx);
+            closeFriendsArr.push(this.studArr[idx]);            
+          }
+          console.log("closeFriendsArr = ", closeFriendsArr);
+          if (closeFriendsArr.length !== 0) {
+            this.setState({ studentstArr: closeFriendsArr, text: "" });
+            this.setState({ filteredList:  closeFriendsArr});
+          }
+          else
+            this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" });
+            this.setState({ loading: false });
+         //return closeFriendsArr;
+  }
+      )
+}
+
   getData = (userPicked) => {
     console.log("picked" + userPicked);
     localStorage.setItem('chooseUser', JSON.stringify(userPicked));
