@@ -5,40 +5,40 @@ import PrimarySearchAppBar from '../FunctionalComponents/PrimarySearchAppBar';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import Swal from 'sweetalert2';
 
-const optionsArr = [
-  {
-    name: 'מקומות בילוי',
-    icon: "bi bi-emoji-sunglasses-fill"
-  },
-  {
-    name: 'תחביבים',
-    icon: 'bi bi-controller'
-  },
-  {
-    name: 'חברים משותפים',
-    icon: "bi bi-person-circle"
-  },
-  {
-    name: 'קרבת מקום מגורים',
-    icon: "bi bi-geo-alt-fill"
-  },
-  {
-    name: 'שנת לימודים',
-    icon: "bi bi-signpost-2-fill"
-  },
-  {
-    name: 'מחלקה',
-    icon: "bi bi-building"
-  },
-  {
-    name: 'סטטוס זוגי',
-    icon: "bi bi-heart-fill"
-  },
-  {
-    name: 'גיל',
-    icon: "bi bi-calendar-event"
-  }
-]
+// const optionsArr = [
+//   {
+//     name: 'מקומות בילוי',
+//     icon: "bi bi-emoji-sunglasses-fill"
+//   },
+//   {
+//     name: 'תחביבים',
+//     icon: 'bi bi-controller'
+//   },
+//   {
+//     name: 'חברים משותפים',
+//     icon: "bi bi-person-circle"
+//   },
+//   {
+//     name: 'קרבת מקום מגורים',
+//     icon: "bi bi-geo-alt-fill"
+//   },
+//   {
+//     name: 'שנת לימודים',
+//     icon: "bi bi-signpost-2-fill"
+//   },
+//   {
+//     name: 'מחלקה',
+//     icon: "bi bi-building"
+//   },
+//   {
+//     name: 'סטטוס זוגי',
+//     icon: "bi bi-heart-fill"
+//   },
+//   {
+//     name: 'גיל',
+//     icon: "bi bi-calendar-event"
+//   }
+// ]
 class CCUserPrefernces extends Component {
   constructor(props) {
     super(props)
@@ -138,11 +138,14 @@ class CCUserPrefernces extends Component {
       <div>
         <div>
           <PrimarySearchAppBar />
-          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '7vw', position: 'absolute', right: '1vw' }}
+          <div>
+          <i className="bi bi-arrow-right-circle" style={{ color: '#3D3D3D', fontSize: '6vw', position: 'absolute', right: '1vw' }}
             onClick={() => this.props.history.push('/Settings')}></i>
+            <h4 style={{ fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D'}}>מה חשוב לך במציאת חבר?</h4>
+            </div>
         </div>
-        <div style={{ marginTop: '5vh' }}>
-          <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>מה חשוב לך במציאת חבר?</h3>
+        <div >
+        <h6 style={{fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D' }}>סדר/י באמצעות גרירה</h6>
           {/* <p style={{ color: '#3D3D3D', fontSize: '3vh', fontWeight:500}}> סדר לפי עדיפות </p> */}
           {this.state.userPreferences.length > 0 ?
             <FCDragList preferences={this.state.userPreferences} studOBJ={this.studOBJ} /> : ''}
