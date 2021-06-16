@@ -189,7 +189,7 @@ class CCAllChats extends Component {
           </div>
 
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : 
-                    this.state.messages.length==0&&this.state.messagesU==null?<h3  style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginTop: 50 }}>אין הודעות</h3>:
+                    this.state.messages.length===0&&this.state.messagesU===null?<h3  style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginTop: 50 }}>אין הודעות</h3>:
 
          
          <main className='mainAll'>
