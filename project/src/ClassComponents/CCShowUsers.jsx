@@ -51,8 +51,8 @@ class CCShowUsers extends Component {
     console.log(studOBJ.Mail)
     console.log(studOBJ.Dep.DepartmentName)
 
-    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
-    //this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
+    //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
+    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
     fetch(this.apiUrl,
       {

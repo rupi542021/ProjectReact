@@ -8,6 +8,8 @@ import { Rectangle } from 'react-shapes';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import LinkIcon from '@material-ui/icons/Link';
+
 class CCUserProfile extends Component {
   constructor(props) {
     super(props);
@@ -66,9 +68,17 @@ class CCUserProfile extends Component {
       pathname: '/editP',
       state: { PageBack: '/userProfile' }
     });
+    
     //this.props.history.push("/editP");
   }
-
+  handle2links = () => {
+    this.props.history.push({
+      pathname: '/links',
+      state: { PageBack: '/userProfile' }
+    });
+    
+    //this.props.history.push("/editP");
+  }
   render() {
     return (
 
@@ -79,6 +89,9 @@ class CCUserProfile extends Component {
             <i className="bi bi-pencil-fill"
               style={{ right: '5%', position: 'absolute', color: '#3D3D3D', fontSize: 24 }}
               onClick={this.handleEditProfile} ></i>
+              <i class="bi bi-share-fill"
+               style={{ right: '15%', position: 'absolute', color: '#3D3D3D', fontSize: 24 }}
+               onClick={this.handle2links} ></i>
           </div>
 
 

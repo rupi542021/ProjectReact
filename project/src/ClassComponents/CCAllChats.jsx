@@ -137,12 +137,15 @@ class CCAllChats extends Component {
             let index="";
             if(studOBJ.Mail==m.FromMail)
             index=studArr.findIndex(s=> s.Mail==m.ToMail)
-            else  index=studArr.findIndex(s=>s.Mail==m.FromMail)
+            else  
+            index=studArr.findIndex(s=>s.Mail==m.FromMail)
       
+            if(index!==-1){
             m.Lname=studArr[index].Lname;
             m.Fname=studArr[index].Fname
             m.Photo=studArr[index].Photo;
             m.Token=studArr[index].Token;
+            }
           });
           console.log('messageswithName',messages)
          
@@ -197,7 +200,8 @@ class CCAllChats extends Component {
               <FCChatRoom createdAt={this.state.createdAt} Photo={"icons/theUnit.png"} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />:""}
  
             {this.state.messages && this.state.messages.map((s, index) =>
-              <FCChatRoom key={index} {...s} sendData={this.getData} />)}
+              s.Lname!=null?
+              <FCChatRoom key={index} {...s} sendData={this.getData} />:'')}
 
           </main>}
         </section>

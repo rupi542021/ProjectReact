@@ -36,6 +36,7 @@ import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import { blueGrey } from '@material-ui/core/colors';
 import ChatIcon from '@material-ui/icons/Chat';
+import CCLinks from './ClassComponents/CCLinks';
 function App() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
@@ -212,6 +213,9 @@ if(studOBJ!==null){
         </Route>
         <Route path="/Questionnaire" >
           <CCQuestionnaire/>
+        </Route>
+        <Route path="/links" >
+          <CCLinks/>
         </Route>
       </Switch>
      

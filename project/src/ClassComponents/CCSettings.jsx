@@ -17,7 +17,7 @@ class CCSettings extends Component {
   handleDeleteProfileSwal = () =>
  {
   swal({
-    title: "האם ברצונך למחוק את החשבון??",
+    title: "האם את/ה בטוח/ה שאת/ה רוצה למחוק את חשבונך?",
     icon: "warning",
     buttons: true,    
   })
