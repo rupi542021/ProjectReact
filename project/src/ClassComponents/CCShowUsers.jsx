@@ -111,6 +111,7 @@ class CCShowUsers extends Component {
   }
 
   FilterUsers = (filterBy) => {
+    let inClosedFunction = false;
     var pow = require('math-power');
     console.log('studArr in filter function', this.studArr);
     console.log('studentstArr in filter function', this.state.studentstArr);
@@ -124,9 +125,10 @@ class CCShowUsers extends Component {
           filteredList = this.state.studentstArr.filter(s => s.DepName === this.state.userDep && s.StudyingYear === this.state.userYear);
           break;
         case "נמצאים בקרבת מקום":
+          inClosedFunction = true;
           let studOBJ = localStorage.getItem('student');
           studOBJ = JSON.parse(studOBJ);
-          this.getCloseFriends(studOBJ);
+          this.getCloseFriends(studOBJ)
           break;
         case "גרים קרוב אלי-מקור":
           filteredList = this.state.studentstArr.filter(s => pow(pow((s.HomeTown.X / 1000) - (this.state.userHomeTownX / 1000), 2) + pow((s.HomeTown.Y / 1000) - (this.state.userHomeTownY / 1000), 2), 0.5) < 15);
@@ -141,13 +143,22 @@ class CCShowUsers extends Component {
           filteredList = this.studArr;
           break;
       }
+      console.log("after switch");
       if (filteredList.length !== 0) {
         console.log(filteredList);
         this.setState({ studentstArr: filteredList, text: "" });
         this.setState({ filteredList: filteredList });
       }
-      else
-        this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" })
+      else {
+        console.log("in else");
+        if (inClosedFunction) {
+          this.setState({ studentstArr: [], filteredList: [], text: "" });
+        }
+        else
+        this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" });
+
+      }
+
     });
   }
 
@@ -217,7 +228,7 @@ class CCShowUsers extends Component {
   getCloseFriends = (studOBJ) => {
     this.setState({ loading: true })
     //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetCloseStudents';
-    this.apiUrl = 'https://localhost:44366/api/students/'+ studOBJ.Mail + '/GetCloseStudents'
+    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/GetCloseStudents'
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -232,7 +243,8 @@ class CCShowUsers extends Component {
         if (!res.ok) {
           switch (res.status) {
             case 404:
-              throw Error('אין משתמשים שקרובים אחד לשני');
+              this.setState({ text: "אין תוצאות בסינון זה" });
+              break;
             default:
               throw Error('אופס! משהו לא עבד. אנא נסה שנית');
 
@@ -243,14 +255,27 @@ class CCShowUsers extends Component {
       .then(
         (result) => {
           console.log("fetch GetCloseUsers= ", result);
-          if (result.length !== 0) {
-            this.setState({ studentstArr: result, text: "" });
-            this.setState({ filteredList: result });
+          // let closedFriendsArr = result; 
+          // result.sort(function(a, b) {
+          //   return a - b;
+          // });
+          // console.log("result after SORT()= ", result);
+          // result = result.map(s => s.Mail);
+          // console.log("result after MAP()= ", result);
+          let filteredList = [];
+          for (let i = 0; i < result.length; i++) {
+            let idx = this.studArr.findIndex(s => s.Mail === result[i].Mail);
+            console.log("idx", idx);
+            filteredList.push(this.studArr[idx]);
+            filteredList[i].Distance = result[i].Distance;
           }
-          else
-            this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" });
+          console.log("filteredList=", filteredList);
+          if (filteredList.length !== 0) {
+            this.setState({ studentstArr: filteredList, text: "" });
+            this.setState({ filteredList: filteredList });
+          }
+          else { this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" }); }
           this.setState({ loading: false });
-
         }
       ).catch((error) => {
         console.log("err get=", error);
