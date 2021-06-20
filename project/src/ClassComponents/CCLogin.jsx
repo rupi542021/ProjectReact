@@ -58,8 +58,8 @@ class CCLogin extends Component {
     if (this.state.email !== "" && this.state.password !== "") {
       if (this.handleEmailValidation() === true) {
         this.setState({loading:false});
-      this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + this.state.email + '/' + this.state.password;
-      //this.apiUrl = 'https://localhost:44325/API/students/' + this.state.email + '/' + this.state.password;
+      //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + this.state.email + '/' + this.state.password;
+      this.apiUrl = 'https://localhost:44325/API/students/' + this.state.email + '/' + this.state.password;
      //לבדוק פונקצית getURL ולעשות תנאי
         console.log('GETstart');
         fetch(this.apiUrl,
@@ -173,8 +173,8 @@ class CCLogin extends Component {
     console.log("in postTokenInDB function");
     console.log("token:", token);
     console.log("studOBJ:", studOBJ);
-    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ studOBJ.Mail + '/updateToken';
-    //this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/updateToken';
+    //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ studOBJ.Mail + '/updateToken';
+    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/updateToken';
     fetch(this.apiUrl,
       {
         method: 'PUT',

@@ -240,15 +240,17 @@ export const getLocation= (studMail) =>{
       console.log("Longitude Y is :", position.coords.longitude);
 
       console.log("in post locations function");
+      var today = new Date();
       let location = {
         Mail:studMail,
         X: position.coords.latitude,
-        Y: position.coords.longitude
+        Y: position.coords.longitude,
+        TimeStamp:today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() +' '+ today.getHours() + ':' + today.getMinutes()+ ':' + today.getSeconds() 
       }
       console.log("location",location)
       
-      //let apiUrl = 'https://localhost:44325/API/students/PostLocation';
-      let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
+      let apiUrl = 'https://localhost:44325/API/students/PostLocation';
+      //let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
       fetch(apiUrl,
         {
           method: 'POST',
