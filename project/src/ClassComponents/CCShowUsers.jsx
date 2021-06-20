@@ -11,10 +11,10 @@ import SearchField from "react-search-field";
 import "../scrollbar.css";
 import loaderGIF from '../img/loader.gif';
 import FCTabNavigator from '../FunctionalComponents/FCTabNavigator';
-import {getLocation} from '../App'
+import { getLocation } from '../App'
 import Swal from 'sweetalert2';
 
-const filterByList = ["המחלקה שלי", "המחזור שלי","נמצאים בקרבת מקום" ,"גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
+const filterByList = ["המחלקה שלי", "המחזור שלי", "נמצאים בקרבת מקום", "גרים קרוב אלי-מקור", "גרים קרוב אלי-נוכחי", "מעוניינים בנסיעות משותפות"]
 class CCShowUsers extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ class CCShowUsers extends Component {
   }
 
   componentDidMount() {
-    
+
 
     this.setState({ loading: true })
     let studOBJ = localStorage.getItem('student');
@@ -95,7 +95,7 @@ class CCShowUsers extends Component {
               DepName: s.Dep.DepartmentName, HomeTown: s.HomeTown, StudyingYear: studYear,
               AddressStudying: s.AddressStudying, PersonalStatus: s.PersonalStatus, FriendsList: s.Friendslist,
               Match: s.Match, IntrestedInCarPool: s.IntrestedInCarPool, IsAvailableCar: s.IsAvailableCar,
-              Token:s.Token,
+              Token: s.Token,
               Plist: s.Plist, Hlist: s.Hlist, Photo: s.Photo === "" ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + s.Photo,
             }
             //studArr.push(stud);
@@ -103,7 +103,7 @@ class CCShowUsers extends Component {
           });
           this.studArr = this.state.studentstArr;
           console.log('studArr', this.studArr);
-          this.setState({ studentstArr: this.state.studentstArr,filteredList:this.state.studentstArr });
+          this.setState({ studentstArr: this.state.studentstArr, filteredList: this.state.studentstArr });
           this.setState({ loading: false });
         }
       )
@@ -111,6 +111,7 @@ class CCShowUsers extends Component {
   }
 
   FilterUsers = (filterBy) => {
+    let inClosedFunction = false;
     var pow = require('math-power');
     console.log('studArr in filter function', this.studArr);
     console.log('studentstArr in filter function', this.state.studentstArr);
@@ -123,8 +124,11 @@ class CCShowUsers extends Component {
         case "המחזור שלי":
           filteredList = this.state.studentstArr.filter(s => s.DepName === this.state.userDep && s.StudyingYear === this.state.userYear);
           break;
-          case "נמצאים בקרבת מקום":
-          this.getCloseFriends()    
+        case "נמצאים בקרבת מקום":
+          inClosedFunction = true;
+          let studOBJ = localStorage.getItem('student');
+          studOBJ = JSON.parse(studOBJ);
+          this.getCloseFriends(studOBJ)
           break;
         case "גרים קרוב אלי-מקור":
           filteredList = this.state.studentstArr.filter(s => pow(pow((s.HomeTown.X / 1000) - (this.state.userHomeTownX / 1000), 2) + pow((s.HomeTown.Y / 1000) - (this.state.userHomeTownY / 1000), 2), 0.5) < 15);
@@ -139,21 +143,92 @@ class CCShowUsers extends Component {
           filteredList = this.studArr;
           break;
       }
-        if (filteredList.length !== 0) {
-          console.log(filteredList);
-          this.setState({ studentstArr: filteredList, text: "" });
-          this.setState({ filteredList:  filteredList});
+      console.log("after switch");
+      if (filteredList.length !== 0) {
+        console.log(filteredList);
+        this.setState({ studentstArr: filteredList, text: "" });
+        this.setState({ filteredList: filteredList });
+      }
+      else {
+        console.log("in else");
+        if (inClosedFunction) {
+          this.setState({ studentstArr: [], filteredList: [], text: "" });
         }
         else
-          this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" })
+        this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" });
+
+      }
+
     });
   }
 
-  getCloseFriends = () => 
-  {
+  //   getCloseFriends = () => 
+  //   {
+  //     this.setState({ loading: true })
+  //     this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetCloseStudents';
+  //     //this.apiUrl = 'https://localhost:44325/api/students/GetCloseStudents';
+  //     console.log('GETstart');
+  //     fetch(this.apiUrl,
+  //       {
+  //         method: 'GET',
+  //         headers: new Headers({
+  //           'Content-Type': 'application/json; charset=UTF-8',
+  //           'Accept': 'application/json; charset=UTF-8'
+  //         })
+  //       })
+  //       .then((res) => {
+  //         console.log("res.ok = ", res.ok);
+  //         if (!res.ok) {
+  //           switch (res.status) {
+  //             case 404:
+  //               throw Error('אין משתמשים שקרובים אחד לשני');
+  //             default:
+  //               throw Error('אופס! משהו לא עבד. אנא נסה שנית');
+
+  //           }
+  //         }
+  //         return res.json();
+  //         //להוסיף ניהול שגיאות
+  //       })
+  //       .then(
+  //         (result) => {
+  //           console.log("fetch GetCloseUsers= ", result);
+  //           let studOBJ = localStorage.getItem('student');
+  //           studOBJ = JSON.parse(studOBJ);
+  //           result = result.filter(sf => sf.Student1mail === studOBJ.Mail || sf.Student2mail === studOBJ.Mail);
+  //           console.log("result after FILTER= ", result);
+  //           let closeFriendsArr = [];
+  //           console.log("this.studArr= ", this.studArr);
+  //           for (let i = 0; i < result.length; i++) {
+  //             let idx = this.studArr.findIndex(s=> s.Mail === result[i].Student2mail);
+  //             console.log("idx", idx);
+  //             closeFriendsArr.push(this.studArr[idx]);            
+  //           }
+  //           console.log("closeFriendsArr = ", closeFriendsArr);
+  //           if (closeFriendsArr.length !== 0) {
+  //             this.setState({ studentstArr: closeFriendsArr, text: "" });
+  //             this.setState({ filteredList:  closeFriendsArr});
+  //           }
+  //           else
+  //             this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" });
+  //             this.setState({ loading: false });
+
+  //   }
+  //       )  .catch((error) => {
+  //         console.log("err get=", error);
+  //         Swal.fire({
+  //           text: error.message,
+  //           icon: 'error',
+  //           iconHtml: '',
+  //           confirmButtonText: 'סגור',
+  //           showCloseButton: true
+  //         })
+  //       });
+  // }
+  getCloseFriends = (studOBJ) => {
     this.setState({ loading: true })
-    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetCloseStudents';
-    //this.apiUrl = 'https://localhost:44325/api/students/GetCloseStudents';
+    //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetCloseStudents';
+    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/GetCloseStudents'
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -168,40 +243,41 @@ class CCShowUsers extends Component {
         if (!res.ok) {
           switch (res.status) {
             case 404:
-              throw Error('אין משתמשים שקרובים אחד לשני');
+              this.setState({ text: "אין תוצאות בסינון זה" });
+              break;
             default:
               throw Error('אופס! משהו לא עבד. אנא נסה שנית');
 
           }
         }
         return res.json();
-        //להוסיף ניהול שגיאות
       })
       .then(
         (result) => {
           console.log("fetch GetCloseUsers= ", result);
-          let studOBJ = localStorage.getItem('student');
-          studOBJ = JSON.parse(studOBJ);
-          result = result.filter(sf => sf.Student1mail === studOBJ.Mail || sf.Student2mail === studOBJ.Mail);
-          console.log("result after FILTER= ", result);
-          let closeFriendsArr = [];
-          console.log("this.studArr= ", this.studArr);
+          // let closedFriendsArr = result; 
+          // result.sort(function(a, b) {
+          //   return a - b;
+          // });
+          // console.log("result after SORT()= ", result);
+          // result = result.map(s => s.Mail);
+          // console.log("result after MAP()= ", result);
+          let filteredList = [];
           for (let i = 0; i < result.length; i++) {
-            let idx = this.studArr.findIndex(s=> s.Mail === result[i].Student2mail);
+            let idx = this.studArr.findIndex(s => s.Mail === result[i].Mail);
             console.log("idx", idx);
-            closeFriendsArr.push(this.studArr[idx]);            
+            filteredList.push(this.studArr[idx]);
+            filteredList[i].Distance = result[i].Distance;
           }
-          console.log("closeFriendsArr = ", closeFriendsArr);
-          if (closeFriendsArr.length !== 0) {
-            this.setState({ studentstArr: closeFriendsArr, text: "" });
-            this.setState({ filteredList:  closeFriendsArr});
+          console.log("filteredList=", filteredList);
+          if (filteredList.length !== 0) {
+            this.setState({ studentstArr: filteredList, text: "" });
+            this.setState({ filteredList: filteredList });
           }
-          else
-            this.setState({ studentstArr: [],filteredList:[], text: "אין תוצאות בסינון זה" });
-            this.setState({ loading: false });
-
-  }
-      )  .catch((error) => {
+          else { this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" }); }
+          this.setState({ loading: false });
+        }
+      ).catch((error) => {
         console.log("err get=", error);
         Swal.fire({
           text: error.message,
@@ -211,8 +287,7 @@ class CCShowUsers extends Component {
           showCloseButton: true
         })
       });
-}
-
+  }
   getData = (userPicked) => {
     console.log("picked" + userPicked);
     localStorage.setItem('chooseUser', JSON.stringify(userPicked));
@@ -235,12 +310,12 @@ class CCShowUsers extends Component {
   }
 
   SearchUser = (val) => {
-    let newList=[];
+    let newList = [];
     console.log(val)
     if (val === "")
-      newList=this.state.studentstArr;
+      newList = this.state.studentstArr;
     else
-      newList=this.state.studentstArr.filter((item) => (item.Fname+" "+item.Lname).includes(val));
+      newList = this.state.studentstArr.filter((item) => (item.Fname + " " + item.Lname).includes(val));
     this.setState({ filteredList: newList });
   }
   render() {
@@ -269,7 +344,7 @@ class CCShowUsers extends Component {
               <Select.Option key={filterBy} value={filterBy}>{filterBy}</Select.Option>
             ))}
           </Select>
-         
+
         </div>
 
 
