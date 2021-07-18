@@ -37,7 +37,7 @@ class CCeditp extends Component {
     this.fetchGetAllResidence();
     let studOBJ = localStorage.getItem('student');
     studOBJ = JSON.parse(studOBJ);
-    this.setState({ imgURL: (studOBJ.Photo === "" || studOBJ.Photo===null) ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo })
+    this.setState({ imgURL: (studOBJ.Photo === "" || studOBJ.Photo === null) ? "images/avatar.jpg" : 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.Photo })
     console.log(studOBJ.Photo);
     let isAvailableCar = studOBJ.IsAvailableCar;
     if (isAvailableCar === "") {
@@ -116,9 +116,10 @@ class CCeditp extends Component {
 
       data.append("UploadedImage", file);
       data.append("name", studOBJ.Mail);
-
+      console.log("data = " , data);
       console.log("in post img function");
       this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/uploadedFiles'
+      //https://localhost:44325/API/students/uploadedFiles
       fetch(this.apiUrl,
         {
           method: 'POST',
@@ -146,13 +147,29 @@ class CCeditp extends Component {
             console.log("fetch btnFetchuploadedFile= ", result);
             let imgNameInServer = result.split('\\').pop();
             console.log(imgNameInServer);
-            this.setState({ selectedFile: imgNameInServer })
-            this.state.studOBJ.Photo = imgNameInServer;
-            let updatedProfile = this.state.studOBJ;
-            localStorage.setItem('student', JSON.stringify(updatedProfile));
-            this.setState({ loading: false });
+            this.setState({ selectedFile: imgNameInServer });
+            //let updatedProfile = this.state.studOBJ;
+            // updatedProfile.Photo = "";
+            //console.log("updatedProfile:", updatedProfile.Photo);
+            this.setState(prevState => {
+              let studOBJ = Object.assign({}, prevState.studOBJ);  // creating copy of state variable jasper
+              studOBJ.Photo = imgNameInServer;
+              //studOBJ.photo = imgNameInServer;                      // update the name property, assign a new value                 
+              return { studOBJ };                                 // return new object jasper object
+            })
+            //this.setState({studOBJ:updatedProfile},()=>{console.log("this.state.studOBJ before:",this.state.studOBJ);}) 
+            //this.state.studOBJ.Photo = imgNameInServer;
+            //this.setState({studOBJ:this.state.studOBJ},()=>{console.log("this.state.studOBJ after:",this.state.studOBJ);})
+
+            //updatedProfile = this.state.studOBJ;
+            //console.log("updatedProfile:", updatedProfile);
+            localStorage.removeItem("student");
+            // localStorage.setItem('student', JSON.stringify(updatedProfile));
+            localStorage.setItem('student', JSON.stringify(this.state.studOBJ));
+            this.setState({ loading: false, studOBJ: this.state.studOBJ });
             this.imgChange = true;
             localStorage.setItem('photoChanged', true);
+            console.log("this.state.studOBJ:", this.state.studOBJ);
           })
         .catch((error) => {
           console.log("err post=", error);
@@ -235,6 +252,7 @@ class CCeditp extends Component {
   btnSave = () => {
     //if (!this.state.errors.city && !this.state.errors.currentCity && this.state.studOBJ.HomeTown !== "choose" && this.state.studOBJ.AddressStudying !== "choose"&&this.state.selectedFile!==null) {
     let updatedProfile = this.state.studOBJ;
+    localStorage.removeItem("student");
     localStorage.setItem('student', JSON.stringify(updatedProfile));
     console.log("updated profile: ", updatedProfile);
     this.updateInDB(updatedProfile);
@@ -284,10 +302,9 @@ class CCeditp extends Component {
   }
 
 
-  back2Page=()=>
-  {
-   let path = this.props.location.state.PageBack;
-   this.props.history.push(path);
+  back2Page = () => {
+    let path = this.props.location.state.PageBack;
+    this.props.history.push(path);
 
   }
 
