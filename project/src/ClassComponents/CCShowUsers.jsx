@@ -47,12 +47,12 @@ class CCShowUsers extends Component {
       userAddressX: studOBJ.AddressStudying.X, userAddressY: studOBJ.AddressStudying.Y, CarPool: studOBJ.IntrestedInCarPool,
       userMail: studOBJ.Mail, userAddressS: studOBJ.AddressStudying.Name, userFriendslist: studOBJ.Friendslist === null ? [] : studOBJ.Friendslist
     }, () => { console.log("this.state.userFriendslist", this.state.userFriendslist) })
-
+    getLocation(studOBJ.Mail);
     console.log(studOBJ.Mail)
     console.log(studOBJ.Dep.DepartmentName)
 
-    //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
-    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
+    //this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
