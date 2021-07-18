@@ -27,8 +27,8 @@ class CCShowUsers extends Component {
       text: "",
       loading: false,
       userFriendslist: [],
-      filteredList: []
-
+      filteredList: [],
+      showDist:false
     }
     this.studArr = [];
   }
@@ -115,7 +115,7 @@ class CCShowUsers extends Component {
     var pow = require('math-power');
     console.log('studArr in filter function', this.studArr);
     console.log('studentstArr in filter function', this.state.studentstArr);
-    this.setState({ studentstArr: this.studArr, text: "" }, () => {
+    this.setState({ studentstArr: this.studArr, text: "", showDist: false }, () => {
       let filteredList = [];
       switch (filterBy) {
         case "המחלקה שלי":
@@ -272,7 +272,7 @@ class CCShowUsers extends Component {
           console.log("filteredList=", filteredList);
           if (filteredList.length !== 0) {
             this.setState({ studentstArr: filteredList, text: "" });
-            this.setState({ filteredList: filteredList });
+            this.setState({ filteredList: filteredList, showDist:true });
           }
           else { this.setState({ studentstArr: [], filteredList: [], text: "אין תוצאות בסינון זה" }); }
           this.setState({ loading: false });
@@ -285,7 +285,7 @@ class CCShowUsers extends Component {
           iconHtml: '',
           confirmButtonText: 'סגור',
           showCloseButton: true
-        })
+        }).then(()=>{this.setState({ loading: false });})
       });
   }
   getData = (userPicked) => {
@@ -365,7 +365,8 @@ class CCShowUsers extends Component {
                         <FCUserCard key={index} id={s.Mail} obj={s} name={s.Fname + " " + s.Lname} match={s.Match}
                           photo={s.Photo} studage={s.DateOfBirth} depName={s.DepName} year={s.StudyingYear} sendData={this.getData}
                           isFavorite={this.state.userFriendslist ? this.state.userFriendslist.some((s1) => s1 === s.Mail) : false}
-                          userMail={this.state.userMail} flist={this.state.FriendsList} sendFavoriteData={this.getFavoriteData} />
+                          userMail={this.state.userMail} flist={this.state.FriendsList} sendFavoriteData={this.getFavoriteData} 
+                          distance = {this.state.showDist === true ? s.Distance : ""} />
                       </Grid>
                     ))
 
