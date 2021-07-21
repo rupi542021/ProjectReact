@@ -41,8 +41,8 @@ class CCLinks extends Component {
     }
     console.log('studOBJ.Dep.DepartmentCode',studOBJ.Dep.DepartmentCode)
     console.log('StudyingYearN',StudyingYearN)
-      this.apiUrl = 'https://localhost:44325/API/students/' + studOBJ.Dep.DepartmentCode + '/' + StudyingYearN+'/links';
-
+     // this.apiUrl = 'https://localhost:44325/API/students/' + studOBJ.Dep.DepartmentCode + '/' + StudyingYearN+'/links';
+      this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Dep.DepartmentCode + '/' + StudyingYearN+'/links';
         console.log('GETstart btnFetchGetLinks');
         fetch(this.apiUrl,
           {

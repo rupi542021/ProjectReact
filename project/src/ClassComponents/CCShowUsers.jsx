@@ -227,8 +227,8 @@ class CCShowUsers extends Component {
   // }
   getCloseFriends = (studOBJ) => {
     this.setState({ loading: true })
-    //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetCloseStudents';
-    this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/GetCloseStudents'
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/GetCloseStudents'
+    //this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/GetCloseStudents'
     console.log('GETstart');
     fetch(this.apiUrl,
       {

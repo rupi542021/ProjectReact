@@ -106,8 +106,8 @@ class CCHobbies extends Component {
   postStudent2DB = (student) => {
     console.log("in post student function");
     console.log("studetOBJ in post function", student);
-    //this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students';
-    this.apiUrl = 'https://localhost:44325/api/students';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students';
+    //this.apiUrl = 'https://localhost:44325/api/students';
     fetch(this.apiUrl,
       {
         method: 'POST',
