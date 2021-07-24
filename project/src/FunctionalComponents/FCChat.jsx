@@ -154,8 +154,8 @@ function ChatRoom() {
     // Modified
     var payload = {
         "notification": {
-            "title": "יש לך הודעה חדשה מ"+loginStud.Fname,
-            "body": "!"
+            "title": "היי "+studOBJ.Fname+", יש לך הודעה חדשה מ"+loginStud.Fname+" "+loginStud.Lname,
+            "body":JSON.stringify(loginStud)
         },
         "to": studOBJ.Token
     }

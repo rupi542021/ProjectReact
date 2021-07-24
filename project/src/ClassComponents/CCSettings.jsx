@@ -17,7 +17,7 @@ class CCSettings extends Component {
   handleDeleteProfileSwal = () =>
  {
   swal({
-    title: "האם ברצונך למחוק את החשבון??",
+    title: "האם את/ה בטוח/ה שאת/ה רוצה למחוק את חשבונך?",
     icon: "warning",
     buttons: true,    
   })
@@ -30,8 +30,8 @@ class CCSettings extends Component {
 
  deleteProfile=(mail)=>{
   console.log("in deleteProfile ",mail );
-   let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ mail +'/deleteUserProfile';
-   //let apiUrl = 'https://localhost:44366/API/students/'+ mail +'/deleteUserProfile';
+  let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/'+ mail +'/deleteUserProfile';
+  //let apiUrl = 'https://localhost:44325/API/students/'+ mail +'/deleteUserProfile';
     fetch(apiUrl,
       {
         method: 'Delete',

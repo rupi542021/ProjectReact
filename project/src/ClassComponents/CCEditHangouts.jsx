@@ -86,7 +86,10 @@ class CCEditHangouts extends Component {
     }
 
     localStorage.setItem('student', JSON.stringify(studOBJ));
-    this.props.history.push("/editP");
+    this.props.history.push({
+      pathname: '/editP',
+      state: { PageBack: '/userProfile' }
+    });
 
   }
 
@@ -114,7 +117,10 @@ class CCEditHangouts extends Component {
           onClick={this.btnSave}
         > שמור </Button>
         <Button variant="contained" style={{ paddingTop: 0, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI" }}
-          onClick={() => this.props.history.push("/editP")}
+          onClick={() =>{ this.props.history.push({
+            pathname: '/editP',
+            state: { PageBack: '/userProfile' }
+          });}}
         >הקודם</Button>
 
       </div>

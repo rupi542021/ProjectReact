@@ -106,7 +106,7 @@ class CCAllChats extends Component {
 
     this.setState({ loading: true })
     this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + studOBJ.Mail + '/Recommend';
-   // this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
+    //this.apiUrl = 'https://localhost:44325/api/students/' + studOBJ.Mail + '/Recommend';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -137,12 +137,15 @@ class CCAllChats extends Component {
             let index="";
             if(studOBJ.Mail==m.FromMail)
             index=studArr.findIndex(s=> s.Mail==m.ToMail)
-            else  index=studArr.findIndex(s=>s.Mail==m.FromMail)
+            else  
+            index=studArr.findIndex(s=>s.Mail==m.FromMail)
       
+            if(index!==-1){
             m.Lname=studArr[index].Lname;
             m.Fname=studArr[index].Fname
             m.Photo=studArr[index].Photo;
             m.Token=studArr[index].Token;
+            }
           });
           console.log('messageswithName',messages)
          
@@ -177,7 +180,6 @@ class CCAllChats extends Component {
     return (
       <div className="App">
         <PrimarySearchAppBar />
-
         <section>
           <div style={{ direction: 'rtl' }}>
             <h3 style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginBottom: 25 }}>ההודעות שלי</h3>
@@ -188,13 +190,18 @@ class CCAllChats extends Component {
                 classNames="test-class"
               /></div>
           </div>
+
           {this.state.loading ? <img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '17vh' }} /> : 
-          <main className='mainAll'>
-          {this.state.messagesU!==null?
+                    this.state.messages.length===0&&this.state.messagesU===null?<h3  style={{ margin: 5, fontWeight: 'bold', direction: 'rtl', color: '#3D3D3D', fontSize: 26, marginTop: 50 }}>אין הודעות</h3>:
+
+         
+         <main className='mainAll'>
+          {this.state.messagesU && this.state.messagesU!==null?
               <FCChatRoom createdAt={this.state.createdAt} Photo={"icons/theUnit.png"} Fname={"היחידה ליזמות ומעורבות חברתית"} Lname={""} text={""} sendData={this.getData} />:""}
  
             {this.state.messages && this.state.messages.map((s, index) =>
-              <FCChatRoom key={index} {...s} sendData={this.getData} />)}
+              s.Lname!=null?
+              <FCChatRoom key={index} {...s} sendData={this.getData} />:'')}
 
           </main>}
         </section>

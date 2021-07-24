@@ -96,7 +96,7 @@ class CCSignin2 extends Component {
           <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
         </div>
 
-        <h4 style={{ marginTop: 80 }}>סיסמה</h4>
+        <h4 style={{ marginTop: 120 }}>סיסמה</h4>
 
         <TextField
           id="outlined-password-input"
@@ -123,7 +123,7 @@ class CCSignin2 extends Component {
         />
         <div style={{ color: "#de0d1b" }}>{this.state.errConfirm}</div>
         <br />
-        <p onClick={this.showUsingTerms} style={{width:"fit-content", margin:'auto' ,marginTop: 20, color: "blue" }}>תנאי שימוש</p>
+        <p onClick={this.showUsingTerms} style={{width:"fit-content", margin:'auto' , fontSize: 17,marginTop: 20, color: "blue" }}>תנאי שימוש</p>
 
         <Button variant="contained"
           style={{

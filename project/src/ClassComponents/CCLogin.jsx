@@ -4,9 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
 import '../style.css';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import loaderGIF from '../img/loader.gif';
 import {getLocation} from '../App'
 
 class CCLogin extends Component {
@@ -220,19 +218,20 @@ class CCLogin extends Component {
       <div>
         <div className='rowC' style={{ width: '100%', height: 60, backgroundColor: "#FAE8BE" ,position:'fixed',top:0, zIndex:100}}>
           <img src="icons/high-five.png" alt="" style={{ width: 30, height: 30, marginBottom: 15, marginRight: 10 }}></img>
-          <h4 style={{ color: "#3D3D3D" }}>Better Together</h4>
+          <h4 style={{ color: "#3D3D3D" ,fontSize:'7vw'}}>Better Together</h4>
         </div>
-        {this.state.loading===false?<div style={{marginTop:'50vh'}}> <CircularProgress color='black'/><br/><h5>...טוען</h5></div>
+        {this.state.loading===false?<img src={loaderGIF} alt="loading..." style={{ width: 100, height: 100, marginTop: '40vh' }} />
         :<div>
-        <h3 style={{ marginTop: 100 }}> ! ברוכים הבאים </h3>
+        <h2 style={{ marginTop: 100,marginBottom: 20 }}> ! ברוכים הבאים </h2>
         
-        <div style={{textAlign:'end',width: '50vw', margin: '0px auto',marginBottom: 40}}>
+        <div style={{textAlign:'end',width: '54vw', margin: '0px auto',marginBottom: 20}}>
         <TextField
           label="Email"
           variant="outlined"
           onChange={this.handluserEmail}
           style={{ marginTop: 20 }}
           value={this.state.email}
+  
         />
         <p style={{ color: "#de0d1b" }}>{this.state.errors.email}</p>
         <TextField
@@ -245,25 +244,27 @@ class CCLogin extends Component {
         />
         <p style={{ color: "#de0d1b" }}>{this.state.errors.pass}</p>
         <div>
-        <span className='labelsSmall' style={{paddingRight:'2vw', fontSize:'2vh'}}>זכור אותי</span>
+        <span className='labelsSmall' style={{paddingRight:'2vw', fontSize:'2.3vh'}}>זכור אותי</span>
         <input type='checkbox' checked={this.state.isChecked} onChange={this.onChangeCheckbox} />
         </div>
-        <div style={{marginTop:'2vh'}}>
-        <span className='pressSignUp' 
-        style={{fontSize:'2vh'}}
-        onclick={{}}
-        >?שכחת סיסמה</span>
-        </div>
+        
         </div>
         <Button variant="contained"
-          style={{ marginTop: 15, backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20, fontFamily: "Segoe UI", width: '60%' }}
+          style={{ marginTop: 0, backgroundColor: "#FAE8BE", fontSize: 22, borderRadius: 20, fontFamily: "Segoe UI", width: '60%' }}
           onClick={this.btnLogin}
         //disabled={this.state.password=""?false:true} 
         >כניסה</Button><br />
+        <div style={{marginTop:'4vh'}}>
+        <span className='pressSignUp' 
+        style={{fontSize:'2.3vh'}}
+        onclick={{}}
+        >?שכחת סיסמה</span>
+        </div>
         <div style={{ marginTop: 20, direction: 'rtl' }}>
+          
           {/* <Button variant="contained" color="default" style={{ margin: 10 }} ><Link to="/signin"
         >להירשם</Link></Button> */}
-          <span> עדיין אין לך חשבון אצלנו ? </span>
+          <span style={{fontWeight:'bold'}}> עדיין אין לך חשבון אצלנו ? </span>
           <span className="pressSignUp" onClick={() => { this.props.history.push("/signin") }}> להרשמה :) </span>
         </div>
         </div>}

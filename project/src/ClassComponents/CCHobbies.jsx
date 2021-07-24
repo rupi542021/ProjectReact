@@ -107,7 +107,7 @@ class CCHobbies extends Component {
     console.log("in post student function");
     console.log("studetOBJ in post function", student);
     this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students';
-   // this.apiUrl = 'https://localhost:44366/api/students';
+    //this.apiUrl = 'https://localhost:44325/api/students';
     fetch(this.apiUrl,
       {
         method: 'POST',
@@ -174,6 +174,25 @@ class CCHobbies extends Component {
     //console.log('end');
   }
 
+  btnBack=()=>{
+    let studOBJ = localStorage.getItem('student');
+    studOBJ = JSON.parse(studOBJ);
+    studOBJ.Hlist = this.state.hobbiesArr.filter(hobby => hobby.Choose);
+    if (studOBJ.Hlist.length > 0) {
+      let newHlist = [];
+      let newHobby;
+      studOBJ.Hlist.forEach(hobby => {
+        newHobby = { Hcode: hobby.Hcode, Hname: hobby.Hname, Hicon: hobby.Hicon };
+        newHlist.push(newHobby);
+      });
+      studOBJ.Hlist = newHlist;
+      console.log("New Hlist = ", studOBJ.Hlist);
+    }
+    console.log(studOBJ);
+    localStorage.setItem('student', JSON.stringify(studOBJ));
+    this.props.history.push("/hangout")
+  }
+
   render() {
     return (
       <div>
@@ -215,7 +234,8 @@ class CCHobbies extends Component {
         </Button>
         <Button variant="contained" style={{ paddingTop:0,backgroundColor: "#FAE8BE", fontSize: 20, borderRadius: 20,
          fontFamily: "Segoe UI",height:35}}
-         onClick={() => this.props.history.push("/hangout")}
+         //onClick={() => this.props.history.push("/hangout")}
+         onClick={this.btnBack}
         > <i class="bi bi-arrow-right-short"
         style={{ paddingTop:0,color: '#3D3D3D', fontSize: 32}}></i>
         </Button>

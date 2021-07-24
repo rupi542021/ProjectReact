@@ -20,6 +20,7 @@
     border-radius: .2em;
     padding: .5em .8em .5em .5em;
     margin-bottom: 1em;
+
   }
   
   .options p {
@@ -53,4 +54,10 @@
     background-color: #FAE8BE;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   
   }
+
+  

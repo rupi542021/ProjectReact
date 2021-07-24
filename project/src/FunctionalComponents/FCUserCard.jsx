@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 0 auto',
     padding: 1,
-    marginTop: 25,
+    marginTop: 15,
     marginRight: 5
   },
   cover: {
@@ -139,8 +139,11 @@ export default function FCUserCard(props) {
           <Typography component="h5" variant="h5" style={{ fontFamily: "Segoe UI", fontSize: "6vw" }}>
             {props.name}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
+          <Typography variant="subtitle2" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.9vw" }}>
             {props.depName + " - " + props.year + "'"}
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary" style={{ fontFamily: "Segoe UI", fontSize: "3.2vw"}}>
+            {props.distance !=="" ? "נמצא/ת: " + props.distance + ' ק"מ ממיקומך' : ""}
           </Typography>
         </CardContent>
         {/* <div className={classes.controls}>

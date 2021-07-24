@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         width: 'auto',
     },
 });
-const ListIcons = [<HomeIcon />, <GroupIcon />, <StarRoundedIcon />, <ThumbUpIcon fontSize="small"/>]
+const ListIcons = [ <GroupIcon />, <StarRoundedIcon />, <ThumbUpIcon fontSize="small"/>]
 const ListIcons2 = [<AccountCircleIcon />, <EditIcon />, <MailIcon />]
 const ListIcons3 = [ <SettingsIcon />, <MeetingRoomIcon />]
 export default function SwipeableTemporaryDrawer() {
@@ -53,17 +53,16 @@ export default function SwipeableTemporaryDrawer() {
     const handleClick = (index) => (event) => {
         let path = '';
         switch (index) {
+
             case 0:
-                break;
-            case 1:
                 path = `showUsers`;
                 history.push(path);
                 break;
-            case 2:
+            case 1:
                 path = `Favorites`;
                 history.push(path);
                 break;
-            case 3:
+            case 2:
                 path = `TheUnit`;
                 history.push(path);
                 break;
@@ -127,7 +126,7 @@ export default function SwipeableTemporaryDrawer() {
                 <img src="icons/high-five.png" alt="" style={{ width: 25, height: 25, marginBottom: 15, marginRight: 10 }}></img>
             </div>
             <List>
-                {['ראשי', 'כל המשתמשים', 'המועדפים שלי', 'היחידה ליזמות'].map((text, index) => (
+                {[ 'כל המשתמשים', 'המועדפים שלי', 'היחידה ליזמות'].map((text, index) => (
                     <ListItem button key={text} onClick={handleClick(index)}>
                         <ListItemIcon>{ListIcons[index]}</ListItemIcon>
                         <ListItemText primary={text} />

@@ -274,7 +274,7 @@ else{
        
         className={classes.cover}
         //image={'https://localhost:44325/'+props.Image}
-        image={'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedImages/'+props.Image}
+        image={'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/'+props.Image}
         title="Live from space album cover"
       />:""}
       <div className={classes.details} style={{width:props.Image!=""&&props.Image!=null?210:280}} >

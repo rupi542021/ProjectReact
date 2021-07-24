@@ -35,10 +35,13 @@ import { store } from 'react-notifications-component';
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import { blueGrey } from '@material-ui/core/colors';
+import ChatIcon from '@material-ui/icons/Chat';
+import CCLinks from './ClassComponents/CCLinks';
 function App() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [payloadTitle, setPayloadTitle] =useState('mgs');
+
   console.log("start");
 
   onMessageListener().then(payload => {
@@ -46,7 +49,12 @@ function App() {
     setOpen(true);
    
     setPayloadTitle(payload.notification.title)
+
     console.log(payload.notification.title);
+    console.log(payload.notification.body);
+    let studLogin = JSON.parse(payload.notification.body);
+    studLogin.Photo='https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' +studLogin.Photo;
+    localStorage.setItem('chooseUser', JSON.stringify(studLogin));
   }).catch(err => console.log('failed: ', err));
   
   useEffect(()=>{
@@ -76,9 +84,12 @@ if(studOBJ!==null){
     horizontal: 'center',
   });
   const go2Chats = () =>{ 
-   
-    history.push(`AllChats2`);
+    history.push({
+      pathname: `chat`,
+      state: { PageBack: 'AllChats2' }
+    });
   }
+
   const { vertical, horizontal } = state;
   return (
     <div className="App">
@@ -95,7 +106,18 @@ if(studOBJ!==null){
         <Snackbar
         action={
           <React.Fragment>
+            <IconButton
+            style={{position:'absolute',right: '275px'}}
+              aria-label="close"
+              color="inherit"
+              //className={classes.close}
+              onClick={go2Chats}
+            >
+              <ChatIcon />
+            </IconButton>
+
                         <IconButton
+                        style={{position:'absolute',right: '310px'}}
               aria-label="close"
               color="inherit"
               //className={classes.close}
@@ -103,9 +125,6 @@ if(studOBJ!==null){
             >
               <CloseIcon />
             </IconButton>
-            <Button color="secondary" size="small" onClick={go2Chats}>
-              להודעות
-            </Button>
 
           </React.Fragment>
         }
@@ -116,7 +135,7 @@ if(studOBJ!==null){
         
         message={payloadTitle}
         key={vertical + horizontal}
-        style={{marginTop:60,backgroundColor:"#FAE8BE",color:"#FAE8BE"}}
+        style={{marginTop:60,backgroundColor:"#FAE8BE",color:"#FAE8BE", direction: 'rtl', fontFamily: "Segoe UI"}}
       />
       
 
@@ -195,6 +214,9 @@ if(studOBJ!==null){
         <Route path="/Questionnaire" >
           <CCQuestionnaire/>
         </Route>
+        <Route path="/links" >
+          <CCLinks/>
+        </Route>
       </Switch>
      
 
@@ -222,15 +244,17 @@ export const getLocation= (studMail) =>{
       console.log("Longitude Y is :", position.coords.longitude);
 
       console.log("in post locations function");
+      var today = new Date();
       let location = {
         Mail:studMail,
         X: position.coords.latitude,
-        Y: position.coords.longitude
+        Y: position.coords.longitude,
+        TimeStamp:today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() +' '+ today.getHours() + ':' + today.getMinutes()+ ':' + today.getSeconds() 
       }
       console.log("location",location)
       
       //let apiUrl = 'https://localhost:44325/API/students/PostLocation';
-      let apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
+      let apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/PostLocation';
       fetch(apiUrl,
         {
           method: 'POST',
