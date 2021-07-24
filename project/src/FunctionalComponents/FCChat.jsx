@@ -245,7 +245,7 @@ function ChatMessageU(props) {
   var PhotoFrom = "images/avatar.jpg";
   //console.log(messageClass);
   // if (FromMail === loginStud.Mail && (loginStud.Photo !== ""))
-  //   PhotoFrom = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + loginStud.Photo
+  //   PhotoFrom = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + loginStud.Photo
   // if (FromMail === studOBJ.Mail && (studOBJ.Photo !== "" || studOBJ.Photo !== null))
   //   PhotoFrom = studOBJ.Photo
 

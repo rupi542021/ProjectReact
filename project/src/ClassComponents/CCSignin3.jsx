@@ -54,7 +54,7 @@ class CCSignin3 extends Component {
       window.location.reload();
       localStorage.removeItem("back2signin3");
     }
-    this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
+    this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/GetAllResidences';
     console.log('GETstart');
     fetch(this.apiUrl,
       {
@@ -93,7 +93,7 @@ class CCSignin3 extends Component {
       this.state.input["currentCity"] = studOBJ.AddressStudying;
     }
     if(studOBJ.PhotoURL!==undefined && studOBJ.PhotoURL!==null){
-     this.setState({imgURL: 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.PhotoURL,
+     this.setState({imgURL: 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/uploadedFiles/' + studOBJ.PhotoURL,
     selectedFile:studOBJ.PhotoURL});
     }
 

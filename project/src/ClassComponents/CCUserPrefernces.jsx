@@ -63,7 +63,7 @@ class CCUserPrefernces extends Component {
 
   // getPreferncesFromDB=(mail)=>
   // {
-  //   this.apiUrl = 'http://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + mail + '/getAllPrefernces';
+  //   this.apiUrl = 'https://proj.ruppin.ac.il/igroup54/test2/A/tar5/api/students/' + mail + '/getAllPrefernces';
   //    console.log('GETstart');
   //    fetch(this.apiUrl,
   //      {
